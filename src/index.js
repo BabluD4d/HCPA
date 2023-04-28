@@ -40,6 +40,7 @@ import Proctected from './Auth/ProctectedUser';
 import NotFound from './commenComponet/NotFound';
 import Registration from './commenComponet/Registration';
 import ForgotPassword from './commenComponet/ForgotPassword';
+import Public from './Auth/Public';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -51,9 +52,11 @@ root.render(
         <Grid item md={12} sm={12} xl={10} lg={12} xs={12} sx={{ height: "100vh", overflow: "auto" }} >
           <Header /> */}
           <Routes>
+            <Route path="/" element={<Public />}>
             <Route exact path="/login" element={<SignIn />} />
             <Route exact path="/signup" element={<Registration />} />
             <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
+              </Route>
             <Route path="/" element={<Proctected />}>
               <Route exact path="/" element={<DashBoard />} />
               <Route exact path="/Profile" element={<UserInfo />} />
@@ -73,6 +76,7 @@ root.render(
               <Route exact path="/UserList" element={<UserList />} />
               <Route exact path="/Productlist" element={<Product />} />
               <Route exact path="/Productlist/cretechalist" element={<CreateCheckList />} />
+              <Route exact path="/Profile/Admin" element={<UserInfo />} />
               <Route exact path="/Productlist/moduleList" element={<ProductByModuleList />} />
               <Route exact path="/callList" element={<CallListBook />} />
               <Route exact path="/CreateProduct" element={<CreateProduct />} />

@@ -15,20 +15,8 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import ExportApi from '../Api/ExportApi';
 import { Link } from 'react-router-dom';
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
+import CoustomRegistration from '../Api/Auth/registration/CoustomRegistration';
+import Logo from '../img/title.svg'
 const theme = createTheme();
 
 export default function Registration() {
@@ -36,7 +24,8 @@ export default function Registration() {
         initialValues: {
             email: "",
             password: "",
-            name: ""
+            name: "",
+            mobile_number: ""
         },
         validationSchema: Yup.object({
             password: Yup.string()
@@ -47,25 +36,11 @@ export default function Registration() {
                 .required("Enter your email"),
             name: Yup.string()
                 .required("Enter your name"),
-                number: Yup.number()
+            mobile_number: Yup.number()
                 .required("Enter your Mobile Number"),
         }),
         onSubmit: (values) => {
-            // ExportApi.UserLogin(values.email, values.password)
-            //   .then((resp) => {
-            //     if (resp.data) {
-            //       if (resp.data.code == 200) {
-            //         // localStorage.setItem("Token", resp.data.data[0].token);
-            //         // localStorage.setItem("username", resp.data.data[0].first_name);
-
-            //         // navigate("");
-
-            //       } else {
-
-            //       }
-            //     }
-            //   })
-            //   .catch((err) => console.log(err));
+            CoustomRegistration(values, "Registration")
         },
     });
     return (
@@ -82,9 +57,14 @@ export default function Registration() {
                         justifyContent: "center"
                     }}
                 >
-                    <Avatar sx={{ ml:"45%",mb:"10px", bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    {/* <Avatar sx={{ ml: "42%", mb: "10px",width:"80px",height:"80px"  }}> */}
+                    <img
+                    style={{ marginLeft: "44%" }}
+                    src={Logo}
+                    width={60}
+                    alt=""
+                  />
+                    {/* </Avatar> */}
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
@@ -122,60 +102,60 @@ export default function Registration() {
                             <div style={{ color: "red" }}>{formik.errors.email}</div>
                         ) : null}
                         <TextField
-                           margin="normal"
-                           fullWidth
-                           name="password"
-                           label="Password"
-                           type="password"
-                           id="password"
-                           onChange={formik.handleChange}
-                           onBlur={formik.handleBlur}
-                           value={formik.values.password}
-                           autoComplete="current-password"
-                         />
-                         {formik.touched.password && formik.errors.password ? (
-                       <div style={{ color: "red" }}>{formik.errors.password}</div>
-                     ) : null}
-                        <TextField
-                          margin="normal"
-                          fullWidth
-                          name="number"
-                          label="Mobile"
-                          type="number"
-                          id="number"
-                          onChange={formik.handleChange}
-                          onBlur={formik.handleBlur}
-                          value={formik.values.number}
-                          autoComplete="current-number"
+                            margin="normal"
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                            autoComplete="current-password"
                         />
-                        {formik.touched.number && formik.errors.number ? (
-                      <div style={{ color: "red" }}>{formik.errors.number}</div>
-                    ) : null}
-                     <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to={"/ForgotPassword"} variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item xs>
-                {/* <Link to="/signup" variant="body2">
+                        {formik.touched.password && formik.errors.password ? (
+                            <div style={{ color: "red" }}>{formik.errors.password}</div>
+                        ) : null}
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            name="mobile_number"
+                            label="Mobile"
+                            type="number"
+                            id="number"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.mobile_number}
+                            autoComplete="current-number"
+                        />
+                        {formik.touched.mobile_number && formik.errors.mobile_number ? (
+                            <div style={{ color: "red" }}>{formik.errors.mobile_number}</div>
+                        ) : null}
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link to={"/ForgotPassword"} variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item xs>
+                                {/* <Link to="/signup" variant="body2">
                  Create Account
                 </Link> */}
-              </Grid>
-              <Grid item xs>
-                <Link to="/login" variant="body2">
-                Sign in
-                </Link>
-              </Grid>
-            </Grid>
+                            </Grid>
+                            <Grid item xs>
+                                <Link to="/login" variant="body2">
+                                    Sign in
+                                </Link>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
             </Container>

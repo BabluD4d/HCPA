@@ -1,6 +1,6 @@
 import { BaseApi } from "./BaseApi";
 //Auth
-const UserLogin = (email, password) =>
+const Login = (email, password) =>
   BaseApi.post("login", { email: email, password: password });
 const UserForgot = (email) => BaseApi.post("forgot-password", { email: email });
 const UserForgotResetPasswordPost = (Token, new_pass, confirm_pass) =>
@@ -919,7 +919,7 @@ const DeleteSmartListData = (id, participants) =>
     }
   );
 export default {
-  UserLogin,
+  Login,
   UserForgot,
   UserForgotResetPasswordPost,
   ResetPasswordPost,

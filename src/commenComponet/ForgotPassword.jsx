@@ -15,20 +15,8 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import ExportApi from '../Api/ExportApi';
 import { Link } from 'react-router-dom';
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
+import CoustomForgot from '../Api/Auth/Forgetpass/CoustomForgot';
+import Logo from '../img/title.svg'
 const theme = createTheme();
 export default function ForgotPassword() {
     const formik = useFormik({
@@ -41,21 +29,7 @@ export default function ForgotPassword() {
                 .required("Enter your email"),
         }),
         onSubmit: (values) => {
-            // ExportApi.UserLogin(values.email, values.password)
-            //   .then((resp) => {
-            //     if (resp.data) {
-            //       if (resp.data.code == 200) {
-            //         // localStorage.setItem("Token", resp.data.data[0].token);
-            //         // localStorage.setItem("username", resp.data.data[0].first_name);
-
-            //         // navigate("");
-
-            //       } else {
-
-            //       }
-            //     }
-            //   })
-            //   .catch((err) => console.log(err));
+            console.log(CoustomForgot(values,"Forgot"))
         },
     });
     return (
@@ -72,9 +46,12 @@ export default function ForgotPassword() {
                         justifyContent: "center"
                     }}
                 >
-                    <Avatar sx={{  ml:"45%",mb:"10px", bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                   <img
+                    style={{ marginLeft: "44%" }}
+                    src={Logo}
+                    width={60}
+                    alt=""
+                  />
                     <Typography component="h1" variant="h5">
                         Forgot password
                     </Typography>

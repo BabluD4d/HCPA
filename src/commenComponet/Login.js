@@ -14,8 +14,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import ExportApi from '../Api/ExportApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import Logo from '../img/title.svg'
+import { CoustomLogin } from '../Api/Auth/Login/CoustomLogin';
+import ExportLogin from '../Api/Auth/Login/ExportLogin';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -32,6 +35,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const Navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -39,28 +43,29 @@ export default function SignIn() {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(8,"Password must be 8 characters long")
+        .min(6,"Password must be 6 characters long")
         .required("Enter your password"),
       email: Yup.string()
         .email("Please enter valid email address")
         .required("Enter your email"),
     }),
     onSubmit: (values) => {
-      // ExportApi.UserLogin(values.email, values.password)
-      //   .then((resp) => {
-      //     if (resp.data) {
-      //       if (resp.data.code == 200) {
-      //         // localStorage.setItem("Token", resp.data.data[0].token);
-      //         // localStorage.setItem("username", resp.data.data[0].first_name);
+    //  console.log(CoustomLogin(values,"Login"))
+    ExportLogin.Login(values)
+        .then((resp) => {
+            if (resp.data.data) {
+                localStorage.setItem("Token", resp.data.data.token);
+                localStorage.setItem("userdata", JSON.stringify(resp.data.data));
+                localStorage.setItem("role", resp.data.data.role);
+                console.log(resp.data.data)
+                if(resp.data.data.role==1||resp.data.data.role==1){
+                   Navigate('/Admin')
+                }else{
+                  Navigate('/')
+                }
 
-      //         // navigate("");
-
-      //       } else {
-           
-      //       }
-      //     }
-      //   })
-      //   .catch((err) => console.log(err));
+            }
+        })
     },
   });
 
@@ -78,9 +83,12 @@ export default function SignIn() {
             justifyContent:"center"
           }}
         >
-          <Avatar sx={{  ml:"45%",mb:"10px",bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
+            <img
+                    style={{ marginLeft: "44%" }}
+                    src={Logo}
+                    width={60}
+                    alt=""
+                  />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>

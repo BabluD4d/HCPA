@@ -29,7 +29,8 @@ const Sidebar = () => {
   const [Count, setCount] = useState(0);
   const [hideShow, sethideShow] = useState(false);
   const [Admin, setAdmin] = useState(false);
-
+  const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata")));
+      
   const Navigate = useNavigate();
   const loaction = useLocation();
   const ref = useRef(null);
@@ -45,18 +46,21 @@ const Sidebar = () => {
   //   console.log("first",ref.current ? ref.current.offsetWidth : 0)
   // }, [ref?.current?.offsetWidth])
   useEffect(() => {
-
+    setData(JSON.parse(localStorage.getItem("userdata")))
+    console.log(JSON.parse(localStorage.getItem("userdata")))
     window.addEventListener("Togle", () => sethideShow(true));
   }, []);
 
-useEffect(() => {
-  if(loaction.pathname=="/Admin"){
-    setAdmin(true)
-  }
-  // else{
-  //   setAdmin(false)
-  // }
-}, [])
+  useEffect(() => {
+    if (localStorage.getItem("Token") && localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2) {
+      setAdmin(true)
+    }else{
+      setAdmin(false)
+    }
+    // else{
+    //   setAdmin(false)
+    // }
+  }, [])
 
   window.addEventListener("Admin", () => setTimeout(() => {
     setAdmin(!Admin)
@@ -100,7 +104,7 @@ useEffect(() => {
 
                     <ListItem
                       className={
-                        loaction.pathname == "/DashBoard"||loaction.pathname=="/Admin" ? "active" : ""
+                        loaction.pathname == "/DashBoard" || loaction.pathname == "/Admin" ? "active" : ""
                       }
                       onClick={() => {
                         Activeclass("/DashBoard");
@@ -111,7 +115,7 @@ useEffect(() => {
                         <ListItemIcon>
                           <DashboardIcon
                             className={
-                              loaction.pathname == "/DashBoard"||loaction.pathname=="/Admin" ? "active" : ""
+                              loaction.pathname == "/DashBoard" || loaction.pathname == "/Admin" ? "active" : ""
                             }
                           />
                         </ListItemIcon>
@@ -121,8 +125,8 @@ useEffect(() => {
                     <ListItem
                       className={
                         loaction.pathname == "/UserList" ||
-                          loaction.pathname == "/UserActionView"||
-                          loaction.pathname == "/UserAnsView"||
+                          loaction.pathname == "/UserActionView" ||
+                          loaction.pathname == "/UserAnsView" ||
                           loaction.pathname == "/ActiveModuleByUser"
 
                           ? "active"
@@ -139,8 +143,8 @@ useEffect(() => {
                             className={
                               loaction.pathname == "/UserList" ||
                                 loaction.pathname == "/UserActionView"
-                                ||loaction.pathname == "/ActiveModuleByUser"
-                                ||loaction.pathname == "/UserAnsView"
+                                || loaction.pathname == "/ActiveModuleByUser"
+                                || loaction.pathname == "/UserAnsView"
                                 ? "active"
                                 : ""
                             }
@@ -167,7 +171,7 @@ useEffect(() => {
                         <ListItemText primary={"Book Call List "} />
                       </ListItemButton>
                     </ListItem>
-                   
+
                     <ListItem
                       className={
                         loaction.pathname.includes("Product") ? "active" : ""
@@ -190,7 +194,7 @@ useEffect(() => {
                     </ListItem>
                     <ListItem
                       className={
-                        loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" ||loaction.pathname=="/EditDocument"  ? "active" : ""
+                        loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" || loaction.pathname == "/EditDocument" ? "active" : ""
                       }
                       onClick={() => {
                         Activeclass("/ModulesList");
@@ -201,7 +205,7 @@ useEffect(() => {
                         <ListItemIcon>
                           <WysiwygIcon
                             className={
-                              loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" ||loaction.pathname=="/EditDocument"  ? "active" : ""
+                              loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" || loaction.pathname == "/EditDocument" ? "active" : ""
                             }
                           />
                         </ListItemIcon>
@@ -335,7 +339,7 @@ useEffect(() => {
                     cursor: "pointer",
                     color: "white",
                   }}
-                  onClick={() => Navigate("/profile")}
+                  onClick={() => Navigate(Admin?"/Profile/Admin":"/profile")}
                 >
                   <Grid container spacing={2}>
                     <Grid className="profile" xs={2}>
@@ -350,11 +354,11 @@ useEffect(() => {
                     </Grid>
                     <Grid xs={10}>
                       <Typography m={0} p={0}>
-                        User test
+                        {Data?.name}
                       </Typography>
                       <Typography m={0} p={0} pl={1}>
                         {" "}
-                        Usertest123@gmail.com
+                        {Data?.email}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -390,7 +394,7 @@ useEffect(() => {
 
                     <ListItem
                       className={
-                        loaction.pathname == "/DashBoard"||loaction.pathname=="/Admin" ? "active" : ""
+                        loaction.pathname == "/DashBoard" || loaction.pathname == "/Admin" ? "active" : ""
                       }
                       onClick={() => {
                         Activeclass("/DashBoard");
@@ -401,19 +405,19 @@ useEffect(() => {
                         <ListItemIcon>
                           <DashboardIcon
                             className={
-                              loaction.pathname == "/DashBoard" ||loaction.pathname=="/Admin" ? "active" : ""
+                              loaction.pathname == "/DashBoard" || loaction.pathname == "/Admin" ? "active" : ""
                             }
                           />
                         </ListItemIcon>
                         <ListItemText primary={"Admin DashBoard"} />
                       </ListItemButton>
                     </ListItem>
-                    
+
                     <ListItem
                       className={
                         loaction.pathname == "/UserList" ||
-                          loaction.pathname == "/UserActionView"||
-                          loaction.pathname == "/UserAnsView"||
+                          loaction.pathname == "/UserActionView" ||
+                          loaction.pathname == "/UserAnsView" ||
                           loaction.pathname == "/ActiveModuleByUser"
                           ? "active"
                           : ""
@@ -428,8 +432,8 @@ useEffect(() => {
                           <PersonIcon
                             className={
                               loaction.pathname == "/UserList" ||
-                                loaction.pathname == "/UserActionView"||
-                                loaction.pathname == "/UserAnsView"||
+                                loaction.pathname == "/UserActionView" ||
+                                loaction.pathname == "/UserAnsView" ||
                                 loaction.pathname == "/ActiveModuleByUser"
                                 ? "active"
                                 : ""
@@ -457,7 +461,7 @@ useEffect(() => {
                         <ListItemText primary={"Book Call List "} />
                       </ListItemButton>
                     </ListItem>
-                    
+
                     <ListItem
                       className={
                         loaction.pathname.includes("Product") ? "active" : ""
@@ -480,7 +484,7 @@ useEffect(() => {
                     </ListItem>
                     <ListItem
                       className={
-                        loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" ||loaction.pathname=="/EditDocument"  ? "active" : ""
+                        loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" || loaction.pathname == "/EditDocument" ? "active" : ""
                       }
                       onClick={() => {
                         Activeclass("/ModulesList");
@@ -491,7 +495,7 @@ useEffect(() => {
                         <ListItemIcon>
                           <WysiwygIcon
                             className={
-                              loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" ||loaction.pathname=="/EditDocument"  ? "active" : ""
+                              loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" || loaction.pathname == "/EditDocument" ? "active" : ""
                             }
                           />
                         </ListItemIcon>
@@ -623,7 +627,7 @@ useEffect(() => {
                     cursor: "pointer",
                     color: "white",
                   }}
-                  onClick={() => Navigate("/profile")}
+                  onClick={() => Navigate(Admin?"/Profile/Admin":"/profile")}
                 >
                   <Grid container spacing={2}>
                     <Grid className="profile" xs={2}>
@@ -638,11 +642,11 @@ useEffect(() => {
                     </Grid>
                     <Grid xs={10}>
                       <Typography m={0} p={0}>
-                        User test
+                        {Data?.name}
                       </Typography>
                       <Typography m={0} p={0} pl={1}>
                         {" "}
-                        Usertest123@gmail.com
+                        {Data?.email}
                       </Typography>
                     </Grid>
                   </Grid>

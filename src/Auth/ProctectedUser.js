@@ -6,7 +6,8 @@ import Header from "../commenComponet/Header";
 const Proctected = () => {
   // console.log(<Outlet/>)
   let Token = localStorage.getItem("Token");
-  return Token  ? (
+  let role = localStorage.getItem("role");
+  return Token &&role==3 ? (
     <>
        <Grid container spacing={2}>
         <Sidebar />
@@ -17,7 +18,9 @@ const Proctected = () => {
       </Grid>
     </>
   ) : (
-    <Navigate to="/login" />
+    <>
+     {Token &&role==1||role==2 ? <Navigate to="/Admin" />: <Navigate to="/login" />}
+    </>
   );
 };
 

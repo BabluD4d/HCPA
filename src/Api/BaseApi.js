@@ -1,6 +1,6 @@
 import { create } from 'apisauce';
 const BaseApi = create({
-      baseURL: '',
+      baseURL: 'http://192.168.0.133/api/',
     headers: {Authorization: localStorage.getItem("Token")},
 });
   const BaseUrlImage = ''
