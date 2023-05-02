@@ -41,7 +41,7 @@ import NotFound from './commenComponet/NotFound';
 import Registration from './commenComponet/Registration';
 import ForgotPassword from './commenComponet/ForgotPassword';
 import Public from './Auth/Public';
-
+import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
@@ -58,7 +58,7 @@ root.render(
             <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
               </Route>
             <Route path="/" element={<Proctected />}>
-              <Route exact path="/" element={<DashBoard />} />
+              <Route exact path="/Home" element={<DashBoard />} />
               <Route exact path="/Profile" element={<UserInfo />} />
               <Route exact path="/Files" element={<Files />} />
               <Route exact path="/Modelus" element={<Modelus />} />

@@ -8,6 +8,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useLocation, useNavigate } from 'react-router-dom';
 import BackpackIcon from '@mui/icons-material/Backpack';
 import MenuIcon from '@mui/icons-material/Menu';
+import { ToastContainer } from 'react-toastify';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -85,7 +86,17 @@ const Header = () => {
 </Grid>
   
   </Grid>
-        
+  <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            />
     </div>
   }
     </>

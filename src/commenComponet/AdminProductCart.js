@@ -23,7 +23,6 @@ export default function AdminProductCart(props) {
     const Navigate=useNavigate()
 
   return (
-
     <Grid mb={3}xl={props.size?props.size:3} sm={6} lg={3} item xs={11}> 
   <div className='sedow' style={{backgroundColor:"#E0E0E0",padding:"15px",}}>
 
@@ -35,7 +34,7 @@ export default function AdminProductCart(props) {
            </Grid>
            <Grid mb={3}xl={3} sm={3} lg={3} item xs={3}> 
            <ThemeProvider theme={theme}>
-           <Switch  defaultChecked  />
+           <Switch  checked={props?.status}    />
            </ThemeProvider>
            </Grid>
            </Grid>

@@ -58,10 +58,10 @@ export default function SignIn() {
                 localStorage.setItem("userdata", JSON.stringify(resp.data.data));
                 localStorage.setItem("role", resp.data.data.role);
                 console.log(resp.data.data)
-                if(resp.data.data.role==1||resp.data.data.role==1){
+                if(resp.data.data.role==1||resp.data.data.role==2){
                    Navigate('/Admin')
                 }else{
-                  Navigate('/')
+                  Navigate('/Home')
                 }
 
             }

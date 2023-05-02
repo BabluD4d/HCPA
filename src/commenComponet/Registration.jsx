@@ -14,22 +14,26 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import ExportApi from '../Api/ExportApi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CoustomRegistration from '../Api/Auth/registration/CoustomRegistration';
 import Logo from '../img/title.svg'
+import { ToastContainer } from 'react-toastify';
 const theme = createTheme();
 
 export default function Registration() {
+    const Navigate=useNavigate()
     const formik = useFormik({
         initialValues: {
             email: "",
             password: "",
             name: "",
-            mobile_number: ""
+            mobile_number: "",
+            role_id:3,
+            status:true
         },
         validationSchema: Yup.object({
             password: Yup.string()
-                .min(8, "Password must be 8 characters long")
+                .min(6, "Password must be 6 characters long")
                 .required("Enter your password"),
             email: Yup.string()
                 .email("Please enter valid email address")
@@ -40,12 +44,23 @@ export default function Registration() {
                 .required("Enter your Mobile Number"),
         }),
         onSubmit: (values) => {
-            CoustomRegistration(values, "Registration")
+            CoustomRegistration(values, "Registration",Navigate)
         },
     });
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+             <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            />
+            <Container component="main" maxWidth="xs" >
                 <CssBaseline />
                 <Box
                     sx={{

@@ -86,7 +86,7 @@ const Sidebar = () => {
                     style={{ marginLeft: "30px" }}
                     onClick={() => {
                       // alert()
-                      Activeclass("/");
+                      Activeclass("/Home");
                     }}
                     src={Logo}
                     width={90}
@@ -127,6 +127,7 @@ const Sidebar = () => {
                         loaction.pathname == "/UserList" ||
                           loaction.pathname == "/UserActionView" ||
                           loaction.pathname == "/UserAnsView" ||
+                          loaction.pathname == "/CreateUser" ||
                           loaction.pathname == "/ActiveModuleByUser"
 
                           ? "active"
@@ -144,6 +145,7 @@ const Sidebar = () => {
                               loaction.pathname == "/UserList" ||
                                 loaction.pathname == "/UserActionView"
                                 || loaction.pathname == "/ActiveModuleByUser"
+                                || loaction.pathname == "/CreateUser"
                                 || loaction.pathname == "/UserAnsView"
                                 ? "active"
                                 : ""
@@ -214,7 +216,7 @@ const Sidebar = () => {
                     </ListItem>
                   </> : <>
                     <ListItem
-                      className={loaction.pathname == "/" ? "active" : ""}
+                      className={loaction.pathname == "/Home" ? "active" : ""}
                       onClick={() => {
                         Activeclass("/");
                       }}
@@ -223,7 +225,7 @@ const Sidebar = () => {
                       <ListItemButton>
                         <ListItemIcon>
                           <DashboardIcon
-                            className={loaction.pathname == "/" ? "active" : ""}
+                            className={loaction.pathname == "/Home" ? "active" : ""}
                           />
                         </ListItemIcon>
                         <ListItemText
@@ -418,6 +420,7 @@ const Sidebar = () => {
                         loaction.pathname == "/UserList" ||
                           loaction.pathname == "/UserActionView" ||
                           loaction.pathname == "/UserAnsView" ||
+                          loaction.pathname == "/CreateUser" ||
                           loaction.pathname == "/ActiveModuleByUser"
                           ? "active"
                           : ""
@@ -434,6 +437,7 @@ const Sidebar = () => {
                               loaction.pathname == "/UserList" ||
                                 loaction.pathname == "/UserActionView" ||
                                 loaction.pathname == "/UserAnsView" ||
+                                loaction.pathname == "/CreateUser" ||
                                 loaction.pathname == "/ActiveModuleByUser"
                                 ? "active"
                                 : ""
@@ -504,7 +508,7 @@ const Sidebar = () => {
                     </ListItem>
                   </> : <>
                     <ListItem
-                      className={loaction.pathname == "/" ? "active" : ""}
+                      className={loaction.pathname == "/Home" ? "active" : ""}
                       onClick={() => {
                         Activeclass("/");
                       }}
@@ -513,7 +517,7 @@ const Sidebar = () => {
                       <ListItemButton>
                         <ListItemIcon>
                           <DashboardIcon
-                            className={loaction.pathname == "/" ? "active" : ""}
+                            className={loaction.pathname == "/Home" ? "active" : ""}
                           />
                         </ListItemIcon>
                         <ListItemText

@@ -9,7 +9,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PersonIcon from "@mui/icons-material/Person";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
@@ -17,6 +17,7 @@ import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
+import Exportproduct from "../Api/Admin/Product/Exportproduct";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#0CB4D0",
@@ -50,6 +51,29 @@ const rows = [
 ];
 export default function AdminDashBoard() {
   const Navigate = useNavigate();
+  const [ProductData, setProductData] = useState([])
+
+// let obj={
+//   "order":"desc",
+//     "sort":"products.id",
+//     "limit":10,
+//     "page" :1
+// }
+//   const GetData = () => {
+//     Exportproduct.GetAllProduct(obj).then(
+//       (resp) => {
+//         if (resp.ok) {
+//           console.log(resp.data.data)
+//           if (resp.data) {
+//             setProductData(resp.data.data);
+//           }
+//         }
+//       }
+//     );
+//   }
+//   useEffect(() => {
+//     GetData()
+//   }, [])
   return (
     <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -112,7 +136,8 @@ export default function AdminDashBoard() {
                 </Typography>
               </Grid>
               <Typography mt={3} sx={{ fontSize: "48px" }}>
-                215
+                {console.log(ProductData.length)}
+                {ProductData.length}
               </Typography>
             </Grid>
           </Box>

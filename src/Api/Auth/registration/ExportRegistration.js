@@ -2,5 +2,5 @@ import { BaseApi } from "../../BaseApi";
 
 //Auth
 const Registration = (obj) =>
-  BaseApi.post("user", obj);
+  BaseApi.post("new-registration", obj);
   export default {Registration};
