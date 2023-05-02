@@ -1,45 +1,9 @@
-import React, { useRef, useState } from 'react'
-import { Box, Button, FormControl, Grid, InputLabel, NativeSelect, Pagination, Typography } from "@mui/material";
+import React, { useEffect, useState } from 'react'
+import { Autocomplete, Box, Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, InputLabel, NativeSelect, Pagination, Radio, RadioGroup, TextField, TextareaAutosize, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { useNavigate } from 'react-router-dom'
-import FormBuilder from './FormB';
-import { Autocomplete,   Checkbox, FormControlLabel, FormGroup, FormLabel,  Radio, RadioGroup, TextField, TextareaAutosize,  } from "@mui/material";
-// import { FormBuilder } from 'react-form-builder2';
-
-// import "./styles.css";
-const formSchema = {
-    fields: [
-      {
-        id: 'name',
-        label: 'Name',
-        type: 'text',
-        required: true,
-      },
-      {
-        id: 'email',
-        label: 'Email',
-        type: 'email',
-        required: true,
-      },
-      {
-        id: 'message',
-        label: 'Message',
-        type: 'textarea',
-        required: true,
-      },
-    ],
-  };
-export default function CreateCheckList() {
-    const Navigate = useNavigate()
-  
-    const childRef = useRef();
-    const [formData, setFormData] = useState(null);
-    const [Togal, setTogal] = useState(true);
-    const [Data, setData] = useState()
-    const handleSubmit = (data) => {
-      setFormData(data);
-  
-    };
+export default function ChecklistPriveiw() {
+    const Navigate=useNavigate()
     let DataShow =
     [
       {
@@ -216,49 +180,32 @@ export default function CreateCheckList() {
         "style": "success"
       }
     ]
-    const GetData = (data) => {
-      console.log({ data })
-      setData(JSON.parse(data))
-      setTimeout(() => {
-        setTogal(false)
-      }, );
-  }
-    return (
-        <div>
-            {console.log({Data})}
-            <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-                Create Checklist
-            </Typography>
-            <hr height={3} />
-            <Grid container spacing={4} mt={2} >
-                <Grid xl={3} >
-                    <ArrowBackIcon onClick={() => Navigate('/Productlist/moduleList')} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
-                </Grid>
-                <Grid xl={6} >
-                <div style={{ display: "flex" }}>
-                        <Button mt={1} sx={{ marginLeft: "10%", }} onClick={() => { childRef.current.getFormData() }} className={"A1"} variant="contained"> Generate Checklist</Button>
+    const [Data, setData] = useState(DataShow)
+    useEffect(() => {
+        setData(JSON.parse(localStorage.getItem("Checklist")))
+    }, [])
+    
+  return (
+    <div>
+        <Grid container spacing={4} mt={2} >
+        <Grid xl={3} >
+          <ArrowBackIcon onClick={() => Navigate(-1)} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
+        </Grid>
+        <Grid xl={3} >
+        </Grid>
+        <Grid xl={6} >
+          {/* <div style={{ display: "flex" }}>
+            <Button mt={1} onClick={() => Navigate("/Productlist/cretechalist")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
+              className={"active"}
+            /> &nbsp; &nbsp; &nbsp; Create Checklist</Button>
 
-                        {Togal?  <Button onClick={()=>{childRef.current.getFormData()}}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained">Preview </Button>:
-                        <Button onClick={()=>{setTogal(true)}}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained">Hide Preview </Button>}
-                    </div>
-                </Grid>
-                <Grid xl={3} >
-                
-                </Grid>
-            </Grid>
-            {/* <FormBuilder
-                form={formSchema}
-                onSubmit={handleSubmit}
-                submitButton={<button type="submit" className="btn btn-primary">Submit</button>}
-                backButton={<a href="/" className="btn btn-default btn-cancel btn-big">Back</a>}
-            /> */}
-            <br/>
-            <br/>
-            <br/>
-            {Togal?  <FormBuilder  ref={childRef} GetData={GetData} />:<>
-            
-            
-            {Data?.map((item, index) => {
+            <Button onClick={() => Navigate("/CreactModules")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
+              className={"active"}
+            /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
+          </div> */}
+        </Grid>
+      </Grid>
+        {Data.map((item, index) => {
         return <Grid key={index} container spacing={4} mt={2} >
           <Grid xl={3} >
           </Grid>
@@ -403,9 +350,6 @@ export default function CreateCheckList() {
         </Grid>
 
       })}
-            </>}
-          
-
-        </div>
-    )
+    </div>
+  )
 }

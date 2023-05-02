@@ -78,6 +78,9 @@ const Navigate= useNavigate()
         </Grid>
       </Grid>
       <hr height={3} />
+      <div dangerouslySetInnerHTML={ { __html: localStorage.getItem("html")}}>
+
+      </div>
       <Modal
         show={open}
         onHide={() => {

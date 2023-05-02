@@ -21,7 +21,7 @@ export default function DocumentCard(props) {
           Ready
         </p>
         <Grid container>
-          <Grid item xs={11}>
+          <Grid item xs={11} >
             <Typography sx={{ fontSize: "21px", fontWeight: "bold" }}>
               {props.title}
             </Typography>
@@ -31,6 +31,8 @@ export default function DocumentCard(props) {
               {props.dis}{" "}
             </Typography>
           </Grid>
+          <Grid container>
+          <Grid item xs={6} >
          {props.edit?    <div 
             style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
             onClick={() => {
@@ -54,6 +56,24 @@ export default function DocumentCard(props) {
               View Product
             </Typography>
           </div>}
+          </Grid>
+
+          <Grid item xs={6} >
+            {props.hellow=="yes"? <div 
+            style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
+            onClick={() => {
+              Navigate("/Modelus/Document/ViewDocument1");
+            }}
+          >
+            <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />
+            <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"10px" }}>
+              {" "}
+              View Document
+            </Typography>
+          </div>:null}
+         
+            </Grid>
+            </Grid>
         </Grid>
       </Box>
     </Grid>

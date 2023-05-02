@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -12,16 +12,32 @@ import EmailEditor from 'react-email-editor';
 export default function CreateDocuments() {
   const Navigate=useNavigate()
   const emailEditorRef = useRef(null);
+  const [Document, setDocument] = useState()
 
   const exportHtml = async () => {
     emailEditorRef.current.editor.exportHtml((data) => {
-      const { design, html } = data;  
+      const { design, html } = data; 
+      localStorage.setItem("html",html)
+      setDocument(html) 
     })
   };
 
  const onLoad = () => {
+  const editor = emailEditorRef.current.editor;
+  console.log({editor})
 
+  if (!editor) return;
+  editor.addEventListener('onLoad', () => {
+    alert()
+    const canvas = editor.getHtml();
+    const body = canvas.querySelector('body');
+    body.style.width = '900px';
+  });
+  // const canvas = editor.getHtml();
+  // const body = canvas.querySelector('body');
+  // body.style.width = '600px';
 
+  // emailEditorRef.current.editor.setBodyStyle({ width: '900px' });
    // editor instance is created
    // you can load your template here;
    // const templateJson = {};
@@ -31,8 +47,31 @@ export default function CreateDocuments() {
  const onReady = () => {
    // editor is ready
 
+   const editor = emailEditorRef.current.editor;
+   console.log({editor})
+ 
+   if (!editor) return;
+   editor.addEventListener('onLoad', () => {
+     alert()
+     const canvas = editor.getHtml();
+     const body = canvas.querySelector('body');
+     body.style.width = '900px';
+   });
    console.log('onReady');
  };
+ useEffect(() => {
+   
+    const editorInstance = emailEditorRef.contentWindow?.document;
+    console.log({editorInstance})
+    if (!editorInstance) return;
+        editorInstance.addEventListener('onDesignLoad', () => {
+          const canvas = editorInstance.getHtml();
+          const body = canvas.querySelector('body');
+          body.style.width = '900px';
+        });
+    
+
+}, [emailEditorRef]);
   return (
     <div>
       <div>
@@ -86,7 +125,15 @@ export default function CreateDocuments() {
     <br/>
     <br/>
       {/* <EmailEditor ref={emailEditorRef} onLoad={onLoad} onReady={onReady} /> */}
-      <EmailEditor ref={emailEditorRef}  onReady={onReady} />
+      <EmailEditor onLoad={onLoad} ref={emailEditorRef}  onReady={onReady} />
+      </div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <div dangerouslySetInnerHTML={ { __html: Document}}>
+
       </div>
     </div>
   );
