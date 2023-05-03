@@ -91,7 +91,7 @@ root.render(
               <Route exact path="/Admin/AllDocumentAdmin" element={<AllDocumentAdmin />} />
               <Route exact path="/EditDocument" element={<EditDocument />} />
               <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
-              <Route exact path="/Modelus/Document/ViewDocument1" element={<ViewDocument />} />
+              <Route exact path="/Modelus/Document/ViewDocument1/:id" element={<ViewDocument />} />
 
             </Route>
              <Route path='*' element={<NotFound />} />

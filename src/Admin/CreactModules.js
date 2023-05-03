@@ -143,16 +143,17 @@ export default function CreactModules() {
                     value={true}
                     name="module_status"
                     control={<Radio />}
-                    label="Look"
-                    labelPlacement="Look"
+                    label="Lock"
+                    labelPlacement="Lock"
                   />
                   <FormControlLabel
                      defaultChecked
                     value={false}
                     name="module_status"
                     control={<Radio />}
-                    label="Unlook"
-                    labelPlacement="Unlool"
+                    label="Unlock"
+                    labelPlacement="Unlock
+                    "
                   />
                 </RadioGroup>
                 {/* {formik.values.module_status} */}

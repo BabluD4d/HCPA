@@ -18,6 +18,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
 import Exportproduct from "../Api/Admin/Product/Exportproduct";
+import ExportDeshboard from "../Api/Admin/Deshboard/ExportDeshboard";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#0CB4D0",
@@ -59,21 +60,22 @@ export default function AdminDashBoard() {
 //     "limit":10,
 //     "page" :1
 // }
-//   const GetData = () => {
-//     Exportproduct.GetAllProduct(obj).then(
-//       (resp) => {
-//         if (resp.ok) {
-//           console.log(resp.data.data)
-//           if (resp.data) {
-//             setProductData(resp.data.data);
-//           }
-//         }
-//       }
-//     );
-//   }
-//   useEffect(() => {
-//     GetData()
-//   }, [])
+  const GetData = () => {
+    ExportDeshboard.getAllDeshbord().then(
+      (resp) => {
+        if (resp.ok) {
+          if (resp.data) {
+            console.log(resp.data.data)
+            setProductData(resp.data.data);
+          }
+        }
+      }
+    );
+  }
+  useEffect(() => {
+    GetData()
+  }, [])
+
   return (
     <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -106,7 +108,7 @@ export default function AdminDashBoard() {
                 </Typography>
               </Grid>
               <Typography mt={3} sx={{ fontSize: "48px" }}>
-                555
+              {ProductData?.total_user}
               </Typography>
             </Grid>
           </Box>
@@ -136,8 +138,7 @@ export default function AdminDashBoard() {
                 </Typography>
               </Grid>
               <Typography mt={3} sx={{ fontSize: "48px" }}>
-                {console.log(ProductData.length)}
-                {ProductData.length}
+                {ProductData?.product_count}
               </Typography>
             </Grid>
           </Box>
@@ -167,7 +168,7 @@ export default function AdminDashBoard() {
                 </Typography>
               </Grid>
               <Typography mt={3} sx={{ fontSize: "48px" }}>
-                95
+              {ProductData?.product_active}
               </Typography>
             </Grid>
           </Box>
@@ -215,17 +216,15 @@ export default function AdminDashBoard() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                  <StyledTableRow key={row.name}>
+                {ProductData?.call_list?.map((row) => (
+                  <StyledTableRow key={row.full_name}>
                     <StyledTableCell component="th" scope="row">
-                      {row.name}
+                      {row.full_name}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {row.calories}
+                      {row.date}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                    {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
+                    <StyledTableCell align="right">{row.time}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -274,17 +273,15 @@ export default function AdminDashBoard() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {ProductData?.userlist?.map((row) => (
                   <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
                       {row.name}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {row.calories}
+                      {row.email}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                    {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
+                    <StyledTableCell align="right">{row.mobile_number}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -332,19 +329,19 @@ export default function AdminDashBoard() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                  <StyledTableRow key={row.name}>
+                {ProductData?.product?.map((row,i) => {
+              return i<=4?   <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
-                      {row.name}
+                      {row.product_name}
                     </StyledTableCell>
                     {/* <StyledTableCell align="right">
                       {row.calories}
                     </StyledTableCell> */}
-                    <StyledTableCell align="right">{row.fat}</StyledTableCell>
+                    <StyledTableCell align="right">{row.total_module}</StyledTableCell>
                     {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>
               <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
-                  </StyledTableRow>
-                ))}
+                  </StyledTableRow>:null
+})}
               </TableBody>
             </Table>
           </TableContainer>

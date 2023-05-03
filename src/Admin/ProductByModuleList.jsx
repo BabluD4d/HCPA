@@ -24,13 +24,18 @@ import AdminProductCart from "../commenComponet/AdminProductCart";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ExportModiles from "../Api/Admin/Modules/ExportModiles";
 import CreateIcon from "@mui/icons-material/Create";
+import { Modal } from "react-bootstrap";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
 export default function ProductByModuleList() {
   const Navigate = useNavigate();
   const [ModuleList, setModuleList] = useState([]);
+  const [EditData, setEditData] = useState();
   const [Product, setProduct] = useState(
     JSON.parse(localStorage.getItem("Product"))
   );
-
+  const [modalShow, setModalShow] = React.useState(false);
   const GetData = () => {
     let obj = {
       order: "asc",
@@ -50,7 +55,115 @@ export default function ProductByModuleList() {
   useEffect(() => {
     GetData();
   }, []);
+  const formik = useFormik({
+    initialValues: {
+      module_name: EditData?.module_name ? EditData?.module_name : "",
+      module_status: EditData?.module_status ? EditData?.module_status : false,
+      id: EditData?.module_id ? EditData?.module_id : ""
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      module_name: Yup.string()
+        .required("Enter your module name"),
+    }),
+    onSubmit: (values) => {
+      ExportModiles.ModuilesUpdate(values)
+        .then((resp) => {
+          console.log(resp)
+          if (resp.data.message == "Module record update successfully") {
+            toast.success('Module updated successfully', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            GetData()
+            setModalShow(false)
+            // Navigate('/Productlist')
+          } else {
+            toast.error('Something went rong', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        })
+        .catch((err) => toast.error('Something went rong', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }));
+    },
+  });
+  const handlemodal=(data)=>{
+    console.log({data})
+    setEditData(data)
+    setTimeout(() => {
+      setModalShow(true)
+    });
+  }
+  const onChangeHendle=(item,value)=>{
+    let obj={
+      module_name: item?.module_name ,
+      module_status: !item?.module_status ,
+      id: item?.module_id 
+    }
 
+
+    ExportModiles.ModuilesUpdate(obj)
+    .then((resp) => {
+      console.log(resp)
+      if (resp.data.message == "Module record update successfully") {
+        toast.success('Module updated successfully', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        GetData()
+        // Navigate('/Productlist')
+      } else {
+        toast.error('Something went rong', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    })
+    .catch((err) => toast.error('Something went rong', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    }));
+  }
   return (
     <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -96,6 +209,9 @@ export default function ProductByModuleList() {
                   size={3}
                   Modules={item.total_document}
                   ProductName={item.module_name}
+                  handlemodal={handlemodal}
+                  item={item}
+                  onChangeHendle={onChangeHendle}
                 />
               );
             })}
@@ -178,6 +294,108 @@ export default function ProductByModuleList() {
           </Grid>
         </Grid>
       </Box>
+      <Modal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Product
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+            <Box mt={5}>
+              <TextField
+                disabled
+                id="filled-disabled"
+                label="Product Name"
+                defaultValue="Hello World"
+                variant="filled"
+                fullWidth
+                value={Product?.product_name}
+              />
+              </Box>
+              <Box mt={5}>
+              <TextField
+                fullWidth
+                id="fullWidth"
+                label="Modelus Name "
+                type="text"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="filled"
+                name="module_name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.module_name}
+                autoComplete="current-number"
+            />
+            {formik.touched.module_name && formik.errors.module_name ? (
+                <div style={{ color: "red" }}>{formik.errors.module_name}</div>
+            ) : null}
+              </Box>
+              <Box mt={5}>
+              <FormControl>
+                <FormLabel
+                  sx={{ marginLeft: "10px" }}
+                  id="demo-form-control-label-placement"
+                >
+                  Status
+                </FormLabel>
+                <RadioGroup
+                  row
+                  aria-labelledby="demo-form-control-label-placement"
+                  defaultValue="top"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.module_status}
+                  autoComplete="current-number"
+             
+             
+                >
+                  <FormControlLabel
+                    value={true}
+                    name="module_status"
+                    control={<Radio />}
+                    label="Lock"
+                    labelPlacement="Lock"
+                  />
+                  <FormControlLabel
+                     defaultChecked
+                    value={false}
+                    name="module_status"
+                    control={<Radio />}
+                    label="Unlock"
+                    labelPlacement="Unlock"
+                  />
+                </RadioGroup>
+                {/* {formik.values.module_status} */}
+                {formik.touched.module_status && formik.errors.module_status ? (
+                  <div style={{ color: "red" }}>{formik.errors.module_status}</div>
+              ) : null}
+              </FormControl>
+              </Box>
+              <Box mt={5}>
+                <Button
+                type="submit"
+                  sx={{ marginLeft: "10px" }}
+                  className={"A1"}
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </Box>
+              </Box>
+        </Modal.Body>
+        <Modal.Footer>
+          {/* <Button onClick={props.onHide}>Close</Button> */}
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

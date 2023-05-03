@@ -34,7 +34,7 @@ export default function AdminProductCart(props) {
            </Grid>
            <Grid mb={3}xl={3} sm={3} lg={3} item xs={3}> 
            <ThemeProvider theme={theme}>
-           <Switch  checked={props?.status}    />
+           <Switch onChange={()=>props?.onChangeHendle(props.item)}  checked={props.status=="true"?true:false}    />
            </ThemeProvider>
            </Grid>
            </Grid>
@@ -43,23 +43,29 @@ export default function AdminProductCart(props) {
     {props.navi?  <Grid container spacing={2}>
   <Grid item xs={6}>
   <div style={{ display: "flex", }}>
-  <RemoveRedEyeIcon  onClick={()=>{Navigate(props.navi?props.navi:"/ActiveModuleByUser")}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
-    <Typography  onClick={()=>{Navigate(props.navi?props.navi:"/ActiveModuleByUser")}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   View  {props.foo==1?"":"Active "} Modelus</Typography>
+  <RemoveRedEyeIcon  onClick={()=>{localStorage.setItem("module",JSON.stringify(props.item));setTimeout(() => {
+     Navigate(props.navi?props.navi:"/ActiveModuleByUser") 
+    });}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
+    <Typography  onClick={()=>{localStorage.setItem("module",JSON.stringify(props.item));setTimeout(() => {
+     Navigate(props.navi?props.navi:"/ActiveModuleByUser") 
+    });}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   View  {props.foo==1?"":"Active "} Modelus</Typography>
     </div>
   </Grid>
   <Grid item xs={6}>
   <div style={{ display: "flex", }}>
-  <EditIcon  onClick={()=>{Navigate(props.navi?props.navi:"/ActiveModuleByUser")}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
-    <Typography  onClick={()=>{Navigate(props.navi?props.navi:"/ActiveModuleByUser")}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   Edit Modelus</Typography>
+  <EditIcon  onClick={()=>{props?.handlemodal(props.item)}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
+    <Typography  onClick={()=>{props?.handlemodal(props.item)}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   Edit Modelus</Typography>
     </div>
   </Grid>
 
 </Grid>:<div style={{ display: "flex", }}>
-    <RemoveRedEyeIcon  onClick={()=>{Navigate(props.navi?props.navi:"/ActiveModuleByUser")}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
-    <Typography  onClick={()=>{Navigate(props.navi?props.navi:"/ActiveModuleByUser")}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   View  {props.foo==1?"":"Active "} Modelus</Typography>
+    <RemoveRedEyeIcon  onClick={()=>{localStorage.setItem("module",JSON.stringify(props.item));setTimeout(() => {
+     Navigate(props.navi?props.navi:"/ActiveModuleByUser") 
+    });}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
+    <Typography  onClick={()=>{localStorage.setItem("module",JSON.stringify(props.item));setTimeout(() => {
+     Navigate(props.navi?props.navi:"/ActiveModuleByUser") 
+    });}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   View  {props.foo==1?"":"Active "} Modelus</Typography>
     </div>}
-  
-    
   </div>
 </Grid>
   )

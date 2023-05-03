@@ -207,6 +207,13 @@ class FormBuilder extends Component {
       localStorage.setItem("Checklist",JSON.stringify(formData))
       this.props.GetData(formData)
     }
+    getFormData1() {
+      const formData = $(this.fb.current).formBuilder('getData', 'json');
+      this.setState({ formData });
+      console.log(formData)
+      localStorage.setItem("Checklist",JSON.stringify(formData))
+      // this.props.GetData(formData)
+    }
   
     render() {
       return (

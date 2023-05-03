@@ -180,14 +180,16 @@ export default function ChecklistPriveiw() {
         "style": "success"
       }
     ]
-    const [Data, setData] = useState(DataShow)
+    const [Data, setData] = useState()
     useEffect(() => {
-        setData(JSON.parse(localStorage.getItem("Checklist")))
+      let data=JSON.parse(localStorage.getItem("Checklist"))
+        setData(JSON.parse(data))
     }, [])
     
   return (
     <div>
         <Grid container spacing={4} mt={2} >
+          {console.log(localStorage.getItem("Checklist"))}
         <Grid xl={3} >
           <ArrowBackIcon onClick={() => Navigate(-1)} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
         </Grid>
@@ -205,7 +207,7 @@ export default function ChecklistPriveiw() {
           </div> */}
         </Grid>
       </Grid>
-        {Data.map((item, index) => {
+        {Data?.map((item, index) => {
         return <Grid key={index} container spacing={4} mt={2} >
           <Grid xl={3} >
           </Grid>

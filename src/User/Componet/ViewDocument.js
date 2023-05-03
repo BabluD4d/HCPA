@@ -1,15 +1,36 @@
 import { Button, Grid, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "react-bootstrap";
 import { ColorRing } from "react-loader-spinner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import ExportDocument from "../../Api/Admin/Document/ExportDocument";
 export default function ViewDocument() {
   const [open, setOpen] = React.useState(false);
   const [loder1, setloder1] = React.useState(false);
 const Navigate= useNavigate()
+const [Data, setData] = useState([])
+let params=useParams()
+const GetData = () => {
+  let obj={
+    id:params.id
+  }
+  ExportDocument.documentGetEditData(obj).then(
+    (resp) => {
+      if (resp.ok) {
+        if (resp.data) {
+          console.log(resp.data.data)
+          setData(resp.data.data);
+        }
+      }
+    }
+  );
+}
+useEffect(() => {
+  GetData()
+}, [])
   return (
     <div>
       <Grid container>
@@ -78,7 +99,7 @@ const Navigate= useNavigate()
         </Grid>
       </Grid>
       <hr height={3} />
-      <div dangerouslySetInnerHTML={ { __html: localStorage.getItem("html")}}>
+      <div dangerouslySetInnerHTML={ { __html: Data[0]?.html_data}}>
 
       </div>
       <Modal

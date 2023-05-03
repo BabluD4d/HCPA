@@ -36,6 +36,7 @@ export default function DocumentCard(props) {
          {props.edit?    <div 
             style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
             onClick={() => {
+              localStorage.setItem("document_id",props.val.id)
               Navigate("/EditDocument");
             }}
           >
@@ -57,12 +58,12 @@ export default function DocumentCard(props) {
             </Typography>
           </div>}
           </Grid>
-
+{/* {console.log(props.val)} */}
           <Grid item xs={6} >
             {props.hellow=="yes"? <div 
             style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
             onClick={() => {
-              Navigate("/Modelus/Document/ViewDocument1");
+              Navigate("/Modelus/Document/ViewDocument1/"+props.val.id);
             }}
           >
             <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />
