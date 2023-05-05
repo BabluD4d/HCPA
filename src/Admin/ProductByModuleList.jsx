@@ -28,9 +28,11 @@ import { Modal } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import ExportChecklist from "../Api/Admin/CheckList/ExportChecklist";
 export default function ProductByModuleList() {
   const Navigate = useNavigate();
   const [ModuleList, setModuleList] = useState([]);
+  const [Checklis, setChecklis] = useState([]);
   const [EditData, setEditData] = useState();
   const [Product, setProduct] = useState(
     JSON.parse(localStorage.getItem("Product"))
@@ -52,8 +54,25 @@ export default function ProductByModuleList() {
       }
     });
   };
+  const GetDataChecklistAll = () => {
+    let obj = {
+      // order: "asc",
+      // limit: 10,
+      // page: 1,
+      products_id: Product.products_id,
+    };
+    ExportChecklist.ChecklistAll(obj).then((resp) => {
+      if (resp.ok) {
+        console.log("GetDataChecklistAll",resp.data.data);
+        if (resp.data.data[0]) {
+          setChecklis(resp.data.data);
+        }
+      }
+    });
+  };
   useEffect(() => {
     GetData();
+    GetDataChecklistAll()
   }, []);
   const formik = useFormik({
     initialValues: {
@@ -235,7 +254,7 @@ export default function ProductByModuleList() {
             </Grid>
           <Grid  xs={5}>
             {" "}
-            <Typography  mt={4}  sx={{ fontSize: "30px" }}>
+            <Typography  mt={2}  sx={{ fontSize: "30px" }}>
               CheckList
             </Typography>
           </Grid>
@@ -254,7 +273,7 @@ export default function ProductByModuleList() {
           </Grid>
         </Grid>
         <Grid container spacing={4} mt={2} pl={9}>
-          <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
+          {Checklis.map((item,i)=>  <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
             <div style={{ marginBottom: "22px" }}>
               <div style={{ display: "flex" }}>
                 <Typography
@@ -267,14 +286,14 @@ export default function ProductByModuleList() {
                 <p></p>
               </div>
               <Typography mt={1} ml={6} sx={{ fontSize: "17px" }}>
-                HCPA Checklist - NDIS 1
+                {item.title}
               </Typography>
               <Typography ml={6} sx={{ fontSize: "10px" }}>
                 0 of 4 sections completed
               </Typography>
               <div>
                 <Typography
-                  onClick={() => Navigate("/checklist/preview")}
+                  onClick={() => Navigate("/checklist/Edit/"+item.id)}
                   mt={2}
                   ml={6}
                   sx={{ color: "#0CB4D0", fontSize: "15px", cursor: "pointer" }}
@@ -291,7 +310,74 @@ export default function ProductByModuleList() {
                 </Typography>
               </div>
             </div>
+          </Grid>)}
+        
+        </Grid>
+      </Box>
+      <Box mt={5}>
+        <Grid container spacing={4} mt={2} >
+          <Grid  xs={1}>
+            </Grid>
+          <Grid  xs={5}>
+            {" "}
+            <Typography  mt={2}  sx={{ fontSize: "30px" }}>
+              Registration Guides
+            </Typography>
           </Grid>
+          <Grid   xs={6}>
+            {" "}
+            <Button
+             mt={4}
+              onClick={() => Navigate("/CreateRegistrationGuides")}
+              sx={{ marginLeft: "10%" }}
+              className={"A1"}
+              variant="contained"
+            >
+              {/* <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp; */}
+              Add  Registration Guides
+            </Button>
+          </Grid>
+        </Grid>
+        <Grid container spacing={4} mt={2} pl={9}>
+          {Checklis.map((item,i)=>  <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
+            <div style={{ marginBottom: "22px" }}>
+              <div style={{ display: "flex" }}>
+                <Typography
+                  mt={2}
+                  ml={6}
+                  sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
+                >
+                  To be completed
+                </Typography>
+                <p></p>
+              </div>
+              <Typography mt={1} ml={6} sx={{ fontSize: "17px" }}>
+                {item.title}
+              </Typography>
+              <Typography ml={6} sx={{ fontSize: "10px" }}>
+                0 of 4 sections completed
+              </Typography>
+              <div>
+                <Typography
+                  onClick={() => Navigate("/checklist/Edit/"+item.id)}
+                  mt={2}
+                  ml={6}
+                  sx={{ color: "#0CB4D0", fontSize: "15px", cursor: "pointer" }}
+                >
+                  {" "}
+                  <CreateIcon
+                    sx={{
+                      color: "#0CB4D0",
+                      fontSize: "20px",
+                      marginBottom: "15px",
+                    }}
+                  />{" "}
+                  Edit
+                </Typography>
+              </div>
+            </div>
+          </Grid>)}
+        
         </Grid>
       </Box>
       <Modal

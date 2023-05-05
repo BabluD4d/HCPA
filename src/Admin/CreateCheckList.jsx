@@ -4,7 +4,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom'
 import FormBuilder from './FormB';
 import { Autocomplete,   Checkbox, FormControlLabel, FormGroup, FormLabel,  Radio, RadioGroup, TextField, TextareaAutosize,  } from "@mui/material";
-// import { FormBuilder } from 'react-form-builder2';
+// import { FormBuilder } from 'react-form-builder2';;
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
+import ExportChecklist from '../Api/Admin/CheckList/ExportChecklist';
 
 // import "./styles.css";
 const formSchema = {
@@ -34,6 +38,9 @@ export default function CreateCheckList() {
   
     const childRef = useRef();
     const [formData, setFormData] = useState(null);
+    const [Product, setProduct] = useState(
+      JSON.parse(localStorage.getItem("Product"))
+    );
     const [Togal, setTogal] = useState(true);
     const [Data, setData] = useState()
     const handleSubmit = (data) => {
@@ -217,26 +224,93 @@ export default function CreateCheckList() {
       }
     ]
     const GetData = (data) => {
+      // alert(1)
       console.log({ data })
+      formik.values.json_data=JSON.parse(data)
+      setData(JSON.parse(data))
+      console.log(formik.values)
+     
+  }
+    const GetDataTogle = (data) => {
+      // alert(2)
+      // console.log({ data })
+      formik.values.json_data=JSON.parse(data)
       setData(JSON.parse(data))
       setTimeout(() => {
         setTogal(false)
       }, );
   }
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      product_id: Product.products_id,
+      json_data: "",
+    },
+    validationSchema: Yup.object({
+      title: Yup.string().required("Enter your Document title"),
+    }),
+    onSubmit: (values) => {
+      childRef.current.getFormData1()
+      console.log(values)
+      setTimeout(() => {
+        ExportChecklist.CreateChecklist(values)
+          .then((resp) => {
+            console.log(resp);
+            if (resp.data.message=="checklist detail submit successfully") {
+            toast.success("Checklist Created successfully", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            Navigate("/Productlist/moduleList");
+            }else{
+              toast.error('Something went rong', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+            }
+          })
+          .catch((err) =>
+            toast.error("Something went rong", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+          );
+        
+      }, 1000);
+    },
+  });
     return (
         <div>
-            {console.log({Data})}
             <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
                 Create Checklist
             </Typography>
             <hr height={3} />
+            <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
             <Grid container spacing={4} mt={2} >
                 <Grid xl={3} >
                 {Togal?    <ArrowBackIcon onClick={() => Navigate('/Productlist/moduleList')} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />:null}
                 </Grid>
                 <Grid xl={6}  mt={2}>
                 <div style={{ display: "flex" }}>
-                {Togal?  <Button mt={1} sx={{ marginLeft: "10%", }} onClick={() => { childRef.current.getFormData1() }} className={"A1"} variant="contained"> Generate Checklist</Button>:null}
+                {Togal?  <Button mt={1} sx={{ marginLeft: "10%", }} type='submit' className={"A1"} variant="contained"> Generate Checklist</Button>:null}
 
                         {Togal?  <Button onClick={()=>{childRef.current.getFormData()}}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained">Preview </Button>:
                         <Button onClick={()=>{setTogal(true)}}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained">Hide Preview </Button>}
@@ -246,16 +320,42 @@ export default function CreateCheckList() {
                 
                 </Grid>
             </Grid>
-            {/* <FormBuilder
-                form={formSchema}
-                onSubmit={handleSubmit}
-                submitButton={<button type="submit" className="btn btn-primary">Submit</button>}
-                backButton={<a href="/" className="btn btn-default btn-cancel btn-big">Back</a>}
-            /> */}
+            <Grid container spacing={4} mt={2} >
+                <Grid xl={3} md={3} >
+                  </Grid>
+                  <Grid xl={6} md={6}>
+            <Box mt={3}>
+            
+              <TextField
+                fullWidth
+                id="fullWidth"
+                label="CheckList Title"
+                type="text"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="filled"
+                name="title"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.title}
+                autoComplete="current-number"
+            />
+            {formik.touched.title && formik.errors.title ? (
+                <div style={{ color: "red" }}>{formik.errors.title}</div>
+            ) : null}
+            </Box>
+            </Grid>
+            <Grid xl={3} >
+                  </Grid>
+                  </Grid>
+            </Box>
             <br/>
             <br/>
             <br/>
-            {Togal?  <FormBuilder  ref={childRef} GetData={GetData} />:<>
+            {Togal? <>
+              <FormBuilder  ref={childRef} GetDataTogle={GetDataTogle} GetData={GetData} />
+            </> :<>
             
             
             {Data?.map((item, index) => {

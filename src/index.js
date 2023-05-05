@@ -43,6 +43,8 @@ import ForgotPassword from './commenComponet/ForgotPassword';
 import Public from './Auth/Public';
 import 'react-toastify/dist/ReactToastify.css';
 import ChecklistPriveiw from './commenComponet/ChecklistPriveiw';
+import EditChecklis from './Admin/EditChecklis';
+import CreateRegistrationGuides from './Admin/CreateRegistrationGuides';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
@@ -77,9 +79,11 @@ root.render(
               <Route exact path="/UserList" element={<UserList />} />
               <Route exact path="/Productlist" element={<Product />} />
               <Route exact path="/Productlist/cretechalist" element={<CreateCheckList />} />
+              <Route exact path="/checklist/Edit/:id" element={<EditChecklis />} />
               <Route exact path="/Profile/Admin" element={<UserInfo />} />
               <Route exact path="/Productlist/moduleList" element={<ProductByModuleList />} />
               <Route exact path="/callList" element={<CallListBook />} />
+              <Route exact path="/CreateRegistrationGuides" element={<CreateRegistrationGuides />} />
               <Route exact path="/CreateProduct" element={<CreateProduct />} />
               <Route exact path="/CreateUser" element={<CreateUser />} />
               <Route exact path="/CreactModules" element={<CreactModules />} />
