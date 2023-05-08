@@ -24,6 +24,7 @@ import WysiwygIcon from "@mui/icons-material/Wysiwyg";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import PhoneIcon from "@mui/icons-material/Phone";
 import ClearIcon from "@mui/icons-material/Clear";
+import PeopleIcon from '@mui/icons-material/People';
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
   const [Count, setCount] = useState(0);
@@ -212,6 +213,26 @@ const Sidebar = () => {
                           />
                         </ListItemIcon>
                         <ListItemText primary={"Modules List"} />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem
+                      className={
+                         loaction.pathname == "/UserDeshboard" ? "active" : ""
+                      }
+                      onClick={() => {
+                        Activeclass("/UserDeshboard");
+                      }}
+                      disablePadding
+                    >
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <PeopleIcon
+                            className={
+                                 loaction.pathname == "/UserDeshboard" ? "active" : ""
+                            }
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={"User Deshboard"} />
                       </ListItemButton>
                     </ListItem>
                   </> : <>
@@ -504,6 +525,26 @@ const Sidebar = () => {
                           />
                         </ListItemIcon>
                         <ListItemText primary={"Modules List"} />
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem
+                      className={
+                         loaction.pathname == "/UserDeshboard" ? "active" : ""
+                      }
+                      onClick={() => {
+                        Activeclass("/UserDeshboard");
+                      }}
+                      disablePadding
+                    >
+                      <ListItemButton>
+                        <ListItemIcon>
+                        <PeopleIcon
+                            className={
+                                 loaction.pathname == "/UserDeshboard" ? "active" : ""
+                            }
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={"User Deshboard"} />
                       </ListItemButton>
                     </ListItem>
                   </> : <>

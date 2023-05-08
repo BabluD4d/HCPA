@@ -8,12 +8,11 @@ import { toast } from "react-toastify";
 import { Editor } from '@tinymce/tinymce-react';
 import ExportDocument from "../Api/Admin/Document/ExportDocument";
  
- const DragDropButton = (props) => {
+const DragDropButton = (props) => {
   const { editor } = props;
 
   const handleDragStart = (e) => {
     if (editor) {
-      // console.log({editor})
     const selectedText = editor.selection.getContent();
     console.log({selectedText})
     e.dataTransfer.setData('text/plain',props?.title );
@@ -26,7 +25,7 @@ import ExportDocument from "../Api/Admin/Document/ExportDocument";
       draggable
       onDragStart={handleDragStart}
     >
-     {props?.title}
+     {props?.label}
     </Button>
   );
 };
@@ -201,7 +200,8 @@ export default function CreateDocuments() {
           <DragDropButton title={"NDS 5"}  label={"NDS "}editor={editorRef.current} />
             </Grid>
           <Grid mt={2} xs={4}>
-          <DragDropButton  title={"NDS 6"} labele={"NDS "} editor={editorRef.current} />
+          <DragDropButton title={"NDS 6"}  label={"NDS "}editor={editorRef.current} />
+          {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef.current} /> */}
             </Grid>
             </Grid>
             </Grid>

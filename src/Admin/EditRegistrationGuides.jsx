@@ -9,7 +9,7 @@ import ExportChecklist from "../Api/Admin/CheckList/ExportChecklist";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Exportguid from "../Api/Admin/guid/Exportguid";
 const MAX_FILE_SIZE = 102400*100;
-export default function CreateRegistrationGuides() {
+export default function EditRegistrationGuides(props) {
   const [Product, setProduct] = useState(
     JSON.parse(localStorage.getItem("Product"))
   );
@@ -17,36 +17,30 @@ export default function CreateRegistrationGuides() {
   const Navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      title: "",
+      title: props.EditDataGuid.title?props.EditDataGuid.title: "",
       product_id: Product.products_id,
       file: "",
-      videolink:""
+      videolink:props.EditDataGuid.video_link?props.EditDataGuid.video_link: "",
     },
+    enableReinitialize: true, 
     validationSchema: Yup.object({
       title: Yup.string().required("Enter your V title"),
-      // file: Yup.mixed()
-      //   .required("Required")
-        // .test("is-valid-type", "Not a valid image type",
-        //   value => isValidFileType(value && value.name.toLowerCase(), "image"))
-        // .test(
-        //   "is-valid-size",
-        //   "Max allowed size is 100KB",
-        //   (value) => value && value.size <= MAX_FILE_SIZE
-        // ),
     }),
     onSubmit: (values) => {
       console.log(values);
       const formData = new FormData();
       formData.append('file', image);
-      formData.append('product_id', values.product_id);
+      // formData.append('product_id', values.product_id);
+      formData.append('id', props.EditDataGuid.id);
       formData.append('title', values.title);
-      formData.append('videolink', values.videolink);
+      formData.append('video_link', values.videolink);
       setTimeout(() => {
-        Exportguid.CreateGuid(formData)
+        Exportguid.GuidUpdate(formData)
           .then((resp) => {
             console.log(resp);
-            if (resp.data.message == " Create RegistrationGuide details successfully") {
-              toast.success("Create RegistrationGuide details successfully", {
+            if (resp.data.message == " Update RegistrationGuide details ") {
+              props.hendleGuidUpdateData()
+              toast.success("Update RegistrationGuide details successfully", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -56,7 +50,8 @@ export default function CreateRegistrationGuides() {
                 progress: undefined,
                 theme: "light",
               });
-              Navigate("/Productlist/moduleList");
+           
+              // Navigate("/Productlist/moduleList");
             } else {
               toast.error("Something went rong", {
                 position: "top-right",
@@ -87,17 +82,8 @@ export default function CreateRegistrationGuides() {
   });
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Create Checklist
-      </Typography>
-      <hr height={3} />
-      <div style={{ display: "flex" }}>
-        <ArrowBackIcon
-          onClick={() => Navigate("/Productlist/moduleList")}
-          style={{ color: "#0cb4d0", fontSize: "50px" }}
-        />
-      </div>
-      <Grid container spacing={4} mt={2}>
+      
+      <Grid container spacing={4} >
         <Grid xl={3}></Grid>
         <Grid xl={6}>
           {formik.values?.file?.size}
@@ -165,7 +151,7 @@ export default function CreateRegistrationGuides() {
                  value={formik.values.videolink}
                 autoComplete="current-number"
               />
-              {console.log({image})}
+              {/* {console.log({image})} */}
               {formik.touched.videolink && formik.errors.videolink ? (
                 <div style={{ color: "red" }}>{formik.errors.videolink}</div>
               ) : null}

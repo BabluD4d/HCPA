@@ -175,7 +175,7 @@ export default function AdminDashBoard() {
         </Grid>
       </Grid>
       <Grid container mt={5}>
-        <Grid item ml={3} md={3} xl={5} sm={12} xs={12}>
+        <Grid item ml={3} mr={3} md={3} xl={5} sm={12} xs={12}>
           <Grid container mt={5}>
             <Grid item xs={8}>
               <Typography
@@ -231,8 +231,8 @@ export default function AdminDashBoard() {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item md={1} xl={1} sm={1} xs={0}></Grid>
-        <Grid item md={3} xl={5} sm={12} xs={12}>
+        <Grid item md={1}  xl={1} sm={1} xs={0}></Grid>
+        <Grid item md={3} ml={3} mr={3} xl={5} sm={12} xs={12}>
         <Grid container mt={5}>
             <Grid item xs={8}>
               <Typography
@@ -288,7 +288,7 @@ export default function AdminDashBoard() {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item  ml={3} md={3} xl={5} sm={12} xs={12}>
+        <Grid item  ml={3} mr={3} md={3} xl={5} sm={12} xs={12}>
         <Grid container mt={5}>
             <Grid item xs={8}>
               <Typography
@@ -348,7 +348,7 @@ export default function AdminDashBoard() {
         </Grid>
         <Grid item md={1} xl={1} sm={1} xs={0}></Grid>
 
-        <Grid item  ml={3} md={3} xl={5} sm={12} xs={12}>
+        <Grid item  ml={3} mr={3} md={3} xl={5} sm={12} xs={12}>
         <Grid container mt={5}>
             <Grid item xs={8}>
               <Typography

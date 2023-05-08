@@ -3,5 +3,5 @@ const BaseApi = create({
       baseURL: 'http://192.168.0.133:8008/api/',
     headers: {Authorization: localStorage.getItem("Token")},
 });
-  const BaseUrlImage = ''
+  const BaseUrlImage = 'http://192.168.0.133:8008'
 export { BaseApi, BaseUrlImage }

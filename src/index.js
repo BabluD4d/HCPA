@@ -45,6 +45,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ChecklistPriveiw from './commenComponet/ChecklistPriveiw';
 import EditChecklis from './Admin/EditChecklis';
 import CreateRegistrationGuides from './Admin/CreateRegistrationGuides';
+import UserDeshboard from './Admin/UserDeshboard';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
@@ -75,6 +76,7 @@ root.render(
             {/* admin */}
             <Route path="/" element={<AdminProctected />}>
               <Route exact path="/Admin" element={<AdminDashBoard />} />
+              <Route exact path="/UserDeshboard" element={<UserDeshboard />} />
               <Route exact path="/DashBoard" element={<AdminDashBoard />} />
               <Route exact path="/UserList" element={<UserList />} />
               <Route exact path="/Productlist" element={<Product />} />
