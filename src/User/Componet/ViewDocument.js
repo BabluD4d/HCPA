@@ -12,16 +12,25 @@ export default function ViewDocument() {
   const [loder1, setloder1] = React.useState(false);
 const Navigate= useNavigate()
 const [Data, setData] = useState([])
+const [module, setmodule] = useState(JSON.parse(localStorage.getItem("module")));
+const [DataUser, setDataUser] = useState(JSON.parse(localStorage.getItem("userdata")));
+const [Product, setProduct] = useState(
+  JSON.parse(localStorage.getItem("Product"))
+);
 let params=useParams()
 const GetData = () => {
   let obj={
-    id:params.id
+    id:params.id,
+    module_id: module.module_id,
+    products_id: Product.products_id,
+    user_id:DataUser.user_id
+
   }
   ExportDocument.documentGetEditData(obj).then(
     (resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(resp.data.data)
+          console.log(resp.data)
           setData(resp.data.data);
         }
       }
@@ -99,9 +108,9 @@ useEffect(() => {
         </Grid>
       </Grid>
       <hr height={3} />
-      <div dangerouslySetInnerHTML={ { __html: Data[0]?.html_data}}>
+      {/* <div dangerouslySetInnerHTML={ { __html: Data[0]?.html_data}}>
 
-      </div>
+      </div> */}
       <Modal
         show={open}
         onHide={() => {

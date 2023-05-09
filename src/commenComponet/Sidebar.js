@@ -544,7 +544,7 @@ const Sidebar = () => {
                             }
                           />
                         </ListItemIcon>
-                        <ListItemText primary={"User Deshboard"} />
+                        <ListItemText primary={"User Dashboard"} />
                       </ListItemButton>
                     </ListItem>
                   </> : <>

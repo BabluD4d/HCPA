@@ -35,13 +35,13 @@ export default function Registration() {
             password: Yup.string()
                 .min(6, "Password must be 6 characters long")
                 .required("Enter your password"),
+                mobile_number: Yup.number()
+                    .required("Enter your Mobile Number"),
             email: Yup.string()
                 .email("Please enter valid email address")
                 .required("Enter your email"),
             name: Yup.string()
                 .required("Enter your name"),
-            mobile_number: Yup.number()
-                .required("Enter your Mobile Number"),
         }),
         onSubmit: (values) => {
             CoustomRegistration(values, "Registration",Navigate)

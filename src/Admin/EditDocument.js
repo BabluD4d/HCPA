@@ -217,30 +217,37 @@ useEffect(() => {
           </Grid>
         </Grid>
         </Box>
-        <Grid container spacing={4} mt={2} >
-          <Grid ml={5}  xs={3}>
+        <Grid container spacing={1} mt={2} >
+          <Grid ml={5}  xs={4}>
           <Grid container  mt={2} >
-          <Grid  xs={4}>
-          <DragDropButton title={"NDS 1"}  label={"NDS "}editor={editorRef.current} />
+          <Grid  xs={2}>
+          <DragDropButton title={"{{ Name }}"}  label={"Name "}editor={editorRef.current} />
+            </Grid>
+          <Grid  xs={5}>
+          <DragDropButton title={"{{Product Name }}"}  label={"Product Name "}editor={editorRef.current} />
             </Grid>
           <Grid  xs={4}>
-          <DragDropButton title={"NDS 2"}  label={"NDS "}editor={editorRef.current} />
+          <DragDropButton title={"{{Address}}"}  label={"Address"}editor={editorRef.current} />
             </Grid>
-          <Grid  xs={4}>
-          <DragDropButton title={"NDS 3"}  label={"NDS "}editor={editorRef.current} />
-            </Grid>
-          <Grid mt={2} xs={4}>
-          <DragDropButton title={"NDS 4"}  label={"NDS "}editor={editorRef.current} />
+          <Grid mt={2} xs={2}>
+          <DragDropButton title={"{{Logo}}"}  label={"Logo"}editor={editorRef.current} />
             </Grid>
           <Grid  mt={2} xs={4}>
-          <DragDropButton title={"NDS 5"}  label={"NDS "}editor={editorRef.current} />
+          <DragDropButton title={"NDS 5"}  label={"Image"}editor={editorRef.current} />
             </Grid>
-          <Grid mt={2} xs={4}>
-          <DragDropButton  title={"NDS 6"} label={"NDS "} editor={editorRef.current} />
+          <Grid mt={2} xs={5}>
+          <DragDropButton title={"{{Modules Name}}"}  label={"Modules Name"}editor={editorRef.current} />
+          {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef.current} /> */}
+            </Grid>
+            <Grid mt={2} xs={2}>
+          <DragDropButton title={"{{ Mobile }}"}  label={"Mobile "}editor={editorRef.current} />
+            </Grid>
+            <Grid mt={2} xs={2}>
+          <DragDropButton title={"{{ email }}"}  label={"Email "}editor={editorRef.current} />
             </Grid>
             </Grid>
             </Grid>
-          <Grid  xs={8}>
+          <Grid  xs={7}>
         <Editor
           ref={editorRef}
          onInit={(evt, editor) => editorRef.current = editor}

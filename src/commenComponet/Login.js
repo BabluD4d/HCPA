@@ -124,10 +124,10 @@ export default function SignIn() {
             {formik.touched.password && formik.errors.password ? (
           <div style={{ color: "red" }}>{formik.errors.password}</div>
         ) : null}
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth

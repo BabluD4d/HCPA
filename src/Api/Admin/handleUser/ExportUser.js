@@ -1,21 +1,23 @@
 import { BaseApi } from "../../BaseApi";
 
-const CreateModules = (obj) =>
-    BaseApi.post("module", obj,{
+// const CreateGuid = (obj) =>
+//     BaseApi.post("guid", obj);
+const UserAll = (obj) =>
+    BaseApi.get("/user/list",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
         },
       });
-const ModuilesAll = (obj) =>
-    BaseApi.get("module/list",obj,{
+const documentGetEditData = (obj) =>
+    BaseApi.get("document/edit",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
         },
       });
-const ModuilesUpdate = (obj) =>
-    BaseApi.put("module/update",obj,{
+const userUpdate = (obj) =>
+    BaseApi.put("user/update",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
@@ -23,7 +25,8 @@ const ModuilesUpdate = (obj) =>
       });
 
 export default {
-    CreateModules,
-    ModuilesAll,
-    ModuilesUpdate
+    // CreateGuid,
+    UserAll,
+    documentGetEditData,
+    userUpdate
 }
