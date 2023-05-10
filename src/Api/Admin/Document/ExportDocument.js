@@ -21,6 +21,13 @@ const documentGetEditData = (obj) =>
           "Content-Type": "application/json",
         },
       });
+const documentGetviewData = (obj) =>
+    BaseApi.get("document/view",obj,{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
 const documentUpdate = (obj) =>
     BaseApi.put("document/update",obj,{
         headers: {
@@ -33,5 +40,6 @@ export default {
     CreateDocument,
     documentAll,
     documentGetEditData,
-    documentUpdate
+    documentUpdate,
+    documentGetviewData
 }

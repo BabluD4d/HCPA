@@ -26,11 +26,11 @@ const GetData = () => {
     user_id:DataUser.user_id
 
   }
-  ExportDocument.documentGetEditData(obj).then(
+  ExportDocument.documentGetviewData(obj).then(
     (resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(resp.data)
+          console.log(resp.data.data)
           setData(resp.data.data);
         }
       }
@@ -50,32 +50,20 @@ useEffect(() => {
               ml={6}
               sx={{ fontSize: "25px", fontWeight: "bold" }}
             >
-              High Intensity Daily Personal Activities
+              {Data?.data?.document_title}
             </Typography>
-            <div style={{ display: "flex" }}>
-              <Typography
-                mt={1}
-                ml={6}
-                onClick={()=>Navigate("/")}
-                sx={{ fontSize: "14px", color: "#0CB4D0" }}
-              >
-                Product{" "}
+            <div style={{ display: "flex",marginLeft:"1%" }}>
+              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
+                
+                {Data?.data?.product_name}
               </Typography>
-              <Typography onClick={()=>Navigate("/")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-                {" "}
-                / NDIS
-              </Typography>
-              <Typography onClick={()=>Navigate("/Modelus/all")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-                {" "}
-                / Modules
-              </Typography>
-              <Typography onClick={()=>Navigate("/Modelus/Document")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-                {" "}
-                / NDIS Module 1
+              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
+              {" "+" / "+" "}
+                {Data?.data?.module_name} 
               </Typography>
               <Typography mt={1} sx={{ fontSize: "14px" }}>
                 {" "}
-                / High Intensity Daily Personal Activities
+                / {Data?.data?.document_title}
               </Typography>
             </div>
           </div>
@@ -108,9 +96,9 @@ useEffect(() => {
         </Grid>
       </Grid>
       <hr height={3} />
-      {/* <div dangerouslySetInnerHTML={ { __html: Data[0]?.html_data}}>
+      <div dangerouslySetInnerHTML={ { __html: Data?.rpl}}>
 
-      </div> */}
+      </div>
       <Modal
         show={open}
         onHide={() => {

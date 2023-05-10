@@ -60,9 +60,9 @@ const GetData = () => {
     (resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(resp.data.data[0])
+          console.log(resp.data)
        
-          setData(resp.data.data);
+          setData(resp.data.result);
         }
       }
     }
@@ -74,8 +74,8 @@ useEffect(() => {
 
 const formik = useFormik({
   initialValues: {
-    document_title: Data[0]?.document_title?Data[0]?.document_title:"",
-    description: Data[0]?.description?Data[0]?.description:"",
+    document_title: Data?.document_title?Data?.document_title:"",
+    description: Data?.description?Data?.description:"",
     id: id,
     html: "",
   },
@@ -93,7 +93,7 @@ const formik = useFormik({
     setTimeout(() => {
       ExportDocument.documentUpdate(values)
         .then((resp) => {
-          console.log(resp);
+          console.log({resp});
           if (resp.data.message=="Update document successfully") {
           toast.success("Document updated successfully", {
             position: "top-right",
@@ -221,29 +221,26 @@ useEffect(() => {
           <Grid ml={5}  xs={4}>
           <Grid container  mt={2} >
           <Grid  xs={2}>
-          <DragDropButton title={"{{ Name }}"}  label={"Name "}editor={editorRef.current} />
+          <DragDropButton title={"{{name}}"}  label={"Name "}editor={editorRef.current} />
             </Grid>
           <Grid  xs={5}>
-          <DragDropButton title={"{{Product Name }}"}  label={"Product Name "}editor={editorRef.current} />
+          <DragDropButton title={"{{email}}"}  label={"Email"}editor={editorRef.current} />
             </Grid>
           <Grid  xs={4}>
-          <DragDropButton title={"{{Address}}"}  label={"Address"}editor={editorRef.current} />
+          <DragDropButton title={"{{address}}"}  label={"Address"}editor={editorRef.current} />
             </Grid>
           <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{Logo}}"}  label={"Logo"}editor={editorRef.current} />
+          <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"}editor={editorRef.current} />
             </Grid>
           <Grid  mt={2} xs={4}>
-          <DragDropButton title={"NDS 5"}  label={"Image"}editor={editorRef.current} />
+          <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "}editor={editorRef.current} />
             </Grid>
           <Grid mt={2} xs={5}>
-          <DragDropButton title={"{{Modules Name}}"}  label={"Modules Name"}editor={editorRef.current} />
+          <DragDropButton title={"{{business_email}}"}  label={"Business Email "}editor={editorRef.current} />
           {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef.current} /> */}
             </Grid>
-            <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{ Mobile }}"}  label={"Mobile "}editor={editorRef.current} />
-            </Grid>
-            <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{ email }}"}  label={"Email "}editor={editorRef.current} />
+            <Grid mt={2} xs={4}>
+          <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"}editor={editorRef.current} />
             </Grid>
             </Grid>
             </Grid>
@@ -251,7 +248,7 @@ useEffect(() => {
         <Editor
           ref={editorRef}
          onInit={(evt, editor) => editorRef.current = editor}
-         initialValue={Data[0]?.html_data}
+         initialValue={Data?.html_data}
          apiKey='6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u'
          init={{
           plugins: 'preview',

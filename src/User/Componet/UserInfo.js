@@ -6,7 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Futer from "../../commenComponet/Futer";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -16,23 +16,46 @@ import ExportUser from "../../Api/Admin/handleUser/ExportUser";
 const UserInfo = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [DataUser, setDataUser] = useState(JSON.parse(localStorage.getItem("userdata")));
+  const [Data, setData] = useState([])
+  const GetData = () => {
+    let obj={
+      user_id:DataUser.user_id
+  
+    }
+    ExportUser.GetEditData(obj).then(
+      (resp) => {
+        if (resp.ok) {
+          if (resp.data) {
+            let obj={...resp?.data?.data?.user, ...resp.data.data.business
+            }
+            console.log("user",obj)
+            setData(obj);
+          }
+        }
+      }
+    );
+  }
+  useEffect(() => {
+    GetData()
+  }, [])
   const formik = useFormik({
     initialValues: {
-      name: "",
-      email: "",
+      name:Data?.name?Data.name: "",
+      email: Data?.email?Data.email: "",
       // Password: "",
-      mobile_number: "",
+      mobile_number: Data?.mobile_number?Data.mobile_number: "",
       id: DataUser.user_id,
-      payment_card: "",
-      business_name: "",
-      business_type: "",
-      business_email: "",
-      business_addres: "",
-      business_phone_no: "",
-      states_operating_in: "",
-      abn_name: "",
-      registered_abn_name: "",
-      trading_name: "",
+      role_id: DataUser?.role,
+      payment_card: Data?.payment_card?Data.payment_card: "",
+      business_name: Data?.business_name?Data.business_name: "",
+      business_type: Data?.business_type?Data.business_type: "",
+      business_email: Data?.business_email?Data.business_email: "",
+      business_address: Data?.business_address?Data.business_address: "",
+      business_phone_no: Data?.business_phone_no?Data.business_phone_no: "",
+      states_operating_in: Data?.states_operating_in?Data.states_operating_in: "",
+      abn_name: Data?.abn_name?Data.abn_name: "",
+      registered_abn_name: Data?.registered_abn_name?Data.registered_abn_name: "",
+      trading_name: Data?.trading_name?Data.trading_name: "",
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -51,8 +74,10 @@ const UserInfo = () => {
         ExportUser.userUpdate(values)
           .then((resp) => {
             console.log(resp);
-            if (resp.data.message=="create document successfully") {
-            toast.success("Document Created successfully", {
+            if (resp.data.msg=="updated successfully") {
+              setModalShow(false)
+              GetData()
+            toast.success("Profile updated successfully", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -119,13 +144,13 @@ const UserInfo = () => {
             Name
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
-            Lucy
+            {Data?.name}
           </Typography>
           <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
             ID
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
-            0012WQ12
+            {Data?.user_id}
           </Typography>
           <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
             Password
@@ -137,25 +162,19 @@ const UserInfo = () => {
             Email
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
-            Lucy@gmail.com
+            {Data?.email}
           </Typography>
           <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
             Mobile
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
-            +61 123 456 7890
-          </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
-            Mobile
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-            +61 123 456 7890
+          {Data?.mobile_number}
           </Typography>
           <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
             Payment Card
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
-            Mastercard ending in 0000
+          {Data?.payment_card?Data?.payment_card:"Mastercard ending in 0000"}
           </Typography>
         </Grid>
         <Grid ml={4} item xs={2.5}>
@@ -239,6 +258,10 @@ const UserInfo = () => {
         </Modal.Header>
         <Modal.Body>
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <Typography mt={2}mb={2} ml={6} sx={{ fontSize: "30px" }}>
+          Personal information
+          </Typography>
+          <hr/>
             <Box mt={3}>
               <TextField
                 fullWidth
@@ -342,6 +365,10 @@ const UserInfo = () => {
                 </div>
               ) : null}
             </Box>
+            <Typography mt={3}mb={2} ml={6} sx={{ fontSize: "30px" }}>
+            Business information
+          </Typography>
+          <hr/>
             <Box mt={3}>
               <TextField
                 fullWidth

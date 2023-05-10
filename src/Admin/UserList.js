@@ -19,7 +19,9 @@ import { toast } from "react-toastify";
 export default function UserList() {
   const [UserData, setUserData] = useState();
   const [UserDataEdit, setUserDataEdit] = useState();
+  const [userId, setuserId] = useState();
   const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow1, setModalShow1] = React.useState(false);
   const Navigate = useNavigate();
   const GetData = () => {
     ExportUser.UserAll().then((resp) => {
@@ -62,7 +64,7 @@ export default function UserList() {
       ExportUser.userUpdate(values)
       .then((resp) => {
         console.log(resp);
-        if (resp.data.message=="Data save update successfully") {
+        if (resp.data.msg=="updated successfully") {
           GetData()
           setModalShow(false)
         toast.success("User updated successfully", {
@@ -105,11 +107,29 @@ export default function UserList() {
   });
   const hendleEditUser = (val) => {
     setUserDataEdit(val);
-
     setTimeout(() => {
       setModalShow(true);
     });
   };
+  const hendleUserDelete = (val) => {
+    setuserId(val);
+    setTimeout(() => {
+      setModalShow1(true);
+    });
+  };
+  const hendleDeleteUser=()=>{
+    ExportUser.userDelete(userId).then((resp) => {
+      if (resp.ok) {
+        if (resp.data) {
+          if(resp.data.message=="the record has deleted"){
+            GetData()
+               setModalShow1(false)
+          }
+          // setUserData(resp.data.data);
+        }
+      }
+    });
+  }
   return (
     <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -155,7 +175,7 @@ export default function UserList() {
                         sx={{ color: "#0CB4D0" }}
                       />{" "}
                       &nbsp;
-                      <DeleteIcon sx={{ color: "red" }} />{" "}
+                      <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}
                     </td>
                     <td
                       onClick={() => Navigate("/UserActionView")}
@@ -299,6 +319,44 @@ export default function UserList() {
         <Modal.Footer>
           {/* <Button onClick={props.onHide}>Close</Button> */}
         </Modal.Footer>
+      </Modal>
+      <Modal
+        show={modalShow1}
+        onHide={() => setModalShow1(false)}
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+           Delete User  ?
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure want to Delete this user ?</p>
+          <Grid container spacing={4} mt={2}>
+          <Grid xl={1}> </Grid>
+            <Grid xl={5}>  <Button
+                type="button"
+                sx={{ marginLeft: "10px",color:"white",backgroundColor:"red" }}
+                // className={"A1"}
+                variant="contained"
+                onClick={()=>{hendleDeleteUser()}}
+              >
+                Delete
+              </Button></Grid>
+            <Grid xl={6}>
+              <Button
+                type="button"
+                sx={{ marginLeft: "10px" }}
+                onClick={()=>{setModalShow1(false)}}
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
       </Modal>
     </div>
   );

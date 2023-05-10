@@ -185,29 +185,26 @@ export default function CreateDocuments() {
           <Grid ml={3}  xs={4}>
           <Grid container  mt={2} >
           <Grid  xs={2}>
-          <DragDropButton title={"{{ Name }}"}  label={"Name "}editor={editorRef.current} />
+          <DragDropButton title={"{{name}}"}  label={"Name "}editor={editorRef.current} />
             </Grid>
           <Grid  xs={5}>
-          <DragDropButton title={"{{Product Name }}"}  label={"Product Name "}editor={editorRef.current} />
+          <DragDropButton title={"{{email}}"}  label={"Email"}editor={editorRef.current} />
             </Grid>
           <Grid  xs={4}>
-          <DragDropButton title={"{{Address}}"}  label={"Address"}editor={editorRef.current} />
+          <DragDropButton title={"{{address}}"}  label={"Address"}editor={editorRef.current} />
             </Grid>
           <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{Logo}}"}  label={"Logo"}editor={editorRef.current} />
+          <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"}editor={editorRef.current} />
             </Grid>
           <Grid  mt={2} xs={4}>
-          <DragDropButton title={"NDS 5"}  label={"Image"}editor={editorRef.current} />
+          <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "}editor={editorRef.current} />
             </Grid>
           <Grid mt={2} xs={5}>
-          <DragDropButton title={"{{Modules Name}}"}  label={"Modules Name"}editor={editorRef.current} />
+          <DragDropButton title={"{{business_email}}"}  label={"Business Email "}editor={editorRef.current} />
           {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef.current} /> */}
             </Grid>
-            <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{ Mobile }}"}  label={"Mobile "}editor={editorRef.current} />
-            </Grid>
-            <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{ email }}"}  label={"Email "}editor={editorRef.current} />
+            <Grid mt={2} xs={4}>
+          <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"}editor={editorRef.current} />
             </Grid>
             </Grid>
             </Grid>

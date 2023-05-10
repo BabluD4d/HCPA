@@ -9,15 +9,22 @@ const UserAll = (obj) =>
           "Content-Type": "application/json",
         },
       });
-const documentGetEditData = (obj) =>
-    BaseApi.get("document/edit",obj,{
+const GetEditData = (obj) =>
+    BaseApi.get("profile/edit",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
         },
       });
 const userUpdate = (obj) =>
-    BaseApi.put("user/update",obj,{
+    BaseApi.put("profile/update",obj,{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
+const userDelete = (obj) =>
+    BaseApi.delete("user/delete/"+obj,{},{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
@@ -27,6 +34,7 @@ const userUpdate = (obj) =>
 export default {
     // CreateGuid,
     UserAll,
-    documentGetEditData,
-    userUpdate
+    GetEditData,
+    userUpdate,
+    userDelete
 }
