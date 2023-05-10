@@ -46,7 +46,7 @@ export default function UserList() {
         ? UserDataEdit?.mobile_number
         : "",
       status: UserDataEdit?.status ? UserDataEdit.status : "",
-      role_id: 3,
+      // role_id: 3,
     },
     enableReinitialize: true,
     validationSchema: Yup.object({
@@ -61,10 +61,10 @@ export default function UserList() {
     }),
     onSubmit: (values) => {
       // CoustomRegistration(values, "Registration")
-      ExportUser.userUpdate(values)
+      ExportUser.userUpdateUserList(values)
       .then((resp) => {
         console.log(resp);
-        if (resp.data.msg=="updated successfully") {
+        if (resp.data.message=="the record has updated") {
           GetData()
           setModalShow(false)
         toast.success("User updated successfully", {

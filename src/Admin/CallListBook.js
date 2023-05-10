@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PersonIcon from "@mui/icons-material/Person";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
@@ -17,6 +17,7 @@ import {
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
+import ExportBookCall from '../Api/Admin/BookCallList/ExportBookCall';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#0CB4D0",
@@ -49,6 +50,22 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 export default function CallListBook() {
+  const [Data, setData] = useState([])
+  const GetData = () => {
+    ExportBookCall.BooKCallListtAll().then(
+      (resp) => {
+        if (resp.ok) {
+          if (resp.data) {
+            console.log(resp.data)
+            setData(resp.data.result);
+          }
+        }
+      }
+    );
+  }
+  useEffect(() => {
+    GetData()
+  }, [])
   return (
           <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -59,27 +76,31 @@ export default function CallListBook() {
               <Grid item xs={2}>
                 </Grid>
               <Grid item xs={8}>
-         <TableContainer component={Paper}>
+              <TableContainer component={Paper}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
                   <StyledTableCell>User Name </StyledTableCell>
-                  <StyledTableCell align="right">Date </StyledTableCell>
+                  <StyledTableCell align="right">Email </StyledTableCell>
+                  <StyledTableCell align="right">Mobile</StyledTableCell>
+                  <StyledTableCell align="right">Date</StyledTableCell>
                   <StyledTableCell align="right">Time</StyledTableCell>
+                  <StyledTableCell align="right">Call Type</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {Data?.map((row) => (
                   <StyledTableRow key={row.name}>
                     <StyledTableCell component="th" scope="row">
-                      {row.name}
+                      {row.full_name}
                     </StyledTableCell>
                     <StyledTableCell align="right">
-                      {row.calories}
+                      {row.email}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                    {/* <StyledTableCell align="right">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
+                    <StyledTableCell align="right">{row.contact_number}</StyledTableCell>
+                    <StyledTableCell align="right">{row.date}</StyledTableCell>
+                    <StyledTableCell align="right">{row.time}</StyledTableCell>
+                    <StyledTableCell align="right">{row.call_type}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

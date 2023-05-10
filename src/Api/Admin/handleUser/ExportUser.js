@@ -23,6 +23,13 @@ const userUpdate = (obj) =>
           "Content-Type": "application/json",
         },
       });
+const userUpdateUserList = (obj) =>
+    BaseApi.put("user/update",obj,{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
 const userDelete = (obj) =>
     BaseApi.delete("user/delete/"+obj,{},{
         headers: {
@@ -36,5 +43,6 @@ export default {
     UserAll,
     GetEditData,
     userUpdate,
+    userUpdateUserList,
     userDelete
 }

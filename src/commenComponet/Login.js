@@ -19,6 +19,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../img/title.svg'
 import { CoustomLogin } from '../Api/Auth/Login/CoustomLogin';
 import ExportLogin from '../Api/Auth/Login/ExportLogin';
+import { toast, ToastContainer } from 'react-toastify';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -53,11 +54,24 @@ export default function SignIn() {
     //  console.log(CoustomLogin(values,"Login"))
     ExportLogin.Login(values)
         .then((resp) => {
+          console.log(resp.data.message)
+          if(resp.data.message=="Credentials are wrong"){
+            toast.error("Credentials are wrong", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+          }else{
+
             if (resp.data.data) {
                 localStorage.setItem("Token", resp.data.data.token);
                 localStorage.setItem("userdata", JSON.stringify(resp.data.data));
                 localStorage.setItem("role", resp.data.data.role);
-                console.log(resp.data.data)
                 if(resp.data.data.role==1||resp.data.data.role==2){
                    Navigate('/Admin')
                 }else{
@@ -65,13 +79,37 @@ export default function SignIn() {
                 }
 
             }
+          }
         })
+        .catch((err) =>
+        toast.error("Something went rong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
     },
   });
 
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
+        <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            />
         <CssBaseline />
         <Box
           sx={{

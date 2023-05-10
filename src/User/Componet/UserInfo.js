@@ -125,7 +125,7 @@ const UserInfo = () => {
           <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
             Profile
           </Typography>
-        </Grid>
+        </Grid> 
         <Grid item xs={9}></Grid>
         <Grid mt={4} item xs={2}>
           <Button onClick={() => setModalShow(true)} className="Edit" variant="outlined">
