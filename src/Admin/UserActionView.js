@@ -13,7 +13,6 @@ export const UserActionView = () => {
         Name : User
       </Typography>
       <hr height={3} />
-
       <div>
         <Grid container spacing={2}>
           <Grid item xs={1}>

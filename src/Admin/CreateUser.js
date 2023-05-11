@@ -16,18 +16,18 @@ export default function CreateUser() {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(8, "Password must be 8 characters long")
+        .min(6, "Password must be 6 characters long")
         .required("Enter your password"),
       email: Yup.string()
         .email("Please enter valid email address")
         .required("Enter your email"),
       name: Yup.string()
         .required("Enter your name"),
-      mobile_number: Yup.number()
+      mobile_number: Yup.string()
         .required("Enter your Mobile Number"),
     }),
     onSubmit: (values) => {
-      CoustomRegistration(values, "Registration")
+      CoustomRegistration(values, "Registration",Navigate)
     },
   });
   return (
@@ -113,7 +113,7 @@ export default function CreateUser() {
                 }}
                 variant="filled"
                 name="mobile_number"
-                type="number"
+                type="text"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.mobile_number}

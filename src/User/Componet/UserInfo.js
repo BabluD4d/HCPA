@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { Modal } from "react-bootstrap";
 import ExportUser from "../../Api/Admin/handleUser/ExportUser";
+import EditProfil from "../../Admin/EditProfil";
 const UserInfo = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [DataUser, setDataUser] = useState(JSON.parse(localStorage.getItem("userdata")));
@@ -118,7 +119,8 @@ const UserInfo = () => {
     },
   });
   return (
-    <div>
+    <>
+    <div style={{height:"90vh",overflow:"auto"}}>
       <Grid container spacing={4}>
         <Grid item xs={1}>
           {" "}
@@ -128,485 +130,120 @@ const UserInfo = () => {
         </Grid> 
         <Grid item xs={9}></Grid>
         <Grid mt={4} item xs={2}>
-          <Button onClick={() => setModalShow(true)} className="Edit" variant="outlined">
+          <Button onClick={() => setModalShow(!modalShow)} className="Edit" variant="outlined">
             Edit Profile
           </Button>
         </Grid>
       </Grid>
       <hr height={3} />
-      <Grid container spacing={2}>
+      
+      {modalShow? <EditProfil setModalShow={setModalShow} GetData={GetData} Data={Data} />:<Grid container spacing={2}>
         <Grid item xs={2.5}>
           {" "}
           <Typography mt={4} ml={6} sx={{ fontSize: "24px" }}>
             Personal information
           </Typography>
-          <Typography mt={1.5} ml={6} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.5} ml={6} sx={{ fontSize: "20px" }}>
             Name
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
             {Data?.name}
           </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
             ID
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
             {Data?.user_id}
           </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
+          {/* <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
             Password
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
             ********
-          </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
+          </Typography> */}
+          <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
             Email
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
             {Data?.email}
           </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
             Mobile
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
           {Data?.mobile_number}
           </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "18px" }}>
+          {/* <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
             Payment Card
           </Typography>
           <Typography ml={6} sx={{ fontSize: "16px" }}>
           {Data?.payment_card?Data?.payment_card:"Mastercard ending in 0000"}
-          </Typography>
+          </Typography> */}
         </Grid>
         <Grid ml={4} item xs={2.5}>
           <Typography mt={4} ml={4} sx={{ fontSize: "24px" }}>
             Business information
           </Typography>
-          <Typography mt={1.5} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.5} pl={7} sx={{ fontSize: "20px" }}>
             {" "}
             Busines Name
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            Yolop
+          {Data?.business_name}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             Busines Type
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            An ABN
+          {Data?.business_type}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             Busines Address
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            West NSW
+           {Data?.business_address}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             Busines Email
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            Lucy@gmail.com
+          {Data?.business_email}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
-            Mobile
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-            +61 123 456 7890
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             Busines Phone Number
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            +61 123 456 7890
+          {Data?.business_phone_no}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             States Operating In
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            Mastercard ending in 0000
+          {Data?.states_operating_in}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             ABN Name
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            Yolop
+          {Data?.abn_name}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             Legal RegistrationABN Name
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            Yolop
+          {Data?.registered_abn_name}
           </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "18px" }}>
+          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
             Trading Name
           </Typography>
           <Typography pl={7} sx={{ fontSize: "16px" }}>
-            Yolop
+          {Data?.trading_name}
           </Typography>
         </Grid>
-      </Grid>
-      <Modal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Edit Profile
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-          <Typography mt={2}mb={2} ml={6} sx={{ fontSize: "30px" }}>
-          Personal information
-          </Typography>
-          <hr/>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Name"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                name="name"
-                variant="filled"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-              />
-              {formik.touched.name && formik.errors.name ? (
-                <div style={{ color: "red" }}>{formik.errors.name}</div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Email"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="email"
-                // autoFocus
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <div style={{ color: "red" }}>{formik.errors.email}</div>
-              ) : null}
-            </Box>
-            {/* <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Password"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                autoComplete="current-password"
-              />
-              {formik.touched.password && formik.errors.password ? (
-                <div style={{ color: "red" }}>{formik.errors.password}</div>
-              ) : null}
-            </Box> */}
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Mobile"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="mobile_number"
-                type="number"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.mobile_number}
-                autoComplete="current-number"
-              />
-              {formik.touched.mobile_number && formik.errors.mobile_number ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.mobile_number}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Payment Card"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="payment_card"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.payment_card}
-                autoComplete="current-text"
-              />
-              {formik.touched.payment_card && formik.errors.payment_card ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.payment_card}
-                </div>
-              ) : null}
-            </Box>
-            <Typography mt={3}mb={2} ml={6} sx={{ fontSize: "30px" }}>
-            Business information
-          </Typography>
-          <hr/>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Busines Name"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="business_name"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.business_name }
-                autoComplete="current-text"
-              />
-              {formik.touched.business_name  && formik.errors.business_name  ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.business_name }
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Busines Type"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="business_type"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.business_type}
-                autoComplete="current-text"
-              />
-              {formik.touched.business_type && formik.errors.business_type ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.business_type}
-                </div>
-              ) : null}
-            </Box>
-            {/* <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Busines Email"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="business_email"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.business_email}
-                autoComplete="current-text"
-              />
-              {formik.touched.business_email && formik.errors.business_email ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.business_email}
-                </div>
-              ) : null}
-            </Box> */}
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Busines Email"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="business_email"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.business_email}
-                autoComplete="current-text"
-              />
-              {formik.touched.business_email && formik.errors.business_email ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.business_email}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Busines Address"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="business_addres"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.business_addres}
-                autoComplete="current-text"
-              />
-              {formik.touched.business_addres && formik.errors.business_addres ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.business_addres}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Busines Phone Number"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="business_phone_no"
-                type="number"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.business_phone_no}
-                autoComplete="current-number"
-              />
-              {formik.touched.business_phone_no && formik.errors.business_phone_no ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.business_phone_no}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="States Operating"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="states_operating_in"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.states_operating_in}
-                autoComplete="current-text"
-              />
-              {formik.touched.states_operating_in && formik.errors.states_operating_in ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.states_operating_in}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="ABN Name"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="abn_name"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.abn_name}
-                autoComplete="current-text"
-              />
-              {formik.touched.abn_name && formik.errors.abn_name ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.abn_name}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Legal RegistrationABN Name"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="registered_abn_name"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.registered_abn_name}
-                autoComplete="current-text"
-              />
-              {formik.touched.registered_abn_name && formik.errors.registered_abn_name ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.registered_abn_name}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Trading Name"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="trading_name"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.trading_name}
-                autoComplete="current-text"
-              />
-              {formik.touched.trading_name && formik.errors.trading_name ? (
-                <div style={{ color: "red" }}>
-                  {formik.errors.trading_name}
-                </div>
-              ) : null}
-            </Box>
-            <Box mt={5}>
-              <Button
-                sx={{ marginLeft: "10px" }}
-                type="submit"
-                className={"A1"}
-                variant="contained"
-              >
-                Update
-              </Button>
-            </Box>
-          </Box>
-        </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
-      </Modal>
-      <Futer />
+      </Grid>}
     </div>
+      <Futer />
+    </>
   );
 };
 

@@ -129,7 +129,8 @@ const Sidebar = () => {
                           loaction.pathname == "/UserActionView" ||
                           loaction.pathname == "/UserAnsView" ||
                           loaction.pathname == "/CreateUser" ||
-                          loaction.pathname == "/ActiveModuleByUser"
+                          loaction.pathname == "/ActiveModuleByUser"||
+                          loaction.pathname.includes("/UserList/")
 
                           ? "active"
                           : ""
@@ -147,7 +148,8 @@ const Sidebar = () => {
                                 loaction.pathname == "/UserActionView"
                                 || loaction.pathname == "/ActiveModuleByUser"
                                 || loaction.pathname == "/CreateUser"
-                                || loaction.pathname == "/UserAnsView"
+                                || loaction.pathname == "/UserAnsView"||
+                                loaction.pathname.includes("/UserList/")
                                 ? "active"
                                 : ""
                             }
@@ -442,7 +444,7 @@ const Sidebar = () => {
                           loaction.pathname == "/UserActionView" ||
                           loaction.pathname == "/UserAnsView" ||
                           loaction.pathname == "/CreateUser" ||
-                          loaction.pathname == "/ActiveModuleByUser"
+                          loaction.pathname == "/ActiveModuleByUser"||loaction.pathname.includes("/UserList/")
                           ? "active"
                           : ""
                       }
@@ -459,7 +461,7 @@ const Sidebar = () => {
                                 loaction.pathname == "/UserActionView" ||
                                 loaction.pathname == "/UserAnsView" ||
                                 loaction.pathname == "/CreateUser" ||
-                                loaction.pathname == "/ActiveModuleByUser"
+                                loaction.pathname == "/ActiveModuleByUser"||loaction.pathname.includes("/UserList/")
                                 ? "active"
                                 : ""
                             }

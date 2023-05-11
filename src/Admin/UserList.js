@@ -57,7 +57,7 @@ export default function UserList() {
         .email("Please enter valid email address")
         .required("Enter your email"),
       name: Yup.string().required("Enter your name"),
-      mobile_number: Yup.number().required("Enter your Mobile Number"),
+      mobile_number: Yup.string().required("Enter your Mobile Number"),
     }),
     onSubmit: (values) => {
       // CoustomRegistration(values, "Registration")
@@ -167,18 +167,20 @@ export default function UserList() {
                     <td>{val.email}</td>
                     <td>{val.mobile_number}</td>
                     <td>{val.status == "1" ? "Active" : "..."}</td>
-                    <td>
-                      <EditIcon
+                    <td>{val.id==1?"No Action":<>  <EditIcon
                         onClick={() => {
                           hendleEditUser(val);
                         }}
                         sx={{ color: "#0CB4D0" }}
                       />{" "}
                       &nbsp;
-                      <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}
+                      <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}</>}
+                    
                     </td>
                     <td
-                      onClick={() => Navigate("/UserActionView")}
+                      onClick={() => {setTimeout(() => {
+                        localStorage.setItem("UserProduct_id",val.id)
+                      });;Navigate("/UserList/product/active")}}
                       style={{ color: "#0CB4D0", cursor: "pointer" }}
                     >
                       {" "}
@@ -292,7 +294,7 @@ export default function UserList() {
                 }}
                 variant="filled"
                 name="mobile_number"
-                type="number"
+                type="text"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.mobile_number}

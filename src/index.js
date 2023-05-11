@@ -46,6 +46,8 @@ import ChecklistPriveiw from './commenComponet/ChecklistPriveiw';
 import EditChecklis from './Admin/EditChecklis';
 import CreateRegistrationGuides from './Admin/CreateRegistrationGuides';
 import UserDeshboard from './Admin/UserDeshboard';
+import UserActiveProductList from './Admin/UserActiveProductList';
+import UserActiveModule from './Admin/UserActiveModule';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
@@ -79,6 +81,8 @@ root.render(
               <Route exact path="/UserDeshboard" element={<UserDeshboard />} />
               <Route exact path="/DashBoard" element={<AdminDashBoard />} />
               <Route exact path="/UserList" element={<UserList />} />
+              <Route exact path="/UserList/product/active" element={<UserActiveProductList />} />
+              <Route exact path="/UserList/module/active" element={<UserActiveModule />} />
               <Route exact path="/Productlist" element={<Product />} />
               <Route exact path="/Productlist/cretechalist" element={<CreateCheckList />} />
               <Route exact path="/checklist/Edit/:id" element={<EditChecklis />} />
