@@ -25,9 +25,11 @@ import SaveAsIcon from "@mui/icons-material/SaveAs";
 import PhoneIcon from "@mui/icons-material/Phone";
 import ClearIcon from "@mui/icons-material/Clear";
 import PeopleIcon from '@mui/icons-material/People';
+import ExportProduct from "../Api/user/Product/ExportProduct";
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
   const [Count, setCount] = useState(0);
+  const [ProductData, setProductData] = useState([]);
   const [hideShow, sethideShow] = useState(false);
   const [Admin, setAdmin] = useState(false);
   const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata")));
@@ -43,10 +45,8 @@ const Sidebar = () => {
     // setCount(Count + 1);
     sethideShow(false)
   };
-  // useEffect(() => {
-  //   console.log("first",ref.current ? ref.current.offsetWidth : 0)
-  // }, [ref?.current?.offsetWidth])
   useEffect(() => {
+    GetData()
     setData(JSON.parse(localStorage.getItem("userdata")))
     console.log(JSON.parse(localStorage.getItem("userdata")))
     window.addEventListener("Togle", () => sethideShow(true));
@@ -63,6 +63,21 @@ const Sidebar = () => {
     // }
   }, [])
 
+  const GetData = () => {
+     let obj = {
+      user_id: Data.user_id,
+    };
+    // alert(Data.user_id)
+    ExportProduct.ProductList(obj).then((resp) => {
+      if (resp.ok) {
+        console.log("hello",resp.data.data);
+        if (resp.data) {
+          setProductData(resp.data.data.product
+            );
+        }
+      }
+    });
+  };
   window.addEventListener("Admin", () => setTimeout(() => {
     setAdmin(!Admin)
   },));
@@ -302,8 +317,8 @@ const Sidebar = () => {
                       </AccordionSummary>
                       <AccordionDetails>
                         {/* <Typography className='pagestxt1' >NDIS</Typography> */}
-
-                        <ListItem
+                          {ProductData?.map((val,i)=><>
+                          {val.purchase_status=="1"? <ListItem
                           className={
                             loaction.pathname.includes("/Modelus") ? "active" : ""
                           }
@@ -313,18 +328,20 @@ const Sidebar = () => {
                           disablePadding
                         >
                           <ListItemButton sx={{ marginLeft: "33px" }}>
-                            <ListItemText primary={"NDIS"} />
+                            <ListItemText style={{paddingLeft:"9px"}} primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
+                        </ListItem>:<ListItem className="childA" disablePadding>
                           <ListItemButton>
                             <ListItemIcon>
                               <LockOpenIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"SDA"} />
+                            <ListItemText primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
+                        </ListItem>}
+                          </>)}
+                       
+                        
+                        {/* <ListItem className="childA" disablePadding>
                           <ListItemButton>
                             <ListItemIcon>
                               <LockOpenIcon />
@@ -347,7 +364,7 @@ const Sidebar = () => {
                             </ListItemIcon>
                             <ListItemText primary={"Vaccines"} />
                           </ListItemButton>
-                        </ListItem>
+                        </ListItem> */}
                       </AccordionDetails>
                     </Accordion>
                   </>}
@@ -613,7 +630,8 @@ const Sidebar = () => {
                         </ListItem>
                       </AccordionSummary>
                       <AccordionDetails>
-                        <ListItem
+                      {ProductData?.map((val,i)=><>
+                          {val.purchase_status=="1"? <ListItem
                           className={
                             loaction.pathname.includes("/Modelus") ? "active" : ""
                           }
@@ -623,10 +641,18 @@ const Sidebar = () => {
                           disablePadding
                         >
                           <ListItemButton sx={{ marginLeft: "33px" }}>
-                            <ListItemText primary={"NDIS"} />
+                            <ListItemText style={{paddingLeft:"9px"}} primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
+                        </ListItem>:< ListItem className="childA" disablePadding>
+                          <ListItemButton >
+                            <ListItemIcon  >
+                              <LockOpenIcon className="IList"/>
+                            </ListItemIcon>
+                            <ListItemText primary={val.product_name} />
+                          </ListItemButton>
+                        </ListItem>}
+                          </>)}
+                        {/* <ListItem className="childA" disablePadding>
                           <ListItemButton>
                             <ListItemIcon>
                               <LockOpenIcon />
@@ -657,7 +683,7 @@ const Sidebar = () => {
                             </ListItemIcon>
                             <ListItemText primary={"Vaccines"} />
                           </ListItemButton>
-                        </ListItem>
+                        </ListItem> */}
                       </AccordionDetails>
                     </Accordion>
                   </>}

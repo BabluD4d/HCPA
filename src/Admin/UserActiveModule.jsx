@@ -26,6 +26,7 @@ import {
   import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Table } from 'react-bootstrap';
 import ExportModiles from '../Api/Admin/Modules/ExportModiles';
+import Exportpurchaselist from '../Api/Admin/purchaselist/Exportpurchaselist';
 const theme = createTheme({
     components: {
       MuiSwitch: {
@@ -48,13 +49,12 @@ export default function UserActiveModule() {
     const Navigate = useNavigate()
     const [Data, setData] = useState()
     const GetData = () => {
+      // alert(Product.id)
         let obj = {
-          order: "asc",
-          limit: 10,
-          page: 1,
-          products_id: Product.products_id,
+          user_id: localStorage.getItem("UserProduct_id"),
+          product_id: Product.id,
         };
-        ExportModiles.ModuilesAll(obj).then((resp) => {
+        Exportpurchaselist.purchaselistModule(obj).then((resp) => {
           if (resp.ok) {
             // console.log(resp.data.data);
             if (resp.data.data[0]) {
@@ -66,6 +66,58 @@ export default function UserActiveModule() {
     useEffect(() => {
         GetData()
       }, [])
+      const Hendlestuts = (value,id) => {
+        let obj = {
+          user_id: localStorage.getItem("UserProduct_id"),
+          // products_id: Product.products_id, 
+          module_id:id,
+          status:value
+        };
+        // console.log(value)
+        Exportpurchaselist.purchaselistmoduletHendle(obj).then((resp) => {
+          if (resp.ok) {
+            console.log(resp.data);
+            if (resp.data.message == "module deactive") {
+              toast.success('Module  deactive successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              GetData()
+              // Navigate('/Productlist')
+            }else if(resp.data.message == " module active"){
+              toast.success('Module  active successfully', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+              GetData()
+            }
+             else {
+              toast.error('Something went rong', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            }
+          }
+        });
+      };
   return (
     <div>
        <div>
@@ -112,7 +164,8 @@ export default function UserActiveModule() {
                     <td>{item.module_name}</td>
                     <td>    <ThemeProvider theme={theme}>
            {/* <Switch onChange={()=>props?.onChangeHendle(props.item)}  checked={props.status=="true"?true:false}    /> */}
-           <Switch    />
+           <Switch onChange={()=>Hendlestuts(!item.purchase_status,item.id)} checked={item.purchase_status==0?false:true}  />
+
            </ThemeProvider>
                     </td>
 

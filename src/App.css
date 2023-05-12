@@ -87,8 +87,9 @@ p {
 }
 .childA {
   margin: 0 !important;
-  margin-left: 18px !important;
+  margin-left: 32px !important;
   padding: 0 !important;
+  padding-left: 30px;
 }
 .Purchase {
   background: linear-gradient(0deg, #e0e0e0, #e0e0e0),
@@ -132,6 +133,9 @@ body {
   flex-flow: column;
   align-items: center;
   justify-content: space-between;
+}
+.IList{
+  margin-left: 8px;
 }
 .check-background {
   width: 100%;

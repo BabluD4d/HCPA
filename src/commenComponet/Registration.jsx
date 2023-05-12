@@ -44,7 +44,7 @@ export default function Registration() {
                 .required("Enter your name"),
         }),
         onSubmit: (values) => {
-            CoustomRegistration(values, "Registration",Navigate)
+            CoustomRegistration(values, "RegistrationUser",Navigate)
         },
     });
     return (

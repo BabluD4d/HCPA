@@ -179,8 +179,9 @@ export default function UserList() {
                     </td>
                     <td
                       onClick={() => {setTimeout(() => {
-                        localStorage.setItem("UserProduct_id",val.id)
-                      });;Navigate("/UserList/product/active")}}
+                        
+                        Navigate("/UserList/product/active")
+                      });localStorage.setItem("UserProduct_id",val.id)}}
                       style={{ color: "#0CB4D0", cursor: "pointer" }}
                     >
                       {" "}
