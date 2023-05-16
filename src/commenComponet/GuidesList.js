@@ -7,7 +7,7 @@ const GuidesList = (props) => {
     <div style={{ marginLeft: "320px" }}>
       <Grid container spacing={2} mb={2}>
         <Grid mt={3} ml={4} item xs={6}>
-          {props.Stuts == 1 ? (
+          {props.Stuts == 2 ? (
             <p
               style={{
                 backgroundColor: "#1bbd1b",
@@ -20,7 +20,7 @@ const GuidesList = (props) => {
             >
               Completed
             </p>
-          ) : props.Stuts == 2 ? (
+          ) : props.Stuts == 1 ? (
             <p
               style={{
                 backgroundColor: "#0CB4D0",

@@ -28,12 +28,11 @@ import PeopleIcon from '@mui/icons-material/People';
 import ExportProduct from "../Api/user/Product/ExportProduct";
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
-  const [Count, setCount] = useState(0);
+  const [Count, setCount] = useState();
   const [ProductData, setProductData] = useState([]);
   const [hideShow, sethideShow] = useState(false);
   const [Admin, setAdmin] = useState(false);
-  const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata")));
-      
+  const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata"))); 
   const Navigate = useNavigate();
   const loaction = useLocation();
   const ref = useRef(null);
@@ -41,11 +40,22 @@ const Sidebar = () => {
     setExpanded(isExpanded ? panel : false);
   };
   const Activeclass = (item) => {
-    Navigate(item);
-    // setCount(Count + 1);
-    sethideShow(false)
+    if(item.includes("/Modelus")){
+      Navigate(item);
+      sethideShow(false)
+
+    }else{
+      // alert(2)
+      
+      localStorage.removeItem("activeProduct")
+      localStorage.removeItem("UserProduct")
+      Navigate(item);
+      setCount();
+      sethideShow(false)
+    }
   };
   useEffect(() => {
+    setCount(localStorage.getItem("activeProduct"))
     GetData()
     setData(JSON.parse(localStorage.getItem("userdata")))
     console.log(JSON.parse(localStorage.getItem("userdata")))
@@ -62,6 +72,13 @@ const Sidebar = () => {
     //   setAdmin(false)
     // }
   }, [])
+  useEffect(() => {
+    if(!loaction.pathname.includes("/Modelus")){
+      localStorage.removeItem("activeProduct")
+      localStorage.removeItem("UserProduct")
+      setCount();
+    }
+  }, [loaction.pathname])
 
   const GetData = () => {
      let obj = {
@@ -320,17 +337,28 @@ const Sidebar = () => {
                           {ProductData?.map((val,i)=><>
                           {val.purchase_status=="1"? <ListItem
                           className={
-                            loaction.pathname.includes("/Modelus") ? "active" : ""
+                            Count==val.id ? "active" : ""
                           }
                           onClick={() => {
-                            Activeclass("/Modelus");
+                            setCount(val.id)
+                            setTimeout(() => {
+                              Activeclass("/Modelus",val.id);
+                              window.dispatchEvent(new Event("activeProduct"))
+                            });
+                            localStorage.setItem("activeProduct",val.id)
+                            localStorage.setItem("UserProduct",JSON.stringify(val))
                           }}
                           disablePadding
                         >
                           <ListItemButton sx={{ marginLeft: "33px" }}>
                             <ListItemText style={{paddingLeft:"9px"}} primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>:<ListItem className="childA" disablePadding>
+                        </ListItem>:<ListItem onClick={()=>{
+                        setCount();
+                        localStorage.setItem("UserProduct",JSON.stringify(val));
+                        window.dispatchEvent(new Event("activeProduct"))
+                        Activeclass("/Modelus");
+                        }} className="childA" disablePadding>
                           <ListItemButton>
                             <ListItemIcon>
                               <LockOpenIcon />
@@ -632,18 +660,30 @@ const Sidebar = () => {
                       <AccordionDetails>
                       {ProductData?.map((val,i)=><>
                           {val.purchase_status=="1"? <ListItem
-                          className={
-                            loaction.pathname.includes("/Modelus") ? "active" : ""
-                          }
-                          onClick={() => {
-                            Activeclass("/Modelus");
+                         className={
+                          Count==val.id ? "active" : ""
+                        }
+                        onClick={() => {
+                          setCount(val.id)
+                          setTimeout(() => {
+                            window.dispatchEvent(new Event("activeProduct"))
+                          });
+                          localStorage.setItem("UserProduct",JSON.stringify(val))
+                          localStorage.setItem("activeProduct",val.id)
+                          Activeclass("/Modelus",val.id);
+
                           }}
                           disablePadding
                         >
                           <ListItemButton sx={{ marginLeft: "33px" }}>
                             <ListItemText style={{paddingLeft:"9px"}} primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>:< ListItem className="childA" disablePadding>
+                        </ListItem>:< ListItem onClick={()=>{
+                        setCount();
+                        localStorage.setItem("UserProduct",JSON.stringify(val));
+                        Activeclass("/Modelus");
+                        window.dispatchEvent(new Event("activeProduct"))
+                        }} className="childA" disablePadding>
                           <ListItemButton >
                             <ListItemIcon  >
                               <LockOpenIcon className="IList"/>

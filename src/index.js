@@ -72,7 +72,8 @@ root.render(
               <Route exact path="/Modelus/Document" element={<AllDocument />} />
               <Route exact path="/Modelus/CheckList" element={<CheckList />} />
               <Route exact path="/Modelus/Document/ViewDocument" element={<ViewDocument />} />
-              <Route exact path="/BookCall" element={<BookCall />} />
+              <Route exact path="/BookCall/:id" element={<BookCall />} />
+              <Route exact path="/BookCall/" element={<BookCall />} />
               <Route exact path="/Modelus/Guides" element={<RegistrationGuide />} />
             </Route>
             {/* admin */}

@@ -1,5 +1,5 @@
 import { Box, Button,  Grid, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductionQuantityLimitsSharpIcon from '@mui/icons-material/ProductionQuantityLimitsSharp';
 import ExitToAppSharpIcon from '@mui/icons-material/ExitToAppSharp';
 import ChecklistRtlSharpIcon from '@mui/icons-material/ChecklistRtlSharp';
@@ -14,25 +14,75 @@ import ModelusCardUnlook from '../../commenComponet/ModelusCardUnlook';
 import Moduleslook from '../../commenComponet/Moduleslook';
 import ChecklistCard from '../../commenComponet/ChecklistCard';
 import Futer from '../../commenComponet/Futer';
+import { ColorRing } from 'react-loader-spinner';
+import ExportProduct from '../../Api/user/Product/ExportProduct';
+import ExportModules from '../../Api/user/Modules/ExportModules';
+import { BaseUrlImage } from '../../Api/BaseApi';
 const Modelus = () => {
     const [first, setfirst] = useState(true)
     const [open, setOpen] = React.useState(false);
     const Navigate=useNavigate()
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [Product, setProduct] = useState(JSON.parse(localStorage.getItem("UserProduct")));
+    const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata"))); 
+    const [ModuleData, setModuleData] = useState(); 
+    const [RegistrationCurent, setRegistrationCurent] = useState(); 
+      useEffect(() => {
+        // setProduct(JSON.parse(localStorage.getItem("UserProduct")))
+        setTimeout(() => {
+            if(Product?.id){
+                ModulesList()
+            }else{
+                Navigate('/Home')
+            }
+
+        },1000);
+      }, [])
+      window.addEventListener("activeProduct", () => setTimeout(() => {
+        setProduct(JSON.parse(localStorage.getItem("UserProduct")))
+      },));
+      const ModulesList=()=>{
+
+        let obj={
+            user_id:Data?.user_id,
+            product_id: Product.id,         
+          }
+
+          ExportModules.ModulesList(obj).then(
+            (resp) => {
+              if (resp.ok) {
+                if (resp.data) {
+                //   let obj={...resp?.data?.data?.user, ...resp.data.data.business
+                //   }
+                setModuleData(resp.data.data)
+                  console.log("user123",resp.data.data)
+                  if(resp.data.data.registration_guid){
+                   let video=  resp.data.data.registration_guid.find((val,i)=>val.view_video==1)
+                   console.log({video})
+                   setRegistrationCurent(video)
+                  }
+                //   setData(obj);
+                }
+              }
+            }
+          );
+      }
+
     return (
-        <div style={{ width: "100%" }} >
-            <Typography mt={4} ml={6} sx={{ fontSize: "30px" }} >NDIS</Typography>
+        <>
+        {Product?  <div style={{ width: "100%" }} >
+            <Typography mt={4} ml={6} sx={{ fontSize: "30px" }} >{Product.product_name}</Typography>
             <div style={{ display: "flex" }}>
                 <Typography mt={1} ml={6} sx={{ fontSize: "14px", color: "#0CB4D0" }} >Product {" "}</Typography>
-                <Typography mt={1} sx={{ fontSize: "14px" }} > {" "} / {" "} NDIS</Typography>
+                <Typography mt={1} sx={{ fontSize: "14px" }} > {" "} / {" "}{Product.product_name}</Typography>
             </div>
             <hr height={3} />
-            {first ?
+            {Product.purchase_status==0 ?
                 <div>
                     <div >
-                        <h4 style={{ margin: "auto", paddingTop: "270px", textAlign: "center" }}>Purchase the product to get started with youe NDIS application </h4>
-                        <Button onClick={() => setfirst(false)} sx={{ marginLeft: "45%", marginTop: "20px", backgroundColor: "#0CB4D0" }} variant="contained"><ProductionQuantityLimitsSharpIcon />  Purchase  Product</Button>
+                        <h4 style={{ margin: "auto", paddingTop: "270px", textAlign: "center" }}>Purchase the product to get started with youe {Product.product_name} application </h4>
+                        <Button onClick={() =>Navigate("/BookCall/1") } sx={{ marginLeft: "45%", marginTop: "20px", backgroundColor: "#0CB4D0" }} variant="contained"><ProductionQuantityLimitsSharpIcon />  Purchase  Product</Button>
                     </div>
                 </div> :
                 <div>
@@ -91,12 +141,13 @@ const Modelus = () => {
                                 <Typography mt={3} ml={1} sx={{ color: "#0CB4D0", fontSize: "14px" ,cursor:"pointer" }} onClick={()=>Navigate("/Modelus/all")}>  View Modelus</Typography>
                             </div>
                             <Grid container spacing={2}>
-                                <ModelusCardUnlook size={4} Module={1} available={6} />
-                                <Moduleslook Module={2} available={6} size={4} />
-                                <Moduleslook Module={3} available={6} size={4} />
-                                <Moduleslook Module={4} available={6} size={4} />
-                                <Moduleslook Module={5} available={6} size={4} />
-                                <Moduleslook Module={6} available={6} size={4} />
+                                {ModuleData?.module.map((val,i)=>{
+                                    return<>
+                                    {val.purchase_status==1? <ModelusCardUnlook size={4} Module={val} available={6} />:
+                                    <Moduleslook Module={val} available={6} size={4} />
+                                    }
+                                    </>
+                                })}
                             </Grid>
                             <div style={{ display: "flex" }}>
                                 <Typography mt={2} ml={6} sx={{ fontSize: "20px", fontWeight: "bold" }} >Registration Guides</Typography>
@@ -118,9 +169,13 @@ const Modelus = () => {
                         <Grid mt={3} item sm={12} xl={3} lg={6} md={4} xs={12}>
                             <Typography mt={2} ml={2} sx={{ fontSize: "20px", fontWeight: "bold" }} >Checklist to Complete</Typography>
                             <Box mt={4} ml={2}>
-                                <ChecklistCard count={""} />
+                            {ModuleData?.checklist_guid.map((val,i)=>{
+                                    return<>
+                                    <ChecklistCard count={val} />
+                                    </>})}
+                                {/* <ChecklistCard count={""} />
                                 <ChecklistCard count={1} />
-                                <ChecklistCard count={2} />
+                                <ChecklistCard count={2} /> */}
                                 {/* <ChecklistCard count={3}/> */}
                                 {/* <ChecklistCard count={4}/> */}
                             </Box>
@@ -140,8 +195,10 @@ const Modelus = () => {
                             <ReactPlayer width={'100%'} height='100%' playing={true}
                                 muted={true}
                                 controls={true}
-                                url="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" />
+                                url={RegistrationCurent?.file_path?BaseUrlImage+RegistrationCurent?.file_path:RegistrationCurent?.video_link}
+                                 />
                         </div>
+                        {console.log(RegistrationCurent?.file_path?BaseUrlImage+RegistrationCurent?.file_path:RegistrationCurent?.video_link)}
                         <Grid container spacing={2} mb={1}>
                                 <Grid mt={3} item xs={6}>
                                     <div style={{ display: "flex" }}>
@@ -162,7 +219,23 @@ const Modelus = () => {
                     </Modal>
                     <Futer />
                 </div>}
-        </div>
+        </div>:   <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>}
+      
+        </>
     )
 }
 

@@ -273,17 +273,17 @@ export default function EditProfil(props) {
                   shrink: true,
                 }}
                 variant="filled"
-                name="business_addres"
+                name="business_address"
                 type="text"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.business_addres}
+                value={formik.values.business_address}
                 autoComplete="current-text"
               />
-              {formik.touched.business_addres &&
-              formik.errors.business_addres ? (
+              {formik.touched.business_address &&
+              formik.errors.business_address ? (
                 <div style={{ color: "red" }}>
-                  {formik.errors.business_addres}
+                  {formik.errors.business_address}
                 </div>
               ) : null}
             </Box>

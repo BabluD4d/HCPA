@@ -21,9 +21,9 @@ let params=useParams()
 const GetData = () => {
   let obj={
     id:params.id,
-    module_id: module.module_id,
-    products_id: Product.products_id,
-    user_id:DataUser.user_id
+    module_id: module?.module_id,
+    products_id: Product?.products_id,
+    user_id:DataUser?.user_id
 
   }
   ExportDocument.documentGetviewData(obj).then(

@@ -1,156 +1,468 @@
-import { Check, CheckBox, Checklist, ExpandMore } from '@mui/icons-material'
-import Checkbox from '@mui/material/Checkbox';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import { Accordion, AccordionDetails, Box, Button, Container, Divider, Grid, List, ListItem, Stack, TextField, Typography } from '@mui/material'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import React from 'react'
-import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
-import { Session1 } from './Session1';
-import { Session2 } from './Session2';
-import { Session3 } from './Session3';
-import { Session4 } from './Session4';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useState } from "react";
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  NativeSelect,
+  Pagination,
+  Typography,
+} from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  Autocomplete,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  FormLabel,
+  Radio,
+  RadioGroup,
+  TextField,
+  TextareaAutosize,
+} from "@mui/material";
+// import { FormBuilder } from 'react-form-builder2';;
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+
 
 export const CheckList = () => {
-const Navigate=useNavigate()
-const [expanded, setExpanded] = React.useState(false);
+    const Navigate=useNavigate()
+    let DataShow =
+    [
+      {
+        "type": "header",
+        "subtype": "h1",
+        "label": "CheckList",
+        "access": false
+      },
+      {
+        "type": "radio-group",
+        "required": true,
+        "label": "Q.1  Legal Name of Application",
+        "inline": true,
+        "name": "radio-group-1683003347823-0",
+        "access": true,
+        "other": false,
+        "role": "1",
+        "values": [
+          {
+            "label": "MR",
+            "value": "Mr",
+            "selected": true
+          },
+          {
+            "label": "Miss",
+            "value": "Miss",
+            "selected": false
+          },
+          {
+            "label": "MS",
+            "value": "Ms",
+            "selected": false
+          },
+          {
+            "label": "Mrs",
+            "value": "Mrs",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "required": true,
+        "label": "Q.2 Trending name",
+        "className": "form-control",
+        "name": "text-1683003614731-0",
+        "access": false,
+        "subtype": "text"
+      },
+      {
+        "type": "checkbox-group",
+        "required": false,
+        "label": "Q.3  GST Registration",
+        "toggle": false,
+        "inline": false,
+        "name": "checkbox-group-1683003705213-0",
+        "access": false,
+        "other": false,
+        "values": [
+          {
+            "label": "Yes",
+            "value": "yes",
+            "selected": false
+          },
+          {
+            "label": "No",
+            "value": "no",
+            "selected": true
+          }
+        ]
+      },
+      {
+        "type": "file",
+        "required": false,
+        "label": "Please Upload your profile pick",
+        "className": "form-control",
+        "name": "file-1683005649446-0",
+        "access": false,
+        "subtype": "file",
+        "multiple": false
+      },
+      {
+        "type": "date",
+        "required": false,
+        "label": "Date Field",
+        "className": "form-control",
+        "name": "date-1683005701919-0",
+        "access": false,
+        "value": "2023-05-16"
+      },
+      {
+        "type": "select",
+        "required": false,
+        "label": "Select",
+        "className": "form-control",
+        "name": "select-1683005771478-0",
+        "access": false,
+        "multiple": false,
+        "values": [
+          {
+            "label": "Option 1",
+            "value": "option-1",
+            "selected": true
+          },
+          {
+            "label": "Option 2",
+            "value": "option-2",
+            "selected": false
+          },
+          {
+            "label": "Option 3",
+            "value": "option-3",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "type": "autocomplete",
+        "required": false,
+        "label": "Autocomplete",
+        "className": "form-control",
+        "name": "autocomplete-1683005749219-0",
+        "access": false,
+        "requireValidOption": false,
+        "values": [
+          {
+            "label": "Option 1",
+            "value": "option-1",
+            "selected": true
+          },
+          {
+            "label": "Option 2",
+            "value": "option-2",
+            "selected": false
+          },
+          {
+            "label": "Option 3",
+            "value": "option-3",
+            "selected": false
+          }
+        ]
+      },
+      {
+        "type": "number",
+        "required": false,
+        "label": "Number",
+        "className": "form-control",
+        "name": "number-1683005791900-0",
+        "access": false
+      },
+      {
+        "type": "paragraph",
+        "subtype": "p",
+        "label": "Paragraphujkmy,k,uykrtkukym",
+        "className": "kjuykuk",
+        "access": false
+      },
+      {
+        "type": "textarea",
+        "required": false,
+        "label": "Text Area",
+        "className": "form-control",
+        "name": "textarea-1683005784519-0",
+        "access": false,
+        "subtype": "textarea"
+      },
+      {
+        "type": "button",
+        "label": "Submit",
+        "subtype": "button",
+        "className": "btn-success btn",
+        "name": "button-1683005722001-0",
+        "access": false,
+        "style": "success"
+      }
+    ]
+    const [Data, setData] = useState(DataShow)
+    useEffect(() => {
+      let data=JSON.parse(localStorage.getItem("Checklist"))
+        setData(DataShow)
+    }, [])
+    const[FormData,setFormData]=useState([])
+  return (
+    <div>
+        <Grid container spacing={4} mt={2} >
+          {console.log(localStorage.getItem("Checklist"))}
+        <Grid xl={3} >
+          <ArrowBackIcon onClick={() => Navigate("/Modelus")} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
+        </Grid>
+        <Grid xl={3} >
+        </Grid>
+        <Grid xl={6} >
+          {/* <div style={{ display: "flex" }}>
+            <Button mt={1} onClick={() => Navigate("/Productlist/cretechalist")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
+              className={"active"}
+            /> &nbsp; &nbsp; &nbsp; Create Checklist</Button>
 
-const handleChange = (panel) => (event, isExpanded) => {
-  setExpanded(isExpanded ? panel : false);
-};
-    return (
-        <div>
-        <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        HCPA CheckList-NDIS
-        </Typography>
-        <div style={{ display: "flex" }}>
-          <Typography onClick={()=>Navigate("/")} mt={1} ml={6} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-            Product{" "}
-          </Typography>
-          <Typography  mt={1} ml={1}mr={1} sx={{ fontSize: "14px", }}>
-            {" / "}
-          </Typography>
-          <Typography onClick={()=>Navigate("/Modelus")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-            {" "}
-             NDIS
-          </Typography>
-          <Typography mt={1} ml={1}mr={1} sx={{ fontSize: "14px", }}>
-            {" / "}
-          </Typography>
-          <Typography mt={1} sx={{ fontSize: "14px" }}>
-            {" "}
-             HCPA CheckList-NDIS
-          </Typography>
-        </div>
-        <hr height={3} />
-        <Box   >
-            <Grid container spacing={2}>
-                <Grid xs={4} height={"60vh"} >
-                        <Box>
-                            <Box m={3} >
-                            <Typography  mt={4} mb={2} ml={6} sx={{ fontSize: "22px" , fontWeight:"bold"}}>Complete 0 of 4</Typography>
-                                <Grid mt={1} mb={1}ml={5} container spacing={2}>
-                                    <Grid item xs={9}>
-                                        <Typography onClick={()=>setExpanded("panel1")} >  Section1:Details </Typography>
-                                    </Grid>
-                                    <Grid item xs={3}>
-                                        <CheckCircleIcon sx={{color:"gray"}} />
-                                    </Grid>
-
-                                </Grid>
-                                <Grid mt={1} mb={1}ml={5}  container spacing={2}>
-                                    <Grid item xs={9}>
-                                        <Typography>  Section 2: Services and Qualifications </Typography>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <CheckCircleIcon sx={{color:"gray"}} />
-                                    </Grid>
-
-                                </Grid>
-                                <Grid mt={1} mb={1}ml={5}  container spacing={2}>
-                                    <Grid item xs={9}>
-                                        <Typography>  Section 3: Suitability </Typography>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <CheckCircleIcon sx={{color:"gray"}} />
-                                    </Grid>
-
-                                </Grid>
-                                <Grid mt={1} mb={1}ml={5} container spacing={2}>
-                                    <Grid item xs={9}>
-                                        <Typography> Section 4: Declaration </Typography>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <CheckCircleIcon sx={{color:"gray"}} />
-                                    </Grid>
-
-                                </Grid>
-                            </Box>
+            <Button onClick={() => Navigate("/CreactModules")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
+              className={"active"}
+            /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
+          </div> */}
+        </Grid>
+      </Grid>
+      <form>
+      {Data?.map((item, index) => {
+            return (
+              <Grid key={index} container spacing={4} mt={2}>
+                <Grid xl={3}></Grid>
+                <Grid xl={6}>
+                    {item.type == "header" ? (
+                      <h1>
+                        <center>{item.label}</center>{" "}
+                      </h1>
+                    ) : null}
+                    {item.type == "radio-group" ? (
+                      <>
+                        {" "}
+                        <FormControl>
+                          <FormLabel id="demo-row-radio-buttons-group-label">
+                            {item.label}
+                          </FormLabel>
+                          <RadioGroup
+                            row
+                            aria-labelledby="demo-row-radio-buttons-group-label"
+                            name="row-radio-buttons-group"
+                            onChange={(e, val)=>{ FormData[index]={question:item.label,
+                              Ans:val
+                            }
+                            setFormData([...FormData])
+                          }}
+                          >
+                            {item.values?.map((value, i) => {
+                              return (
+                                <FormControlLabel
+                                  key={i}
+                                  value={value.value}
+                                  control={<Radio />}
+                                  label={value.label}
+                                />
+                              );
+                            })}
+                          </RadioGroup>
+                        </FormControl>
+                      </>
+                    ) : null}
+                    {item.type == "text" ? (
+                      <>
+                        {" "}
+                        <Box mt={3}>
+                          <TextField
+                            fullWidth
+                            id="fullWidth"
+                            label={item.label}
+                            type="text"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            onChange={(e, val)=>{ FormData[index]={question:item.label,
+                              Ans:e.target.value
+                            }
+                            setFormData([...FormData])
+                          }}
+                            variant="filled"
+                          />
                         </Box>
-
-                 
-                </Grid>
-                <Grid item xs={8} sx={{height:"75vh",overflow:"auto"}}>
-                    <Container>
-                        <Box flex={1}  >
-                            <Stack spacing={0} >
-                                <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} gap={2}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMore />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Typography>Section 1:Details</Typography>
-                                    </AccordionSummary >
-                                    <AccordionDetails>
-                                        <Session1 />
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMore />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Typography>Section 2: Services and Qualifications</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Session2/>
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMore />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Typography>Section 3: Suitability</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <Session3/>
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
-                                    <AccordionSummary
-                                        expandIcon={<ExpandMore />}
-                                        aria-controls="panel1a-content"
-                                        id="panel1a-header"
-                                    >
-                                        <Typography>Section 4: Declaration</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        
-                                        <Session4/>
-                                    </AccordionDetails>
-                                </Accordion>
-                            </Stack>
+                      </>
+                    ) : null}
+                    {item.type == "checkbox-group" ? (
+                      <>
+                        <FormControl
+                          sx={{ m: 3 }}
+                          component="fieldset"
+                          variant="standard"
+                        >
+                          <FormLabel component="legend">{item.label}</FormLabel>
+                          <FormGroup 
+                             onChange={(e, val)=>{ FormData[index]={question:item.label,
+                              Ans:val
+                            }
+                            setFormData([...FormData])
+                          }}>
+                            {item.values.map((val, i) => (
+                              <FormControlLabel
+                                control={<Checkbox key={i} name="gilad" />}
+                                label={val.label}
+                              />
+                            ))}
+                          </FormGroup>
+                          {/* <FormHelperText>Be careful</FormHelperText> */}
+                        </FormControl>
+                      </>
+                    ) : null}
+                    {item.type == "file" ? (
+                      <>
+                        <Box mt={3}>
+                          <FormLabel component="legend">{item.label}</FormLabel>
+                          <TextField
+                            fullWidth
+                            id="fullWidth"
+                            // label={item.label}
+                            type="file"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="filled"
+                            onChange={(e, val)=>{ FormData[index]={question:item.label,
+                              Ans:val
+                            }
+                            setFormData([...FormData])
+                          }}
+                          />
                         </Box>
-                    </Container>
+                      </>
+                    ) : null}
+                   { console.log({FormData})}
+                    {item.type == "date" ? (
+                      <>
+                        <Box mt={3}>
+                          <FormLabel component="legend">{item.label}</FormLabel>
+                          <TextField
+                            fullWidth
+                            id="fullWidth"
+                            // label={item.label}
+                            type="date"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="filled"
+                          />
+                        </Box>
+                      </>
+                    ) : null}
+                    {item.type == "select" ? (
+                      <>
+                        <FormControl fullWidth>
+                          <InputLabel
+                            variant="standard"
+                            htmlFor="uncontrolled-native"
+                          >
+                            {item.label}
+                          </InputLabel>
+                          <NativeSelect
+                            inputProps={{
+                              name: "age",
+                              id: "uncontrolled-native",
+                            }}
+                          >
+                            <option value={""}></option>
+                            {item.values.map((val, i) => {
+                              return (
+                                <option value={val.value}>{val.label}</option>
+                              );
+                            })}
+                          </NativeSelect>
+                        </FormControl>
+                      </>
+                    ) : null}
+                    {item.type == "autocomplete" ? (
+                      <>
+                        <FormControl fullWidth>
+                          <Autocomplete
+                            options={item.values}
+                            id="disable-close-on-select"
+                            // disableCloseOnSelect
+                            renderInput={(params) => (
+                              <TextField
+                                {...params}
+                                label={item.label}
+                                variant="standard"
+                              />
+                            )}
+                          />
+                        </FormControl>
+                      </>
+                    ) : null}
+                    {item.type == "number" ? (
+                      <>
+                        <Box mt={3}>
+                          <TextField
+                            fullWidth
+                            id="fullWidth"
+                            label={item.label}
+                            type="number"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="filled"
+                          />
+                        </Box>
+                      </>
+                    ) : null}
+                    {item.type == "paragraph" ? (
+                      <p>
+                        <center>{item.label}</center>{" "}
+                      </p>
+                    ) : null}
+                    {item.type == "textarea" ? (
+                      <Box mt={1}>
+                        <FormControl fullWidth>
+                          <InputLabel
+                            variant="standard"
+                            htmlFor="uncontrolled-native"
+                          >
+                            {item.label}
+                          </InputLabel>
+                          <br />
+                          <br />
+                          <br />
+                          <TextareaAutosize
+                            aria-label="empty textarea"
+                            // placeholder="Empty"
+                            // style={{ width: 200 }}
+                          />
+                        </FormControl>
+                      </Box>
+                    ) : null}
+                    {item.type == "button" ? (
+                      <Button
+                        type={item.type}
+                        className={"A1"}
+                        variant="contained"
+                      >
+                        {item.label}
+                      </Button>
+                     ) : null} 
                 </Grid>
-            </Grid>
-
-        </Box>
-        </div>
-    )
-}
+                <Grid xl={3}></Grid>
+              </Grid>
+            );
+          })}
+          </form>
+    </div>
+  )
+    }
 
