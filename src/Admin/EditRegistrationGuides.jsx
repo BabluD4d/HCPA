@@ -53,7 +53,7 @@ export default function EditRegistrationGuides(props) {
            
               // Navigate("/Productlist/moduleList");
             } else {
-              toast.error("Something went rong", {
+              toast.error("Something went wrong", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -66,7 +66,7 @@ export default function EditRegistrationGuides(props) {
             }
           })
           .catch((err) =>
-            toast.error("Something went rong", {
+            toast.error("Something went wrong", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,

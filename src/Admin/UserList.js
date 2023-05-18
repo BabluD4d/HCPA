@@ -16,22 +16,49 @@ import ExportUser from "../Api/Admin/handleUser/ExportUser";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { ColorRing } from "react-loader-spinner";
 export default function UserList() {
   const [UserData, setUserData] = useState();
   const [UserDataEdit, setUserDataEdit] = useState();
   const [userId, setuserId] = useState();
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShow1, setModalShow1] = React.useState(false);
+  const [Count, setCount] = useState()
+  const [loader, setloader] = useState(true);
   const Navigate = useNavigate();
   const GetData = () => {
-    ExportUser.UserAll().then((resp) => {
+    let obj = {
+      "order": "desc",
+      "sort": "user_id",
+      "limit": 10,
+      "page": 1
+    }
+    ExportUser.UserAll(obj).then((resp) => {
       if (resp.ok) {
         if (resp.data) {
           console.log(resp.data);
+          setCount(resp.data.count);
           setUserData(resp.data.data);
+          setloader(false)
+        }else{
+          setloader(false)
         }
       }
-    });
+    })
+    .catch((err) =>{
+      toast.error("Something went wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      setloader(false)
+    }
+  )
   };
   useEffect(() => {
     GetData();
@@ -79,7 +106,7 @@ export default function UserList() {
         });
         // Navigate("/Admin/AllDocumentAdmin");
         }else{
-          toast.error('Something went rong', {
+          toast.error('Something went wrong', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -92,7 +119,7 @@ export default function UserList() {
         }
       })
       .catch((err) =>
-        toast.error("Something went rong", {
+        toast.error("Something went wrong", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -108,7 +135,7 @@ export default function UserList() {
   const hendleEditUser = (val) => {
     setUserDataEdit(val);
     setTimeout(() => {
-      setModalShow(true);
+      setModalShow(true)
     });
   };
   const hendleUserDelete = (val) => {
@@ -130,8 +157,43 @@ export default function UserList() {
       }
     });
   }
+  const hendlePagintion = (event, value) => {
+    let obj = {
+      "order": "desc",
+      "sort": "user_id",
+      "limit": 10,
+      "page": value
+    }
+    ExportUser.UserAll(obj).then((resp) => {
+      if (resp.ok) {
+        if (resp.data) {
+          console.log(resp.data);
+          setCount(resp.data.count);
+          setUserData(resp.data.data);
+          setloader(false)
+        }else{
+          setloader(false)
+        }
+      }
+    });
+  }
   return (
     <div>
+   {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
         User List
       </Typography>
@@ -198,7 +260,8 @@ export default function UserList() {
                 ))}
               </tbody>
             </Table>
-            <Pagination count={10} />
+            {/* <Pagination count={10} /> */}
+            <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
           </Box>
         </Grid>
         <Grid item xs={2}>
@@ -361,6 +424,7 @@ export default function UserList() {
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
+      </>}
     </div>
   );
 }

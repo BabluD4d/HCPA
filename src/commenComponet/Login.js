@@ -55,8 +55,8 @@ export default function SignIn() {
     ExportLogin.Login(values)
         .then((resp) => {
           console.log(resp.data.message)
-          if(resp.data.message=="Credentials are wrong"){
-            toast.error("Credentials are wrong", {
+          if(resp.data.message=="Credentials are wwrong"){
+            toast.error("Credentials are wwrong", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -82,7 +82,7 @@ export default function SignIn() {
           }
         })
         .catch((err) =>
-        toast.error("Something went rong", {
+        toast.error("Something went wrong", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

@@ -48,6 +48,7 @@ import CreateRegistrationGuides from './Admin/CreateRegistrationGuides';
 import UserDeshboard from './Admin/UserDeshboard';
 import UserActiveProductList from './Admin/UserActiveProductList';
 import UserActiveModule from './Admin/UserActiveModule';
+import AdminViewAns from './Admin/AdminViewAns';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
@@ -99,6 +100,7 @@ root.render(
               <Route exact path="/UserAnsView" element={<AnsPrvue />} />
               <Route exact path="/checklist/preview" element={<ChecklistPriveiw />} />
               <Route exact path="/ModulesList" element={<ModulesList />} />
+              <Route exact path="/AdminViewAns" element={<AdminViewAns />} />
               <Route exact path="/Admin/AllDocumentAdmin" element={<AllDocumentAdmin />} />
               <Route exact path="/EditDocument" element={<EditDocument />} />
               <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />

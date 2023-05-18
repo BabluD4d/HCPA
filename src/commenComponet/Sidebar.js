@@ -15,6 +15,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
+import LockIcon from '@mui/icons-material/Lock';
 import Logo from "../img/title.svg";
 import Logo1 from "../img/LogoSvg.svg";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -334,65 +335,46 @@ const Sidebar = () => {
                       </AccordionSummary>
                       <AccordionDetails>
                         {/* <Typography className='pagestxt1' >NDIS</Typography> */}
-                          {ProductData?.map((val,i)=><>
-                          {val.purchase_status=="1"? <ListItem
-                          className={
-                            Count==val.id ? "active" : ""
-                          }
-                          onClick={() => {
-                            setCount(val.id)
-                            setTimeout(() => {
-                              Activeclass("/Modelus",val.id);
-                              window.dispatchEvent(new Event("activeProduct"))
-                            });
-                            localStorage.setItem("activeProduct",val.id)
-                            localStorage.setItem("UserProduct",JSON.stringify(val))
+                        {ProductData?.map((val,i)=><>
+                          {val.purchase_status=="1"? <ListItem key={i}
+                         className={
+                          Count==val.id ? "active childA " : "childA"
+                        }
+                        onClick={() => {
+                          setCount(val.id)
+                          setTimeout(() => {
+                            window.dispatchEvent(new Event("activeProduct"))
+                          });
+                          localStorage.setItem("UserProduct",JSON.stringify(val))
+                          localStorage.setItem("activeProduct",val.id)
+                          Activeclass("/Modelus",val.id);
+
                           }}
                           disablePadding
                         >
-                          <ListItemButton sx={{ marginLeft: "33px" }}>
-                            <ListItemText style={{paddingLeft:"9px"}} primary={val.product_name} />
+                          <ListItemButton>
+                          <ListItemIcon >
+                              <LockOpenIcon    className={
+                          Count==val.id ? "active IList" : "IList"
+                        } />
+                            </ListItemIcon>
+                            <ListItemText primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>:<ListItem onClick={()=>{
+                        </ListItem>:< ListItem key={i} onClick={()=>{
                         setCount();
                         localStorage.setItem("UserProduct",JSON.stringify(val));
-                        window.dispatchEvent(new Event("activeProduct"))
                         Activeclass("/Modelus");
+                        localStorage.setItem("activeProduct",val.id)
+                        window.dispatchEvent(new Event("activeProduct"))
                         }} className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
+                          <ListItemButton >
+                            <ListItemIcon  >
+                              <LockIcon className="IList"/>
                             </ListItemIcon>
                             <ListItemText primary={val.product_name} />
                           </ListItemButton>
                         </ListItem>}
                           </>)}
-                       
-                        
-                        {/* <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Aged care"} />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Child care"} />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Vaccines"} />
-                          </ListItemButton>
-                        </ListItem> */}
                       </AccordionDetails>
                     </Accordion>
                   </>}
@@ -659,15 +641,15 @@ const Sidebar = () => {
                       </AccordionSummary>
                       <AccordionDetails>
                       {ProductData?.map((val,i)=><>
-                          {val.purchase_status=="1"? <ListItem
+                          {val.purchase_status=="1"? <ListItem key={i}
                          className={
-                          Count==val.id ? "active" : ""
+                          Count==val.id ? "active childA " : "childA"
                         }
                         onClick={() => {
                           setCount(val.id)
                           setTimeout(() => {
                             window.dispatchEvent(new Event("activeProduct"))
-                          });
+                          },500);
                           localStorage.setItem("UserProduct",JSON.stringify(val))
                           localStorage.setItem("activeProduct",val.id)
                           Activeclass("/Modelus",val.id);
@@ -675,55 +657,30 @@ const Sidebar = () => {
                           }}
                           disablePadding
                         >
-                          <ListItemButton sx={{ marginLeft: "33px" }}>
-                            <ListItemText style={{paddingLeft:"9px"}} primary={val.product_name} />
+                          <ListItemButton>
+                          <ListItemIcon >
+                              <LockOpenIcon    className={
+                          Count==val.id ? "active IList" : "IList"
+                        } />
+                            </ListItemIcon>
+                            <ListItemText primary={val.product_name} />
                           </ListItemButton>
-                        </ListItem>:< ListItem onClick={()=>{
+                        </ListItem>:< ListItem key={i} onClick={()=>{
                         setCount();
                         localStorage.setItem("UserProduct",JSON.stringify(val));
                         Activeclass("/Modelus");
+                        localStorage.setItem("activeProduct",val.id)
                         window.dispatchEvent(new Event("activeProduct"))
                         }} className="childA" disablePadding>
                           <ListItemButton >
                             <ListItemIcon  >
-                              <LockOpenIcon className="IList"/>
+                              <LockIcon className="IList"/>
                             </ListItemIcon>
                             <ListItemText primary={val.product_name} />
                           </ListItemButton>
                         </ListItem>}
                           </>)}
-                        {/* <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"SDA"} />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Aged care"} />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Child care"} />
-                          </ListItemButton>
-                        </ListItem>
-                        <ListItem className="childA" disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <LockOpenIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Vaccines"} />
-                          </ListItemButton>
-                        </ListItem> */}
+                        
                       </AccordionDetails>
                     </Accordion>
                   </>}

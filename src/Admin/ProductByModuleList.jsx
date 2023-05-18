@@ -34,6 +34,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import ReactPlayer from "react-player";
 import { BaseApi, BaseUrlImage } from "../Api/BaseApi";
 import EditRegistrationGuides from "./EditRegistrationGuides";
+import { ColorRing } from "react-loader-spinner";
 export default function ProductByModuleList() {
   const Navigate = useNavigate();
   const [ModuleList, setModuleList] = useState([]);
@@ -49,6 +50,9 @@ export default function ProductByModuleList() {
   const [modalShow, setModalShow] = React.useState(false);
   const [modalShowVideo, setModalShowVideo] = React.useState(false);
   const [modalShowEditGuid, setmodalShowEditGuid] = React.useState(false);
+  const [loader, setloader] = useState(true);
+  const [NotFound, setNotFound] = useState({ A: "", B: "", C: "" });
+
   const GetData = () => {
     let obj = {
       order: "asc",
@@ -58,9 +62,15 @@ export default function ProductByModuleList() {
     };
     ExportModiles.ModuilesAll(obj).then((resp) => {
       if (resp.ok) {
-        // console.log(resp.data.data);
         if (resp.data.data[0]) {
           setModuleList(resp.data.data);
+          setloader(false);
+          NotFound.A=""
+          setNotFound({...NotFound})
+        } else {
+          NotFound.A="No record found"
+          setNotFound({...NotFound})
+          setloader(false);
         }
       }
     });
@@ -77,6 +87,13 @@ export default function ProductByModuleList() {
         console.log(resp.data.data);
         if (resp.data.data[0]) {
           setGuidData(resp.data.data);
+          setloader(false);
+          NotFound.B=""
+          setNotFound({...NotFound})
+        } else {
+          NotFound.B="No record found"
+          setNotFound({...NotFound})
+          setloader(false);
         }
       }
     });
@@ -93,6 +110,13 @@ export default function ProductByModuleList() {
         // console.log("GetDataChecklistAll",resp.data.data);
         if (resp.data.data[0]) {
           setChecklis(resp.data.data);
+          setloader(false);
+          NotFound.C=""
+          setNotFound({...NotFound})
+        } else {
+          NotFound.C="No record found"
+          setNotFound({...NotFound})
+          setloader(false);
         }
       }
     });
@@ -131,7 +155,7 @@ export default function ProductByModuleList() {
             setModalShow(false);
             // Navigate('/Productlist')
           } else {
-            toast.error("Something went rong", {
+            toast.error("Something went wrong", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -144,7 +168,7 @@ export default function ProductByModuleList() {
           }
         })
         .catch((err) =>
-          toast.error("Something went rong", {
+          toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -188,7 +212,7 @@ export default function ProductByModuleList() {
           GetData();
           // Navigate('/Productlist')
         } else {
-          toast.error("Something went rong", {
+          toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -201,7 +225,7 @@ export default function ProductByModuleList() {
         }
       })
       .catch((err) =>
-        toast.error("Something went rong", {
+        toast.error("Something went wrong", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -213,10 +237,10 @@ export default function ProductByModuleList() {
         })
       );
   };
-  const hendleGuidUpdateData=()=>{
+  const hendleGuidUpdateData = () => {
     GetGuidAllData();
-    setmodalShowEditGuid(false)
-  }
+    setmodalShowEditGuid(false);
+  };
   return (
     <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -247,152 +271,100 @@ export default function ProductByModuleList() {
           </div>
         </Grid>
       </Grid>
-      <Box mt={5}>
-        <Grid container spacing={4} mt={2} pl={9}>
-          {ModuleList &&
-            ModuleList?.map((item, index) => {
-              return (
-                <AdminProductCart
-                  navi={"/Admin/AllDocumentAdmin"}
-                  status={item.module_status}
-                  foo={"1"}
-                  size={3}
-                  Modules={item.total_document}
-                  ProductName={item.module_name}
-                  handlemodal={handlemodal}
-                  item={item}
-                  onChangeHendle={onChangeHendle}
-                />
-              );
-            })}
-        </Grid>
-        <center>
-          <Box ml={9} mt={2}>
-            {/* {ModuleList[0] ? <Pagination count={10} /> : null} */}
-          </Box>
-        </center>
-      </Box>
-      <Box mt={5}>
-        <Grid container spacing={4} mt={2}>
-          <Grid xs={1}></Grid>
-          <Grid xs={5}>
-            {" "}
-            <Typography mt={2} sx={{ fontSize: "30px" }}>
-              CheckList
-            </Typography>
-          </Grid>
-          <Grid xs={6}>
-            {" "}
-            <Button
-              mt={4}
-              onClick={() => Navigate("/Productlist/cretechalist")}
-              sx={{ marginLeft: "10%" }}
-              className={"A1"}
-              variant="contained"
-            >
-              <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp; Add
-              Checklist
-            </Button>{" "}
-          </Grid>
-        </Grid>
-        <Grid container spacing={4} mt={2} pl={9}>
-          {Checklis.map((item, i) => (
-            <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
-              <div style={{ marginBottom: "22px" }}>
-                <div style={{ display: "flex" }}>
-                  <Typography
-                    mt={2}
-                    ml={6}
-                    sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
-                  >
-                    To be completed
-                  </Typography>
-                  <p></p>
-                </div>
-                <Typography mt={1} ml={6} sx={{ fontSize: "17px" }}>
-                  {item.title}
-                </Typography>
-                <Typography ml={6} sx={{ fontSize: "10px" }}>
-                  0 of 4 sections completed
-                </Typography>
-                <div>
-                  <Typography
-                    onClick={() => Navigate("/checklist/Edit/" + item.id)}
-                    mt={2}
-                    ml={6}
-                    sx={{
-                      color: "#0CB4D0",
-                      fontSize: "15px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {" "}
-                    <CreateIcon
-                      sx={{
-                        color: "#0CB4D0",
-                        fontSize: "20px",
-                        marginBottom: "15px",
-                      }}
-                    />{" "}
-                    Edit
-                  </Typography>
-                </div>
-              </div>
+      {loader ? (
+        <div style={{ marginTop: "24%" }}>
+          <center>
+            <ColorRing
+              visible={true}
+              height="100"
+              width="100"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+            />
+          </center>
+        </div>
+      ) : (
+        <>
+          <Box mt={5}>
+            <Grid container spacing={4} mt={2} pl={9}>
+              {NotFound.A? <div style={{ marginTop: "4%" ,marginLeft:"20%"}}>
+                <h3> <center>{NotFound.A}</center></h3>
+              </div>:null}
+           
+              {ModuleList &&
+                ModuleList?.map((item, index) => {
+                  return (
+                    <AdminProductCart
+                      navi={"/Admin/AllDocumentAdmin"}
+                      status={item.module_status}
+                      foo={"1"}
+                      size={3}
+                      Modules={item.total_document}
+                      ProductName={item.module_name}
+                      handlemodal={handlemodal}
+                      item={item}
+                      onChangeHendle={onChangeHendle}
+                    />
+                  );
+                })}
             </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box mt={5}>
-        <Grid container spacing={4} mt={2}>
-          <Grid xs={1}></Grid>
-          <Grid xs={5}>
-            {" "}
-            <Typography mt={2} sx={{ fontSize: "30px" }}>
-              Registration Guides
-            </Typography>
-          </Grid>
-          <Grid xs={6}>
-            {" "}
-            <Button
-              mt={4}
-              onClick={() => Navigate("/CreateRegistrationGuides")}
-              sx={{ marginLeft: "10%" }}
-              className={"A1"}
-              variant="contained"
-            >
-              {/* <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp; */}
-              Add Registration Guides
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid container spacing={4} mt={2} pl={9}>
-          {GuidData.map((item, i) => (
-            <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
-              <div style={{ marginBottom: "22px" }}>
-                <div style={{ display: "flex" }}>
-                  <Typography
-                    mt={2}
-                    ml={6}
-                    sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
-                  >
-                    To be completed
-                  </Typography>
-                  <p></p>
-                </div>
-                <Typography mt={1} ml={6} sx={{ fontSize: "17px" }}>
-                  {item.title}
+            <center>
+              <Box ml={9} mt={2}>
+                {/* {ModuleList[0] ? <Pagination count={10} /> : null} */}
+              </Box>
+            </center>
+          </Box>
+          <Box mt={5}>
+            <Grid container spacing={4} mt={2}>
+              <Grid xs={1}></Grid>
+              <Grid xs={5}>
+                {" "}
+                <Typography mt={2} sx={{ fontSize: "30px" }}>
+                  CheckList
                 </Typography>
-                <Typography ml={6} sx={{ fontSize: "10px" }}>
-                  0 of 4 sections completed
-                </Typography>
-                <div>
-                  <Grid container spacing={1} mt={2}>
-                    <Grid mb={3} item xs={4}>
+              </Grid>
+              <Grid xs={6}>
+                {" "}
+                <Button
+                  mt={4}
+                  onClick={() => Navigate("/Productlist/cretechalist")}
+                  sx={{ marginLeft: "10%" }}
+                  className={"A1"}
+                  variant="contained"
+                >
+                  <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp;
+                  Add Checklist
+                </Button>{" "}
+              </Grid>
+            </Grid>
+            <Grid container spacing={4} mt={2} pl={9}>
+            {NotFound.C? <div style={{ marginTop: "4%" ,marginLeft:"20%"}}>
+                <h3> <center>{NotFound.A}</center></h3>
+              </div>:null}
+              {Checklis.map((item, i) => (
+                <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
+                  <div style={{ marginBottom: "22px" }}>
+                    <div style={{ display: "flex" }}>
                       <Typography
-                        onClick={() => {
-                          setEditDataGuid(item);
-                          setmodalShowEditGuid(true);
-                        }}
+                        mt={2}
+                        ml={6}
+                        sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
+                      >
+                        To be completed
+                      </Typography>
+                      <p></p>
+                    </div>
+                    <Typography mt={1} ml={6} sx={{ fontSize: "17px" }}>
+                      {item.title}
+                    </Typography>
+                    <Typography ml={6} sx={{ fontSize: "10px" }}>
+                      0 of 4 sections completed
+                    </Typography>
+                    <div>
+                      <Typography
+                        onClick={() => Navigate("/checklist/Edit/" + item.id)}
                         mt={2}
                         ml={6}
                         sx={{
@@ -411,41 +383,121 @@ export default function ProductByModuleList() {
                         />{" "}
                         Edit
                       </Typography>
-                    </Grid>
-                    <Grid item xs={6}>
+                    </div>
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+          <Box mt={5}>
+            <Grid container spacing={4} mt={2}>
+              <Grid xs={1}></Grid>
+              <Grid xs={5}>
+                {" "}
+                <Typography mt={2} sx={{ fontSize: "30px" }}>
+                  Registration Guides
+                </Typography>
+              </Grid>
+              <Grid xs={6}>
+                {" "}
+                <Button
+                  mt={4}
+                  onClick={() => Navigate("/CreateRegistrationGuides")}
+                  sx={{ marginLeft: "10%" }}
+                  className={"A1"}
+                  variant="contained"
+                >
+                  {/* <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp; */}
+                  Add Registration Guides
+                </Button>
+              </Grid>
+            </Grid>
+            <Grid container spacing={4} mt={2} pl={9}>
+            {NotFound.B? <div style={{ marginTop: "4%" ,marginLeft:"20%"}}>
+                <h3> <center>{NotFound.A}</center></h3>
+              </div>:null}
+              {GuidData.map((item, i) => (
+                <Grid mb={3} xl={3} sm={6} lg={3} item xs={11}>
+                  <div style={{ marginBottom: "22px" }}>
+                    <div style={{ display: "flex" }}>
                       <Typography
-                        onClick={() => {
-                          setGuidDataSingle(item);
-                          setTimeout(() => {
-                            setModalShowVideo(true);
-                          });
-                        }}
                         mt={2}
                         ml={6}
-                        sx={{
-                          color: "#0CB4D0",
-                          fontSize: "15px",
-                          cursor: "pointer",
-                        }}
+                        sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
                       >
-                        {" "}
-                        <RemoveRedEyeIcon
-                          sx={{
-                            color: "#0CB4D0",
-                            fontSize: "20px",
-                            marginBottom: "15px",
-                          }}
-                        />{" "}
-                        View Guid
+                        To be completed
                       </Typography>
-                    </Grid>
-                  </Grid>
-                </div>
-              </div>
+                      <p></p>
+                    </div>
+                    <Typography mt={1} ml={6} sx={{ fontSize: "17px" }}>
+                      {item.title}
+                    </Typography>
+                    <Typography ml={6} sx={{ fontSize: "10px" }}>
+                      0 of 4 sections completed
+                    </Typography>
+                    <div>
+                      <Grid container spacing={1} mt={2}>
+                        <Grid mb={3} item xs={4}>
+                          <Typography
+                            onClick={() => {
+                              setEditDataGuid(item);
+                              setmodalShowEditGuid(true);
+                            }}
+                            mt={2}
+                            ml={6}
+                            sx={{
+                              color: "#0CB4D0",
+                              fontSize: "15px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {" "}
+                            <CreateIcon
+                              sx={{
+                                color: "#0CB4D0",
+                                fontSize: "20px",
+                                marginBottom: "15px",
+                              }}
+                            />{" "}
+                            Edit
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Typography
+                            onClick={() => {
+                              setGuidDataSingle(item);
+                              setTimeout(() => {
+                                setModalShowVideo(true);
+                              });
+                            }}
+                            mt={2}
+                            ml={6}
+                            sx={{
+                              color: "#0CB4D0",
+                              fontSize: "15px",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {" "}
+                            <RemoveRedEyeIcon
+                              sx={{
+                                color: "#0CB4D0",
+                                fontSize: "20px",
+                                marginBottom: "15px",
+                              }}
+                            />{" "}
+                            View Guid
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  </div>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      </Box>
+          </Box>
+        </>
+      )}
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -604,7 +656,10 @@ export default function ProductByModuleList() {
             <Grid mb={3} item xs={2}></Grid>
             <Grid mb={3} item xs={8}>
               {EditDataGuid ? (
-                <EditRegistrationGuides hendleGuidUpdateData={hendleGuidUpdateData} EditDataGuid={EditDataGuid} />
+                <EditRegistrationGuides
+                  hendleGuidUpdateData={hendleGuidUpdateData}
+                  EditDataGuid={EditDataGuid}
+                />
               ) : null}
             </Grid>
             <Grid mb={3} item xs={2}></Grid>

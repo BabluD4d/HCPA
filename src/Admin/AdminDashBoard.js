@@ -19,6 +19,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
 import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import ExportDeshboard from "../Api/Admin/Deshboard/ExportDeshboard";
+import { ColorRing } from "react-loader-spinner";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#0CB4D0",
@@ -53,7 +54,7 @@ const rows = [
 export default function AdminDashBoard() {
   const Navigate = useNavigate();
   const [ProductData, setProductData] = useState([])
-
+  const [loader, setloader] = useState(true);
 // let obj={
 //   "order":"desc",
 //     "sort":"products.id",
@@ -67,6 +68,9 @@ export default function AdminDashBoard() {
           if (resp.data) {
             console.log(resp.data.data)
             setProductData(resp.data.data);
+            setloader(false)
+          }else{
+            setloader(false)
           }
         }
       }
@@ -82,6 +86,21 @@ export default function AdminDashBoard() {
         Admin DashBoard
       </Typography>
       <hr height={3} />
+      {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
       <Grid container mt={5}>
         <Grid item md={3} xl={3.5} sm={12} xs={12} m={3}>
           <Box
@@ -407,6 +426,7 @@ export default function AdminDashBoard() {
           </TableContainer>
         </Grid>
       </Grid>
+      </>}
     </div>
   );
 }

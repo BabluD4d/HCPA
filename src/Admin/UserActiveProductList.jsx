@@ -28,6 +28,7 @@ import { Table } from "react-bootstrap";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import Exportpurchaselist from "../Api/Admin/purchaselist/Exportpurchaselist";
+import { ColorRing } from "react-loader-spinner";
 const theme = createTheme({
   components: {
     MuiSwitch: {
@@ -45,6 +46,7 @@ const theme = createTheme({
 export default function UserActiveProductList() {
   const Navigate = useNavigate();
   const [Data, setData] = useState();
+  const [loader, setloader] = useState(true);
   const GetData = () => {
     let obj = {
       user_id: localStorage.getItem("UserProduct_id"),
@@ -54,8 +56,12 @@ export default function UserActiveProductList() {
         console.log(resp.data.data);
         if (resp.data) {
           setData(resp.data.data);
+          setloader(false)
+         } else{
+            setloader(false)
+          }
         }
-      }
+      
     });
   };
   const Hendlestuts = (value,id) => {
@@ -95,7 +101,7 @@ export default function UserActiveProductList() {
           GetData()
         }
          else {
-          toast.error('Something went rong', {
+          toast.error('Something went wrong', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -130,6 +136,21 @@ export default function UserActiveProductList() {
           <Grid xl={6}></Grid>
           <Grid xl={3}></Grid>
         </Grid>
+        {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
         <Box mt={5}>
           <Grid container spacing={1}>
             <Grid item xs={1}></Grid>
@@ -202,6 +223,7 @@ export default function UserActiveProductList() {
             </Grid>
           </Grid>
         </Box>
+        </>}
       </div>
     </div>
   );

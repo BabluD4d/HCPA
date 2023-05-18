@@ -64,7 +64,7 @@ export default function ModulesList() {
               setModalShow(false)
               // Navigate('/Productlist')
             } else {
-              toast.error('Something went rong', {
+              toast.error('Something went wrong', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -76,7 +76,7 @@ export default function ModulesList() {
               });
             }
           })
-          .catch((err) => toast.error('Something went rong', {
+          .catch((err) => toast.error('Something went wrong', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -182,7 +182,7 @@ export default function ModulesList() {
           // Navigate('/Productlist')
         } else {
 
-          toast.error('Something went rong', {
+          toast.error('Something went wrong', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -194,7 +194,7 @@ export default function ModulesList() {
           });
         }
       })
-      .catch((err) => toast.error('Something went rong', {
+      .catch((err) => toast.error('Something went wrong', {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,

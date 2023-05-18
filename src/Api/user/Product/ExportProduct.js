@@ -2,7 +2,7 @@ import { BaseApi } from "../../BaseApi";
 
 
 const ProductList = (obj) =>
-    BaseApi.post("user/product",obj,{
+    BaseApi.get("user/product",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",

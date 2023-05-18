@@ -10,6 +10,7 @@ import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import { ColorRing } from "react-loader-spinner";
 export default function Product() {
   const Navigate = useNavigate();
   const [ProductData, setProductData] = useState([])
@@ -18,6 +19,7 @@ export default function Product() {
   const [modalShowDelete, setmodalShowDelete] = React.useState(false);
   const [Productid, setProductid] = React.useState();
   const [id, setid] = React.useState();
+  const [loader, setloader] = useState(true);
 
   let obj = {
     "order": "desc",
@@ -33,7 +35,11 @@ export default function Product() {
           if (resp.data) {
             setProductData(resp.data.data);
             setCount(resp.data.product_count);
+            setloader(false)
+          }else{
+            setloader(false)
           }
+        
         }
       }
     );
@@ -125,7 +131,7 @@ export default function Product() {
             setModalShow(false)
             // Navigate('/Productlist')
           } else {
-            toast.error('Something went rong', {
+            toast.error('Something went wrong', {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -137,7 +143,7 @@ export default function Product() {
             });
           }
         })
-        .catch((err) => toast.error('Something went rong', {
+        .catch((err) => toast.error('Something went wrong', {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -157,6 +163,21 @@ export default function Product() {
       </Typography>
       <hr height={3} />
       <Box mt={5}>
+      {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
         <Grid container spacing={1}>
           <Grid item xs={1}></Grid>
           <Grid item mt={5} xs={8}>
@@ -262,6 +283,7 @@ export default function Product() {
             className={"active"}
           /> &nbsp; &nbsp; &nbsp; Create Product</Button> </Grid>
         </Grid>
+        </>}
       </Box>
       <Modal
         show={modalShow}

@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import DocumentCard from "../commenComponet/DocumentCard";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExportDocument from "../Api/Admin/Document/ExportDocument";
+import { ColorRing } from "react-loader-spinner";
 export default function AllDocumentAdmin() {
 
   const Navigate =useNavigate()
   const [Data, setData] = useState([])
   const [module, setmodule] = useState(JSON.parse(localStorage.getItem("module")));
+  const [loader, setloader] = useState(true);
   let obj={
     module_id:module.module_id
   }
@@ -20,7 +22,10 @@ export default function AllDocumentAdmin() {
             if (resp.data) {
               console.log(resp.data.data)
               setData(resp.data.data);
-            }
+              setloader(false)
+            }else{
+              setloader(false)
+          }
           }
         }
       );
@@ -66,7 +71,23 @@ export default function AllDocumentAdmin() {
 
 </Grid>
       <Grid container spacing={2}>
+      {loader?    <div style={{marginTop:"14%" ,marginLeft:"41%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
 {Data?.map((val,i)=> <DocumentCard edit={true} title={val.document_title} dis={val.description} size={3} hellow={"yes"} val={val} />)}
+</>}
         {/* <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"} />
         <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>
         <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>

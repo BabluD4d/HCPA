@@ -1,23 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 import {
-    Autocomplete,
     Box,
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
     Grid,
-    InputLabel,
-    NativeSelect,
     Pagination,
-    Radio,
-    RadioGroup,
     Switch,
-    TextField,
-    TextareaAutosize,
     ThemeProvider,
     Typography,
     createTheme,
@@ -27,6 +14,8 @@ import {
 import { Table } from 'react-bootstrap';
 import ExportModiles from '../Api/Admin/Modules/ExportModiles';
 import Exportpurchaselist from '../Api/Admin/purchaselist/Exportpurchaselist';
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { ColorRing } from 'react-loader-spinner';
 const theme = createTheme({
     components: {
       MuiSwitch: {
@@ -48,6 +37,8 @@ export default function UserActiveModule() {
       );
     const Navigate = useNavigate()
     const [Data, setData] = useState()
+    const [DataChecklist, setDataChecklist] = useState()
+    const [loader, setloader] = useState(true);
     const GetData = () => {
       // alert(Product.id)
         let obj = {
@@ -59,12 +50,36 @@ export default function UserActiveModule() {
             // console.log(resp.data.data);
             if (resp.data.data[0]) {
                 setData(resp.data.data);
+                setloader(false)
+            }else{
+              setloader(false)
             }
+          
+          }
+        });
+      };
+    const GetCheckListData = () => {
+      // alert(Product.id)
+        let obj = {
+          user_id: localStorage.getItem("UserProduct_id"),
+          product_id: Product.id,
+        };
+        Exportpurchaselist.ViewUserFillChecklist(obj).then((resp) => {
+          if (resp.ok) {
+            console.log("Ok",resp.data.data);
+            if (resp.data.data[0]) {
+              setDataChecklist(resp.data.data);
+              setloader(false)
+            }else{
+              setloader(false)
+            }
+          
           }
         });
       };
     useEffect(() => {
         GetData()
+        GetCheckListData()
       }, [])
       const Hendlestuts = (value,id) => {
         let obj = {
@@ -104,7 +119,7 @@ export default function UserActiveModule() {
               GetData()
             }
              else {
-              toast.error('Something went rong', {
+              toast.error('Something went wrong', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -137,10 +152,28 @@ export default function UserActiveModule() {
 
       </Grid>
         </Grid>
+        {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
       <Box mt={5}>
         <Grid container spacing={1}>
           <Grid item xs={1}></Grid>
           <Grid item mt={5} xs={8}>
+          <Typography mt={4} mb={3} sx={{ fontSize: "30px" }}>
+          Module List
+      </Typography>
             <Table striped hover>
               <thead
                 style={{
@@ -180,7 +213,64 @@ export default function UserActiveModule() {
           <Grid item mt={-3} xs={2}>   </Grid>
         </Grid>
       </Box>
-    
+      <Box mt={5}>
+        <Grid container spacing={1}>
+          <Grid item xs={1}></Grid>
+          <Grid item mt={5} xs={8}>
+      <Typography mt={4} mb={3} sx={{ fontSize: "30px" }}>
+      CheckList
+      </Typography>
+            <Table striped hover>
+              <thead
+                style={{
+                  paddingBlock: "30px",
+                  backgroundColor: "#0CB4D0",
+                  color: "white",
+                  fontSize: "20px",
+                }}
+              >
+                <tr>
+                  <th>#</th>
+                  <th> Name</th>
+                  <th>View</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DataChecklist?.map((item, index) => {
+
+                  return <tr>
+                    <td>{index + 1}</td>
+                    <td>{item.title}</td>
+                    <td
+                      onClick={() => {
+                        localStorage.setItem("Checklist_Aid",item.id)
+                        Navigate("/AdminViewAns");
+                      }}
+                      style={{ color: "#0CB4D0", cursor: "pointer" }}
+                    >
+                      {" "}
+                      <RemoveRedEyeIcon
+                        sx={{
+                          color: "#0CB4D0",
+                          marginBottom: "10px",
+                          fontSize: "28px",
+                        }}
+                      />{" "}
+                      &nbsp; View{" "}
+                    </td>
+
+                  </tr>
+                })}
+        
+              </tbody>
+            </Table>
+            {/* <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} /> */}
+            {/* <Pagination  /> */}
+          </Grid>
+          <Grid item mt={-3} xs={2}>   </Grid>
+        </Grid>
+      </Box>
+    </>}
      
     </div>
     </div>

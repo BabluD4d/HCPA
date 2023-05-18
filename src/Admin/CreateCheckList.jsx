@@ -269,7 +269,7 @@ export default function CreateCheckList() {
             });
             Navigate("/Productlist/moduleList");
             }else{
-              toast.error('Something went rong', {
+              toast.error('Something went wrong', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -282,7 +282,7 @@ export default function CreateCheckList() {
             }
           })
           .catch((err) =>
-            toast.error("Something went rong", {
+            toast.error("Something went wrong", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,

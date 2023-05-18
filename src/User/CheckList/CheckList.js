@@ -27,202 +27,47 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-
+import ExportChecklist from "../../Api/user/CheckList/ExportChecklist";
 
 export const CheckList = () => {
-    const Navigate=useNavigate()
-    let DataShow =
-    [
-      {
-        "type": "header",
-        "subtype": "h1",
-        "label": "CheckList",
-        "access": false
-      },
-      {
-        "type": "radio-group",
-        "required": true,
-        "label": "Q.1  Legal Name of Application",
-        "inline": true,
-        "name": "radio-group-1683003347823-0",
-        "access": true,
-        "other": false,
-        "role": "1",
-        "values": [
-          {
-            "label": "MR",
-            "value": "Mr",
-            "selected": true
-          },
-          {
-            "label": "Miss",
-            "value": "Miss",
-            "selected": false
-          },
-          {
-            "label": "MS",
-            "value": "Ms",
-            "selected": false
-          },
-          {
-            "label": "Mrs",
-            "value": "Mrs",
-            "selected": false
-          }
-        ]
-      },
-      {
-        "type": "text",
-        "required": true,
-        "label": "Q.2 Trending name",
-        "className": "form-control",
-        "name": "text-1683003614731-0",
-        "access": false,
-        "subtype": "text"
-      },
-      {
-        "type": "checkbox-group",
-        "required": false,
-        "label": "Q.3  GST Registration",
-        "toggle": false,
-        "inline": false,
-        "name": "checkbox-group-1683003705213-0",
-        "access": false,
-        "other": false,
-        "values": [
-          {
-            "label": "Yes",
-            "value": "yes",
-            "selected": false
-          },
-          {
-            "label": "No",
-            "value": "no",
-            "selected": true
-          }
-        ]
-      },
-      {
-        "type": "file",
-        "required": false,
-        "label": "Please Upload your profile pick",
-        "className": "form-control",
-        "name": "file-1683005649446-0",
-        "access": false,
-        "subtype": "file",
-        "multiple": false
-      },
-      {
-        "type": "date",
-        "required": false,
-        "label": "Date Field",
-        "className": "form-control",
-        "name": "date-1683005701919-0",
-        "access": false,
-        "value": "2023-05-16"
-      },
-      {
-        "type": "select",
-        "required": false,
-        "label": "Select",
-        "className": "form-control",
-        "name": "select-1683005771478-0",
-        "access": false,
-        "multiple": false,
-        "values": [
-          {
-            "label": "Option 1",
-            "value": "option-1",
-            "selected": true
-          },
-          {
-            "label": "Option 2",
-            "value": "option-2",
-            "selected": false
-          },
-          {
-            "label": "Option 3",
-            "value": "option-3",
-            "selected": false
-          }
-        ]
-      },
-      {
-        "type": "autocomplete",
-        "required": false,
-        "label": "Autocomplete",
-        "className": "form-control",
-        "name": "autocomplete-1683005749219-0",
-        "access": false,
-        "requireValidOption": false,
-        "values": [
-          {
-            "label": "Option 1",
-            "value": "option-1",
-            "selected": true
-          },
-          {
-            "label": "Option 2",
-            "value": "option-2",
-            "selected": false
-          },
-          {
-            "label": "Option 3",
-            "value": "option-3",
-            "selected": false
-          }
-        ]
-      },
-      {
-        "type": "number",
-        "required": false,
-        "label": "Number",
-        "className": "form-control",
-        "name": "number-1683005791900-0",
-        "access": false
-      },
-      {
-        "type": "paragraph",
-        "subtype": "p",
-        "label": "Paragraphujkmy,k,uykrtkukym",
-        "className": "kjuykuk",
-        "access": false
-      },
-      {
-        "type": "textarea",
-        "required": false,
-        "label": "Text Area",
-        "className": "form-control",
-        "name": "textarea-1683005784519-0",
-        "access": false,
-        "subtype": "textarea"
-      },
-      {
-        "type": "button",
-        "label": "Submit",
-        "subtype": "button",
-        "className": "btn-success btn",
-        "name": "button-1683005722001-0",
-        "access": false,
-        "style": "success"
+  const Navigate = useNavigate();
+  const [Product, setProduct] = useState(
+    JSON.parse(localStorage.getItem("UserProduct"))
+  );
+  const [UserData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userdata"))
+  );
+  const [ChecklistData, setChecklistData] = useState([]);
+  const [Data, setData] = useState([]);
+  const [FormData, setFormData] = useState([]);
+  const CheckListGetData = () => {
+    let obj = {
+      id: localStorage.getItem("CheckList_id"),
+    };
+    ExportChecklist.CheckListView(obj).then((resp) => {
+      if (resp.ok) {
+        if (resp.data) {
+          console.log(JSON.parse(resp.data.data.json_data));
+          setData(JSON.parse(resp.data.data.json_data));
+          setChecklistData(resp.data.data);
+        }
       }
-    ]
-    const [Data, setData] = useState(DataShow)
-    useEffect(() => {
-      let data=JSON.parse(localStorage.getItem("Checklist"))
-        setData(DataShow)
-    }, [])
-    const[FormData,setFormData]=useState([])
+    });
+  };
+  useEffect(() => {
+    CheckListGetData();
+  }, []);
   return (
     <div>
-        <Grid container spacing={4} mt={2} >
-          {console.log(localStorage.getItem("Checklist"))}
-        <Grid xl={3} >
-          <ArrowBackIcon onClick={() => Navigate("/Modelus")} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
+      <Grid container spacing={4} mt={2}>
+        <Grid xl={3}>
+          <ArrowBackIcon
+            onClick={() => Navigate("/Modelus")}
+            style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }}
+          />
         </Grid>
-        <Grid xl={3} >
-        </Grid>
-        <Grid xl={6} >
+        <Grid xl={3}></Grid>
+        <Grid xl={6}>
           {/* <div style={{ display: "flex" }}>
             <Button mt={1} onClick={() => Navigate("/Productlist/cretechalist")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
               className={"active"}
@@ -234,235 +79,341 @@ export const CheckList = () => {
           </div> */}
         </Grid>
       </Grid>
-      <form>
-      {Data?.map((item, index) => {
-            return (
-              <Grid key={index} container spacing={4} mt={2}>
-                <Grid xl={3}></Grid>
-                <Grid xl={6}>
-                    {item.type == "header" ? (
-                      <h1>
-                        <center>{item.label}</center>{" "}
-                      </h1>
-                    ) : null}
-                    {item.type == "radio-group" ? (
-                      <>
-                        {" "}
-                        <FormControl>
-                          <FormLabel id="demo-row-radio-buttons-group-label">
-                            {item.label}
-                          </FormLabel>
-                          <RadioGroup
-                            row
-                            aria-labelledby="demo-row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
-                            onChange={(e, val)=>{ FormData[index]={question:item.label,
-                              Ans:val
-                            }
-                            setFormData([...FormData])
-                          }}
-                          >
-                            {item.values?.map((value, i) => {
-                              return (
-                                <FormControlLabel
-                                  key={i}
-                                  value={value.value}
-                                  control={<Radio />}
-                                  label={value.label}
-                                />
-                              );
-                            })}
-                          </RadioGroup>
-                        </FormControl>
-                      </>
-                    ) : null}
-                    {item.type == "text" ? (
-                      <>
-                        {" "}
-                        <Box mt={3}>
-                          <TextField
-                            fullWidth
-                            id="fullWidth"
-                            label={item.label}
-                            type="text"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            onChange={(e, val)=>{ FormData[index]={question:item.label,
-                              Ans:e.target.value
-                            }
-                            setFormData([...FormData])
-                          }}
-                            variant="filled"
-                          />
-                        </Box>
-                      </>
-                    ) : null}
-                    {item.type == "checkbox-group" ? (
-                      <>
-                        <FormControl
-                          sx={{ m: 3 }}
-                          component="fieldset"
-                          variant="standard"
-                        >
-                          <FormLabel component="legend">{item.label}</FormLabel>
-                          <FormGroup 
-                             onChange={(e, val)=>{ FormData[index]={question:item.label,
-                              Ans:val
-                            }
-                            setFormData([...FormData])
-                          }}>
-                            {item.values.map((val, i) => (
-                              <FormControlLabel
-                                control={<Checkbox key={i} name="gilad" />}
-                                label={val.label}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const org = FormData.filter(function (element) {
+            return element !== undefined;
+          });
+          let obj = {
+            id: localStorage.getItem("CheckList_id"),
+            user_id: UserData?.user_id,
+            product_id: Product.id,
+            json_data: org,
+          };
+          ExportChecklist.CheckListsend(obj)
+            .then((resp) => {
+              console.log({ resp });
+              if (resp.data.message == "register checklist successfully") {
+                toast.success("Register checklist successfully", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+                Navigate("/Modelus");
+              } else {
+                toast.error("Something went wrong", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }
+            })
+            .catch((err) =>
+              toast.error("Something went wrong", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              })
+            );
+        }}
+      >
+        {Data?.map((item, index) => {
+          return (
+            <Grid key={index} container spacing={4} mt={2}>
+              <Grid xl={3}></Grid>
+              <Grid xl={6}>
+                {item.type == "header" ? (
+                  <h1>
+                    <center>{item.label}</center>{" "}
+                  </h1>
+                ) : null}
+                {item.type == "radio-group" ? (
+                  <>
+                    {" "}
+                    <FormControl>
+                      <FormLabel id="demo-row-radio-buttons-group-label">
+                        {item.label}
+                      </FormLabel>
+                      <RadioGroup
+                        row
+                        aria-labelledby="demo-row-radio-buttons-group-label"
+                        name="row-radio-buttons-group"
+                        onChange={(e, val) => {
+                          FormData[index] = { question: item.label, Ans: val };
+                          setFormData([...FormData]);
+                        }}
+                      >
+                        {item.values?.map((value, i) => {
+                          return (
+                            <FormControlLabel
+                              key={i}
+                              value={value.value}
+                              control={<Radio />}
+                              label={value.label}
+                            />
+                          );
+                        })}
+                      </RadioGroup>
+                    </FormControl>
+                  </>
+                ) : null}
+                {item.type == "text" ? (
+                  <>
+                    {" "}
+                    <Box mt={3}>
+                      <TextField
+                        fullWidth
+                        id="fullWidth"
+                        label={item.label}
+                        type="text"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.value,
+                          };
+                          setFormData([...FormData]);
+                        }}
+                        variant="filled"
+                      />
+                    </Box>
+                  </>
+                ) : null}
+                {item.type == "checkbox-group" ? (
+                  <>
+                    <FormControl
+                      sx={{ m: 3 }}
+                      component="fieldset"
+                      variant="standard"
+                    >
+                      <FormLabel component="legend">{item.label}</FormLabel>
+                      <RadioGroup
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.value,
+                          };
+                          // console.log("1",e.target.checked)
+                          // console.log("2",e.target.value)
+                          // console.log("3",val)
+                          setFormData([...FormData]);
+                        }}
+                      >
+                        {item.values.map((val, i) => (
+                          <FormControlLabel
+                            control={
+                              <Radio
+                                value={val.label}
+                                key={i}
+                                name={val.label}
                               />
-                            ))}
-                          </FormGroup>
-                          {/* <FormHelperText>Be careful</FormHelperText> */}
-                        </FormControl>
-                      </>
-                    ) : null}
-                    {item.type == "file" ? (
-                      <>
-                        <Box mt={3}>
-                          <FormLabel component="legend">{item.label}</FormLabel>
-                          <TextField
-                            fullWidth
-                            id="fullWidth"
-                            // label={item.label}
-                            type="file"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            variant="filled"
-                            onChange={(e, val)=>{ FormData[index]={question:item.label,
-                              Ans:val
                             }
-                            setFormData([...FormData])
-                          }}
+                            label={val.label}
                           />
-                        </Box>
-                      </>
-                    ) : null}
-                   { console.log({FormData})}
-                    {item.type == "date" ? (
-                      <>
-                        <Box mt={3}>
-                          <FormLabel component="legend">{item.label}</FormLabel>
-                          <TextField
-                            fullWidth
-                            id="fullWidth"
-                            // label={item.label}
-                            type="date"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            variant="filled"
-                          />
-                        </Box>
-                      </>
-                    ) : null}
-                    {item.type == "select" ? (
-                      <>
-                        <FormControl fullWidth>
-                          <InputLabel
-                            variant="standard"
-                            htmlFor="uncontrolled-native"
-                          >
-                            {item.label}
-                          </InputLabel>
-                          <NativeSelect
-                            inputProps={{
-                              name: "age",
-                              id: "uncontrolled-native",
-                            }}
-                          >
-                            <option value={""}></option>
-                            {item.values.map((val, i) => {
-                              return (
-                                <option value={val.value}>{val.label}</option>
-                              );
-                            })}
-                          </NativeSelect>
-                        </FormControl>
-                      </>
-                    ) : null}
-                    {item.type == "autocomplete" ? (
-                      <>
-                        <FormControl fullWidth>
-                          <Autocomplete
-                            options={item.values}
-                            id="disable-close-on-select"
-                            // disableCloseOnSelect
-                            renderInput={(params) => (
-                              <TextField
-                                {...params}
-                                label={item.label}
-                                variant="standard"
-                              />
-                            )}
-                          />
-                        </FormControl>
-                      </>
-                    ) : null}
-                    {item.type == "number" ? (
-                      <>
-                        <Box mt={3}>
-                          <TextField
-                            fullWidth
-                            id="fullWidth"
-                            label={item.label}
-                            type="number"
-                            InputLabelProps={{
-                              shrink: true,
-                            }}
-                            variant="filled"
-                          />
-                        </Box>
-                      </>
-                    ) : null}
-                    {item.type == "paragraph" ? (
-                      <p>
-                        <center>{item.label}</center>{" "}
-                      </p>
-                    ) : null}
-                    {item.type == "textarea" ? (
-                      <Box mt={1}>
-                        <FormControl fullWidth>
-                          <InputLabel
-                            variant="standard"
-                            htmlFor="uncontrolled-native"
-                          >
-                            {item.label}
-                          </InputLabel>
-                          <br />
-                          <br />
-                          <br />
-                          <TextareaAutosize
-                            aria-label="empty textarea"
-                            // placeholder="Empty"
-                            // style={{ width: 200 }}
-                          />
-                        </FormControl>
-                      </Box>
-                    ) : null}
-                    {item.type == "button" ? (
-                      <Button
-                        type={item.type}
-                        className={"A1"}
-                        variant="contained"
+                        ))}
+                      </RadioGroup>
+                      {/* <FormHelperText>Be careful</FormHelperText> */}
+                    </FormControl>
+                  </>
+                ) : null}
+                {/* {item.type == "file" ? (
+                  <>
+                    <Box mt={3}>
+                      <FormLabel component="legend">{item.label}</FormLabel>
+                      <TextField
+                        fullWidth
+                        id="fullWidth"
+                        // label={item.label}
+                        type="file"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="filled"
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.files[0],
+                          };
+                          setFormData([...FormData]);
+                        }}
+                      />
+                    </Box>
+                  </>
+                ) : null} */}
+                {console.log({ FormData })}
+                {item.type == "date" ? (
+                  <>
+                    <Box mt={3}>
+                      <FormLabel component="legend">{item.label}</FormLabel>
+                      <TextField
+                        fullWidth
+                        id="fullWidth"
+                        // label={item.label}
+                        type="date"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="filled"
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.value,
+                          };
+                          setFormData([...FormData]);
+                        }}
+                      />
+                    </Box>
+                  </>
+                ) : null}
+                {item.type == "select" ? (
+                  <>
+                    <FormControl fullWidth>
+                      <InputLabel
+                        variant="standard"
+                        htmlFor="uncontrolled-native"
                       >
                         {item.label}
-                      </Button>
-                     ) : null} 
-                </Grid>
-                <Grid xl={3}></Grid>
+                      </InputLabel>
+                      <NativeSelect
+                        inputProps={{
+                          name: item.label,
+                          id: "uncontrolled-native",
+                        }}
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.value,
+                          };
+                          setFormData([...FormData]);
+                        }}
+                      >
+                        <option value={""}></option>
+                        {item.values.map((val, i) => {
+                          return <option value={val.value}>{val.label}</option>;
+                        })}
+                      </NativeSelect>
+                    </FormControl>
+                  </>
+                ) : null}
+                {item.type == "autocomplete" ? (
+                  <>
+                    <FormControl fullWidth>
+                      <Autocomplete
+                        options={item.values}
+                        id="disable-close-on-select"
+                        // disableCloseOnSelect
+                        onChange={(event, value) =>{      FormData[index] = {
+                          question: item.label,
+                          Ans: value.value,
+                        };
+                        console.log(value.value)
+                        setFormData([...FormData]);} }
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                         
+                            label={item.label}
+                            value={FormData[index]?.Ans}
+                            variant="standard"
+                          />
+                        )}
+                      />
+                    </FormControl>
+                  </>
+                ) : null}
+                {item.type == "number" ? (
+                  <>
+                    <Box mt={3}>
+                      <TextField
+                        fullWidth
+                        id="fullWidth"
+                        label={item.label}
+                        type="number"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.value,
+                          };
+                          setFormData([...FormData]);
+                        }}
+                        variant="filled"
+                      />
+                    </Box>
+                  </>
+                ) : null}
+                {item.type == "paragraph" ? (
+                  <p>
+                    <center>{item.label}</center>{" "}
+                  </p>
+                ) : null}
+                {item.type == "textarea" ? (
+                  <Box mt={1}>
+                    <FormControl fullWidth>
+                      <InputLabel
+                        variant="standard"
+                        htmlFor="uncontrolled-native"
+                      >
+                        {item.label}
+                      </InputLabel>
+                      <br />
+                      <br />
+                      <br />
+                      <TextareaAutosize
+                        aria-label="empty textarea"
+                        // placeholder="Empty"
+                        // style={{ width: 200 }}
+                        onChange={(e, val) => {
+                          FormData[index] = {
+                            question: item.label,
+                            Ans: e.target.value,
+                          };
+                          setFormData([...FormData]);
+                        }}
+                      />
+                    </FormControl>
+                  </Box>
+                ) : null}
+                {item.type == "button" ? (
+                  <Button
+                    type={item.subtype}
+                    className={"A1"}
+                    variant="contained"
+                  >
+                    {item.label}
+                  </Button>
+                ) : null}
+                {/* {item.type == "submit" ? (
+                  <Button type={item.type} className={"A1"} variant="contained">
+                    {item.label}
+                  </Button>
+                ) : null} */}
               </Grid>
-            );
-          })}
-          </form>
+              <Grid xl={3}></Grid>
+            </Grid>
+          );
+        })}
+      </form>
     </div>
-  )
-    }
-
+  );
+};

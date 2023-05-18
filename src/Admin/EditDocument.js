@@ -107,7 +107,7 @@ const formik = useFormik({
           });
           Navigate("/Admin/AllDocumentAdmin");
           }else{
-            toast.error('Something went rong', {
+            toast.error('Something went wrong', {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -120,7 +120,7 @@ const formik = useFormik({
           }
         })
         .catch((err) =>
-          toast.error("Something went rong", {
+          toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

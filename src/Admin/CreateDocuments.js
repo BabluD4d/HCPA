@@ -72,7 +72,7 @@ export default function CreateDocuments() {
             });
             Navigate("/Admin/AllDocumentAdmin");
             }else{
-              toast.error('Something went rong', {
+              toast.error('Something went wrong', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -85,7 +85,7 @@ export default function CreateDocuments() {
             }
           })
           .catch((err) =>
-            toast.error("Something went rong", {
+            toast.error("Something went wrong", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,

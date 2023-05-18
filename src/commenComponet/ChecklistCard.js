@@ -14,7 +14,8 @@ const ChecklistCard = (props) => {
           <Typography mt={1} ml={6} sx={{ fontSize:"17px",}} > {" "+props.count.title}</Typography>
           <Typography  ml={6} sx={{ fontSize:"10px",}} >0 of 4 sections completed</Typography>
           <div>
-          <Typography onClick={()=>Navigate("/Modelus/CheckList")} mt={2} ml={6} sx={{ color: "#0CB4D0", fontSize: "15px",cursor:"pointer" }}> <CreateIcon sx={{ color: "#0CB4D0", fontSize: "20px",marginBottom:"15px" }}  />  Fill out from</Typography>
+          <Typography onClick={()=>{localStorage.setItem("CheckList_id",props.count.id);
+           Navigate("/Modelus/CheckList")}} mt={2} ml={6} sx={{ color: "#0CB4D0", fontSize: "15px",cursor:"pointer" }}> <CreateIcon sx={{ color: "#0CB4D0", fontSize: "20px",marginBottom:"15px" }}  />  Fill out from</Typography>
           </div>
     </div>
   )

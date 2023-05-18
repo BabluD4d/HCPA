@@ -8,6 +8,7 @@ import { useState } from "react";
 import UserBanner from "../Api/Admin/UserBanner/UserBanner";
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
+import { ColorRing } from "react-loader-spinner";
 
 export default function UserDeshboard() {
   const [Product, setProduct] = useState(
@@ -17,6 +18,7 @@ export default function UserDeshboard() {
   const [NewformData, setNewformData] = useState();
   const [modalShow, setModalShow] = React.useState(false);
   const Navigate = useNavigate();
+  const [loader, setloader] = useState(false);
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -37,12 +39,14 @@ export default function UserDeshboard() {
     },
   });
 const hendleSubmit =()=>{
+  setloader(true)
     setTimeout(() => {
         UserBanner.CreateBanner(NewformData)
           .then((resp) => {
             console.log(resp);
             if (resp.data.message == "welcomebanner submit successfully") {
                 setModalShow(false)
+                setloader(false)
               toast.success("Welcome banner submit successfully", {
                 position: "top-right",
                 autoClose: 5000,
@@ -54,7 +58,8 @@ const hendleSubmit =()=>{
                 theme: "light",
               });
             } else {
-              toast.error("Something went rong", {
+              setloader(false)
+              toast.error("Something went wrong", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -67,7 +72,8 @@ const hendleSubmit =()=>{
             }
           })
           .catch((err) =>
-            toast.error("Something went rong", {
+           {setloader(false)
+             toast.error("Something went wrong", {
               position: "top-right",
               autoClose: 5000,
               hideProgressBar: false,
@@ -76,7 +82,7 @@ const hendleSubmit =()=>{
               draggable: true,
               progress: undefined,
               theme: "light",
-            })
+            })}
           );
       }, 1000);
 }
@@ -92,6 +98,21 @@ const hendleSubmit =()=>{
               style={{ color: "#0cb4d0", fontSize: "50px" }}
             />
           </div> */}
+             {loader?    <div style={{marginTop:"22%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:
       <Grid container spacing={4} mt={2}>
         <Grid xl={3}></Grid>
         <Grid xl={6}>
@@ -174,7 +195,6 @@ const hendleSubmit =()=>{
           ) : null}
         </Grid>
         <Grid xl={3}></Grid>
-      </Grid>
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -212,6 +232,7 @@ const hendleSubmit =()=>{
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
+      </Grid>}
     </div>
   );
 }

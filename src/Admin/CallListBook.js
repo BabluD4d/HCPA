@@ -18,6 +18,7 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
 import ExportBookCall from '../Api/Admin/BookCallList/ExportBookCall';
+import { ColorRing } from 'react-loader-spinner';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#0CB4D0",
@@ -51,6 +52,7 @@ const rows = [
 ];
 export default function CallListBook() {
   const [Data, setData] = useState([])
+  const [loader, setloader] = useState(true);
   const GetData = () => {
     ExportBookCall.BooKCallListtAll().then(
       (resp) => {
@@ -58,7 +60,11 @@ export default function CallListBook() {
           if (resp.data) {
             console.log(resp.data)
             setData(resp.data.result);
-          }
+            setloader(false)
+          }else{
+            setloader(false)
+          
+        }
         }
       }
     );
@@ -72,6 +78,21 @@ export default function CallListBook() {
         Call List Book
       </Typography>
       <hr height={3} />
+      {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
       <Grid  mt={5}container spacing={1}>
               <Grid item xs={2}>
                 </Grid>
@@ -108,6 +129,7 @@ export default function CallListBook() {
           </TableContainer>
                 </Grid>
                 </Grid>
+                </>}
     </div>
   )
 }

@@ -24,7 +24,7 @@ export default function CoustomRegistration(obj, name,Navigate) {
                             Navigate('/UserList')
                         }, 1000);
                     }else {
-                        toast.error('Something went rong', {
+                        toast.error('Something went wrong', {
                             position: "top-right",
                             autoClose: 5000,
                             hideProgressBar: false,
@@ -38,7 +38,7 @@ export default function CoustomRegistration(obj, name,Navigate) {
                 } 
             }
         })
-        .catch((err) => toast.error('Something went rong', {
+        .catch((err) => toast.error('Something went wrong', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,

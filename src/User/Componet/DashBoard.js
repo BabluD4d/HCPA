@@ -8,12 +8,15 @@ import Futer from "../../commenComponet/Futer";
 import ExportDashBoard from "../../Api/user/DashBoard/ExportDashBoard";
 import ExportProduct from "../../Api/user/Product/ExportProduct";
 import { BaseUrlImage } from "../../Api/BaseApi";
+import { ColorRing } from "react-loader-spinner";
+import { toast } from "react-toastify";
 const DashBoard = () => {
   const [userdata, setuserdata] = useState(
     JSON.parse(localStorage.getItem("userdata"))
   );
   const Navigate = useNavigate();
   const [Data, setData] = useState();
+  const [loader, setloader] = useState(true);
   const [ProductData, setProductData] = useState([]);
   const GetData = () => {
     // let obj = {
@@ -21,25 +24,47 @@ const DashBoard = () => {
     // };
     ExportDashBoard.UserWellcome().then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
+        // console.log(resp.data.data);
         if (resp.data) {
+          setloader(false)
           setData(resp.data.data);
+        }else{
+          setloader(false)
         }
       }
     });
   };
   const GetDataProduct = () => {
+
     let obj = {
       user_id: userdata.user_id,
     };
-    ExportProduct.ProductList(obj).then((resp) => {
+    ExportProduct.ProductList(obj)
+    .then((resp) => {
       if (resp.ok) {
         console.log("hello", resp.data.data);
         if (resp.data) {
+          setloader(false)
           setProductData(resp.data.data.product);
+        }else{
+          setloader(false)
         }
       }
-    });
+    })
+    .catch((err) =>{
+      toast.error("Something went wrong", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+      setloader(false)
+    }
+  );
   };
   useEffect(() => {
     GetData();
@@ -47,6 +72,21 @@ const DashBoard = () => {
   }, []);
   return (
     <div id="main">
+            {loader?    <div style={{marginTop:"24%"}}>
+                <center >
+                <ColorRing
+                  visible={true}
+                  height="100"
+                  width="100"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+                />
+                
+                </center>
+               
+            </div>:<>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
         DashBoard
       </Typography>
@@ -117,8 +157,9 @@ const DashBoard = () => {
           </div>
         </Grid>
       </Grid>
-
       <Futer />
+            </>}
+
     </div>
   );
 };

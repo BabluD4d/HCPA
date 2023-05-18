@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 const ModelusCardUnlook = (props) => {
  const Navigate=useNavigate()
     return (
-        <Grid mt={3} item xs={props.size}>
-            <Box pl={2} p={2}>
+        <Grid  mt={3} item xs={props.size}>
+            <Box className="sedow"sx={{backgroundColor:"#E4EFFA"}} pl={2} p={2}>
                 <Grid container >
                     <Grid   item xs={11}>
                     <Typography   sx={{ fontSize: "15px",  }} >  available document {" "+props.Module.total_document}
@@ -15,7 +15,7 @@ const ModelusCardUnlook = (props) => {
                     <Grid  item xs={1}>
                     </Grid>
                     <Grid   item xs={12}>
-                    <div style={{display:"block"}}>
+                    <div style={{display:"block",paddingBlock:"9px"}}>
                     <Typography mt={1}  sx={{ fontSize: "20px", fontWeight: "bold" }} >{" "+ props.Module.module_name} </Typography>
                     </div>
                     </Grid>
