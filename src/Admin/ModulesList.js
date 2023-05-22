@@ -33,6 +33,7 @@ export default function ModulesList() {
     const [ProductData, setProductData] = useState([])
     const [ProductSingle, setProductSingle] = useState()
     const [modalShow, setModalShow] = React.useState(false);
+    const [DataNotFound, setDataNotFound] = useState();
     const [EditData, setEditData] = useState();
     const formik = useFormik({
       initialValues: {
@@ -112,6 +113,8 @@ export default function ModulesList() {
     const GetDataModuiles = (event) => {
       // console.log(event.target.value)
       // setProductSingle(event.target.value)
+      const productData=ProductData.find((val,i)=>val.products_id==event.target.value)
+      localStorage.setItem("Product",JSON.stringify(productData))
       let obj = {
         order: "asc",
         limit: 10,
@@ -122,9 +125,12 @@ export default function ModulesList() {
         if (resp.ok) {
           console.log(resp.data.data);
           if (resp.data.data[0]) {
+            setDataNotFound()
             setModuleList(resp.data.data);
           }else{
+            setDataNotFound("No record found");
             setModuleList([]);
+
           }
         }
       });
@@ -246,6 +252,15 @@ export default function ModulesList() {
       </Grid>
         </Grid>
       <Box mt={5}>
+      {DataNotFound ? (
+                    <Typography
+                      mt={"17%"}
+                      ml={"40%"}
+                      sx={{ fontSize: "26px", fontWeight: "bold" }}
+                    >
+                      {DataNotFound}
+                    </Typography>
+                  ) : (
           <Grid container spacing={4} mt={2} pl={9}>
           {ModuleList &&
             ModuleList?.map((item, index) => {
@@ -269,7 +284,7 @@ export default function ModulesList() {
            
 {/*        
             <Pagination count={10} /> */}
-          </Grid>
+          </Grid>)}
           {/* <Grid item mt={-3} xs={2}>  <Button onClick={()=>Navigate("/CreateProduct")}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
             className={"active"}
           /> &nbsp; &nbsp; &nbsp; Create Product</Button> </Grid> */}

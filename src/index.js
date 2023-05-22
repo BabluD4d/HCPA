@@ -49,6 +49,7 @@ import UserDeshboard from './Admin/UserDeshboard';
 import UserActiveProductList from './Admin/UserActiveProductList';
 import UserActiveModule from './Admin/UserActiveModule';
 import AdminViewAns from './Admin/AdminViewAns';
+import ForgotSet from './commenComponet/ForgotSet';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
@@ -63,6 +64,7 @@ root.render(
             <Route exact path="/login" element={<SignIn />} />
             <Route exact path="/signup" element={<Registration />} />
             <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
+            <Route exact path="/forget/:token/:email" element={<ForgotSet />} />
               </Route>
             <Route path="/" element={<Proctected />}>
               <Route exact path="/Home" element={<DashBoard />} />
@@ -105,7 +107,6 @@ root.render(
               <Route exact path="/EditDocument" element={<EditDocument />} />
               <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
               <Route exact path="/Modelus/Document/ViewDocument1/:id" element={<ViewDocument />} />
-
             </Route>
              <Route path='*' element={<NotFound />} />
            

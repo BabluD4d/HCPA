@@ -48,7 +48,11 @@ export default function DocumentCard(props) {
           </div>:    <div 
             style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
             onClick={() => {
-              Navigate("/Modelus/Document/ViewDocument");
+              localStorage.setItem("ViewDocument",JSON.stringify(props.val))
+              setTimeout(() => {
+                
+                Navigate("/Modelus/Document/ViewDocument");
+              },200);
             }}
           >
             <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />

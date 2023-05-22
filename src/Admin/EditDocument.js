@@ -138,7 +138,7 @@ const formik = useFormik({
 useEffect(() => {
   setTimeout(() => {
     setCount(Count+15)
-  }, 1500);
+  }, 2000);
   }, [])
   return (
     <div>
@@ -255,7 +255,7 @@ useEffect(() => {
           menubar: 'view',
            height: 500,
            menubar: true,
-           plugins: "a11ychecker advcode advlist advtable anchor autocorrect autolink autoresize autosave casechange charmap checklist code codesample directionality editimage emoticons export footnotes formatpainter fullscreen help image importcss inlinecss insertdatetime link linkchecker lists media mediaembed mentions mergetags nonbreaking pagebreak pageembed permanentpen powerpaste preview quickbars save searchreplace table tableofcontents template tinydrive tinymcespellchecker typography visualblocks visualchars preview wordcount ext/dragAndDrop",
+           plugins: "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons fullscreen help image importcss  insertdatetime link  lists media  nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
            toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview',
            toolbar2: 'table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader',
            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',

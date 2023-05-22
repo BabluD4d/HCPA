@@ -21,7 +21,9 @@ const ModelusCardUnlook = (props) => {
                     </Grid>
                     <br/>
                     <div style={{display:"initial"}}>
-                    <Typography onClick={()=>{Navigate("/Modelus/Document")}} mt={4}  sx={{ color: "#0CB4D0", fontSize: "15px",cursor:"pointer" }}  > <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "20px",marginBottom:"8px" }}  />  View Modelus</Typography>
+                    <Typography onClick={()=>{localStorage.setItem("UserModule",JSON.stringify(props.Module));setTimeout(() => {
+                       Navigate("/Modelus/Document") 
+                    }, 300); }} mt={4}  sx={{ color: "#0CB4D0", fontSize: "15px",cursor:"pointer" }}  > <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "20px",marginBottom:"8px" }}  />  View Modelus</Typography>
                     </div>
                 </Grid>
             </Box>

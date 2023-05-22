@@ -1,41 +1,42 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import ExportApi from "../Api/ExportApi";
-import { Link, useNavigate } from "react-router-dom";
-import CoustomForgot from "../Api/Auth/Forgetpass/CoustomForgot";
+import { useNavigate, useParams } from "react-router-dom";
 import Logo from "../img/title.svg";
 import ExportLogin from "../Api/Auth/Login/ExportLogin";
 import { toast, ToastContainer } from "react-toastify";
 import { ColorRing } from "react-loader-spinner";
 const theme = createTheme();
-export default function ForgotPassword() {
+function ForgotSet() {
+  const params = useParams();
+  console.log({ params });
   const [loader, setloader] = React.useState(false);
   const Navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      email: "",
+      email: params.email,
+      token: params.token,
+      password: "",
+      CnfP:""
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .email("Please enter valid email address")
-        .required("Enter your email"),
+      password: Yup.string()
+        .min(6, "Password must be 6 characters long")
+        .required("Enter your password"),
+        CnfP: Yup.string()
+        .required('Please retype your password.')
+        .oneOf([Yup.ref('password'), null], "Passwords doesn't match")
     }),
     onSubmit: (values) => {
       setloader(true);
-      ExportLogin.Forgot(values)
+      ExportLogin.ForgotSetUpdate(values)
         .then((resp) => {
           if (resp.data) {
             console.log(resp.data);
@@ -108,25 +109,41 @@ export default function ForgotPassword() {
         >
           <img style={{ marginLeft: "44%" }} src={Logo} width={60} alt="" />
           <Typography component="h1" variant="h5">
-            Forgot password
+            Change password
           </Typography>
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
-              // required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              // autoFocus
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.email}
+              value={formik.values.password}
+              autoComplete="current-password"
             />
-            {formik.touched.email && formik.errors.email ? (
-              <div style={{ color: "red" }}>{formik.errors.email}</div>
+            {formik.touched.password && formik.errors.password ? (
+              <div style={{ color: "red" }}>{formik.errors.password}</div>
             ) : null}
+             <Box  sx={{ mt: 2 }}>
+            <TextField
+              margin="normal"
+              fullWidth
+              name="CnfP"
+              label="Password"
+              type="password"
+              id="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.CnfP}
+              autoComplete="current-CnfP"
+            />
+            {formik.touched.CnfP && formik.errors.CnfP ? (
+              <div style={{ color: "red" }}>{formik.errors.CnfP}</div>
+            ) : null}
+            </Box>
             {loader ? (
               <div style={{ marginTop: "5%" }}>
                 <center>
@@ -154,26 +171,9 @@ export default function ForgotPassword() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Forgot password
+                Change Password
               </Button>
             )}
-            <Grid container>
-              <Grid item xs>
-                <Link to="/login" variant="body2">
-                  Sign in
-                </Link>
-              </Grid>
-              <Grid item xs>
-                {/* <Link to="/signup" variant="body2">
-               Create Account
-              </Link> */}
-              </Grid>
-              <Grid item xs>
-                <Link to="/signup" variant="body2">
-                  Create Account
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
@@ -181,3 +181,5 @@ export default function ForgotPassword() {
     </ThemeProvider>
   );
 }
+
+export default ForgotSet;
