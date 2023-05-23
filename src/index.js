@@ -51,6 +51,7 @@ import UserActiveModule from './Admin/UserActiveModule';
 import AdminViewAns from './Admin/AdminViewAns';
 import ForgotSet from './commenComponet/ForgotSet';
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   // <React.StrictMode>
   <BrowserRouter>
@@ -59,9 +60,11 @@ root.render(
         <Sidebar />
         <Grid item md={12} sm={12} xl={10} lg={12} xs={12} sx={{ height: "100vh", overflow: "auto" }} >
           <Header /> */}
+          {/* {window.location.pathname=="/"?window.location.href="/login":null} */}
+          {}
           <Routes>
             <Route path="/" element={<Public />}>
-            <Route exact path="/login" element={<SignIn />} />
+            <Route exact path="/" element={<SignIn />} />
             <Route exact path="/signup" element={<Registration />} />
             <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
             <Route exact path="/forget/:token/:email" element={<ForgotSet />} />

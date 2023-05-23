@@ -9,7 +9,7 @@ export default function Public() {
       </>
     ) : (
       <>
-       {Token &&role==1||role==2  ? <Navigate to="/Admin" />:Token &&role==3?<Navigate to="/Home" />:<Navigate to="/login" />}
+       {Token &&role==1||role==2  ? <Navigate to="/Admin" />:Token &&role==3?<Navigate to="/Home" />:<Navigate to="/" />}
       </>
     )
 }

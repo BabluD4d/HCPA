@@ -23,16 +23,10 @@ const RegistrationGuide = () => {
         (resp) => {
           if (resp.ok) {
             if (resp.data) {
-            //   let obj={...resp?.data?.data?.user, ...resp.data.data.business
-            //   }
-            setModuleData(resp.data.data)
               console.log("user123",resp.data.data)
               if(resp.data.data.registration_guid){
-               let video=  resp.data.data.registration_guid.find((val,i)=>val.view_video==0)
-               console.log({video})
-              //  setRegistrationCurent(video)
+               setModuleData(resp.data.data.registration_guid)
               }
-            //   setData(obj);
             }
           }
         }
@@ -69,26 +63,19 @@ const RegistrationGuide = () => {
         <Grid xl={3} >
         </Grid>
         <Grid xl={6} >
-          {/* <div style={{ display: "flex" }}>
-            <Button mt={1} onClick={() => Navigate("/Productlist/cretechalist")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
-              className={"active"}
-            /> &nbsp; &nbsp; &nbsp; Create Checklist</Button>
-
-            <Button onClick={() => Navigate("/CreactModules")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
-              className={"active"}
-            /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
-          </div> */}
+          
         </Grid>
       </Grid>
       <Typography mt={4} sx={{ fontSize: "30px", marginLeft: "320px" }}>
         7 of 14 Guides Completed
       </Typography>
-      {/* {ModuleData?.registration_guid.map((val,i)=>
-        <GuidesList title={val.title} Stuts={val.view_video} />
-        )} */}
-        <GuidesList title={"fdgf"} Stuts={"3"} />
+      {ModuleData?.map((val,i)=>
+        <GuidesList ModulesList={ModulesList} title={val.title} val={val} Stuts={val.guid_status} />
+        )}
+
+        {/* <GuidesList title={"fdgf"} Stuts={"3"} />
         <GuidesList title={"Chapter 2 - getting Started"} Stuts={1} />
-        <GuidesList title={"Chapter 3 - getting Started"} Stuts={2} />
+        <GuidesList title={"Chapter 3 - getting Started"} Stuts={2} /> */}
     </div>
   );
 };

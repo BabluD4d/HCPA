@@ -19,7 +19,7 @@ const Proctected = () => {
     </>
   ) : (
     <>
-     {Token &&role==1||role==2 ? <Navigate to="/Admin" />: <Navigate to="/login" />}
+     {Token &&role==1||role==2 ? <Navigate to="/Admin" />: <Navigate to="/" />}
     </>
   );
 };

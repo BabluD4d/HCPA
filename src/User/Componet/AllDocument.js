@@ -32,6 +32,10 @@ export default function AllDocument() {
   };
   useEffect(() => {
     GetData();
+    if(!Product?.product_name){
+      Navigate("/Home")
+    }
+
   }, []);
 
   return (
@@ -54,7 +58,7 @@ export default function AllDocument() {
           sx={{ fontSize: "14px", color: "#0CB4D0" }}
         >
           {" "}
-          / {Product.product_name}
+          / {Product?.product_name}
         </Typography>
         <Typography
           onClick={() => Navigate("/Modelus/all")}

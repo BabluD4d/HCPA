@@ -56,7 +56,7 @@ const Header = () => {
   const [modalShow, setModalShow] = React.useState(false);
   return (
     <>
-    {loaction.pathname=="/login"?null:
+    {loaction.pathname=="/"?null:
     <div className='header'>
             <Grid container >
   <Grid item xs={2} md={3}xl={3.5} sm={5} mt={2.5}>
@@ -122,7 +122,7 @@ const Header = () => {
                 sx={{ marginLeft: "10px" }}
                 className={"A1"}
                 variant="contained"
-                onClick={()=>{localStorage.clear();Navigate("/login")}}
+                onClick={()=>{localStorage.clear();Navigate("/")}}
               >
                 Yes
               </Button></Grid>

@@ -26,6 +26,7 @@ function ForgotSet() {
       password: "",
       CnfP:""
     },
+    enableReinitialize: true,
     validationSchema: Yup.object({
       password: Yup.string()
         .min(6, "Password must be 6 characters long")
@@ -40,9 +41,9 @@ function ForgotSet() {
         .then((resp) => {
           if (resp.data) {
             console.log(resp.data);
-            if (resp.data.message == "mail send ") {
+            if (resp.data.message == "change  password") {
               setloader(false);
-              toast.success("Please check your mail", {
+              toast.success("Password change successfully", {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -52,6 +53,7 @@ function ForgotSet() {
                 progress: undefined,
                 theme: "light",
               });
+              Navigate("/")
             } else {
               setloader(false);
               toast.error("Credentials are wwrong", {
@@ -132,7 +134,7 @@ function ForgotSet() {
               margin="normal"
               fullWidth
               name="CnfP"
-              label="Password"
+              label="Confirm Password"
               type="password"
               id="password"
               onChange={formik.handleChange}

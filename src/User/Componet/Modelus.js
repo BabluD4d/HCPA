@@ -103,6 +103,34 @@ const Modelus = () => {
         setloader(false);
       });
   };
+  const ViewguidUpdateUser = (id) => {
+    let obj = {
+      user_id: Data?.user_id,
+      product_id: Product.id,
+      registrationguide_id: id,
+      status: true,
+    };
+
+    ExportModules.guidUpdateUser(obj)
+      .then((resp) => {
+        if (resp.ok) {
+          ModulesList();
+        }
+      })
+      .catch((err) => {
+        toast.error("Something went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setloader(false);
+      });
+  };
 
   return (
     <>
@@ -276,13 +304,13 @@ const Modelus = () => {
 
                     <Grid container spacing={2}>
                       <Grid mt={3} md={8} lg={6} sm={12} xl={9} item xs={12}>
-                              <Typography
-                                mt={2}
-                                //   ml={2}
-                                sx={{ fontSize: "20px", fontWeight: "bold" }}
-                              >
-                                Modules
-                              </Typography>
+                        <Typography
+                          mt={2}
+                          //   ml={2}
+                          sx={{ fontSize: "20px", fontWeight: "bold" }}
+                        >
+                          Modules
+                        </Typography>
                         {DataNotFoundmodule ? (
                           <Typography
                             mt={"17%"}
@@ -414,13 +442,13 @@ const Modelus = () => {
                         </Grid>
                       </Grid>
                       <Grid mt={3} item sm={12} xl={3} lg={6} md={4} xs={12}>
-                            <Typography
-                              mt={2}
-                              ml={2}
-                              sx={{ fontSize: "20px", fontWeight: "bold" }}
-                            >
-                              Checklist to Complete
-                            </Typography>
+                        <Typography
+                          mt={2}
+                          ml={2}
+                          sx={{ fontSize: "20px", fontWeight: "bold" }}
+                        >
+                          Checklist to Complete
+                        </Typography>
                         {DataNotFoundmodule ? (
                           <Typography
                             mt={"17%"}
@@ -516,8 +544,9 @@ const Modelus = () => {
                             </Typography>
                           </Grid>
                           <Grid mt={5} item xs={3}>
+                            {/* {console.log({RegistrationCurent})} */}
                             <Button
-                              onClick={handleClose}
+                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent.id)}}
                               variant="contained"
                               sx={{ backgroundColor: "#0CB4D0" }}
                             >

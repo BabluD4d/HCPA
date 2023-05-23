@@ -311,3 +311,7 @@ h1, a{
   background: #0cb4d0;
   color: #ddd;
 }
+.fileActive{
+  color:#0cb4d0;
+  border-bottom: 3px solid #0cb4d0;
+}

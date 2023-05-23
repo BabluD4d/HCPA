@@ -19,7 +19,7 @@ const AdminProctected = () => {
     </>
   ) : (
     <>
-    {Token&&role==3? <Navigate to="/Home" />: <Navigate to="/login" />}
+    {Token&&role==3? <Navigate to="/Home" />: <Navigate to="/" />}
     </>
   );
 };
