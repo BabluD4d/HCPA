@@ -71,6 +71,15 @@ useEffect(() => {
   GetDataDocumentGetDataView()
 }, [])
 
+function eventHandler() {
+  setViewDocument(JSON.parse(localStorage.getItem("ViewDocument")))
+  // Event handling logic goes here
+  GetDataDocumentGetDataView()
+  // Remove the event listener after it is fired
+  window.removeEventListener('FileChenge', eventHandler);
+}
+
+window.addEventListener('FileChenge', eventHandler);
  const DownloadPDF=()=>{
   const input = document.getElementById("PDFDATA");
   html2canvas(input)

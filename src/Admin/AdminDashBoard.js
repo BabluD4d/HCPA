@@ -172,7 +172,7 @@ export default function AdminDashBoard() {
           >
             <center>
               <Typography pt={4} sx={{ fontSize: "28px", fontWeight: "bold" }}>
-                Active Product
+                Active Modules
               </Typography>
             </center>
             <Grid container spacing={1}>
@@ -187,7 +187,7 @@ export default function AdminDashBoard() {
                 </Typography>
               </Grid>
               <Typography mt={3} sx={{ fontSize: "48px" }}>
-              {ProductData?.product_active}
+              {ProductData?.module_count}
               </Typography>
             </Grid>
           </Box>

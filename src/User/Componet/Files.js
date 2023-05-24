@@ -45,7 +45,6 @@ const Files = () => {
   const [FileData, setFileData] = useState();
   const [ProductData, setProductData] = useState([]);
   const handleChange = (newValue) => {
-    // console.log({ event });
     setValue(newValue);
   };
   const handleSaveData = (data) => {
@@ -57,7 +56,6 @@ const Files = () => {
     };
     ExportProduct.ProductList(obj).then((resp) => {
       if (resp.ok) {
-        // console.log("hello", resp.data.data);
         if (resp.data) {
           setProductData(resp.data.data.product);
         }
@@ -95,20 +93,20 @@ const Files = () => {
         <Grid xs={2}>
           <Grid container mt={4}>
             <Grid mt={4} item xs={6}>
-              <Button
+              {/* <Button
                 onClick={() => console.log({ saveData })}
                 className="sort"
                 variant="outlined"
                 startIcon={<VerticalAlignCenterIcon />}
               >
                 Sort
-              </Button>
+              </Button> */}
             </Grid>
             <Grid mt={4} xs={2}>
-              <VerticalShadesClosedIcon />
+              {/* <VerticalShadesClosedIcon /> */}
             </Grid>
             <Grid mt={4} item xs={3}>
-              <DensityMediumIcon sx={{ color: "#0CB4D0" }} />
+              {/* <DensityMediumIcon sx={{ color: "#0CB4D0" }} /> */}
             </Grid>
           </Grid>
         </Grid>
@@ -164,7 +162,7 @@ const Files = () => {
         )}
       </Box>
 
-      <Futer />
+      {/* <Futer /> */}
     </div>
   );
 };
