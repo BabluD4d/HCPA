@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
+import { Offline, Online } from "react-detect-offline";
 export default function Public() {
     let Token = localStorage.getItem("Token");
     let role = localStorage.getItem("role");

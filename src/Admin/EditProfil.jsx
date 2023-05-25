@@ -57,7 +57,15 @@ export default function EditProfil(props) {
           .then((resp) => {
             console.log(resp);
             if (resp.data.msg == "updated successfully") {
-              setModalShow(false);
+              DataUser.email=values.email
+              DataUser.name=values.name
+              setDataUser({...DataUser})
+              setTimeout(() => {
+                setModalShow(false)
+                localStorage.setItem("userdata",JSON.stringify(DataUser))
+                window.dispatchEvent(new Event("UserChange"))
+                
+              });
               GetData();
               toast.success("Profile updated successfully", {
                 position: "top-right",

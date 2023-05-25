@@ -63,6 +63,14 @@ const Sidebar = () => {
     window.addEventListener("Togle", () => sethideShow(true));
   }, []);
 
+  function eventHandler() {
+    setData(JSON.parse(localStorage.getItem("userdata")))
+    // Event handling logic goes here
+    // Remove the event listener after it is fired
+    window.removeEventListener('UserChange', eventHandler);
+  }
+  
+  window.addEventListener('UserChange', eventHandler);
   useEffect(() => {
     if (localStorage.getItem("Token") && localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2) {
       setAdmin(true)
@@ -87,6 +95,10 @@ const Sidebar = () => {
     };
     // alert(Data.user_id)
     ExportProduct.ProductList(obj).then((resp) => {
+      if(resp.data.msg=="Unauthenticated."){
+        localStorage.clear()
+        Navigate("/")}
+        else{
       if (resp.ok) {
         console.log("hello",resp.data.data);
         if (resp.data) {
@@ -94,6 +106,7 @@ const Sidebar = () => {
             );
         }
       }
+    }
     });
   };
   window.addEventListener("Admin", () => setTimeout(() => {

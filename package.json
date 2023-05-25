@@ -24,6 +24,7 @@
     "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.3",
+    "react-detect-offline": "^2.4.5",
     "react-dom": "^18.2.0",
     "react-email-editor": "^1.7.8",
     "react-form-builder2": "^0.15.1",

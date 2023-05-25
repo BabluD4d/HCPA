@@ -116,7 +116,7 @@ const DashBoard = () => {
           </Typography>
           <Grid container spacing={4} mt={2} pl={9}>
             {ProductData?.map((val,i)=>{
-              return<>{val.purchase_status=="1"?<ProductCard Modules={6} id={val.id} ProductName={val.product_name} />:null}
+              return<>{val.purchase_status=="1"?<ProductCard val={val} Modules={6} id={val.id} ProductName={val.product_name} />:null}
               </>
             })}
 {/*             

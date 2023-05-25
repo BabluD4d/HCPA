@@ -72,6 +72,36 @@ export default function CallListBook() {
   useEffect(() => {
     GetData()
   }, [])
+  function isYesterday(date) {
+    const today = new Date(date);
+
+    const yesterday = new Date();
+
+    if (
+      today.getDate() === yesterday.getDate() &&
+      today.getMonth() === yesterday.getMonth() &&
+      today.getFullYear() === yesterday.getFullYear()
+    ) {
+      return "Today";
+    } 
+    else if (
+      today.getDate() === yesterday.getDate() - 1 &&
+      today.getMonth() === yesterday.getMonth() &&
+      today.getFullYear() === yesterday.getFullYear()
+    ) {
+      return "Yesterday";
+    }
+    else if (
+      today.getDate() === yesterday.getDate() + 1 &&
+      today.getMonth() === yesterday.getMonth() &&
+      today.getFullYear() === yesterday.getFullYear()
+    ) {
+      return "Tomorrow";
+    }
+     else {
+      return date;
+    }
+  }
   return (
           <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -102,26 +132,28 @@ export default function CallListBook() {
               <TableHead>
                 <TableRow>
                   <StyledTableCell>User Name </StyledTableCell>
-                  <StyledTableCell align="right">Email </StyledTableCell>
-                  <StyledTableCell align="right">Mobile</StyledTableCell>
-                  <StyledTableCell align="right">Date</StyledTableCell>
-                  <StyledTableCell align="right">Time</StyledTableCell>
-                  <StyledTableCell align="right">Call Type</StyledTableCell>
+                  <StyledTableCell align="left">Date </StyledTableCell>
+                  <StyledTableCell align="left">Time</StyledTableCell>
+                  <StyledTableCell align="left">Call Type</StyledTableCell>
+                  <StyledTableCell align="left">Job Title</StyledTableCell>
+                  <StyledTableCell align="left">Contact Number</StyledTableCell>
+                  <StyledTableCell align="left">Notes</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {Data?.map((row) => (
-                  <StyledTableRow key={row.name}>
+                  <StyledTableRow key={row.full_name}>
                     <StyledTableCell component="th" scope="row">
                       {row.full_name}
                     </StyledTableCell>
-                    <StyledTableCell align="right">
-                      {row.email}
+                    <StyledTableCell align="left">
+                    {isYesterday(row.date)}
                     </StyledTableCell>
-                    <StyledTableCell align="right">{row.contact_number}</StyledTableCell>
-                    <StyledTableCell align="right">{row.date}</StyledTableCell>
-                    <StyledTableCell align="right">{row.time}</StyledTableCell>
-                    <StyledTableCell align="right">{row.call_type}</StyledTableCell>
+                    <StyledTableCell align="left">{row.time}</StyledTableCell>
+                    <StyledTableCell align="left">{row.call_type == 1 ? "Purchase product":row.call_type==2?"Purchase modelus":"Other reasion Type"}</StyledTableCell>
+                    <StyledTableCell align="left">{row.jobtitle}</StyledTableCell>
+                    <StyledTableCell align="left">{row.contact_number}</StyledTableCell>
+                    <StyledTableCell align="left">{row.notes}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
