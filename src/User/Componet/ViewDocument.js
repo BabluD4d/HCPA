@@ -87,7 +87,7 @@ window.addEventListener('FileChenge', eventHandler);
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
         pdf.addImage(imgData, 'JPEG', 0, 0);
-        pdf.save( ViewDocument.document_title+".pdf");
+        pdf.save( ViewDocument?.document_title+".pdf");
     })
  }
  function Export2Word( ){
@@ -98,7 +98,7 @@ window.addEventListener('FileChenge', eventHandler);
    }, 1000);
    setTimeout(() => {
     
-     var filename =ViewDocument.document_title
+     var filename =ViewDocument?.document_title
      var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
      var postHtml = "</body></html>";
      var html = preHtml+document.getElementById("PDFDATA").innerHTML+postHtml;
@@ -166,7 +166,7 @@ window.addEventListener('FileChenge', eventHandler);
               ml={6}
               sx={{ fontSize: "25px", fontWeight: "bold" }}
             >
-              {ViewDocument.document_title}
+              {ViewDocument?.document_title}
             </Typography>
             <div style={{ display: "flex",marginLeft:"1%" }}>
               <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>

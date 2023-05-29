@@ -39,7 +39,8 @@ export default function UserActiveModule() {
     const [Data, setData] = useState()
     const [DataChecklist, setDataChecklist] = useState()
     const [loader, setloader] = useState(true);
-    const [count, setcount] = useState();
+    const [count, setcount] = useState(1);
+    const [page, setpage] = useState(1);
     const GetData = () => {
       // alert(Product.id)
         let obj = {
@@ -47,9 +48,9 @@ export default function UserActiveModule() {
           "limit": 10,
           user_id: localStorage.getItem("UserProduct_id"),
           product_id: Product.id,
-          "page":1
+          "page":page,
         };
-        alert()
+        // alert()
         Exportpurchaselist.purchaselistModule(obj).then((resp) => {
           if (resp.ok) {
             console.log("bablu",resp.data.data.module)
@@ -65,6 +66,7 @@ export default function UserActiveModule() {
         });
       };
       const hendlePagintion = (event, value) => {
+        setpage(value)
         let obj = {
           "order": "desc",
           "limit": 10,

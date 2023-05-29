@@ -75,6 +75,9 @@ p {
 .Accordion123 {
   /* border-bottom: white 2px solid !important; */
 }
+.css-hgskoz-MuiPaper-root-MuiAccordion-root{
+  box-shadow: none !important;
+}
 .Accordion1 {
   margin-block: 0px !important;
   padding: 0 !important;
@@ -234,6 +237,9 @@ svg {
 .sedow {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+/* .sedowFile {
+  box-shadow: 0 4px 8px 0 rgba(#0CB4D0), 0 6px 20px 0 rgba(#0CB4D0);
+} */
 
 .sidebartogle{
   display: none;

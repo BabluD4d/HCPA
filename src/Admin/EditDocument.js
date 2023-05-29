@@ -27,8 +27,8 @@ const DragDropButton = (props) => {
 
   const handleDragStart = (e) => {
     if (editor) {
-    const selectedText = editor.selection.getContent();
-    console.log({selectedText})
+    // const selectedText = editor.selection.getContent();
+    // console.log({selectedText})
     e.dataTransfer.setData('text/plain',props?.title );
     }
   };
@@ -138,7 +138,7 @@ const formik = useFormik({
 useEffect(() => {
   setTimeout(() => {
     setCount(Count+15)
-  }, 2000);
+  }, 3000);
   }, [])
   return (
     <div>
@@ -221,26 +221,26 @@ useEffect(() => {
           <Grid ml={5}  xs={4}>
           <Grid container  mt={2} >
           <Grid  xs={2}>
-          <DragDropButton title={"{{name}}"}  label={"Name "}editor={editorRef.current} />
+          <DragDropButton title={"{{name}}"}  label={"Name "}editor={editorRef?.current} />
             </Grid>
           <Grid  xs={5}>
-          <DragDropButton title={"{{email}}"}  label={"Email"}editor={editorRef.current} />
+          <DragDropButton title={"{{email}}"}  label={"Email"}editor={editorRef?.current} />
             </Grid>
           <Grid  xs={4}>
-          <DragDropButton title={"{{address}}"}  label={"Address"}editor={editorRef.current} />
+          <DragDropButton title={"{{address}}"}  label={"Address"}editor={editorRef?.current} />
             </Grid>
           <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"}editor={editorRef.current} />
+          <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"}editor={editorRef?.current} />
             </Grid>
           <Grid  mt={2} xs={4}>
-          <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "}editor={editorRef.current} />
+          <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "}editor={editorRef?.current} />
             </Grid>
           <Grid mt={2} xs={5}>
-          <DragDropButton title={"{{business_email}}"}  label={"Business Email "}editor={editorRef.current} />
-          {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef.current} /> */}
+          <DragDropButton title={"{{business_email}}"}  label={"Business Email "}editor={editorRef?.current} />
+          {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef?.current} /> */}
             </Grid>
             <Grid mt={2} xs={4}>
-          <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"}editor={editorRef.current} />
+          <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"}editor={editorRef?.current} />
             </Grid>
             </Grid>
             </Grid>

@@ -56,7 +56,7 @@ export default function ProductByModuleList() {
   const GetData = () => {
     let obj = {
       order: "asc",
-      limit: 10,
+      limit: 50,
       page: 1,
       products_id: Product.products_id,
     };
@@ -312,7 +312,7 @@ export default function ProductByModuleList() {
             </Grid>
             <center>
               <Box ml={9} mt={2}>
-                {/* {ModuleList[0] ? <Pagination count={10} /> : null} */}
+                {/* {ModuleList[0] ?  <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} /> : null} */}
               </Box>
             </center>
           </Box>

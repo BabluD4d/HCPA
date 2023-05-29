@@ -95,7 +95,7 @@ export default function ModulesList() {
       // alert(event)
       let obj = {
         order: "asc",
-        limit: 10,
+        limit: 50,
         page: 1,
         products_id:event,
       };
@@ -117,7 +117,7 @@ export default function ModulesList() {
       localStorage.setItem("Product",JSON.stringify(productData))
       let obj = {
         order: "asc",
-        limit: 10,
+        limit: 50,
         page: 1,
         products_id:event.target.value,
       };
