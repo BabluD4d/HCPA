@@ -46,16 +46,21 @@ const theme = createTheme({
 export default function UserActiveProductList() {
   const Navigate = useNavigate();
   const [Data, setData] = useState();
+  const [count, setcount] = useState();
   const [loader, setloader] = useState(true);
   const GetData = () => {
     let obj = {
+      "order": "desc",
+      "limit": 10,
       user_id: localStorage.getItem("UserProduct_id"),
+      "page": 1
     };
     Exportpurchaselist.purchaselistProduct(obj).then((resp) => {
       if (resp.ok) {
         console.log(resp.data.data);
         if (resp.data) {
-          setData(resp.data.data);
+          setData(resp.data.data.product);
+          setcount(resp.data.data.count);
           setloader(false)
          } else{
             setloader(false)
@@ -118,6 +123,28 @@ export default function UserActiveProductList() {
   useEffect(() => {
     GetData();
   }, []);
+  const hendlePagintion = (event, value) => {
+    let obj = {
+      "order": "desc",
+      "limit": 10,
+      user_id: localStorage.getItem("UserProduct_id"),
+      "page": value
+    }
+    //EditProduct
+    Exportpurchaselist.purchaselistProduct(obj).then((resp) => {
+      if (resp.ok) {
+        console.log(resp.data.data);
+        if (resp.data) {
+          setData(resp.data.data.product);
+          setcount(resp.data.data.count);
+          setloader(false)
+         } else{
+            setloader(false)
+          }
+        }
+      
+    });
+  }
   return (
     <div>
       <div>
@@ -215,8 +242,8 @@ export default function UserActiveProductList() {
                   })}
                 </tbody>
               </Table>
-              {/* <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} /> */}
-              <Pagination />
+              <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} />
+              {/* <Pagination /> */}
             </Grid>
             <Grid item mt={-3} xs={2}>
               {" "}

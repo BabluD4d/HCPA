@@ -62,6 +62,7 @@ const BookCall = () => {
         ExportBookCall.UserBookCall(values)
           .then((resp) => {
             console.log(resp);
+            formik.resetForm()
             if (resp.data.message == "create call successfully") {
               toast.success("create call successfully", {
                 position: "top-right",

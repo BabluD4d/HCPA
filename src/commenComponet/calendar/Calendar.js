@@ -82,6 +82,32 @@ const Calendar = ({ showDetailsHandle }) => {
     }
     return <div className="days row">{days}</div>;
   };
+  function isYesterday(date) {
+    console.log({date})
+    const today = new Date();
+
+    const selectDateUser = new Date(date);
+
+ if(today.getDate() == selectDateUser.getDate()&&  
+ today.getMonth() == selectDateUser.getMonth() &&
+  today.getFullYear() === selectDateUser.getFullYear()||
+  today.getDate() < selectDateUser.getDate()&&  
+ today.getMonth() == selectDateUser.getMonth() &&
+  today.getFullYear() === selectDateUser.getFullYear()||  
+ today.getMonth()< selectDateUser.getMonth() &&
+  today.getFullYear()=== selectDateUser.getFullYear()||
+  today.getFullYear()<selectDateUser.getFullYear())
+  {
+      console.log("hello",selectDateUser.getMonth())
+      return true
+    }
+    
+    else {
+      console.log("hello",selectDateUser.getMonth())
+       console.log(false)
+      return false;
+    }
+  }
   const renderCells = () => {
     // console.log({currentMonth})
     
@@ -119,7 +145,10 @@ const Calendar = ({ showDetailsHandle }) => {
             <span  style={{fontWeight:"bold",fontSize:"40px" ,textAlign:"center"}}>{formattedDate}</span>
             {/* <span className="bg">{formattedDate}</span> */}
             <h6 style={{fontSize:"23px"}}>{monthNames[d.getMonth()]}</h6>
-            <Button onClick={()=>{setselected(format(cloneDay, "ccc dd MMM yy"))}} className={format(cloneDay, "ccc dd MMM yy")==selected?"A1":"clu"} variant={format(cloneDay, "ccc dd MMM yy")==selected?"contained":"outlined"}>Select Day</Button>
+            
+                 {isYesterday(format(cloneDay, "ccc dd MMM yy"))?<Button onClick={()=>{setselected(format(cloneDay, "ccc dd MMM yy"))}} className={format(cloneDay, "ccc dd MMM yy")==selected?"A1":"clu"} variant={format(cloneDay, "ccc dd MMM yy")==selected?"contained":"outlined"}>Select Day</Button>
+                 :<Button   disabled  variant={"outlined"}>Select Day</Button>}
+            
           </div>
         );
         day = addDays(day, 1);
@@ -141,13 +170,13 @@ const Calendar = ({ showDetailsHandle }) => {
     return (
       <div className="">
           <Grid container mt={3} mb={3} spacing={1}>
-        <Grid item xs={6}>   <div className="">
-          <div className=""style={{textAlign:"left",color:"#0CB4D0",cursor:"pointer" ,fontWeight:"bold",fontSize:"20px"}} onClick={() => changeWeekHandle("prev")}>
+        <Grid item xs={9}>   <div className="">
+          <div className=""style={{textAlign:"left",color:"#0CB4D0",cursor:"pointer",width:"fit-content" ,fontWeight:"bold",fontSize:"20px",}} onClick={() => changeWeekHandle("prev")}>
           {"< "}  Prev week
           </div>
         </div></Grid>
-        <Grid item xs={5}>   <div className="" onClick={() => changeWeekHandle("next")}>
-          <div className="" style={{textAlign:"right",color:"#0CB4D0" ,cursor:"pointer",fontWeight:"bold",fontSize:"20px"}}> Next week {" >"}</div>
+        <Grid item xs={3}>   <div className="" >
+          <div onClick={() => changeWeekHandle("next")} className="" style={{textAlign:"right",width:"fit-content",color:"#0CB4D0",cursor:"pointer",fontWeight:"bold",fontSize:"20px"}}> Next week {" >"}</div>
         </div></Grid>
         {/* <div>{currentWeek}</div> */}
         </Grid>
