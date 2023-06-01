@@ -154,12 +154,10 @@ export default function AdminDashBoard() {
                   </Typography>
                 </center>
                 <Grid container spacing={1}>
-                  <Grid item xs={3}>
-                    {/* <Typography mt={2} mb={1} ml={5}>
-                  <PersonIcon sx={{ fontSize: "45px" }} />{" "}
-                </Typography> */}
+                  <Grid item md={1} xs={3}>
+                    
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item md={5} xs={3}>
                     <Typography mt={3} mb={1} ml={5}>
                       <PersonIcon sx={{ fontSize: "45px" }} />{" "}
                     </Typography>
@@ -187,12 +185,10 @@ export default function AdminDashBoard() {
                   </Typography>
                 </center>
                 <Grid container spacing={1}>
-                  <Grid item xs={3}>
-                    {/* <Typography mt={2} mb={1} ml={5}>
-                  <PersonIcon sx={{ fontSize: "45px" }} />{" "}
-                </Typography> */}
+                  <Grid item md={1} xs={3}>
+                    
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item md={5} xs={3}>
                     <Typography mt={3} mb={1} ml={5}>
                       <Inventory2Icon sx={{ fontSize: "45px" }} />{" "}
                     </Typography>
@@ -220,12 +216,10 @@ export default function AdminDashBoard() {
                   </Typography>
                 </center>
                 <Grid container spacing={1}>
-                  <Grid item xs={3}>
-                    {/* <Typography mt={2} mb={1} ml={5}>
-                  <PersonIcon sx={{ fontSize: "45px" }} />{" "}
-                </Typography> */}
+                  <Grid item x={8} md={1} xs={3}>
+                    
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xl={5} md={5} xs={3}>
                     <Typography mt={3} mb={1} ml={5}>
                       <ConnectWithoutContactIcon sx={{ fontSize: "45px" }} />{" "}
                     </Typography>
@@ -323,7 +317,7 @@ export default function AdminDashBoard() {
               </TableContainer>
             </Grid>
 
-            <Grid item md={5} ml={3} mr={3} xl={5} sm={12} xs={12}>
+            <Grid item md={5} ml={3} mr={3} xl={5}lg={5}  sm={12} xs={12}>
               <Grid container mt={5}>
                 <Grid item xs={8}>
                   <Typography
@@ -385,8 +379,8 @@ export default function AdminDashBoard() {
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid item md={1} xl={1} sm={1} xs={0}></Grid>
-            <Grid item ml={3} mr={3} md={5} xl={5} sm={12} xs={12}>
+            {/* <Grid item md={1} xl={1} sm={0} xs={0} lg={1}></Grid>   */}
+            <Grid item ml={3} mr={3} md={5} xl={5} lg={5}sm={12} xs={12}>
               <Grid container mt={5}>
                 <Grid item xs={8}>
                   <Typography

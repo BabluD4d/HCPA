@@ -27,7 +27,7 @@ function DeshBoardCardFile(props) {
          </div>
          </Grid>
          <Grid xs={6}md={6}lg={6}xl={6}>
-         <div  style={{ display: "flex",cursor:"pointer",width:"fit-content",marginLeft:"18px" }} onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(props.item));
+         {/* <div  style={{ display: "flex",cursor:"pointer",width:"fit-content",marginLeft:"18px" }} onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(props.item));
             setTimeout(() => {
               Navigate("/Modelus/Document/ViewDocument")
             });
@@ -35,7 +35,7 @@ function DeshBoardCardFile(props) {
 
 <DownloadIcon sx={{ color: "#0CB4D0", fontSize: "24px" }}  />
 <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px" }}>Download File</Typography>
-</div>
+</div> */}
          </Grid>
       </Grid>
     </Box>

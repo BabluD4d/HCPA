@@ -28,56 +28,60 @@ import { Modal } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 export default function ModulesList() {
-    const Navigate=useNavigate()
-    const [ModuleList, setModuleList] = useState([]);
-    const [ProductData, setProductData] = useState([])
-    const [ProductSingle, setProductSingle] = useState()
-    const [modalShow, setModalShow] = React.useState(false);
-    const [DataNotFound, setDataNotFound] = useState();
-    const [EditData, setEditData] = useState();
-    const formik = useFormik({
-      initialValues: {
-        module_name: EditData?.module_name ? EditData?.module_name : "",
-        module_status: EditData?.module_status ? EditData?.module_status : false,
-        id: EditData?.module_id ? EditData?.module_id : ""
-      },
-      enableReinitialize: true,
-      validationSchema: Yup.object({
-        module_name: Yup.string()
-          .required("Enter your module name"),
-      }),
-      onSubmit: (values) => {
-        ExportModiles.ModuilesUpdate(values)
-          .then((resp) => {
-            console.log(resp)
-            if (resp.data.message == "Module record update successfully") {
-              toast.success('Module updated successfully', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              GetDataModuiles1(ProductSingle)
-              setModalShow(false)
-              // Navigate('/Productlist')
-            } else {
-              toast.error('Something went wrong', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            }
-          })
-          .catch((err) => toast.error('Something went wrong', {
+  const Navigate = useNavigate();
+  const [ModuleList, setModuleList] = useState([]);
+  const [ProductData, setProductData] = useState([]);
+  const [ProductSingle, setProductSingle] = useState();
+  const [modalShow, setModalShow] = React.useState(false);
+  const [DataNotFound, setDataNotFound] = useState();
+  const [EditData, setEditData] = useState();
+  const [Count, setCount] = useState(1);
+  const [page, setpage] = useState(1);
+  const [Product_id, setProduct_id] = useState();
+
+  const formik = useFormik({
+    initialValues: {
+      module_name: EditData?.module_name ? EditData?.module_name : "",
+      module_status: EditData?.module_status ? EditData?.module_status : false,
+      id: EditData?.module_id ? EditData?.module_id : "",
+    },
+    enableReinitialize: true,
+    validationSchema: Yup.object({
+      module_name: Yup.string().required("Enter your module name"),
+    }),
+    onSubmit: (values) => {
+      ExportModiles.ModuilesUpdate(values)
+        .then((resp) => {
+          console.log(resp);
+          if (resp.data.message == "Module record update successfully") {
+            toast.success("Module updated successfully", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            GetDataModuiles1(ProductSingle);
+            setModalShow(false);
+            // Navigate('/Productlist')
+          } else {
+            toast.error("Something went wrong", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        })
+        .catch((err) =>
+          toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -86,95 +90,99 @@ export default function ModulesList() {
             draggable: true,
             progress: undefined,
             theme: "light",
-          }));
-      },
+          })
+        );
+    },
+  });
+  const GetDataModuiles1 = (event) => {
+    // console.log(event.target.value)
+    // setProductSingle(event.target.value)
+    // alert(event)
+    setProduct_id(event);
+    let obj = {
+      order: "asc",
+      limit: 10,
+      page: page,
+      products_id: event,
+    };
+    ExportModiles.ModuilesAll(obj).then((resp) => {
+      if (resp.ok) {
+        console.log(resp.data.data);
+        if (resp.data.data.data[0]) {
+          setCount(resp.data.data.count);
+          setModuleList(resp.data.data.data);
+        } else {
+          setModuleList([]);
+        }
+      }
     });
-    const GetDataModuiles1 = (event) => {
-      // console.log(event.target.value)
-      // setProductSingle(event.target.value)
-      // alert(event)
-      let obj = {
-        order: "asc",
-        limit: 50,
-        page: 1,
-        products_id:event,
-      };
-      ExportModiles.ModuilesAll(obj).then((resp) => {
-        if (resp.ok) {
-          console.log(resp.data.data);
-          if (resp.data.data[0]) {
-            setModuleList(resp.data.data);
-          }else{
-            setModuleList([]);
-          }
-        }
-      });
+  };
+  const GetDataModuiles = (event) => {
+    // console.log(event.target.value)
+    // setProductSingle(event.target.value)
+    setProduct_id(event.target.value);
+    const productData = ProductData.find(
+      (val, i) => val.products_id == event.target.value
+    );
+    localStorage.setItem("Product", JSON.stringify(productData));
+    let obj = {
+      order: "asc",
+      limit: 10,
+      page: page,
+      products_id: event.target.value,
     };
-    const GetDataModuiles = (event) => {
-      // console.log(event.target.value)
-      // setProductSingle(event.target.value)
-      const productData=ProductData.find((val,i)=>val.products_id==event.target.value)
-      localStorage.setItem("Product",JSON.stringify(productData))
-      let obj = {
-        order: "asc",
-        limit: 50,
-        page: 1,
-        products_id:event.target.value,
-      };
-      ExportModiles.ModuilesAll(obj).then((resp) => {
-        if (resp.ok) {
-          console.log(resp.data.data);
-          if (resp.data.data[0]) {
-            setDataNotFound()
-            setModuleList(resp.data.data);
-          }else{
-            setDataNotFound("No record found");
-            setModuleList([]);
-
-          }
+    ExportModiles.ModuilesAll(obj).then((resp) => {
+      if (resp.ok) {
+        console.log(resp.data.data);
+        if (resp.data.data.data[0]) {
+          setDataNotFound();
+          setCount(resp.data.data.count);
+          setModuleList(resp.data.data.data);
+        } else {
+          setDataNotFound("No record found");
+          setModuleList([]);
         }
-      });
+      }
+    });
+  };
+  const GetData = () => {
+    let obj = {
+      order: "desc",
+      sort: "products.id",
+      limit: 10,
+      page: 1,
     };
-    const GetData = () => {
-      let obj = {
-        "order": "desc",
-        "sort": "products.id",
-        "limit": 10,
-        "page": 1
-      }
-      Exportproduct.GetAllProduct(obj).then(
-        (resp) => {
-          if (resp.ok) {
-            // console.log(resp.data.data)
-            if (resp.data) {
-              setProductData(resp.data.data);
-            }
-          }
+    Exportproduct.GetAllProduct(obj).then((resp) => {
+      if (resp.ok) {
+        // console.log(resp.data.data)
+        if (resp.data) {
+          setProductData(resp.data.data);
         }
-      );
-    }
-    const handlemodal=(data)=>{
-      console.log({data})
-      setEditData(data)
-      setTimeout(() => {
-        setModalShow(true)
-      });
-    }
-    useEffect(() => {
-      GetData()
-    }, [])
-    const onChangeHendle=(item,value)=>{
-      let obj={
-        module_name: item?.module_name ,
-        module_status: !item?.module_status ,
-        id: item?.module_id 
       }
-      ExportModiles.ModuilesUpdate(obj)
+    });
+  };
+  const handlemodal = (data) => {
+    console.log({ data });
+    setEditData(data);
+    setTimeout(() => {
+      setModalShow(true);
+    });
+  };
+  useEffect(() => {
+    GetData();
+  }, []);
+  const onChangeHendle = (item, value) => {
+    let obj = {
+      module_name: item?.module_name,
+      module_status: !item?.module_status,
+      id: item?.module_id,
+    };
+    ExportModiles.ModuilesUpdate(obj)
       .then((resp) => {
-        console.log(resp)
+        console.log(resp);
         if (resp.data.message == "Module record update successfully") {
-          GetDataModuiles1(ProductSingle)
-          toast.success('Module updated successfully', {
+          GetDataModuiles1(ProductSingle);
+          toast.success("Module updated successfully", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -184,11 +192,10 @@ export default function ModulesList() {
             progress: undefined,
             theme: "light",
           });
-         
+
           // Navigate('/Productlist')
         } else {
-
-          toast.error('Something went wrong', {
+          toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -200,95 +207,134 @@ export default function ModulesList() {
           });
         }
       })
-      .catch((err) => toast.error('Something went wrong', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      }));
-    }
+      .catch((err) =>
+        toast.error("Something went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
+  };
+  const hendlePagintion = (event, value) => {
+    setpage(value);
+    let obj = {
+      order: "asc",
+      limit: 10,
+      page: value,
+      products_id: Product_id,
+    };
+    //EditProduct
+    ExportModiles.ModuilesAll(obj).then((resp) => {
+      if (resp.ok) {
+        console.log(resp.data.data);
+        if (resp.data.data.data[0]) {
+          setCount(resp.data.data.count);
+          setModuleList(resp.data.data.data);
+        } else {
+          setModuleList([]);
+        }
+      }
+    });
+  };
   return (
     <div>
-        <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
         Moduels List
       </Typography>
       <hr height={3} />
-      <Grid container spacing={4} mt={2} >
-      <Grid xl={3} > 
-      {/* <ArrowBackIcon onClick={()=>Navigate('/ModulesList')} style={{color:"#0cb4d0" ,fontSize:"50px"}}/> */}
-      </Grid>
-      <Grid xl={6} > 
-      <FormControl fullWidth>
-                <InputLabel
-                  sx={{ marginLeft: "10px" }}
-                  variant="standard"
-                  htmlFor="uncontrolled-native"
-                >
-                  Product
-                </InputLabel>
-                <NativeSelect
-                  defaultValue={10}
-                  inputProps={{
-                    name: "Product",
-                    id: "uncontrolled-native",
-                  }}
-                  onChange={(e)=>{GetDataModuiles(e);  setProductSingle(e.target.value)}}
-                >
-                  <option value={""}></option>
-                   {ProductData?.map((val,i)=>{
-                   return <option value={val.products_id}>{val.product_name}</option>
-                   })}
-                </NativeSelect>
-              </FormControl>
-      </Grid>
-      <Grid xl={3} > 
-      <Button onClick={()=>Navigate("/CreactModules")}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
-            className={"active"}
-          /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
-      </Grid>
+      <Grid container spacing={4} mt={2}>
+        <Grid xl={3}></Grid>
+        <Grid xl={6}>
+          <FormControl fullWidth>
+            <InputLabel
+              sx={{ marginLeft: "10px" }}
+              variant="standard"
+              htmlFor="uncontrolled-native"
+            >
+              Product
+            </InputLabel>
+            <NativeSelect
+              defaultValue={10}
+              inputProps={{
+                name: "Product",
+                id: "uncontrolled-native",
+              }}
+              onChange={(e) => {
+                GetDataModuiles(e);
+                setProductSingle(e.target.value);
+              }}
+            >
+              <option value={""}></option>
+              {ProductData?.map((val, i) => {
+                return (
+                  <option value={val.products_id}>{val.product_name}</option>
+                );
+              })}
+            </NativeSelect>
+          </FormControl>
         </Grid>
+        <Grid xl={3}>
+          <Button
+            onClick={() => Navigate("/CreactModules")}
+            sx={{ marginLeft: "10%" }}
+            className={"A1"}
+            variant="contained"
+          >
+            <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp;
+            Create Modelus
+          </Button>
+        </Grid>
+      </Grid>
       <Box mt={5}>
-      {DataNotFound ? (
-                    <Typography
-                      mt={"17%"}
-                      ml={"40%"}
-                      sx={{ fontSize: "26px", fontWeight: "bold" }}
-                    >
-                      {DataNotFound}
-                    </Typography>
-                  ) : (
+        {DataNotFound ? (
+          <Typography
+            mt={"17%"}
+            ml={"40%"}
+            sx={{ fontSize: "26px", fontWeight: "bold" }}
+          >
+            {DataNotFound}
+          </Typography>
+        ) : (
+          <>
+          
           <Grid container spacing={4} mt={2} pl={9}>
-          {ModuleList &&
-            ModuleList?.map((item, index) => {
-              return (
-                <AdminProductCart
-                  navi={"/Admin/AllDocumentAdmin"}
-                  status={item.module_status}
-                  foo={"1"}
-                  size={3}
-                  Modules={item.total_document}
-                  ProductName={item.module_name}
-                  handlemodal={handlemodal}
-                  item={item}
-                  onChangeHendle={onChangeHendle}
-                />
-              );
-            })}
-          {/* <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />
+            {ModuleList &&
+              ModuleList?.map((item, index) => {
+                return (
+                  <AdminProductCart
+                    navi={"/Admin/AllDocumentAdmin"}
+                    status={item.module_status}
+                    foo={"1"}
+                    size={3}
+                    Modules={item.total_document}
+                    ProductName={item.module_name}
+                    handlemodal={handlemodal}
+                    item={item}
+                    onChangeHendle={onChangeHendle}
+                  />
+                );
+              })}
+            {/* <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />
           <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={2} ProductName={"Aged Caredis"} />
           <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />   */}
-           
-{/*        
-            <Pagination count={10} /> */}
-          </Grid>)}
-          {/* <Grid item mt={-3} xs={2}>  <Button onClick={()=>Navigate("/CreateProduct")}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
+
+          </Grid>
+            {ModuleList[0] && (
+              <Pagination
+                onChange={hendlePagintion}
+                count={Math.ceil(Count / 10)}
+              />
+            )}
+            </>
+        )}
+        {/* <Grid item mt={-3} xs={2}>  <Button onClick={()=>Navigate("/CreateProduct")}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
             className={"active"}
           /> &nbsp; &nbsp; &nbsp; Create Product</Button> </Grid> */}
-     
       </Box>
       <Modal
         show={modalShow}
@@ -303,7 +349,7 @@ export default function ModulesList() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
             <Box mt={5}>
               {/* <TextField
                 disabled
@@ -314,8 +360,8 @@ export default function ModulesList() {
                 fullWidth
                 value={ProductSingle?.product_name}
               /> */}
-              </Box>
-              <Box mt={5}>
+            </Box>
+            <Box mt={5}>
               <TextField
                 fullWidth
                 id="fullWidth"
@@ -330,12 +376,12 @@ export default function ModulesList() {
                 onBlur={formik.handleBlur}
                 value={formik.values.module_name}
                 autoComplete="current-number"
-            />
-            {formik.touched.module_name && formik.errors.module_name ? (
+              />
+              {formik.touched.module_name && formik.errors.module_name ? (
                 <div style={{ color: "red" }}>{formik.errors.module_name}</div>
-            ) : null}
-              </Box>
-              <Box mt={5}>
+              ) : null}
+            </Box>
+            <Box mt={5}>
               <FormControl>
                 <FormLabel
                   sx={{ marginLeft: "10px" }}
@@ -351,8 +397,6 @@ export default function ModulesList() {
                   onBlur={formik.handleBlur}
                   value={formik.values.module_status}
                   autoComplete="current-number"
-             
-             
                 >
                   <FormControlLabel
                     value={true}
@@ -362,7 +406,7 @@ export default function ModulesList() {
                     labelPlacement="Lock"
                   />
                   <FormControlLabel
-                     defaultChecked
+                    defaultChecked
                     value={false}
                     name="module_status"
                     control={<Radio />}
@@ -372,26 +416,28 @@ export default function ModulesList() {
                 </RadioGroup>
                 {/* {formik.values.module_status} */}
                 {formik.touched.module_status && formik.errors.module_status ? (
-                  <div style={{ color: "red" }}>{formik.errors.module_status}</div>
-              ) : null}
+                  <div style={{ color: "red" }}>
+                    {formik.errors.module_status}
+                  </div>
+                ) : null}
               </FormControl>
-              </Box>
-              <Box mt={5}>
-                <Button
+            </Box>
+            <Box mt={5}>
+              <Button
                 type="submit"
-                  sx={{ marginLeft: "10px" }}
-                  className={"A1"}
-                  variant="contained"
-                >
-                  Submit
-                </Button>
-              </Box>
-              </Box>
+                sx={{ marginLeft: "10px" }}
+                className={"A1"}
+                variant="contained"
+              >
+                Submit
+              </Button>
+            </Box>
+          </Box>
         </Modal.Body>
         <Modal.Footer>
           {/* <Button onClick={props.onHide}>Close</Button> */}
         </Modal.Footer>
       </Modal>
     </div>
-  )
+  );
 }

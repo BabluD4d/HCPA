@@ -87,7 +87,7 @@ window.addEventListener('FileChenge', eventHandler);
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF();
         pdf.addImage(imgData, 'JPEG', 0, 0);
-        pdf.save( ViewDocument?.document_title+".pdf");
+        pdf.save( Data?.data?.document_title||ViewDocument?.document_title+".pdf");
     })
  }
  function Export2Word( ){

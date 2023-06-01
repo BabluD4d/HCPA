@@ -52,18 +52,20 @@ export default function ProductByModuleList() {
   const [modalShowEditGuid, setmodalShowEditGuid] = React.useState(false);
   const [loader, setloader] = useState(true);
   const [NotFound, setNotFound] = useState({ A: "", B: "", C: "" });
-
+  const [Count, setCount] = useState(1);
+  const [page, setpage] = useState(1);
   const GetData = () => {
     let obj = {
       order: "asc",
-      limit: 50,
-      page: 1,
+      limit: 10,
+      page: page,
       products_id: Product.products_id,
     };
     ExportModiles.ModuilesAll(obj).then((resp) => {
       if (resp.ok) {
-        if (resp.data.data[0]) {
-          setModuleList(resp.data.data);
+        if (resp.data.data.data[0]) {
+          setCount(resp.data.data.count);
+          setModuleList(resp.data.data.data);
           setloader(false);
           NotFound.A=""
           setNotFound({...NotFound})
@@ -241,6 +243,27 @@ export default function ProductByModuleList() {
     GetGuidAllData();
     setmodalShowEditGuid(false);
   };
+  const hendlePagintion = (event, value) => {
+    setpage(value);
+    let obj = {
+      order: "asc",
+      limit: 10,
+      page: value,
+      products_id: Product.products_id,
+    };
+    //EditProduct
+    ExportModiles.ModuilesAll(obj).then((resp) => {
+      if (resp.ok) {
+        console.log(resp.data.data);
+        if (resp.data.data.data[0]) {
+          setCount(resp.data.data.count);
+          setModuleList(resp.data.data.data);
+        } else {
+          setModuleList([]);
+        }
+      }
+    });
+  };
   return (
     <div>
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
@@ -312,7 +335,7 @@ export default function ProductByModuleList() {
             </Grid>
             <center>
               <Box ml={9} mt={2}>
-                {/* {ModuleList[0] ?  <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} /> : null} */}
+                {ModuleList[0] ?  <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} /> : null}
               </Box>
             </center>
           </Box>

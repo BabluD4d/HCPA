@@ -240,7 +240,9 @@ svg {
 /* .sedowFile {
   box-shadow: 0 4px 8px 0 rgba(#0CB4D0), 0 6px 20px 0 rgba(#0CB4D0);
 } */
-
+.css-tlelie-MuiListItemText-root {
+padding-top: 7px;
+}
 .sidebartogle{
   display: none;
 }
@@ -321,3 +323,72 @@ h1, a{
   color:#0cb4d0;
   border-bottom: 3px solid #0cb4d0;
 }
+/* ffff */
+
+/* 
+@media (max-width:375px){
+  .css-a5rdam-MuiGrid-root {
+     margin-left: 0 !important;
+  }
+  .css-4l5sx0-MuiTypography-root {
+   margin-left: 16px !important;
+  }
+  .css-a5rdam-MuiGrid-root {
+    width: calc(100% + 41px) !important;
+  }
+  .css-j4suo0-MuiTypography-root {
+     font-size: 16px !important;
+  }
+  .css-mv3ja0-MuiTypography-root {
+    font-size:16px !important;
+
+  }
+  .css-17wjnrn-MuiSvgIcon-root {
+    width:0.7em !important;
+    height: 0.7em !important;
+  }
+}
+  
+@media (max-width:767px){
+  .css-a5rdam-MuiGrid-root {
+    width: calc(100% + 64px);
+  }
+  .css-4l5sx0-MuiTypography-root {
+    margin-left: 104px !important;
+  }
+
+}
+
+@media (max-width:991px){
+  .css-a5rdam-MuiGrid-root {
+    width: calc(100% + 43px) !important;
+  }
+  .css-17wjnrn-MuiSvgIcon-root {
+    width:0.7em !important;
+    height: 0.7em !important;
+  }
+  .css-j4suo0-MuiTypography-root {
+    font-size: 17px !important;
+  }
+  .css-mv3ja0-MuiTypography-root {
+    font-size: 17px;
+  }
+} */
+
+/* @media (max-width:1537px){
+  .css-a5rdam-MuiGrid-root {
+    width: calc(100% + 80px) !important;
+  }
+  .css-4l5sx0-MuiTypography-root {
+    margin-left: 90px !important;
+  }
+} */
+
+/* @media (max-width:1900px){
+  .css-a5rdam-MuiGrid-root {
+    width: calc(100% + 70px) !important;
+  }
+  .css-4l5sx0-MuiTypography-root {
+    margin-left: 120px !important;
+  }
+} */

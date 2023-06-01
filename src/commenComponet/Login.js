@@ -81,7 +81,7 @@ export default function SignIn() {
             }
           }
         })
-        .catch((err) =>
+      .catch((err) =>{
         toast.error("Something went wrong", {
           position: "top-right",
           autoClose: 5000,
@@ -92,6 +92,7 @@ export default function SignIn() {
           progress: undefined,
           theme: "light",
         })
+      }
       );
     },
   });
