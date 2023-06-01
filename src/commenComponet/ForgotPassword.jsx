@@ -38,7 +38,6 @@ export default function ForgotPassword() {
       ExportLogin.Forgot(values)
         .then((resp) => {
           if (resp.data) {
-            console.log(resp.data);
             if (resp.data.message == "mail send ") {
               setloader(false);
               toast.success("Please check your mail", {

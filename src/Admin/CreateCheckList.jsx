@@ -225,15 +225,12 @@ export default function CreateCheckList() {
     ]
     const GetData = (data) => {
       // alert(1)
-      console.log({ data })
       formik.values.json_data=JSON.parse(data)
       setData(JSON.parse(data))
-      console.log(formik.values)
      
   }
     const GetDataTogle = (data) => {
       // alert(2)
-      // console.log({ data })
       formik.values.json_data=JSON.parse(data)
       setData(JSON.parse(data))
       setTimeout(() => {
@@ -251,11 +248,9 @@ export default function CreateCheckList() {
     }),
     onSubmit: (values) => {
       childRef.current.getFormData1()
-      console.log(values)
       setTimeout(() => {
         ExportChecklist.CreateChecklist(values)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message=="checklist detail submit successfully") {
             toast.success("Checklist Created successfully", {
               position: "top-right",

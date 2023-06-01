@@ -28,7 +28,6 @@ const DragDropButton = (props) => {
   const handleDragStart = (e) => {
     if (editor) {
     // const selectedText = editor.selection.getContent();
-    // console.log({selectedText})
     e.dataTransfer.setData('text/plain',props?.title );
     }
   };
@@ -59,9 +58,7 @@ const GetData = () => {
   ExportDocument.documentGetEditData(obj).then(
     (resp) => {
       if (resp.ok) {
-        if (resp.data) {
-          console.log(resp.data)
-       
+        if (resp.data) {       
           setData(resp.data.result);
         }
       }
@@ -86,14 +83,11 @@ const formik = useFormik({
   }),
   onSubmit: (values) => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent());
       values.html=editorRef.current.getContent()
     }
-    console.log({values})
     setTimeout(() => {
       ExportDocument.documentUpdate(values)
         .then((resp) => {
-          console.log({resp});
           if (resp.data.message=="Update document successfully") {
           toast.success("Document updated successfully", {
             position: "top-right",
@@ -143,7 +137,6 @@ useEffect(() => {
   return (
     <div>
       <div>
-        {/* {console.log(object)} */}
         <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
           Edit Document
         </Typography>
@@ -151,7 +144,6 @@ useEffect(() => {
         <div style={{display:"flex"}}>
       </div>
         <div>
-        {/* <button onClick={exportHtml}>Export HTML</button> */}
       </div>
       <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
         <Grid container spacing={2}>

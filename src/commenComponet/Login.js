@@ -51,10 +51,8 @@ export default function SignIn() {
         .required("Enter your email"),
     }),
     onSubmit: (values) => {
-    //  console.log(CoustomLogin(values,"Login"))
     ExportLogin.Login(values)
         .then((resp) => {
-          console.log(resp.data.message)
           if(resp.data.message=="Credentials are wrong"){
             toast.error("Credentials are wwrong", {
               position: "top-right",

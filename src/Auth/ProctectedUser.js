@@ -4,7 +4,6 @@ import { Navigate, Outlet } from "react-router-dom";
 import Sidebar from "../commenComponet/Sidebar";
 import Header from "../commenComponet/Header";
 const Proctected = () => {
-  // console.log(<Outlet/>)
   let Token = localStorage.getItem("Token");
   let role = localStorage.getItem("role");
   return Token &&role==3 ? (

@@ -7,7 +7,6 @@ export default function CoustomRegistration(obj, name,Navigate) {
         .then((resp) => {
             if (resp.data) {
                 if (resp.data) {
-                    console.log(resp.data)
                     if(resp.data.message=="create user successfully"){
 
                         toast.success('Acount Created successfully', {

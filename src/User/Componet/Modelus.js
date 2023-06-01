@@ -74,13 +74,10 @@ const Modelus = () => {
             }
             setloader(false);
             setModuleData(resp.data.data);
-
-            console.log("user123", resp.data.data);
             if (resp.data.data.registration_guid) {
               let video = resp.data.data.registration_guid.find(
                 (val, i) => val.guid_status == 0
               );
-              console.log({ video });
               setRegistrationCurent(video);
             }
             //   setData(obj);
@@ -544,7 +541,6 @@ const Modelus = () => {
                             </Typography>
                           </Grid>
                           <Grid mt={5} item xs={3}>
-                            {/* {console.log({RegistrationCurent})} */}
                             <Button
                               onClick={()=>{ViewguidUpdateUser(RegistrationCurent.id)}}
                               variant="contained"

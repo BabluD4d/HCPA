@@ -46,10 +46,8 @@ export default function EditChecklis() {
   };
 
   const GetData = (data) => {
-    console.log({ data });
     formik.values.json_data = JSON.parse(data);
     setData(JSON.parse(data));
-    console.log(formik.values);
   };
   const GetDataTogle = (data) => {
     formik.values.json_data = JSON.parse(data);
@@ -64,7 +62,6 @@ export default function EditChecklis() {
     };
     ExportChecklist.ChecklisGetEditData(obj).then((resp) => {
       if (resp.ok) {
-        console.log("ExportChecklist", resp.data.data);
         if (resp.data.data[0]) {
           setEditData(resp.data.data[0]);
         }
@@ -91,7 +88,6 @@ export default function EditChecklis() {
       setTimeout(() => {
         ExportChecklist.ChecklisUpdate(values)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message == " Update checklist details successfully") {
               toast.success("Checklist Update successfully", {
                 position: "top-right",
@@ -134,7 +130,6 @@ export default function EditChecklis() {
   });
   return (
     <div>
-      {console.log({ Data })}
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
         Create Checklist
       </Typography>

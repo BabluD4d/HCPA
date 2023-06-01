@@ -199,7 +199,6 @@ class FormBuilder extends Component {
     setTimeout(() => {
       if (this.props.EditData) {
         let formData = this.props.EditData;
-        console.log( formData );
         $(this.fb.current).formBuilder({formData});
         // alert(1)
       } else {
@@ -212,14 +211,12 @@ class FormBuilder extends Component {
   getFormData() {
     const formData = $(this.fb.current).formBuilder("getData", "json");
     this.setState({ formData });
-    // console.log(formData)
     localStorage.setItem("Checklist", JSON.stringify(formData));
     this.props.GetDataTogle(formData);
   }
   getFormData1() {
     const formData = $(this.fb.current).formBuilder("getData", "json");
     this.setState({ formData });
-    // console.log(formData)
     localStorage.setItem("Checklist", JSON.stringify(formData));
     this.props.GetData(formData);
   }

@@ -14,7 +14,6 @@ const DragDropButton = (props) => {
   const handleDragStart = (e) => {
     if (editor) {
     const selectedText = editor.selection.getContent();
-    console.log({selectedText})
     e.dataTransfer.setData('text/plain',props?.title );
     }
   };
@@ -51,14 +50,11 @@ export default function CreateDocuments() {
     }),
     onSubmit: (values) => {
       if (editorRef.current) {
-        console.log(editorRef.current.getContent());
         values.html=editorRef.current.getContent()
       }
-      console.log({values})
       setTimeout(() => {
         ExportDocument.CreateDocument(values)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message=="create document successfully") {
             toast.success("Document Created successfully", {
               position: "top-right",

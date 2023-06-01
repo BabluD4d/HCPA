@@ -31,7 +31,6 @@ const UserInfo = () => {
           if (resp.data) {
             let obj={...resp?.data?.data?.user, ...resp.data.data.business
             }
-            console.log("user",obj)
             setData(obj);
           }
         }
@@ -62,11 +61,9 @@ const UserInfo = () => {
 
     }),
     onSubmit: (values) => {
-      console.log({ values });
       setTimeout(() => {
         ExportChangePassword.ChangePassword(values)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message == "Password Successfully Updated") {
                setShow(false)
               toast.success(resp.data.message, {

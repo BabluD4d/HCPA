@@ -52,7 +52,6 @@ export default function ModulesList() {
     onSubmit: (values) => {
       ExportModiles.ModuilesUpdate(values)
         .then((resp) => {
-          console.log(resp);
           if (resp.data.message == "Module record update successfully") {
             toast.success("Module updated successfully", {
               position: "top-right",
@@ -95,9 +94,6 @@ export default function ModulesList() {
     },
   });
   const GetDataModuiles1 = (event) => {
-    // console.log(event.target.value)
-    // setProductSingle(event.target.value)
-    // alert(event)
     setProduct_id(event);
     let obj = {
       order: "asc",
@@ -107,7 +103,6 @@ export default function ModulesList() {
     };
     ExportModiles.ModuilesAll(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data.data.data[0]) {
           setCount(resp.data.data.count);
           setModuleList(resp.data.data.data);
@@ -118,8 +113,6 @@ export default function ModulesList() {
     });
   };
   const GetDataModuiles = (event) => {
-    // console.log(event.target.value)
-    // setProductSingle(event.target.value)
     setProduct_id(event.target.value);
     const productData = ProductData.find(
       (val, i) => val.products_id == event.target.value
@@ -133,7 +126,6 @@ export default function ModulesList() {
     };
     ExportModiles.ModuilesAll(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data.data.data[0]) {
           setDataNotFound();
           setCount(resp.data.data.count);
@@ -154,7 +146,6 @@ export default function ModulesList() {
     };
     Exportproduct.GetAllProduct(obj).then((resp) => {
       if (resp.ok) {
-        // console.log(resp.data.data)
         if (resp.data) {
           setProductData(resp.data.data);
         }
@@ -162,7 +153,6 @@ export default function ModulesList() {
     });
   };
   const handlemodal = (data) => {
-    console.log({ data });
     setEditData(data);
     setTimeout(() => {
       setModalShow(true);
@@ -179,7 +169,6 @@ export default function ModulesList() {
     };
     ExportModiles.ModuilesUpdate(obj)
       .then((resp) => {
-        console.log(resp);
         if (resp.data.message == "Module record update successfully") {
           GetDataModuiles1(ProductSingle);
           toast.success("Module updated successfully", {
@@ -231,7 +220,6 @@ export default function ModulesList() {
     //EditProduct
     ExportModiles.ModuilesAll(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data.data.data[0]) {
           setCount(resp.data.data.count);
           setModuleList(resp.data.data.data);

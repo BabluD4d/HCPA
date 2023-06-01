@@ -69,7 +69,6 @@ const Files = () => {
     };
     ExportDocumentuser.DocumentGetDataSaveFile(obj).then((resp) => {
       if (resp.ok) {
-        console.log("hello", resp.data.data);
         if (resp.data) {
           setFileData(resp.data.data);
         }
@@ -93,14 +92,6 @@ const Files = () => {
         <Grid xs={2}>
           <Grid container mt={4}>
             <Grid mt={4} item xs={6}>
-              {/* <Button
-                onClick={() => console.log({ saveData })}
-                className="sort"
-                variant="outlined"
-                startIcon={<VerticalAlignCenterIcon />}
-              >
-                Sort
-              </Button> */}
             </Grid>
             <Grid mt={4} xs={2}>
               {/* <VerticalShadesClosedIcon /> */}

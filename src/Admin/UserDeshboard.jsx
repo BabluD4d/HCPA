@@ -28,7 +28,6 @@ export default function UserDeshboard() {
       title: Yup.string().required("Enter your V title"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       const formData = new FormData();
       formData.append("file", image);
       formData.append("title", values.title);
@@ -43,7 +42,6 @@ const hendleSubmit =()=>{
     setTimeout(() => {
         UserBanner.CreateBanner(NewformData)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message == "welcomebanner submit successfully") {
                 setModalShow(false)
                 setloader(false)
@@ -157,7 +155,6 @@ const hendleSubmit =()=>{
                 //   value={formik.values.file}
                 autoComplete="current-number"
               />
-              {console.log({ image })}
               {formik.touched.file && formik.errors.file ? (
                 <div style={{ color: "red" }}>{formik.errors.file}</div>
               ) : null}

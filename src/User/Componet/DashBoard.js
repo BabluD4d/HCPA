@@ -27,7 +27,6 @@ const DashBoard = () => {
     // };
     ExportDashBoard.UserWellcome().then((resp) => {
       if (resp.ok) {
-        // console.log(resp.data.data);
         if (resp.data) {
           setloader(false);
           setData(resp.data.data);
@@ -44,7 +43,6 @@ const DashBoard = () => {
     ExportProduct.ProductList(obj)
       .then((resp) => {
         if (resp.ok) {
-          console.log("hello", resp.data.data);
           if (resp.data) {
             setloader(false);
             setProductData(resp.data.data.product);
@@ -74,7 +72,6 @@ const DashBoard = () => {
     };
     ExportDocumentuser.DocumentGetDataSaveFile(obj).then((resp) => {
       if (resp.ok) {
-        console.log("hellow", resp.data.data);
         if (resp.data) {
           setFileData(resp.data.data);
         }

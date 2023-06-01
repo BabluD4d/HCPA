@@ -16,7 +16,6 @@ import { ColorRing } from "react-loader-spinner";
 const theme = createTheme();
 function ForgotSet() {
   const params = useParams();
-  console.log({ params });
   const [loader, setloader] = React.useState(false);
   const Navigate = useNavigate();
   const formik = useFormik({
@@ -40,7 +39,6 @@ function ForgotSet() {
       ExportLogin.ForgotSetUpdate(values)
         .then((resp) => {
           if (resp.data) {
-            console.log(resp.data);
             if (resp.data.message == "change  password") {
               setloader(false);
               toast.success("Password change successfully", {

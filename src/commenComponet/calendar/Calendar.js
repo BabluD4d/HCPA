@@ -33,24 +33,14 @@ const Calendar = ({ showDetailsHandle }) => {
     "November",
     "December",
   ];
-  // const changeMonthHandle = (btnType) => {
-  //   if (btnType === "prev") {
-  //     setCurrentMonth(subMonths(currentMonth, 1));
-  //   }
-  //   if (btnType === "next") {
-  //     setCurrentMonth(addMonths(currentMonth, 1));
-  //   }
-  // };
+
 
   const changeWeekHandle = (btnType) => {
-    //console.log("current week", currentWeek);
     if (btnType === "prev") {
-      //console.log(subWeeks(currentMonth, 1));
       setCurrentMonth(subWeeks(currentMonth, 1));
       setCurrentWeek(getWeek(subWeeks(currentMonth, 1)));
     }
     if (btnType === "next") {
-      //console.log(addWeeks(currentMonth, 1));
       setCurrentMonth(addWeeks(currentMonth, 1));
       setCurrentWeek(getWeek(addWeeks(currentMonth, 1)));
     }
@@ -60,26 +50,6 @@ const Calendar = ({ showDetailsHandle }) => {
     setSelectedDate(day);
     showDetailsHandle(dayStr);
   };
-
-  // const renderHeader = () => {
-  //   const dateFormat = "MMM yyyy";
-  //   // console.log("selected day", selectedDate);
-  //   return (
-  //     <div className="header row flex-middle">
-  //       <div className="col col-start">
-  //         {/* <div className="icon" onClick={() => changeMonthHandle("prev")}>
-  //           prev month
-  //         </div> */}
-  //       </div>
-  //       <div className="col col-center">
-  //         <span>{format(currentMonth, dateFormat)}</span>
-  //       </div>
-  //       <div className="col col-end">
-  //         {/* <div className="icon" onClick={() => changeMonthHandle("next")}>next month</div> */}
-  //       </div>
-  //     </div>
-  //   );
-  // };
   const renderDays = () => {
     const dateFormat = "EEE";
     const days = [];
@@ -98,7 +68,6 @@ const Calendar = ({ showDetailsHandle }) => {
     return <div className="days row">{days}</div>;
   };
   function isYesterday(date) {
-    console.log({ date });
     const today = new Date();
 
     const selectDateUser = new Date(date);
@@ -114,17 +83,12 @@ const Calendar = ({ showDetailsHandle }) => {
         today.getFullYear() === selectDateUser.getFullYear()) ||
       today.getFullYear() < selectDateUser.getFullYear()
     ) {
-      console.log("hello", selectDateUser.getMonth());
       return true;
     } else {
-      console.log("hello", selectDateUser.getMonth());
-      console.log(false);
       return false;
     }
   }
   const renderCells = () => {
-    // console.log({currentMonth})
-
     const startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     const endDate = lastDayOfWeek(currentMonth, { weekStartsOn: 5 });
     const dateFormat = "d";
@@ -200,7 +164,6 @@ const Calendar = ({ showDetailsHandle }) => {
           </div>
         );
       }
-      console.log({ count });
       days = [];
     }
     return <div className="">{new Set(rows)}</div>;

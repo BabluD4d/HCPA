@@ -23,7 +23,6 @@ const RegistrationGuide = () => {
         (resp) => {
           if (resp.ok) {
             if (resp.data) {
-              console.log("user123",resp.data.data)
               if(resp.data.data.registration_guid){
                setModuleData(resp.data.data.registration_guid)
               }
@@ -56,7 +55,6 @@ const RegistrationGuide = () => {
       </div>
       <hr height={3} />
       <Grid container spacing={4} mt={2} >
-          {console.log(localStorage.getItem("Checklist"))}
         <Grid xl={3} >
           <ArrowBackIcon onClick={() => Navigate("/Modelus")} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
         </Grid>

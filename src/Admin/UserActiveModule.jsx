@@ -53,7 +53,6 @@ export default function UserActiveModule() {
         // alert()
         Exportpurchaselist.purchaselistModule(obj).then((resp) => {
           if (resp.ok) {
-            console.log("bablu",resp.data.data.module)
             if (resp.data.data) {
                 setData(resp.data.data.module);
                 setcount(resp.data.data.count);
@@ -77,7 +76,6 @@ export default function UserActiveModule() {
         //EditProduct
         Exportpurchaselist.purchaselistModule(obj).then((resp) => {
           if (resp.ok) {
-            console.log("bablu",resp.data.data.module)
             if (resp.data.data) {
                 setData(resp.data.data.module);
                 setloader(false)
@@ -96,7 +94,6 @@ export default function UserActiveModule() {
         };
         Exportpurchaselist.ViewUserFillChecklist(obj).then((resp) => {
           if (resp.ok) {
-            console.log("Ok",resp.data.data);
             if (resp.data.data[0]) {
               setDataChecklist(resp.data.data);
               setloader(false)
@@ -114,14 +111,12 @@ export default function UserActiveModule() {
       const Hendlestuts = (value,id) => {
         let obj = {
           user_id: localStorage.getItem("UserProduct_id"),
-          // products_id: Product.products_id, 
+          product_id: Product.id, 
           module_id:id,
           status:value
         };
-        // console.log(value)
         Exportpurchaselist.purchaselistmoduletHendle(obj).then((resp) => {
           if (resp.ok) {
-            console.log(resp.data);
             if (resp.data.message == "module deactive") {
               toast.success('Module  deactive successfully', {
                 position: "top-right",

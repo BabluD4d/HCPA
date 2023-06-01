@@ -21,7 +21,6 @@ export default function CreateProduct() {
         // CoustomRegistration(values, "Registration")
         Exportproduct.CreateProduct(values)
         .then((resp) => {
-          console.log(resp)
           if (resp.data.message=="Product save successfully") {
             toast.success('Product Created successfully', {
               position: "top-right",

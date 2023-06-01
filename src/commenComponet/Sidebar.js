@@ -59,7 +59,6 @@ const Sidebar = () => {
     setCount(localStorage.getItem("activeProduct"))
     GetData()
     setData(JSON.parse(localStorage.getItem("userdata")))
-    console.log(JSON.parse(localStorage.getItem("userdata")))
     window.addEventListener("Togle", () => sethideShow(true));
   }, []);
 
@@ -100,7 +99,6 @@ const Sidebar = () => {
         Navigate("/")}
         else{
       if (resp.ok) {
-        console.log("hello",resp.data.data);
         if (resp.data) {
           setProductData(resp.data.data.product
             );

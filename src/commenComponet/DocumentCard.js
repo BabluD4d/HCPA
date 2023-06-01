@@ -62,7 +62,6 @@ export default function DocumentCard(props) {
             </Typography>
           </div>}
           </Grid>
-{/* {console.log(props.val)} */}
           <Grid item xs={6} >
             {props.hellow=="yes"? <div 
             style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}

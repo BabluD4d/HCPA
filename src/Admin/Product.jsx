@@ -31,7 +31,6 @@ export default function Product() {
     Exportproduct.GetAllProduct(obj).then(
       (resp) => {
         if (resp.ok) {
-          console.log(resp.data.data)
           if (resp.data) {
             setProductData(resp.data.data);
             setCount(resp.data.product_count);
@@ -52,7 +51,6 @@ export default function Product() {
     Exportproduct.Productdelete(id).then(
       (resp) => {
         if (resp.ok) {
-          console.log(resp.data.data)
           if (resp.data) {
             toast.success('Product delete successfully', {
               position: "top-right",
@@ -84,7 +82,6 @@ export default function Product() {
     Exportproduct.GetAllProduct(obj).then(
       (resp) => {
         if (resp.ok) {
-          console.log(resp.data.data)
           if (resp.data) {
             setProductData(resp.data.data);
             setCount(resp.data.product_count);
@@ -115,7 +112,6 @@ export default function Product() {
       // CoustomRegistration(values, "Registration")
       Exportproduct.EditProduct(values)
         .then((resp) => {
-          console.log(resp)
           if (resp.data.message == "Product update successfully") {
             toast.success('Product updated successfully', {
               position: "top-right",
@@ -276,7 +272,6 @@ export default function Product() {
                 </tr> */}
               </tbody>
             </Table>
-            {console.log(Math.ceil(Count / 10))}
             <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
           </Grid>
           <Grid item mt={-3} xs={2}>  <Button onClick={() => Navigate("/CreateProduct")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon

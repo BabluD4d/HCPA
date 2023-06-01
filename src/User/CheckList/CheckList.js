@@ -47,7 +47,6 @@ export const CheckList = () => {
     ExportChecklist.CheckListView(obj).then((resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(JSON.parse(resp.data.data.json_data));
           setData(JSON.parse(resp.data.data.json_data));
           setChecklistData(resp.data.data);
         }
@@ -93,7 +92,6 @@ export const CheckList = () => {
           };
           ExportChecklist.CheckListsend(obj)
             .then((resp) => {
-              console.log({ resp });
               if (resp.data.message == "register checklist successfully") {
                 toast.success("Register checklist successfully", {
                   position: "top-right",
@@ -211,9 +209,6 @@ export const CheckList = () => {
                             question: item.label,
                             Ans: e.target.value,
                           };
-                          // console.log("1",e.target.checked)
-                          // console.log("2",e.target.value)
-                          // console.log("3",val)
                           setFormData([...FormData]);
                         }}
                       >
@@ -230,35 +225,9 @@ export const CheckList = () => {
                           />
                         ))}
                       </RadioGroup>
-                      {/* <FormHelperText>Be careful</FormHelperText> */}
                     </FormControl>
                   </>
                 ) : null}
-                {/* {item.type == "file" ? (
-                  <>
-                    <Box mt={3}>
-                      <FormLabel component="legend">{item.label}</FormLabel>
-                      <TextField
-                        fullWidth
-                        id="fullWidth"
-                        // label={item.label}
-                        type="file"
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        variant="filled"
-                        onChange={(e, val) => {
-                          FormData[index] = {
-                            question: item.label,
-                            Ans: e.target.files[0],
-                          };
-                          setFormData([...FormData]);
-                        }}
-                      />
-                    </Box>
-                  </>
-                ) : null} */}
-                {console.log({ FormData })}
                 {item.type == "date" ? (
                   <>
                     <Box mt={3}>
@@ -324,7 +293,6 @@ export const CheckList = () => {
                           question: item.label,
                           Ans: value.value,
                         };
-                        console.log(value.value)
                         setFormData([...FormData]);} }
                         renderInput={(params) => (
                           <TextField

@@ -58,7 +58,6 @@ export default function CallListBook() {
       (resp) => {
         if (resp.ok) {
           if (resp.data) {
-            console.log(resp.data)
             setData(resp.data.result);
             setloader(false)
           }else{

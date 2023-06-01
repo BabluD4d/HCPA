@@ -27,7 +27,6 @@ export default function EditRegistrationGuides(props) {
       title: Yup.string().required("Enter your V title"),
     }),
     onSubmit: (values) => {
-      console.log(values);
       const formData = new FormData();
       formData.append('file', image);
       // formData.append('product_id', values.product_id);
@@ -37,7 +36,6 @@ export default function EditRegistrationGuides(props) {
       setTimeout(() => {
         Exportguid.GuidUpdate(formData)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message == " Update RegistrationGuide details ") {
               props.hendleGuidUpdateData()
               toast.success("Update RegistrationGuide details successfully", {
@@ -127,7 +125,6 @@ export default function EditRegistrationGuides(props) {
                 //   value={formik.values.file}
                 autoComplete="current-number"
               />
-              {console.log({image})}
               {formik.touched.file && formik.errors.file ? (
                 <div style={{ color: "red" }}>{formik.errors.file}</div>
               ) : null}
@@ -151,7 +148,6 @@ export default function EditRegistrationGuides(props) {
                  value={formik.values.videolink}
                 autoComplete="current-number"
               />
-              {/* {console.log({image})} */}
               {formik.touched.videolink && formik.errors.videolink ? (
                 <div style={{ color: "red" }}>{formik.errors.videolink}</div>
               ) : null}

@@ -51,11 +51,9 @@ export default function EditProfil(props) {
         .required("Enter your email"),
     }),
     onSubmit: (values) => {
-      console.log({ values });
       setTimeout(() => {
         ExportUser.userUpdate(values)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.msg == "updated successfully") {
               DataUser.email=values.email
               DataUser.name=values.name

@@ -57,7 +57,6 @@ export default function UserActiveProductList() {
     };
     Exportpurchaselist.purchaselistProduct(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data) {
           setData(resp.data.data.product);
           setcount(resp.data.data.count);
@@ -75,10 +74,8 @@ export default function UserActiveProductList() {
       product_id:id,
       status:value
     };
-    console.log(value)
     Exportpurchaselist.purchaselistProductHendle(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data);
         if (resp.data.message == "product deactive") {
           toast.success('Product  deactive successfully', {
             position: "top-right",
@@ -133,7 +130,6 @@ export default function UserActiveProductList() {
     //EditProduct
     Exportpurchaselist.purchaselistProduct(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data) {
           setData(resp.data.data.product);
           setcount(resp.data.data.count);
@@ -201,7 +197,6 @@ export default function UserActiveProductList() {
                 </thead>
                 <tbody>
                   {Data?.map((item, index) => {
-                    // console.log(typeof item.purchase_status)
                     return (
                       <tr>
                         <td>{index + 1}</td>
@@ -226,15 +221,15 @@ export default function UserActiveProductList() {
                           }}
                           style={{ color: "#0CB4D0", cursor: "pointer" }}
                         >
-                          {" "}
+                          
                           <RemoveRedEyeIcon
                             sx={{
                               color: "#0CB4D0",
                               marginBottom: "10px",
                               fontSize: "28px",
                             }}
-                          />{" "}
-                          &nbsp; View{" "}
+                          />
+                          &nbsp; View
                         </td>}
                       
                       </tr>

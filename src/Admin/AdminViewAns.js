@@ -20,7 +20,6 @@ const AdminViewAns = () => {
           };
           Exportpurchaselist.ViewAnsChecklist(obj).then((resp) => {
             if (resp.ok) {
-              console.log("Ok",resp.data.data);
               if (resp.data.data[0]) {
                 setDataChecklist(resp.data.data);
               }

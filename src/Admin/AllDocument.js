@@ -20,7 +20,6 @@ export default function AllDocumentAdmin() {
         (resp) => {
           if (resp.ok) {
             if (resp.data) {
-              console.log(resp.data.data)
               setData(resp.data.data);
               setloader(false)
             }else{

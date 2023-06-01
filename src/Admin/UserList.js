@@ -36,7 +36,6 @@ export default function UserList() {
     ExportUser.UserAll(obj).then((resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(resp.data);
           setCount(resp.data.count);
           setUserData(resp.data.data);
           setloader(false)
@@ -90,7 +89,6 @@ export default function UserList() {
       // CoustomRegistration(values, "Registration")
       ExportUser.userUpdateUserList(values)
       .then((resp) => {
-        console.log(resp);
         if (resp.data.message=="the record has updated") {
           GetData()
           setModalShow(false)
@@ -167,7 +165,6 @@ export default function UserList() {
     ExportUser.UserAll(obj).then((resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(resp.data);
           setCount(resp.data.count);
           setUserData(resp.data.data);
           setloader(false)

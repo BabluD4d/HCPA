@@ -36,7 +36,6 @@ export default function CreactModules() {
     onSubmit: (values) => {
         ExportModiles.CreateModules(values)
         .then((resp) => {
-          console.log(resp)
           if (resp.data.message=="Module save successfully") {
             toast.success('Module Created successfully', {
               position: "top-right",

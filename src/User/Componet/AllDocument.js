@@ -23,7 +23,6 @@ export default function AllDocument() {
     //  alert(localStorage.getItem("UserDoc_d"))
     ExportDocumentuser.DocumentGetData(obj).then((resp) => {
       if (resp.ok) {
-        console.log("helloData", resp.data.data);
         if (resp.data) {
           setData(resp.data.data);
         }

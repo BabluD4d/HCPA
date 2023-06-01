@@ -35,7 +35,6 @@ export default function CreateRegistrationGuides() {
         // ),
     }),
     onSubmit: (values) => {
-      console.log(values);
       const formData = new FormData();
       formData.append('file', image);
       formData.append('product_id', values.product_id);
@@ -44,7 +43,6 @@ export default function CreateRegistrationGuides() {
       setTimeout(() => {
         Exportguid.CreateGuid(formData)
           .then((resp) => {
-            console.log(resp);
             if (resp.data.message == " Create RegistrationGuide details successfully") {
               toast.success("Create RegistrationGuide details successfully", {
                 position: "top-right",
@@ -141,7 +139,6 @@ export default function CreateRegistrationGuides() {
                 //   value={formik.values.file}
                 autoComplete="current-number"
               />
-              {console.log({image})}
               {formik.touched.file && formik.errors.file ? (
                 <div style={{ color: "red" }}>{formik.errors.file}</div>
               ) : null}
@@ -165,7 +162,6 @@ export default function CreateRegistrationGuides() {
                  value={formik.values.videolink}
                 autoComplete="current-number"
               />
-              {console.log({image})}
               {formik.touched.videolink && formik.errors.videolink ? (
                 <div style={{ color: "red" }}>{formik.errors.videolink}</div>
               ) : null}

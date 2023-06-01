@@ -86,7 +86,6 @@ export default function ProductByModuleList() {
     };
     Exportguid.GuidAll(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data.data[0]) {
           setGuidData(resp.data.data);
           setloader(false);
@@ -109,7 +108,6 @@ export default function ProductByModuleList() {
     };
     ExportChecklist.ChecklistAll(obj).then((resp) => {
       if (resp.ok) {
-        // console.log("GetDataChecklistAll",resp.data.data);
         if (resp.data.data[0]) {
           setChecklis(resp.data.data);
           setloader(false);
@@ -141,7 +139,6 @@ export default function ProductByModuleList() {
     onSubmit: (values) => {
       ExportModiles.ModuilesUpdate(values)
         .then((resp) => {
-          console.log(resp);
           if (resp.data.message == "Module record update successfully") {
             toast.success("Module updated successfully", {
               position: "top-right",
@@ -184,7 +181,6 @@ export default function ProductByModuleList() {
     },
   });
   const handlemodal = (data) => {
-    console.log({ data });
     setEditData(data);
     setTimeout(() => {
       setModalShow(true);
@@ -199,7 +195,6 @@ export default function ProductByModuleList() {
 
     ExportModiles.ModuilesUpdate(obj)
       .then((resp) => {
-        console.log(resp);
         if (resp.data.message == "Module record update successfully") {
           toast.success("Module updated successfully", {
             position: "top-right",
@@ -254,7 +249,6 @@ export default function ProductByModuleList() {
     //EditProduct
     ExportModiles.ModuilesAll(obj).then((resp) => {
       if (resp.ok) {
-        console.log(resp.data.data);
         if (resp.data.data.data[0]) {
           setCount(resp.data.data.count);
           setModuleList(resp.data.data.data);

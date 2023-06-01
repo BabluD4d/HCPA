@@ -59,7 +59,6 @@ const GetDataDocumentGetDataView = () => {
     (resp) => {
       if (resp.ok) {
         if (resp.data) {
-          console.log(resp.data.data.rpl)
           setData1(resp.data.data.rpl);
         }
       }

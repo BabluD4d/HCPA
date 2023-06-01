@@ -189,22 +189,12 @@ export default function ChecklistPriveiw() {
   return (
     <div>
         <Grid container spacing={4} mt={2} >
-          {console.log(localStorage.getItem("Checklist"))}
         <Grid xl={3} >
           <ArrowBackIcon onClick={() => Navigate(-1)} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
         </Grid>
         <Grid xl={3} >
         </Grid>
         <Grid xl={6} >
-          {/* <div style={{ display: "flex" }}>
-            <Button mt={1} onClick={() => Navigate("/Productlist/cretechalist")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
-              className={"active"}
-            /> &nbsp; &nbsp; &nbsp; Create Checklist</Button>
-
-            <Button onClick={() => Navigate("/CreactModules")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
-              className={"active"}
-            /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
-          </div> */}
         </Grid>
       </Grid>
         {Data?.map((item, index) => {
