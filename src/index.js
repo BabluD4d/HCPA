@@ -51,7 +51,6 @@ import UserActiveModule from './Admin/UserActiveModule';
 import AdminViewAns from './Admin/AdminViewAns';
 import ForgotSet from './commenComponet/ForgotSet';
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
   // <React.StrictMode>
   <BrowserRouter>

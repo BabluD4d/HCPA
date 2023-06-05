@@ -84,7 +84,7 @@ window.addEventListener('FileChenge', eventHandler);
   html2canvas(input)
     .then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
+        const pdf = new jsPDF('p', 'px', [1040, 780], true);
         pdf.addImage(imgData, 'JPEG', 0, 0);
         pdf.save( Data?.data?.document_title||ViewDocument?.document_title+".pdf");
     })
@@ -213,10 +213,10 @@ window.addEventListener('FileChenge', eventHandler);
         </Grid>
       </Grid>
       <hr height={3} />
-   { Data.data?<div id="PDFDATA" dangerouslySetInnerHTML={ { __html: Data?.rpl}}>
+   { Data.data?<div style={{paddingLeft:"30px"}} id="PDFDATA" dangerouslySetInnerHTML={ { __html: Data?.rpl}}>
 
       </div>:
-      <div id="PDFDATA" dangerouslySetInnerHTML={ {__html: Data1}}>
+      <div style={{paddingLeft:"30px"}} id="PDFDATA" dangerouslySetInnerHTML={ {__html: Data1}}>
 
       </div>}
       <Modal

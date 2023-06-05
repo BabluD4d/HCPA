@@ -153,17 +153,17 @@ export default function AdminDashBoard() {
                     Total User
                   </Typography>
                 </center>
-                <Grid container spacing={1}>
-                  <Grid item md={1} xs={3}>
+                <Grid container class="hcp-icons-das" spacing={1}>
+                  {/* <Grid item md={1} xs={3}>
                     
-                  </Grid>
-                  <Grid item md={5} xs={3}>
+                  </Grid> */}
+                  {/* <Grid item md={5} xs={3}>
                     <Typography mt={3} mb={1} ml={5}>
                       <PersonIcon sx={{ fontSize: "45px" }} />{" "}
                     </Typography>
-                  </Grid>
-                  <Typography mt={3} sx={{ fontSize: "48px" }}>
-                    {ProductData?.total_user}
+                  </Grid> */}
+                  <Typography  mt={3} sx={{ fontSize: "48px" }}>
+                  <PersonIcon  /> {ProductData?.total_user}
                   </Typography>
                 </Grid>
               </Box>
@@ -184,17 +184,17 @@ export default function AdminDashBoard() {
                     Total Product
                   </Typography>
                 </center>
-                <Grid container spacing={1}>
-                  <Grid item md={1} xs={3}>
+                <Grid class="hcp-icons-das" container spacing={1}>
+                  {/* <Grid item md={1} xs={3}>
                     
-                  </Grid>
-                  <Grid item md={5} xs={3}>
+                  </Grid> */}
+                  {/* <Grid item md={5} xs={3}>
                     <Typography mt={3} mb={1} ml={5}>
                       <Inventory2Icon sx={{ fontSize: "45px" }} />{" "}
                     </Typography>
-                  </Grid>
+                  </Grid> */}
                   <Typography mt={3} sx={{ fontSize: "48px" }}>
-                    {ProductData?.product_count}
+                    <Inventory2Icon  />{ProductData?.product_count}
                   </Typography>
                 </Grid>
               </Box>
@@ -215,17 +215,17 @@ export default function AdminDashBoard() {
                     Total Modules
                   </Typography>
                 </center>
-                <Grid container spacing={1}>
-                  <Grid item x={8} md={1} xs={3}>
+                <Grid  class="hcp-icons-das" container spacing={1}>
+                  {/* <Grid item x={8} md={1} xs={3}>
                     
                   </Grid>
                   <Grid item xl={5} md={5} xs={3}>
                     <Typography mt={3} mb={1} ml={5}>
                       <ConnectWithoutContactIcon sx={{ fontSize: "45px" }} />{" "}
                     </Typography>
-                  </Grid>
+                  </Grid> */}
                   <Typography mt={3} sx={{ fontSize: "48px" }}>
-                    {ProductData?.module_count}
+                  <ConnectWithoutContactIcon sx={{ fontSize: "45px" }} /> {ProductData?.module_count}
                   </Typography>
                 </Grid>
               </Box>

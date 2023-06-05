@@ -393,3 +393,16 @@ h1, a{
   }
 } */
 /*  */
+
+
+/****** Arvinder Custom css ******/
+.hcp-icons-das{
+  text-align: center;
+  padding-bottom: 25px;
+  
+}
+.hcp-icons-das svg{
+  font-size: 60px;
+  margin-top: -16px;
+  
+}

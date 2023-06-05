@@ -1,34 +1,39 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useFormik } from 'formik';
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import ExportApi from '../Api/ExportApi';
-import { Link, useNavigate } from 'react-router-dom';
+import ExportApi from "../Api/ExportApi";
+import { Link, useNavigate } from "react-router-dom";
 
-import Logo from '../img/title.svg'
-import { CoustomLogin } from '../Api/Auth/Login/CoustomLogin';
-import ExportLogin from '../Api/Auth/Login/ExportLogin';
-import { toast, ToastContainer } from 'react-toastify';
+import Logo from "../img/title.svg";
+import { CoustomLogin } from "../Api/Auth/Login/CoustomLogin";
+import ExportLogin from "../Api/Auth/Login/ExportLogin";
+import { toast, ToastContainer } from "react-toastify";
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -36,7 +41,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -44,16 +49,16 @@ export default function SignIn() {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(6,"Password must be 6 characters long")
+        .min(6, "Password must be 6 characters long")
         .required("Enter your password"),
       email: Yup.string()
         .email("Please enter valid email address")
         .required("Enter your email"),
     }),
     onSubmit: (values) => {
-    ExportLogin.Login(values)
+      ExportLogin.Login(values)
         .then((resp) => {
-          if(resp.data.message=="Credentials are wrong"){
+          if (resp.data.message == "Credentials are wrong") {
             toast.error("Credentials are wwrong", {
               position: "top-right",
               autoClose: 5000,
@@ -63,35 +68,32 @@ export default function SignIn() {
               draggable: true,
               progress: undefined,
               theme: "light",
-            })
-          }else{
-
+            });
+          } else {
             if (resp.data.data) {
-                localStorage.setItem("Token", resp.data.data.token);
-                localStorage.setItem("userdata", JSON.stringify(resp.data.data));
-                localStorage.setItem("role", resp.data.data.role);
-                if(resp.data.data.role==1||resp.data.data.role==2){
-                   Navigate('/Admin')
-                }else{
-                  Navigate('/Home')
-                }
-
+              localStorage.setItem("Token", resp.data.data.token);
+              localStorage.setItem("userdata", JSON.stringify(resp.data.data));
+              localStorage.setItem("role", resp.data.data.role);
+              if (resp.data.data.role == 1 || resp.data.data.role == 2) {
+                Navigate("/Admin");
+              } else {
+                Navigate("/Home");
+              }
             }
           }
         })
-      .catch((err) =>{
-        toast.error("Something went wrong", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-      }
-      );
+        .catch((err) => {
+          toast.error("Something went wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        });
     },
   });
 
@@ -99,37 +101,32 @@ export default function SignIn() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <ToastContainer
-            position="top-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            />
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
             // display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            alignContent:"center",
-            justifyContent:"center"
+            flexDirection: "column",
+            alignItems: "center",
+            alignContent: "center",
+            justifyContent: "center",
           }}
         >
-            <img
-                    style={{ marginLeft: "44%" }}
-                    src={Logo}
-                    width={60}
-                    alt=""
-                  />
+          <img style={{ marginLeft: "44%" }} src={Logo} width={60} alt="" />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={formik.handleSubmit}  sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               // required
@@ -143,9 +140,9 @@ export default function SignIn() {
               onBlur={formik.handleBlur}
               value={formik.values.email}
             />
-             {formik.touched.email && formik.errors.email ? (
-          <div style={{ color: "red" }}>{formik.errors.email}</div>
-        ) : null}
+            {formik.touched.email && formik.errors.email ? (
+              <div style={{ color: "red" }}>{formik.errors.email}</div>
+            ) : null}
             <TextField
               margin="normal"
               fullWidth
@@ -159,8 +156,8 @@ export default function SignIn() {
               autoComplete="current-password"
             />
             {formik.touched.password && formik.errors.password ? (
-          <div style={{ color: "red" }}>{formik.errors.password}</div>
-        ) : null}
+              <div style={{ color: "red" }}>{formik.errors.password}</div>
+            ) : null}
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -186,7 +183,7 @@ export default function SignIn() {
               </Grid>
               <Grid item xs>
                 <Link to="/signup" variant="body2">
-                 Create Account
+                  Create Account
                 </Link>
               </Grid>
             </Grid>
