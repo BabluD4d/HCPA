@@ -55,21 +55,24 @@ export default function AllDocumentAdmin() {
         </Typography>
       </div> */}
       <hr height={3} />
-      <Grid container spacing={2}>
-  <Grid item xs={3}>
-  <div style={{display:"flex"}}>
-     <ArrowBackIcon onClick={()=>Navigate(-1)} style={{color:"#0cb4d0" ,fontSize:"50px"}}/>
-      </div>
-  </Grid>
-  <Grid item xs={6}>
+      <Grid container>
+      <Grid className="document-module-cus" container xs={12} >
+          <Grid item xs={4} sm={6}>
+          <div style={{display:"flex"}}>
+            <ArrowBackIcon className="back-icon-proact" onClick={()=>Navigate(-1)} />
+              </div>
+          </Grid> 
 
-  </Grid>
-  <Grid item xs={3}>
-  <Button onClick={()=>Navigate('/CreateDocuments')}  sx={{ marginLeft: "45%", marginBottom:"50px" }} className={"A1"} variant="contained">  Create Document</Button> 
-  </Grid>
+          <Grid className="text-align-right" item xs={8} sm={6}>
+          <Button onClick={()=>Navigate('/CreateDocuments')}  sx={{  marginBottom:"50px" }} className={"A1"} variant="contained">  Create Document</Button> 
+          </Grid>
+
+          </Grid>
+
+
 
 </Grid>
-      <Grid container spacing={2}>
+      <Grid className="check-boxs-main-cus" container spacing={2}>
       {loader?    <div style={{marginTop:"14%" ,marginLeft:"41%"}}>
                 <center >
                 <ColorRing
@@ -85,8 +88,10 @@ export default function AllDocumentAdmin() {
                 </center>
                
             </div>:<>
+          
 {Data?.map((val,i)=> <DocumentCard edit={true} title={val.document_title} dis={val.description} size={3} hellow={"yes"} val={val} />)}
 </>}
+
         {/* <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"} />
         <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>
         <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>

@@ -101,19 +101,17 @@ const DashBoard = () => {
         </div>
       ) : (
         <>
-          <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+          <Typography fontSize={{xs:'20px', lg:'30px'}}>
             DashBoard
           </Typography>
           <hr height={3} />
-          <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+          <Typography mt={4} fontSize={{xs:'20px', lg:'30px'}}>
             Wellcome to the HCPA Portal Davis
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={7} xl={9} sm={8} lg={9}>
-              <Typography mt={5} ml={8} sx={{ fontSize: "20px" }}>
-                Welcome Video
-              </Typography>
-              <Box ml={8}>
+            <Grid item xs={12} lg={9}>
+              <Box pt={5}>
+                <Typography sx={{ fontSize: "20px" }}>Welcome Video</Typography>
                 <div className="playerDiv">
                   <ReactPlayer
                     width={"100%"}
@@ -125,10 +123,8 @@ const DashBoard = () => {
                   />
                 </div>
               </Box>
-              <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-                Product
-              </Typography>
-              <Grid container spacing={4} mt={2} pl={9}>
+              <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>Product</Typography>
+              <Grid container spacing={{xs:2, lg:4}} mt={2}>
                 {ProductData?.map((val, i) => {
                   return (
                     <>
@@ -143,42 +139,38 @@ const DashBoard = () => {
                     </>
                   );
                 })}
-                {/*             
-            <ProductCard Modules={3} ProductName={"SDA"} />
-            <ProductCard Modules={2} ProductName={"Aged Caredis"} />
-            <ProductCard Modules={6} ProductName={"Child Care"} />
-            <ProductCard Modules={5} ProductName={"Vaccines"} /> */}
               </Grid>
             </Grid>
-            <Grid item xs={4} xl={3} sm={4} lg={3}>
-              <div style={{ display: "flex",width:"fit-content" }} onClick={()=>Navigate("/Files")} >
+            <Grid item xs={12} lg={3}>
+              <Box pl={{xs:2, md:6, lg:2}} pt={5} onClick={()=>Navigate("/Files")} >
                 <Typography
                   mt={5}
-                  ml={4}
+                  // ml={4}
+                  variant="span"
                   sx={{ fontSize: "20px", cursor: "pointer", }}
                 >
-                  Files{" "}
+                  Files
                 </Typography>
                 <Typography
                   mt={5.5}
-                  ml={1}
+                  // ml={1}
+                  variant="span"
                   sx={{
                     color: "#0CB4D0;",
                     fontSize: "14px",
                     cursor: "pointer",
                   }}
                 >
-                  {" "}
                   View All Files
                 </Typography>
-              </div>
-              {FileData[0]? <div style={{ marginTop: "30px" }}>
+              </Box>
+              {FileData[0]? <Grid pl={{xs:2, md:6, lg:2}} container spacing={2}>
                 {FileData.map((item, i) => {
                   return (
                     <>{i < 4 ? <DeshBoardCardFile item={item} /> : null}</>
                   );
                 })}
-              </div>: <div className="center">
+              </Grid>: <div className="center">
                 <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>
                   No files yet{" "}
                 </Typography>

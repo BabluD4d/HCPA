@@ -116,7 +116,7 @@ export default function AdminDashBoard() {
   }
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography className="main-title-ad" mt={4} ml={6} sx={{ fontSize: "30px" }}>
         Admin DashBoard
       </Typography>
       <hr height={3} />
@@ -232,23 +232,24 @@ export default function AdminDashBoard() {
             </Grid>
           </Grid>
           <Grid container mt={5}>
-            <Grid item ml={3} mr={3} md={11} lg={11} xl={11.4} sm={12} xs={12}>
+           
+            <Grid className="table-grid-co" item ml={3} mr={3} md={11} lg={11} xl={11.4} sm={12} xs={12}>
+            
               <Grid container mt={5}>
-                <Grid item xs={8}>
-                  <Typography
-                    pt={4}
-                    mb={2}
+                <Grid item xs={6}>
+                  <Typography className="ad-title-mb"
+                    // pt={4}
+                    mb={1}
                     sx={{ fontSize: "28px", fontWeight: "bold" }}
                   >
                     Call Book List
                   </Typography>
                 </Grid>
-                <Grid item xs={4}>
-                  <Typography
-                    onClick={() => {
+                <Grid item xs={6}>
+                  <Typography className="view-all-common"  onClick={() => {
                       Navigate("/callList");
                     }}
-                    mt={4}
+                    mt={1}
                     sx={{
                       color: "#0CB4D0",
                       fontSize: "25px",
@@ -262,12 +263,14 @@ export default function AdminDashBoard() {
                         marginBottom: "10px",
                         fontSize: "28px",
                       }}
+                      
                     />{" "}
                     View All List
                   </Typography>
                 </Grid>
               </Grid>
-              <TableContainer component={Paper}>
+              <TableContainer className="table-com-ar " component={Paper}>
+                
                 <Table aria-label="customized table">
                   <TableHead>
                     <TableRow>
@@ -316,24 +319,25 @@ export default function AdminDashBoard() {
                 </Table>
               </TableContainer>
             </Grid>
-
-            <Grid item md={5} ml={3} mr={3} xl={5}lg={5}  sm={12} xs={12}>
+            <Grid className="overflow-hide" container  ml={3} mr={3} mt={5} >                  
+            <Grid item md={6} ml={0}  mr={0} xl={6} lg={5}  sm={12} xs={12}>
               <Grid container mt={5}>
-                <Grid item xs={8}>
+                <Grid item xs={6}>
                   <Typography
-                    pt={4}
+                  className="ad-title-mb"
+                    // pt={4}
                     mb={2}
                     sx={{ fontSize: "28px", fontWeight: "bold" }}
                   >
                     User List
                   </Typography>
                 </Grid>
-                <Grid item xs={4}>
-                  <Typography
+                <Grid item xs={6}>
+                  <Typography className="view-all-common"
                     onClick={() => {
                       Navigate("/UserList");
                     }}
-                    mt={4}
+                     mt={1}
                     sx={{
                       color: "#0CB4D0",
                       fontSize: "25px",
@@ -380,23 +384,23 @@ export default function AdminDashBoard() {
               </TableContainer>
             </Grid>
             {/* <Grid item md={1} xl={1} sm={0} xs={0} lg={1}></Grid>   */}
-            <Grid item ml={3} mr={3} md={5} xl={5} lg={5}sm={12} xs={12}>
+            <Grid className="product-table-ar" item ml={0} mr={0} pl={3}  md={6} xl={6} lg={5}sm={12} xs={12}>
               <Grid container mt={5}>
-                <Grid item xs={8}>
-                  <Typography
-                    pt={4}
+                <Grid item xs={6}>
+                  <Typography className="ad-title-mb"
+                    // pt={4}
                     mb={2}
                     sx={{ fontSize: "28px", fontWeight: "bold" }}
                   >
                     Product List
                   </Typography>
                 </Grid>
-                <Grid item xs={4}>
-                  <Typography
+                <Grid item xs={6}>
+                  <Typography className="view-all-common"
                     onClick={() => {
                       Navigate("/Productlist");
                     }}
-                    mt={4}
+                     mt={1}
                     sx={{
                       color: "#0CB4D0",
                       fontSize: "25px",
@@ -415,7 +419,7 @@ export default function AdminDashBoard() {
                   </Typography>
                 </Grid>
               </Grid>
-              <TableContainer component={Paper}>
+              <TableContainer className="table-com-ar" component={Paper}>
                 <Table aria-label="customized table">
                   <TableHead>
                     <TableRow>
@@ -445,6 +449,7 @@ export default function AdminDashBoard() {
                   </TableBody>
                 </Table>
               </TableContainer>
+            </Grid>
             </Grid>
             {/* <Grid item md={0.5} xl={1} sm={1} xs={0}></Grid> */}
           </Grid>

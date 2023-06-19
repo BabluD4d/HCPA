@@ -6,17 +6,15 @@ import { useNavigate } from 'react-router-dom';
 function DeshBoardCardFile(props) {
     const Navigate=useNavigate()
   return (
-    <div className='sedowFile' style={{width:"372px",marginBottom:"15px"}}>
+    <Grid item className='sedowFile' xs={12} sm={6} md={4} lg={12} style={{marginBottom:"15px"}}>
 
-    <Box sx={{ border: 1, borderColor: 'grey.400',marginLeft:"18px", }}>
-
-        <h6 style={{marginLeft:"18px",marginTop:"13px",fontWeight:"bold"}}>{props.item.product_name}</h6>
-        <h6 style={{marginLeft:"18px",marginTop:"8px",fontWeight:"bold"}}>{props.item.document_title}</h6>
+    <Box sx={{ border: 1, borderColor: 'grey.400', p:2}}>
+        <h6 style={{fontWeight:"bold"}}>{props.item.product_name}</h6>
+        <h6 style={{fontWeight:"bold"}}>{props.item.document_title}</h6>
         {/*      */}
-      <Grid container sx={{marginBottom:"17px"}}>
-         
+      <Grid container>         
          <Grid xs={6}md={6}lg={6}xl={6}>
-         <div  style={{ display: "flex",cursor:"pointer",width:"fit-content",marginLeft:"18px" }} onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(props.item));
+         <div style={{ display: "flex",cursor:"pointer", width:"fit-content"}} onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(props.item));
             setTimeout(() => {
               Navigate("/Modelus/Document/ViewDocument")
             });
@@ -39,7 +37,7 @@ function DeshBoardCardFile(props) {
          </Grid>
       </Grid>
     </Box>
-    </div>
+    </Grid>
   )
 }
 

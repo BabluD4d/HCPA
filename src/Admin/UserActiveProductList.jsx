@@ -146,18 +146,18 @@ export default function UserActiveProductList() {
       <div>
         {" "}
         <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-          Product List
+          Product List 
         </Typography>
         <hr height={3} />
         <Grid container mt={2}>
-          <Grid xl={3}>
-            <ArrowBackIcon
+          <Grid sm={12} >
+            <ArrowBackIcon className="back-icon-proact"
               onClick={() => Navigate("/UserList")}
-              style={{ color: "#0cb4d0", fontSize: "50px" }}
+         
             />
           </Grid>
-          <Grid xl={6}></Grid>
-          <Grid xl={3}></Grid>
+          {/* <Grid xl={6}></Grid>
+          <Grid xl={3}></Grid> */}
         </Grid>
         {loader?    <div style={{marginTop:"24%"}}>
                 <center >
@@ -176,8 +176,8 @@ export default function UserActiveProductList() {
             </div>:<>
         <Box mt={5}>
           <Grid container spacing={1}>
-            <Grid item xs={1}></Grid>
-            <Grid item mt={5} xs={8}>
+            {/* <Grid item xs={1}></Grid> */}
+            <Grid className="max-width-table" item mt={5} xs={12}>
               <Table striped hover>
                 <thead
                   style={{
@@ -189,10 +189,10 @@ export default function UserActiveProductList() {
                 >
                   <tr>
                     <th>#</th>
-                    <th>Product Name</th>
+                    <th className="pro-width">Product Name</th>
                     {/* <th>Modules</th> */}
                     <th>Action</th>
-                    <th>View Product</th>
+                    <th className="vi-width">View Product</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -240,9 +240,9 @@ export default function UserActiveProductList() {
               <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} />
               {/* <Pagination /> */}
             </Grid>
-            <Grid item mt={-3} xs={2}>
+            {/* <Grid item mt={-3} xs={2}>
               {" "}
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
         </>}

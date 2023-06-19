@@ -11,7 +11,7 @@ import {
   addWeeks,
   subWeeks,
 } from "date-fns";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Card, Box } from "@mui/material";
 
 const Calendar = ({ showDetailsHandle }) => {
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -19,21 +19,7 @@ const Calendar = ({ showDetailsHandle }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selected, setselected] = useState("");
 
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
+  const monthNames = ["January",    "February",    "March",    "April",    "May",    "June",    "July",    "August",    "September",    "October",    "November",    "December"  ];
 
   const changeWeekHandle = (btnType) => {
     if (btnType === "prev") {
@@ -50,22 +36,23 @@ const Calendar = ({ showDetailsHandle }) => {
     setSelectedDate(day);
     showDetailsHandle(dayStr);
   };
+
   const renderDays = () => {
     const dateFormat = "EEE";
     const days = [];
     let startDate = startOfWeek(currentMonth, { weekStartsOn: 1 });
     for (let i = 0; i < 5; i++) {
       days.push(
-        <div
+        <Grid
           className="col col-center"
-          style={{ fontWeight: "bold", fontSize: "26px" }}
+          sx={{ fontWeight: '500', fontSize: {xs:'18px', md:'24px'}, backgroundColor:'#0cb4d0', color: '#fff', borderRadius:'5px 5px 0 0', padding: '10px 0' }}
           key={i}
         >
           {format(addDays(startDate, i), dateFormat)}
-        </div>
+        </Grid>
       );
     }
-    return <div className="days row">{days}</div>;
+    return <Box className="days row" sx={{textAlign:'center', gap:{xs:0.5, sm:2}, alignItems: 'center', margin:0}}>{days}</Box>;
   };
   function isYesterday(date) {
     const today = new Date();
@@ -106,7 +93,7 @@ const Calendar = ({ showDetailsHandle }) => {
         const dayStr = format(cloneDay, "ccc dd MMM yy");
         const d = new Date(dayStr);
         days.push(
-          <div
+          <Box sx={{textAlign:'center', background: 'rgb(128 128 128 / 5%)', paddingTop: {xs:'20px', sm:'24px'}, paddingBottom: {xs:'20px', sm:'24px'}, borderRadius: '0 0 5px 5px'}}
             className={`col cell ${
               isSameDay(day, new Date())
                 ? "today"
@@ -120,48 +107,62 @@ const Calendar = ({ showDetailsHandle }) => {
               onDateClickHandle(cloneDay, dayStr);
             }}
           >
-            <span
-              style={{
-                fontWeight: "bold",
-                fontSize: "40px",
-                textAlign: "center",
+            <Box variant="span"
+              sx={{
+                fontWeight: "500",
+                fontSize: {xs:'20px',sm:'30px', md:'40px'},
+                display: 'inline-block',
+                lineHeight:{xs:'16px', sm:'26px', md:"36px"}
               }}
             >
               {formattedDate}
-            </span>
-            {/* <span className="bg">{formattedDate}</span> */}
-            <h6 style={{ fontSize: "23px" }}>{monthNames[d.getMonth()]}</h6>
+            </Box>
+            <Box variant="h6" sx={{fontSize: {xs:'16px', sm:'20px', md:"24px"}, marginBottom:{xs:'5px', md:'15px'} }}>{monthNames[d.getMonth()]}</Box>
 
             {isYesterday(format(cloneDay, "ccc dd MMM yy")) ? (
-              <Button
-                onClick={() => {
-                  setselected(format(cloneDay, "ccc dd MMM yy"));
-                }}
-                className={
-                  format(cloneDay, "ccc dd MMM yy") == selected ? "A1" : "clu"
-                }
-                variant={
-                  format(cloneDay, "ccc dd MMM yy") == selected
+              <>
+                <svg style={{borderRadius:'100%', padding:'5px', background:'#212529', color:'#ffffff'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" onClick={() => {
+                    setselected(format(cloneDay, "ccc dd MMM yy"));
+                  }}
+                  className={`select-day ${format(cloneDay, "ccc dd MMM yy") == selected ? "A1" : ""}`}
+                  >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <Button
+                  onClick={() => {
+                    setselected(format(cloneDay, "ccc dd MMM yy"));
+                  }}
+                  className={
+                    format(cloneDay, "ccc dd MMM yy") == selected ? "A1" : "clu"
+                  }
+                  variant={
+                    format(cloneDay, "ccc dd MMM yy") == selected
                     ? "contained"
                     : "outlined"
-                }
-              >
-                Select Day
-              </Button>
+                  }
+                  >
+                  Select Day
+                </Button>
+                </>
             ) : (
-              <Button disabled variant={"outlined"}>
-                Select Day
-              </Button>
+              <>
+                <svg style={{borderRadius:'100%', padding:'5px', background:'rgb(128 128 128 / 30%)', color:'white'}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="select-day">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+                <Button disabled variant={"outlined"}>
+                  Select Day
+                </Button>
+              </>
             )}
-          </div>
+          </Box>
         );
         day = addDays(day, 1);
       }
       if (rows == 0) {
         rows.push(
-          <div className={"row"} key={day}>
+          <Box className="row" sx={{margin:'0', gap:{xs:0.5, sm:2}}} key={day}>
             {days}
-          </div>
+          </Box>
         );
       }
       days = [];
@@ -171,45 +172,39 @@ const Calendar = ({ showDetailsHandle }) => {
   const renderFooter = () => {
     return (
       <div className="">
-        <Grid container mt={3} mb={3} spacing={1}>
-          <Grid item xs={9}>
-            {" "}
-            <div className="">
-              <div
-                className=""
-                style={{
-                  textAlign: "left",
-                  color: "#0CB4D0",
-                  cursor: "pointer",
-                  width: "fit-content",
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                }}
-                onClick={() => changeWeekHandle("prev")}
-              >
-                {"< "} Prev week
-              </div>
+        <Grid container mt={1} mb={3}>
+          <Grid item xs={6} sx={{textAlign:'left'}}>
+            <div
+              className=""
+              style={{
+                color: "#0CB4D0",
+                cursor: "pointer",
+                fontWeight: "bold",
+                display:'inline-block'
+              }}
+              onClick={() => changeWeekHandle("prev")}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" style={{width:'15px', height:'15px', verticalAlign:'text-top'}}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+              </svg> Prev week
             </div>
           </Grid>
-          <Grid item xs={3}>
-            {" "}
-            <div className="">
+          <Grid item xs={6} sx={{textAlign:'right'}}>
               <div
                 onClick={() => changeWeekHandle("next")}
                 className=""
                 style={{
                   textAlign: "right",
-                  width: "fit-content",
                   color: "#0CB4D0",
                   cursor: "pointer",
                   fontWeight: "bold",
-                  fontSize: "20px",
+                  display: 'inline-block'
                 }}
               >
-                {" "}
-                Next week {" >"}
+                Next week <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" style={{width:'15px', height:'15px', verticalAlign:'text-top'}}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
               </div>
-            </div>
           </Grid>
           {/* <div>{currentWeek}</div> */}
         </Grid>

@@ -133,40 +133,21 @@ const Modelus = () => {
     <>
       {Product ? (
         <div style={{ width: "100%" }}>
-          <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-            {Product.product_name}
-          </Typography>
+          <Typography fontSize={{xs:'20px', lg:'30px'}}>{Product.product_name}</Typography>
           <div style={{ display: "flex" }}>
             <Typography
               mt={1}
-              ml={6}
               sx={{ fontSize: "14px", color: "#0CB4D0" }}
-            >
-              Product{" "}
-            </Typography>
-            <Typography mt={1} sx={{ fontSize: "14px" }}>
-              {" "}
-              / {Product.product_name}
-            </Typography>
+            >Product</Typography>
+            <Typography mt={1} sx={{ fontSize: "14px" }}> / {Product.product_name}</Typography>
           </div>
           <hr height={3} />
           {Product.purchase_status == 0 ? (
-            <div>
-              <div>
-                <h4
-                  style={{
-                    margin: "auto",
-                    paddingTop: "270px",
-                    textAlign: "center",
-                  }}
-                >
-                  Purchase the product to get started with youe{" "}
-                  {Product.product_name} application{" "}
-                </h4>
+              <Box textAlign="center" sx={{height: {sm:'55vh'}, display:'flex', alignItems:'center', flexWrap:'wrap', flexDirection:'column', justifyContent:'center'}}>
+                <Typography fontSize={{xs:'20px', lg:'24px'}}>Purchase the product to get started with youe {Product.product_name} application</Typography>
                 <Button
                   onClick={() => Navigate("/BookCall/1")}
                   sx={{
-                    marginLeft: "45%",
                     marginTop: "20px",
                     backgroundColor: "#0CB4D0",
                   }}
@@ -174,8 +155,7 @@ const Modelus = () => {
                 >
                   <ProductionQuantityLimitsSharpIcon /> Purchase Product
                 </Button>
-              </div>
-            </div>
+              </Box>
           ) : (
             <div>
               {loader ? (
@@ -200,152 +180,82 @@ const Modelus = () => {
                 </div>
               ) : (
                 <>
-                  <div style={{ paddingLeft: "10px" }}>
-                    <Typography mt={2} sx={{ fontSize: "20px" }}>
-                      Let's get you started width your {Product.product_name}{" "}
-                      application
-                    </Typography>
-                    <Grid container mt={2}>
-                      <Grid
-                        item
-                        md={5}
-                        xl={3.5}
-                        sm={12}
-                        xs={12}
-                        ml={0}
-                        mt={3}
-                        mb={3}
-                        mr={3}
-                      >
-                        <Box
-                          sx={{ color: "white", backgroundColor: "#0CB4D0" }}
-                        >
-                          <Grid container mt={2} spacing={1}>
-                            <Grid item xs={2}>
-                              <Typography mt={5} mb={5} ml={5}>
-                                {" "}
-                                <ExitToAppSharpIcon
-                                  sx={{ fontSize: "45px" }}
-                                />{" "}
-                              </Typography>
+                  <div>
+                    <Typography my={2} fontSize={{xs:'20px', lg:'24px'}}>Let's get you started with your {Product.product_name} application</Typography>
+
+                    <Grid container spacing={{xs:1, lg:3}} mt={2}>
+
+                      <Grid item md={4} xs={12} sm={6}>
+                        <Box sx={{ color: "white", backgroundColor: "#0CB4D0", p:3, height:'100%', display:"flex", alignItems:'center' }}>
+                          <Grid container>
+                            <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
+                                <ExitToAppSharpIcon sx={{ fontSize: "45px" }} />
                             </Grid>
-                            <Grid ml={2} item xs={7}>
-                              <Typography mt={3} sx={{ fontSize: "18px" }}>
-                                Step 1
-                              </Typography>
-                              <Typography mt={0} sx={{ fontSize: "22px" }}>
-                                Watch registration guides
-                              </Typography>
-                              <Typography mt={0} sx={{ fontSize: "13px" }}>
-                                Understand the process
-                              </Typography>
+                            <Grid item xs={9}>
+                              <Typography sx={{ fontSize: "18px", lineHeight:{xs:1, md:1.5} }}>Step 1</Typography>
+                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Watch registration guides</Typography>
+                              <Typography sx={{ fontSize: "14px" }}>Understand the process</Typography>
                             </Grid>
                           </Grid>
                         </Box>
                       </Grid>
-                      <Grid item md={5} xl={3.5} sm={12} xs={12} m={3}>
-                        <Box
-                          sx={{ color: "white", backgroundColor: "#097EAF" }}
-                        >
-                          <Grid container mt={2} spacing={1}>
-                            <Grid item xs={2}>
-                              <Typography mt={5} mb={5} ml={5}>
-                                {" "}
-                                <ChecklistRtlSharpIcon
-                                  sx={{ fontSize: "45px" }}
-                                />{" "}
-                              </Typography>
+
+                      <Grid item md={4} xs={12} sm={6}>
+                        <Box sx={{ color: "white", backgroundColor: "#097EAF", p:3, height:'100%', display:"flex", alignItems:'center' }}>
+                          <Grid container>
+                          <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
+                              {/* <Typography mt={5} mb={5} ml={5}> */}
+                                <ChecklistRtlSharpIcon sx={{ fontSize: "45px" }} />
+                              {/* </Typography> */}
                             </Grid>
-                            <Grid ml={2} item xs={7}>
-                              <Typography mt={3} ml sx={{ fontSize: "18px" }}>
-                                Step 2
-                              </Typography>
-                              <Typography mt={0} ml sx={{ fontSize: "22px" }}>
-                                Complete form checklists
-                              </Typography>
-                              <Typography mt={0} ml sx={{ fontSize: "13px" }}>
-                                Finish to guarantee your application
-                              </Typography>
+                            <Grid item xs={9}>
+                              <Typography sx={{ fontSize: "18px" }}>Step 2</Typography>
+                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Complete form checklists</Typography>
+                              <Typography sx={{ fontSize: "14px" }}>Finish to guarantee your application</Typography>
                             </Grid>
                           </Grid>
                         </Box>
                       </Grid>
-                      <Grid item md={5} xl={3.5} sm={12} xs={12} m={3}>
-                        <Box
-                          sx={{ color: "white", backgroundColor: "#233B77;" }}
-                        >
-                          <Grid container mt={2} spacing={1}>
-                            <Grid item xs={2}>
-                              <Typography mt={5} mb={5} ml={5}>
-                                {" "}
-                                <ViewModuleSharpIcon
-                                  sx={{ fontSize: "45px" }}
-                                />{" "}
-                              </Typography>
+
+                      <Grid item md={4} xs={12} sm={6}>
+                        <Box sx={{ color: "white", backgroundColor: "#233B77;", p:3, height:'100%', display:"flex", alignItems:'center' }}>
+                          <Grid container>
+                            <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
+                                <ViewModuleSharpIcon sx={{ fontSize: "45px" }} />
                             </Grid>
-                            <Grid ml={2} item xs={7}>
-                              <Typography mt={3} ml sx={{ fontSize: "18px" }}>
-                                Step 3
-                              </Typography>
-                              <Typography mt={0} ml sx={{ fontSize: "22px" }}>
-                                Use Modules
-                              </Typography>
-                              <Typography mt={0} ml sx={{ fontSize: "13px" }}>
-                                Expport ready-made document
-                              </Typography>
+                            <Grid item xs={9}>
+                              <Typography sx={{ fontSize: "18px" }}>Step 3</Typography>
+                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Use Modules</Typography>
+                              <Typography sx={{ fontSize: "14px" }}>Expport ready-made document</Typography>
                             </Grid>
                           </Grid>
                         </Box>
                       </Grid>
+
                     </Grid>
 
                     <Grid container spacing={2}>
-                      <Grid mt={3} md={8} lg={6} sm={12} xl={9} item xs={12}>
-                        <Typography
-                          mt={2}
-                          //   ml={2}
-                          sx={{ fontSize: "20px", fontWeight: "bold" }}
-                        >
-                          Modules
-                        </Typography>
-                        {DataNotFoundmodule ? (
-                          <Typography
-                            mt={"17%"}
-                            ml={"20%"}
-                            mb={"14%"}
-                            sx={{ fontSize: "26px", fontWeight: "bold" }}
-                          >
-                            {DataNotFoundmodule}
-                          </Typography>
-                        ) : (
-                          <>
-                            <div style={{ display: "flex" }}>
-                              <Typography
-                                mt={3}
-                                ml={1}
-                                sx={{
-                                  color: "#0CB4D0",
-                                  fontSize: "14px",
-                                  cursor: "pointer",
-                                }}
-                                onClick={() => Navigate("/Modelus/all")}
-                              >
-                                {" "}
-                                View Modelus
-                              </Typography>
-                            </div>
-                          </>
-                        )}
+                      <Grid item xs={12} lg={9} mt={5}>
+
+                        <Grid sx={{display:'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-between', mb:{xs:3}}}>
+                          <Typography variant="span" sx={{ fontSize: "20px", fontWeight: "bold" }}>Modules</Typography>
+                          {
+                            DataNotFoundmodule ? (
+                              <Typography variant="span" fontSize={{xs:'16px'}} color="#FF0000">{DataNotFoundmodule}</Typography>
+                            ) : (
+                              <Typography variant="span" sx={{color: "#0CB4D0", fontSize: "14px", cursor: "pointer",}} onClick={() => Navigate("/Modelus/all")}>View Modelus</Typography>
+                            )
+                          }
+                        </Grid>
+
                         <Grid container spacing={2}>
                           {ModuleData?.module.map((val, i) => {
                             return (
                               <>
                                 {i < 6 ? (
                                   <>
-                                    {" "}
                                     {val.purchase_status == 1 ? (
                                       <ModelusCardUnlook
-                                        size={4}
                                         Module={val}
                                         available={6}
                                       />
@@ -362,16 +272,10 @@ const Modelus = () => {
                             );
                           })}
                         </Grid>
-                        <div style={{ display: "flex", marginTop: "20px" }}>
+                        
+                        <Box sx={{mt:5}} style={{ display: "flex", flexWrap:'wrap', alignItems:'center', justifyContent:'space-between' }}>
+                          <Typography sx={{ fontSize: "20px", fontWeight: "bold" }}>Registration Guides</Typography>
                           <Typography
-                            mt={2}
-                            sx={{ fontSize: "20px", fontWeight: "bold" }}
-                          >
-                            Registration Guides
-                          </Typography>
-                          <Typography
-                            mt={3}
-                            ml={1}
                             sx={{
                               color: "#0CB4D0",
                               fontSize: "14px",
@@ -380,26 +284,21 @@ const Modelus = () => {
                             onClick={() => {
                               Navigate("/Modelus/Guides");
                             }}
-                          >
-                            {" "}
-                            View All Guides
-                          </Typography>
-                        </div>
-                        <Grid container spacing={2} mb={9}>
-                          <Grid mt={3} item xs={10}>
+                          >View All Guides</Typography>
+                        </Box>
+
+                        <Grid container spacing={2} alignItems="center" justifyContent="space-between">
+                          <Grid mt={3} item xs="12" sm="auto">
                             <div style={{ display: "flex" }}>
                               <Typography
+                              variant="span"
                                 mt={2}
-                                ml={6}
-                                sx={{
-                                  fontSize: "13px",
-                                  backgroundColor: "#e0e0e0",
-                                }}
+                                sx={{ fontSize:"13px", backgroundColor:"#e0e0e0", px:1, py:0.5, borderRadius:'2px'}}
                               >
                                 Curent Chapter
                               </Typography>
                               <Typography
-                                mt={2}
+                                mt={3}
                                 ml={1}
                                 sx={{ fontSize: "13px" }}
                               >
@@ -408,16 +307,14 @@ const Modelus = () => {
                             </div>
                             <Typography
                               mt={2}
-                              ml={6}
                               sx={{ fontSize: "20px", fontWeight: "bold" }}
                             >
                               Chapter 1-Geting Started
                             </Typography>
                           </Grid>
-                          <Grid mt={3} item xs={2}>
+                          <Grid mt={{xs:0, md:3}} item xs={12} sm="auto">
                             <Typography
-                              mt={2}
-                              ml={2}
+                              mt={{xs:0, md:2}}
                               sx={{
                                 color: "#0CB4D0",
                                 fontSize: "15px",
@@ -425,38 +322,39 @@ const Modelus = () => {
                               }}
                               onClick={handleOpen}
                             >
-                              {" "}
-                              <RemoveRedEyeIcon
+                              {/* <RemoveRedEyeIcon
                                 sx={{
                                   color: "#0c8ce9;",
                                   fontSize: "20px",
                                   marginBottom: "5px",
                                 }}
-                              />{" "}
+                              /> */}
                               View Modelus
                             </Typography>
                           </Grid>
                         </Grid>
+
                       </Grid>
-                      <Grid mt={3} item sm={12} xl={3} lg={6} md={4} xs={12}>
+
+                      <Grid mt={3} item xs={12} lg={3}>
                         <Typography
                           mt={2}
-                          ml={2}
+                          px={{lg:2}}
                           sx={{ fontSize: "20px", fontWeight: "bold" }}
                         >
                           Checklist to Complete
                         </Typography>
                         {DataNotFoundmodule ? (
                           <Typography
-                            mt={"17%"}
-                            ml={"15%"}
-                            sx={{ fontSize: "26px", fontWeight: "bold" }}
+                            fontSize={{xs:'16px'}}
+                            color="#FF0000"
+                            px={{lg:2}}
                           >
                             {DataNotFoundmodule}
                           </Typography>
                         ) : (
                           <>
-                            <Box mt={4} ml={2}>
+                            <Grid container mt={4} px={{lg:2}}>
                               {ModuleData?.checklist_guid.map((val, i) => {
                                 return (
                                   <>
@@ -469,7 +367,7 @@ const Modelus = () => {
                                 <ChecklistCard count={2} /> */}
                               {/* <ChecklistCard count={3}/> */}
                               {/* <ChecklistCard count={4}/> */}
-                            </Box>
+                            </Grid>
                           </>
                         )}
                       </Grid>
@@ -501,48 +399,34 @@ const Modelus = () => {
                           />
                         </div>
 
-                        <Grid container spacing={2} mb={1}>
-                          <Grid mt={3} item xs={6}>
-                            <div style={{ display: "flex" }}>
-                              <Typography
-                                mt={2}
-                                ml={6}
-                                sx={{
-                                  fontSize: "13px",
-                                  backgroundColor: "#E0E0E0",
-                                }}
-                              >
-                                Curent Chapter
-                              </Typography>
-                              <Typography
-                                mt={2}
-                                ml={1}
-                                sx={{ fontSize: "13px" }}
-                              >
-                                1 of 14 guides comp
-                              </Typography>
+                        <Grid container spacing={2} alignItems="center" sx={{pt:2}}>
+                        <Grid item xs={12} sm={6} md={4}>
+                          <div style={{ display: "flex" }}>
+                            <Typography
+                              sx={{
+                                fontSize: "13px",
+                                backgroundColor: "#E0E0E0",
+                              }}
+                            >
+                              Curent Chapter
+                            </Typography>
+                            <Typography ml={1} sx={{ fontSize: "13px" }}>
+                  1 of 14 guides comp
+                </Typography>
                             </div>
                             <Typography
-                              mt={1}
-                              ml={6}
-                              sx={{ fontSize: "18px", fontWeight: "bold" }}
-                            >
-                              Chapter 1-Geting Started
-                            </Typography>
+                mt={1}
+                sx={{ fontSize: "18px", fontWeight: "bold" }}
+              >
+                Chapter 1-Geting Started
+              </Typography>
                           </Grid>
-                          <Grid mt={3} item xs={3}>
-                            <Typography
-                              mt={4}
-                              ml={2}
-                              sx={{ color: "gray", fontSize: "15px" }}
-                            >
-                              {" "}
-                              previous Chapter
-                            </Typography>
-                          </Grid>
-                          <Grid mt={5} item xs={3}>
+                          <Grid item xs={12} sm={6} md={4}>
+              <Typography sx={{ color: "gray", fontSize: "15px", textAlign:{xs:'left', sm:'right'} }}>previous Chapter</Typography>
+            </Grid>
+            <Grid item xs={12} sm={12}  md={4} sx={{textAlign:{xs:'left', sm:'right'}}}>
                             <Button
-                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent.id)}}
+                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent?.id)}}
                               variant="contained"
                               sx={{ backgroundColor: "#0CB4D0" }}
                             >

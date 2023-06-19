@@ -58,15 +58,15 @@ export const CheckList = () => {
   }, []);
   return (
     <div>
-      <Grid container spacing={4} mt={2}>
+      <Grid container mt={2}>
         <Grid xl={3}>
           <ArrowBackIcon
             onClick={() => Navigate("/Modelus")}
-            style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }}
+            style={{ color: "#0cb4d0", fontSize: "50px"}}
           />
         </Grid>
-        <Grid xl={3}></Grid>
-        <Grid xl={6}>
+        {/* <Grid xl={3}></Grid> */}
+        {/* <Grid xl={6}> */}
           {/* <div style={{ display: "flex" }}>
             <Button mt={1} onClick={() => Navigate("/Productlist/cretechalist")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
               className={"active"}
@@ -76,7 +76,7 @@ export const CheckList = () => {
               className={"active"}
             /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
           </div> */}
-        </Grid>
+        {/* </Grid> */}
       </Grid>
       <form
         onSubmit={(e) => {
@@ -133,17 +133,13 @@ export const CheckList = () => {
       >
         {Data?.map((item, index) => {
           return (
-            <Grid key={index} container spacing={4} mt={2}>
-              <Grid xl={3}></Grid>
-              <Grid xl={6}>
+            <Grid key={index} container mt={2}>
+              {/* <Grid xl={3}></Grid> */}
+              <Grid xl={12}>
                 {item.type == "header" ? (
-                  <h1>
-                    <center>{item.label}</center>{" "}
-                  </h1>
+                  <Box variant="h1" fontSize={{xs:'20px', lg:'30px'}}>{item.label}</Box>
                 ) : null}
                 {item.type == "radio-group" ? (
-                  <>
-                    {" "}
                     <FormControl>
                       <FormLabel id="demo-row-radio-buttons-group-label">
                         {item.label}
@@ -169,11 +165,8 @@ export const CheckList = () => {
                         })}
                       </RadioGroup>
                     </FormControl>
-                  </>
                 ) : null}
                 {item.type == "text" ? (
-                  <>
-                    {" "}
                     <Box mt={3}>
                       <TextField
                         fullWidth
@@ -193,7 +186,6 @@ export const CheckList = () => {
                         variant="filled"
                       />
                     </Box>
-                  </>
                 ) : null}
                 {item.type == "checkbox-group" ? (
                   <>
@@ -377,7 +369,6 @@ export const CheckList = () => {
                   </Button>
                 ) : null} */}
               </Grid>
-              <Grid xl={3}></Grid>
             </Grid>
           );
         })}

@@ -55,11 +55,11 @@ export const SimpleModelus = () => {
   }, []);
   return (
     <div style={{ width: "100%" }}>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography sx={{ fontSize: "30px" }}>
         NDIS
       </Typography>
       <div style={{ display: "flex" }}>
-        <Typography mt={1} ml={6} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
+        <Typography mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
           Product{" "}
         </Typography>
         <Typography mt={1} sx={{ fontSize: "14px" }}>
@@ -72,27 +72,21 @@ export const SimpleModelus = () => {
       {ModuleData?.map((val, i) => {
          return (
           <>
-                  {val.purchase_status == 1 ? (
-                                      <ModelusCardUnlook
-                                        size={3}
-                                        Module={val}
-                                        available={6}
-                                      />
-                                    ) : (
-                                      <Moduleslook
-                                        Module={val}
-                                        available={6}
-                                        size={3}
-                                      />
-                                    )}
-                                  </>
-                                ) })}
-        {/* <ModelusCardUnlook Module={1} available={6}size={3} />
-        <Moduleslook Module={2} available={6}size={3} />
-        <Moduleslook Module={3} available={6}size={3} />
-        <Moduleslook Module={3} available={6}size={3} />
-        <Moduleslook Module={5} available={6}size={3} />
-        <Moduleslook Module={6} available={6}size={3} /> */}
+            {val.purchase_status == 1 ? (
+              <ModelusCardUnlook
+                size={4}
+                Module={val}
+                available={6}
+              />
+            ) : (
+              <Moduleslook
+                Module={val}
+                available={6}
+                size={4}
+              />
+            )}
+          </>
+        ) })}
       </Grid>
     </div>
   );

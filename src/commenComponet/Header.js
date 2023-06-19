@@ -19,13 +19,13 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#233B77",
   },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
+  // marginRight: theme.spacing(2),
+  // marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
+  // [theme.breakpoints.up("sm")]: {
+  //   marginLeft: theme.spacing(3),
+  //   width: "auto",
+  // },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -38,7 +38,8 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   justifyContent: "center",
 }));
 const CrossIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 30,1),
+  right:0,
+  // padding: theme.spacing(0, 30,1),
   height: "100%",
   position: "absolute",
   // pointerEvents: "none",
@@ -49,7 +50,9 @@ const CrossIconWrapper = styled("div")(({ theme }) => ({
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
+  width:'100%',
   "& .MuiInputBase-input": {
+    height:'35px',
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -87,11 +90,11 @@ const Header = () => {
   return (
     <>
       {loaction.pathname == "/" ? null : (
-        <div className="header">
-          <Grid container>
-            <Grid item xs={2} md={3} xl={3.5} sm={5} mt={2.5}>
+        <Box className="header" px={{xs:2, md:6}}>
+          <Grid container sx={{alignItems:'center', justifyContent:'space-between', height:{xs:'auto', sm:'100%'}}}>
+          <Grid item xs={12} sm='auto' sx={{order:{xs:2, sm:1}}}>
               <div style={{ display: "flex" }}>
-                <p
+                <div
                   onClick={() => window.dispatchEvent(new Event("Togle"))}
                   className="sidebartogle"
                 >
@@ -99,64 +102,58 @@ const Header = () => {
                     style={{
                       color: "white",
                       fontSize: "40px",
-                      marginLeft: "5px",
+                      // marginLeft: "5px",
                     }}
                   ></MenuIcon>
-                </p>
-                {localStorage.getItem("role") == 1 ||
-              localStorage.getItem("role") == 2 ? null : (
-                <Search sx={{ m: 1 }} className="serchbar">
-                  <SearchIconWrapper >
-                    <SearchIcon  />
-                  </SearchIconWrapper>
-                  {SerchValue?<CrossIconWrapper>
-                    <CloseIcon onClick={()=>{setSerchValue("")}} />
-                  </CrossIconWrapper>:null}
-                  
-                  <StyledInputBase
-                    placeholder="Search Document"
-                    inputProps={{ "aria-label": "search" }}
-                    value={SerchValue}
-                    onChange={(e, val) =>{ ;
-                    if(e.target.value){
-                      setSerchValue(e.target.value)
-                        GetData(e.target.value)
-                      }else{
-                        setSerchValue("")
-                        setData()
+                </div>
+                {
+                localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
+                  <Search className="serchbar">
+                    <SearchIconWrapper >
+                      <SearchIcon  />
+                    </SearchIconWrapper>
+                    {SerchValue?<CrossIconWrapper>
+                      <CloseIcon onClick={()=>{setSerchValue("")}} />
+                    </CrossIconWrapper>:null}
+                    
+                    <StyledInputBase
+                      placeholder="Search Document"
+                      inputProps={{ "aria-label": "search" }}
+                      value={SerchValue}
+                      onChange={(e, val) =>{ ;
+                      if(e.target.value){
+                        setSerchValue(e.target.value)
+                          GetData(e.target.value)
+                        }else{
+                          setSerchValue("")
+                          setData()
+                        }
                       }
-                    }
-                    }
-                  />
-                   
-                 
-                </Search>)}
+                      }
+                    />
+                  </Search>
+                )
+                }
               </div>
             </Grid>
-            <Grid item xs={1.5} md={6} xl={6} sm={2}></Grid>
-            <Grid item md={2} xl={1.5} sm={4} xs={5} mt={2.5}>
-              {localStorage.getItem("role") == 1 ||
-              localStorage.getItem("role") == 2 ? null : (
+            <Grid item xs={12} sm='auto' sx={{order:{xs:1, sm:2}}}>
+              <Box sx={{display: 'flex', flexWrap:'wrap', alignItems:'flex-start', justifyContent:{xs:'space-between'}}}>
+              {
+              localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
                 <Button
-                  sx={{ m: 1, backgroundColor: "#0CB4D0" }}
+                  sx={{backgroundColor: "#0CB4D0" }}
                   onClick={() => Navigate("/BookCall")}
                   startIcon={<BackpackIcon />}
                   variant="contained"
-                >
-                  Book A Call
-                </Button>
-              )}
-
-              {/* <ExitToAppIcon  sx={{ p: 2 }} className='serchbarrighticon'/> */}
-            </Grid>
-            <Grid item md={0.5} xl={1} sm={1} xs={2} mt={2.5}>
-              {/* <Button variant="contained">Contained</Button> */}
-              {/* <LogoutIcon onClick={()=>window.dispatchEvent(new Event("Admin"))} sx={{ m: 2 ,textAlign:"left",cursor:"pointer" }}  className='serchbarrighticon'/> */}
+                >Book A Call</Button>
+              )
+              }
               <LogoutIcon
                 onClick={() => setModalShow(true)}
-                sx={{ m: 2, textAlign: "left", cursor: "pointer" }}
+                sx={{ textAlign: "left", cursor: "pointer" }}
                 className="serchbarrighticon"
               />
+              </Box>
             </Grid>
           </Grid>
           <ToastContainer
@@ -216,22 +213,20 @@ const Header = () => {
             </Modal.Body>
             <Modal.Footer></Modal.Footer>
           </Modal>
-        </div>
+        </Box>
       )}
-      {Data &&SerchValue? (
+      {Data && SerchValue? (
         <Box
-          ml={7}
           className="sedow"
           sx={{ zIndex: "1", position: "relative" }}
         >
-          <ListGroup
+          <ListGroup className='searchbar-result-wrapper' 
             style={{
               position: "absolute",
-              width: "25%",
               border: "1px solid #0CB4D0",
               marginTop: "-20px",
               maxHeight: "215px",
-              overflow: "auto",
+              overflow: "auto"
             }}
           >
             {Data.map((val,i)=> <ListGroup.Item onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(val));

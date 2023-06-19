@@ -196,9 +196,19 @@ export default function UserList() {
       </Typography>
       <hr height={3} />
       <Grid container spacing={1}>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
-          <Box mt={8}>
+        {/* <Grid item xs={2}></Grid> */}
+        <Grid className="btnadd" item xs={12}>
+          <Button
+            onClick={() => Navigate("/CreateUser")}
+            // sx={{ marginLeft: "10%" }}
+            className={"A1"}
+            variant="contained"
+          >
+            Add User
+          </Button>
+        </Grid>
+        <Grid className="userlist-ar" item xs={12}>
+          <Box className="userlist-tb" mt={4}>
             <Table striped hover>
               <thead
                 style={{
@@ -210,12 +220,12 @@ export default function UserList() {
               >
                 <tr>
                   <th>#</th>
-                  <th> Name</th>
-                  <th>Email</th>
-                  <th>Mobile</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                  <th>View Activity</th>
+                  <th className="usr_na"> Name</th>
+                  <th className="usr_em">Email</th>
+                  <th className="usr_mb">Mobile</th>
+                  <th className="usr_st">Status</th>
+                  <th className="usr_ac">Action</th>
+                  <th className="usr_va">View Activity</th>
                 </tr>
               </thead>
               <tbody>
@@ -261,16 +271,7 @@ export default function UserList() {
             <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
           </Box>
         </Grid>
-        <Grid item xs={2}>
-          <Button
-            onClick={() => Navigate("/CreateUser")}
-            sx={{ marginLeft: "10%" }}
-            className={"A1"}
-            variant="contained"
-          >
-            Add User
-          </Button>
-        </Grid>
+       
       </Grid>
       <Modal
         show={modalShow}

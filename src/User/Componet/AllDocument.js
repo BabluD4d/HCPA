@@ -39,24 +39,22 @@ export default function AllDocument() {
 
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography sx={{ fontSize: "30px" }}>
         {Module.module_name}
       </Typography>
       <div style={{ display: "flex" }}>
         <Typography
           onClick={() => Navigate("/")}
           mt={1}
-          ml={6}
           sx={{ fontSize: "14px", color: "#0CB4D0" }}
         >
-          Product{" "}
+          Product
         </Typography>
         <Typography
           onClick={() => Navigate("/Modelus")}
           mt={1}
           sx={{ fontSize: "14px", color: "#0CB4D0" }}
         >
-          {" "}
           / {Product?.product_name}
         </Typography>
         <Typography
@@ -64,11 +62,9 @@ export default function AllDocument() {
           mt={1}
           sx={{ fontSize: "14px", color: "#0CB4D0" }}
         >
-          {" "}
           / Modules
         </Typography>
         <Typography mt={1} sx={{ fontSize: "14px" }}>
-          {" "}
           / {Module.module_name}
         </Typography>
       </div>

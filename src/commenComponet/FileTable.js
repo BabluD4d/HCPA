@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box } from "@mui/material";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table } from 'react-bootstrap';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -6,8 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const FileTable = (props) => {
 const Navigate=useNavigate()
   return (
-    <>
-    <Table striped>
+    <Box sx={{width: '100%', overflowX:{xs:'scroll', sm:'visible'}}}>
+    <Table striped className="file-modules-table">
       <thead>
         <tr>
           <th>File Name {" "}   </th>
@@ -32,7 +33,7 @@ const Navigate=useNavigate()
 
       </tbody>
     </Table>    
-    </>
+    </Box>
   )
 }
 

@@ -3,30 +3,17 @@ import React from 'react'
 
 const Futer = () => {
   return (
-    <Box   sx={{paddingTop:"30px",paddingBottom:"4px" ,color:"gray",textAlign:"left" }}>
-    <Grid container   >
-   <Grid   xs={4}>
-   <Grid  container>
-   <Grid className='futtor'  xs={2}>
-   <Typography >About</Typography>  
-</Grid>
-<Grid  m={0} p={0} xs={3}>
-<Typography >Privacy policy</Typography>  
-   </Grid>
-   <Grid m={0} p={0}  xs={3}>
-   <Typography m={0} p={0}>Contact HCPA</Typography>  
-   </Grid>
-   </Grid>
-   </Grid>
-   <Grid   xs={5}>
-
-   </Grid>
-   <Grid   xs={3}>
-  <Typography m={0} p={0} >@ 2022 Halth Care Providers Association </Typography>
-
-   </Grid>
-  
- </Grid>
+    <Box>
+      <Grid container sx={{color:"gray", pt:5, display: 'flex', flexWrap:'wrap', alignItems:'center', justifyContent:'space-between'}}>
+        <Grid item xs={12} md={6} sx={{display:'flex', flexWrap:'wrap', alignItems:'center', gap:2}} justifyContent={{xs:'center', md:'flex-start'}}>
+              <Typography>About</Typography>  
+              <Typography>Privacy policy</Typography>  
+              <Typography>Contact HCPA</Typography>  
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Typography sx={{textAlign:{xs:'center', md:'right'}}}>@ 2022 Halth Care Providers Association </Typography>
+        </Grid>
+      </Grid>
     </Box>
   )
 }

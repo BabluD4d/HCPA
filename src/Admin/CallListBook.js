@@ -122,10 +122,9 @@ export default function CallListBook() {
                 </center>
                
             </div>:<>
-      <Grid  mt={5}container spacing={1}>
-              <Grid item xs={2}>
-                </Grid>
-              <Grid item xs={8}>
+      <Grid className='calllist-table-main'  mt={5}container spacing={1}>
+            
+              <Grid item xs={12} className="calllist-table">
               <TableContainer component={Paper}>
             <Table aria-label="customized table">
               <TableHead>

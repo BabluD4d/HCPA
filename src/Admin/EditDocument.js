@@ -146,14 +146,25 @@ useEffect(() => {
         <div>
       </div>
       <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <ArrowBackIcon
+        <Grid  container spacing={2}>
+          <Grid item xs={4}>
+            <ArrowBackIcon className="back-icon-proact"
               onClick={() => Navigate("/Admin/AllDocumentAdmin")}
-              style={{ color: "#0cb4d0", fontSize: "50px" }}
+              // style={{ color: "#0cb4d0", fontSize: "50px" }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid className="vie-doc-btn edit-btn-right"  item xs={8}>
+            <Button
+            type="submit"
+              // sx={{ marginLeft: "45%", marginBottom: "50px" }}
+              className={"A1"}
+              variant="contained"
+            >
+              {" "}
+              Update Document
+            </Button>
+          </Grid>
+          <Grid  className="mar-auto" item xs={11} sm={8} md={6}>
 
             <Box mt={3}>
               <TextField
@@ -196,47 +207,38 @@ useEffect(() => {
             ) : null}
             </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Button
-            type="submit"
-              sx={{ marginLeft: "45%", marginBottom: "50px" }}
-              className={"A1"}
-              variant="contained"
-            >
-              {" "}
-              Update Document
-            </Button>
-          </Grid>
+          
         </Grid>
         </Box>
-        <Grid container spacing={1} mt={2} >
-          <Grid ml={5}  xs={4}>
-          <Grid container  mt={2} >
-          <Grid  xs={2}>
+        <Grid  container spacing={1} mt={8} >
+          <Grid container className="inner-edit-doc-sec">
+          <Grid   xl={3} lg={3} md={3} sm={4} xs={12}>
+          <Grid className="edit-btn-side" container  >
+          <Grid  className ="cus-btn-edit" xl={12} lg={12} md={12} sm={12} xs={4}>
           <DragDropButton title={"{{name}}"}  label={"Name "}editor={editorRef?.current} />
-            </Grid>
-          <Grid  xs={5}>
+          </Grid>
+          <Grid className ="cus-btn-edit" mt={2}  xl={12} lg={12} md={12} sm={12} xs={4}>
           <DragDropButton title={"{{email}}"}  label={"Email"}editor={editorRef?.current} />
             </Grid>
-          <Grid  xs={4}>
-          <DragDropButton title={"{{address}}"}  label={"Address"}editor={editorRef?.current} />
+          <Grid  className ="cus-btn-edit mar-add-btn" mt={2} xl={12} lg={12} md={12} sm={12} xs={4}>
+          <DragDropButton title={"{{address}}"}  label={"Address"} editor={editorRef?.current} />
             </Grid>
-          <Grid mt={2} xs={2}>
+          <Grid className ="cus-btn-edit" mt={2} xl={12} lg={12} md={12} sm={12} xs={6}>
           <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"}editor={editorRef?.current} />
             </Grid>
-          <Grid  mt={2} xs={4}>
+          <Grid className ="cus-btn-edit"  mt={2} xl={12} lg={12} md={12} sm={12} xs={6}>
           <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "}editor={editorRef?.current} />
             </Grid>
-          <Grid mt={2} xs={5}>
+          <Grid className ="cus-btn-edit" mt={2} xl={12} lg={12} md={12} sm={12} xs={12}>
           <DragDropButton title={"{{business_email}}"}  label={"Business Email "}editor={editorRef?.current} />
           {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef?.current} /> */}
             </Grid>
-            <Grid mt={2} xs={4}>
+            <Grid className ="cus-btn-edit" mt={2} xl={12} lg={12} md={12} sm={12} xs={12}>
           <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"}editor={editorRef?.current} />
             </Grid>
             </Grid>
             </Grid>
-          <Grid  xs={7}>
+          <Grid className="editor-box"  xl={9} lg={9} md={9} sm={8} pl={8} xs={12} >
         <Editor
           ref={editorRef}
          onInit={(evt, editor) => editorRef.current = editor}
@@ -256,9 +258,11 @@ useEffect(() => {
           // },
          }}
        />
+       
        </Grid>
-       <Grid  xs={1}>
-            </Grid>
+       {/* <Grid  xs={1}>
+            </Grid> */}
+       </Grid>
        </Grid>
       </div>
     </div>

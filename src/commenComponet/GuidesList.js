@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@mui/material";
+import {Box, Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { BaseUrlImage } from "../Api/BaseApi";
@@ -44,68 +44,67 @@ const GuidesList = (props) => {
       });
   };
   return (
-    <div style={{ marginLeft: "320px" }}>
-      <Grid container spacing={2} mb={2}>
-        <Grid mt={3} ml={4} item xs={6}>
-          {props.Stuts == 1 ? (
-            <p
-              style={{
-                backgroundColor: "#1bbd1b",
-                padding: "2px",
-                borderRadius: "38%",
-                fontSize: "13px",
-                color: "white",
-                width: "71px",
+    <div>
+      <Grid container mb={2}>
+        <Grid item xs={12} sx={{p:3, backgroundColor:'rgba(128,128,128,0.05)', borderRadius:'5px'}}>
+          <Box display="flex" flexWrap="wrap" alignItems="center" justifyContent="space-between">
+            {props.Stuts == 1 ? (
+              <p
+                style={{
+                  backgroundColor: "#1bbd1b",
+                  padding: "2px",
+                  borderRadius: "38%",
+                  fontSize: "13px",
+                  color: "white",
+                  width: "71px",
+                  marginBottom:0,
+                }}
+              >
+                Completed
+              </p>
+            ) : props.Stuts == 3 ? (
+              <p
+                style={{
+                  backgroundColor: "#0CB4D0",
+                  padding: "2px",
+                  borderRadius: "38%",
+                  fontSize: "13px",
+                  color: "white",
+                  width: "96px",
+                  marginBottom:0,
+                }}
+              >
+                Curent Chapter
+              </p>
+            ) : props.Stuts == 0 ? (
+              <p
+                style={{
+                  backgroundColor: "#c7c0c0",
+                  padding: "2px",
+                  borderRadius: "38%",
+                  fontSize: "14px",
+                  color: "white",
+                  width: "55px",
+                  marginBottom:0,
+                }}
+              >
+                To Start
+              </p>
+            ) : null}
+            <Typography
+              onClick={() => {
+                setOpen(true);
               }}
+              sx={{ color: "#0CB4D0", fontSize: "15px", cursor: "pointer" }}
             >
-              Completed
-            </p>
-          ) : props.Stuts == 3 ? (
-            <p
-              style={{
-                backgroundColor: "#0CB4D0",
-                padding: "2px",
-                borderRadius: "38%",
-                fontSize: "13px",
-                color: "white",
-                width: "96px",
-              }}
-            >
-              Curent Chapter
-            </p>
-          ) : props.Stuts == 0 ? (
-            <p
-              style={{
-                backgroundColor: "#c7c0c0",
-                padding: "2px",
-                borderRadius: "38%",
-                fontSize: "14px",
-                color: "white",
-                width: "55px",
-              }}
-            >
-              To Start
-            </p>
-          ) : null}
-
+              <RemoveRedEyeIcon
+                sx={{ color: "#0CB4D0", fontSize: "20px", verticalAlign:'baseline'}}
+              />{" "}
+              View Guides
+            </Typography>
+          </Box>
           <Typography sx={{ fontSize: "19px" }}>{props.title}</Typography>
-        </Grid>
-        <Grid mt={3} item xs={4}>
-          <Typography
-            onClick={() => {
-              setOpen(true);
-            }}
-            mt={2}
-            ml={2}
-            sx={{ color: "#0CB4D0", fontSize: "15px", cursor: "pointer" }}
-          >
-            {" "}
-            <RemoveRedEyeIcon
-              sx={{ color: "#0CB4D0", fontSize: "20px", marginBottom: "7px" }}
-            />{" "}
-            View Guides
-          </Typography>
-        </Grid>
+        </Grid>       
       </Grid>
       <Modal
         show={open}
@@ -117,7 +116,7 @@ const GuidesList = (props) => {
         <Modal.Body>
           <div
             className="playerDiv"
-            style={{ height: "300px", width: "779px" }}
+            style={{ height: "300px", maxWidth: "779px", width: '100%' }}
           >
             <ReactPlayer
               width={"100%"}
@@ -133,12 +132,10 @@ const GuidesList = (props) => {
             />
           </div>
 
-          <Grid container spacing={2} mb={1}>
-            <Grid mt={3} item xs={6}>
+          <Grid container spacing={2} alignItems="center" sx={{pt:2}}>
+            <Grid item xs={12} sm={6} md={4}>
               <div style={{ display: "flex" }}>
                 <Typography
-                  mt={2}
-                  ml={6}
                   sx={{
                     fontSize: "13px",
                     backgroundColor: "#E0E0E0",
@@ -146,29 +143,21 @@ const GuidesList = (props) => {
                 >
                   Curent Chapter
                 </Typography>
-                <Typography mt={2} ml={1} sx={{ fontSize: "13px" }}>
+                <Typography ml={1} sx={{ fontSize: "13px" }}>
                   1 of 14 guides comp
                 </Typography>
               </div>
               <Typography
                 mt={1}
-                ml={6}
                 sx={{ fontSize: "18px", fontWeight: "bold" }}
               >
                 Chapter 1-Geting Started
               </Typography>
             </Grid>
-            <Grid mt={3} item xs={3}>
-              <Typography
-                mt={4}
-                ml={2}
-                sx={{ color: "gray", fontSize: "15px" }}
-              >
-                {" "}
-                previous Chapter
-              </Typography>
+            <Grid item xs={12} sm={6} md={4}>
+              <Typography sx={{ color: "gray", fontSize: "15px", textAlign:{xs:'left', sm:'right'} }}>previous Chapter</Typography>
             </Grid>
-            <Grid mt={5} item xs={3}>
+            <Grid item xs={12} sm={12}  md={4} sx={{textAlign:{xs:'left', sm:'right'}}}>
               <Button
                 onClick={() => {
                   ViewguidUpdateUser(props.val.id);

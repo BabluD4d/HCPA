@@ -9,18 +9,18 @@ import {
   Typography,
 } from "@mui/material";
 
-import React from "react";
+import React from "react";  
 
 const CallCard = (props) => {
   // alert(props.key)
   return (
-    <Grid item xs={3.5}>
-      <Card>
+    <Grid item xs={12} sm={4}>
+      <Card sx={{height: '100%'}}>
         <CardActionArea>
-          <Typography ml={1} sx={{ fontSize: "19px" }}>
+          <Typography sx={{ fontSize: "19px", px:4, pt:2 }}>
             Call type {props.count}
           </Typography>
-          <CardContent>
+          <CardContent sx={{px:4}}>
             <Typography variant="body2" color="text.secondary">
               {props.d}
             </Typography>

@@ -174,9 +174,14 @@ export default function Product() {
                 </center>
                
             </div>:<>
-        <Grid container spacing={1}>
-          <Grid item xs={1}></Grid>
-          <Grid item mt={5} xs={8}>
+        <Grid class="main-cont-pro" container spacing={1}>
+        <Grid className="main-cont-pro-btn" item xs={12}> 
+         <Button onClick={() => Navigate("/CreateProduct")}  className={"A1"} variant="contained"><EditCalendarIcon
+            className={"active"}
+          />  Create Product</Button>
+        </Grid>
+        
+          <Grid className="main-cont-pro-tab" item mt={5} xs={12}>
             <Table striped hover>
               <thead
                 style={{
@@ -188,10 +193,10 @@ export default function Product() {
               >
                 <tr>
                   <th>#</th>
-                  <th>Product Name</th>
-                  <th>Modules</th>
-                  <th>Action</th>
-                  <th>View Product</th>
+                  <th className="prod-tb-1">Product Name</th>
+                  <th className="prod-tb-2">Modules</th>
+                  <th className="prod-tb-3">Action</th>
+                  <th className="prod-tb-4" >View Product</th>
                 </tr>
               </thead>
               <tbody>
@@ -274,9 +279,7 @@ export default function Product() {
             </Table>
             <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
           </Grid>
-          <Grid item mt={-3} xs={2}>  <Button onClick={() => Navigate("/CreateProduct")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
-            className={"active"}
-          /> &nbsp; &nbsp; &nbsp; Create Product</Button> </Grid>
+          
         </Grid>
         </>}
       </Box>

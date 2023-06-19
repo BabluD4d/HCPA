@@ -135,21 +135,22 @@ export default function EditChecklis() {
       </Typography>
       <hr height={3} />
       <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-        <Grid container spacing={4} mt={2}>
-          <Grid xl={3}>
+        <Grid container  mt={2}>
+          <Grid xs={1}>
             {Togal ? (
               <ArrowBackIcon
+                className="back-icon-proact"
                 onClick={() => Navigate("/Productlist/moduleList")}
-                style={{
-                  color: "#0cb4d0",
-                  fontSize: "50px",
-                  marginLeft: "18px",
-                }}
+                // style={{
+                //   color: "#0cb4d0",
+                //   fontSize: "50px",
+                //   marginLeft: "18px",
+                // }}
               />
             ) : null}
           </Grid>
-          <Grid xl={6} mt={2}>
-            <div style={{ display: "flex" }}>
+          <Grid className='vie-doc-btn chek-btn-size' xs={11} mt={2}>
+            <div >
               {Togal ? (
                 <Button
                   mt={1}
@@ -168,7 +169,7 @@ export default function EditChecklis() {
                   onClick={() => {
                     childRef.current.getFormData();
                   }}
-                  sx={{ marginLeft: "10%" }}
+                  sx={{ marginLeft: "10px", marginRight: "1%" }} 
                   className={"A1"}
                   variant="contained"
                 >
@@ -179,7 +180,7 @@ export default function EditChecklis() {
                   onClick={() => {
                     setTogal(true);
                   }}
-                  sx={{ marginLeft: "10%" }}
+                  sx={{ marginLeft: "10%",  marginRight: "1%"  }}
                   className={"A1"}
                   variant="contained"
                 >
@@ -188,11 +189,11 @@ export default function EditChecklis() {
               )}
             </div>
           </Grid>
-          <Grid xl={3}></Grid>
+          {/* <Grid xl={3}></Grid> */}
         </Grid>
-        <Grid container spacing={4} mt={2}>
-          <Grid xl={3} md={3}></Grid>
-          <Grid xl={6} md={6}>
+        <Grid container  mt={2}>
+          {/* <Grid xl={3} md={3}></Grid> */}
+          <Grid className='mar-auto' xs={11} sm={8} md={6}>
             <Box mt={3}>
               <TextField
                 fullWidth
@@ -214,7 +215,7 @@ export default function EditChecklis() {
               ) : null}
             </Box>
           </Grid>
-          <Grid xl={3}></Grid>
+          {/* <Grid xl={3}></Grid> */}
         </Grid>
       </Box>
       <br />

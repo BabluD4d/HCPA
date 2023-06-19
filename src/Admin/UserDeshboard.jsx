@@ -111,9 +111,9 @@ const hendleSubmit =()=>{
                 </center>
                
             </div>:
-      <Grid container spacing={4} mt={2}>
-        <Grid xl={3}></Grid>
-        <Grid xl={6}>
+      <Grid className="banner-section-cus" container spacing={4} mt={2}>
+        {/* <Grid xl={3}></Grid> */}
+        <Grid xs={12}>
           {formik.values?.file?.size}
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
             <Box mt={3}>
@@ -172,9 +172,10 @@ const hendleSubmit =()=>{
             </Box>
           </Box>
         </Grid>
-        <Grid xl={3}></Grid>
-        <Grid xl={3}></Grid>
-        <Grid mt={9} xl={6}>
+        {/* <Grid xl={3}></Grid>
+        <Grid xl={3}></Grid> */}
+        <Grid mt={9} xs={12} xl={6}>
+          
           {image ? (
             <div
               className="playerDiv"
@@ -191,7 +192,7 @@ const hendleSubmit =()=>{
             </div>
           ) : null}
         </Grid>
-        <Grid xl={3}></Grid>
+        {/* <Grid xl={3}></Grid> */}
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}

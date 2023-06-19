@@ -163,19 +163,19 @@ export default function UserActiveModule() {
        <div>
       {" "}
       <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-      Module List
+      Module List 
       </Typography>
       <hr height={3} />
       <Grid container mt={2} >
       <Grid xl={3} > 
-      <ArrowBackIcon onClick={()=>Navigate('/UserList/product/active')} style={{color:"#0cb4d0" ,fontSize:"50px"}}/>
+      <ArrowBackIcon className='back-icon-proact' onClick={()=>Navigate('/UserList/product/active')} />
       </Grid>
-      <Grid xl={6} > 
+      {/* <Grid xl={6} > 
 
-      </Grid>
-      <Grid xl={3} > 
+      </Grid> */}
+      {/* <Grid xl={3} > 
 
-      </Grid>
+      </Grid> */}
         </Grid>
         {loader?    <div style={{marginTop:"24%"}}>
                 <center >
@@ -192,13 +192,17 @@ export default function UserActiveModule() {
                 </center>
                
             </div>:<>
-      <Box mt={5}>
+      <Box  mt={5}>
+        <Grid className="max-width-mo" >
+        <Grid  container xs={12}>
+        <Typography xs={12}  sx={{ fontSize: "30px" }}>
+          Module List 
+          </Typography>
+        </Grid>
         <Grid container spacing={1}>
-          <Grid item xs={1}></Grid>
-          <Grid item mt={5} xs={8}>
-          <Typography mt={4} mb={3} sx={{ fontSize: "30px" }}>
-          Module List
-      </Typography>
+         
+          <Grid item mt={5} xs={12}>
+          
             <Table striped hover>
               <thead
                 style={{
@@ -235,13 +239,13 @@ export default function UserActiveModule() {
             <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} />
             {/* <Pagination  /> */}
           </Grid>
-          <Grid item mt={-3} xs={2}>   </Grid>
+          </Grid>
         </Grid>
       </Box>
       <Box mt={5}>
-        <Grid container spacing={1}>
-          <Grid item xs={1}></Grid>
-          <Grid item mt={5} xs={8}>
+        <Grid  className="max-width-mo" container spacing={1}>
+          
+          <Grid item mt={5} xs={12}>
       <Typography mt={4} mb={3} sx={{ fontSize: "30px" }}>
       CheckList
       </Typography>
@@ -292,7 +296,7 @@ export default function UserActiveModule() {
             {/* <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} /> */}
             {/* <Pagination  /> */}
           </Grid>
-          <Grid item mt={-3} xs={2}>   </Grid>
+          {/* <Grid item mt={-3} xs={2}>   </Grid> */}
         </Grid>
       </Box>
     </>}

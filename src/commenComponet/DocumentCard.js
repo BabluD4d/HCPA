@@ -6,20 +6,11 @@ import EditIcon from '@mui/icons-material/Edit';
 export default function DocumentCard(props) {
   const Navigate=useNavigate()
   return (
-    <Grid mt={3}md={4} lg={4}  sm={6} xs={12}  item xl={props.size}>
-      <Box pl={2} p={2}>
-        <p
-          style={{
-            backgroundColor: "#1bbd1b",
-            padding: "3px",
-            borderRadius: "38%",
-            fontSize: "13px",
-            color: "white",
-            width: "45px",
-          }}
-        >
-          Ready
-        </p>
+   
+    <Grid item mt={3} md={4} lg={4} sm={6} xs={12} xl={props.size}>
+      <Grid className="box-shadow-doc">
+      <Box p={2}>
+        <p className="read-btn">Ready</p>
         <Grid container>
           <Grid item xs={11} >
             <Typography sx={{ fontSize: "21px", fontWeight: "bold" }}>
@@ -31,48 +22,40 @@ export default function DocumentCard(props) {
               {props.dis}{" "}
             </Typography>
           </Grid>
-          <Grid container>
-          <Grid item xs={6} >
-         {props.edit?    <div 
-            style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
-            onClick={() => {
-              localStorage.setItem("document_id",props.val.id)
-              Navigate("/EditDocument");
-            }}
-          >
-            <EditIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />
+          <Grid className="doc-btn" container>
+          <Grid item xs={6}>
+         {
+         props.edit ? <div onClick={() => {localStorage.setItem("document_id",props.val.id); Navigate("/EditDocument");}}>
             <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"8px" }}>
-              {" "}
-              Edit Document
+              <EditIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} /> Edit 
             </Typography>
-          </div>:    <div 
-            style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
+          </div>
+          :
+          <Box 
+            sx={{  cursor: "pointer" }}
             onClick={() => {
               localStorage.setItem("ViewDocument",JSON.stringify(props.val))
-              setTimeout(() => {
-                
+              setTimeout(() => {    
                 Navigate("/Modelus/Document/ViewDocument");
               },200);
             }}
           >
-            <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />
-            <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"10px" }}>
-              {" "}
-              View Product
-            </Typography>
-          </div>}
+            <RemoveRedEyeIcon sx={{color: "#0CB4D0", fontSize: "24px" }} />
+            <Typography variant="span" ml={1} sx={{ color: "#0CB4D0", fontSize: "14px"}}>View Product</Typography>
+          </Box>
+          }
           </Grid>
-          <Grid item xs={6} >
+          <Grid className="text-align-right"  item xs={6} >
             {props.hellow=="yes"? <div 
-            style={{ display: "flex", marginBlock:"8px", cursor: "pointer" }}
+            style={{  cursor: "pointer" }}
             onClick={() => {
               Navigate("/Modelus/Document/ViewDocument1/"+props.val.id);
             }}
           >
-            <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />
-            <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"10px" }}>
+          
+            <Typography  sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"10px" }}>
               {" "}
-              View Document
+              <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} />  View 
             </Typography>
           </div>:null}
          
@@ -81,5 +64,8 @@ export default function DocumentCard(props) {
         </Grid>
       </Box>
     </Grid>
+    </Grid>
+   
+
   );
 }

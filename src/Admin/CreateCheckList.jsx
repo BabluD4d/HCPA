@@ -299,26 +299,28 @@ export default function CreateCheckList() {
             </Typography>
             <hr height={3} />
             <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <Grid container spacing={4} mt={2} >
-                <Grid xl={3} >
-                {Togal?    <ArrowBackIcon onClick={() => Navigate('/Productlist/moduleList')} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />:null}
-                </Grid>
-                <Grid xl={6}  mt={2}>
-                <div style={{ display: "flex" }}>
-                {Togal?  <Button mt={1} sx={{ marginLeft: "10%", }} type='submit' className={"A1"} variant="contained"> Generate Checklist</Button>:null}
-
-                        {Togal?  <Button onClick={()=>{childRef.current.getFormData()}}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained">Preview </Button>:
-                        <Button onClick={()=>{setTogal(true)}}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained">Hide Preview </Button>}
-                    </div>
-                </Grid>
-                <Grid xl={3} >
+            <Grid container  mt={2} >
                 
+                <Grid xs={2} >
+                {Togal ? <ArrowBackIcon className='back-icon-proact' onClick={() => Navigate('/Productlist/moduleList')} />:null}
                 </Grid>
+                
+                <Grid className='vie-doc-btn chek-btn-size' xs={10}  mt={2}>
+                <div >
+              {Togal?  <Button mt={1} type='submit' className={"A1"} variant="contained"> Generate Checklist</Button>:null}
+
+                {Togal?  <Button onClick={()=>{childRef.current.getFormData()}}  sx={{ marginLeft: "10px", marginRight: "1%" }} className={"A1"} variant="contained">Preview </Button>:
+                        <Button onClick={()=>{setTogal(true)}}  sx={{ marginLeft: "10%", marginRight: "1%"  }} className={"A1"} variant="contained">Hide Preview </Button>}
+                </div>
+                </Grid>
+                {/* <Grid xl={3} >
+                
+                </Grid> */}
             </Grid>
-            <Grid container spacing={4} mt={2} >
-                <Grid xl={3} md={3} >
-                  </Grid>
-                  <Grid xl={6} md={6}>
+            <Grid container  mt={2} >
+                {/* <Grid xl={3} md={3} >
+                  </Grid> */}
+                  <Grid className='mar-auto' xs={11} sm={8} md={6}>
             <Box mt={3}>
             
               <TextField
@@ -341,8 +343,8 @@ export default function CreateCheckList() {
             ) : null}
             </Box>
             </Grid>
-            <Grid xl={3} >
-                  </Grid>
+            {/* <Grid xl={3} >
+                  </Grid> */}
                   </Grid>
             </Box>
             <br/>

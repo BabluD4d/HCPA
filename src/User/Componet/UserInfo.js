@@ -107,128 +107,44 @@ const UserInfo = () => {
   });
   return (
     <>
-    <div style={{height:"90vh",overflow:"auto"}}>
-      <Grid container spacing={4}>
-        <Grid item xs={1}>
-          {" "}
-          <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-            Profile
-          </Typography>
+    <div>
+      <Grid container sx={{alignItems:'center'}}>
+        <Grid item xs={12} sm={4}>
+          <Typography fontSize={{xs:'20px', lg:'30px'}} mb={{xs:1, sm:0}}>Profile</Typography>
         </Grid> 
-        <Grid item xs={7}></Grid>
-        <Grid item  mt={4} xs={2}>  <Button onClick={() => setShow(true)} className="Edit" variant="outlined">
-              Change Password
-          </Button></Grid>
-        <Grid mt={4} item xs={2}>
-          <Button onClick={() => setModalShow(!modalShow)} className="Edit" variant="outlined">
+        <Grid item xs={12} sm={8} sx={{textAlign:'right'}}>
+          <Button onClick={() => setShow(true)} className="Edit" variant="outlined" sx={{width:{xs:'100%', sm:'inherit'}}}>
+            Change Password
+          </Button>
+          <Button onClick={() => setModalShow(!modalShow)} className="Edit" variant="outlined"  sx={{width:{xs:'100%', sm:'inherit'}, ml:{xs:0, sm:1}, mt:{xs:1, sm:0}}}>
             Edit Profile
           </Button>
         </Grid>
       </Grid>
       <hr height={3} />
       
-      {modalShow? <EditProfil setModalShow={setModalShow} GetData={GetData} Data={Data} />:<Grid container spacing={2}>
-        <Grid item xs={2.5}>
-          {" "}
-          <Typography mt={4} ml={6} sx={{ fontSize: "24px" }}>
-            Personal information
-          </Typography>
-          <Typography mt={1.5} ml={6} sx={{ fontSize: "20px" }}>
-            Name
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-            {Data?.name}
-          </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
-            ID
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-            {Data?.user_id}
-          </Typography>
-          {/* <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
-            Password
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-            ********
-          </Typography> */}
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
-            Email
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-            {Data?.email}
-          </Typography>
-          <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
-            Mobile
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-          {Data?.mobile_number}
-          </Typography>
-          {/* <Typography mt={1.7} ml={6} sx={{ fontSize: "20px" }}>
-            Payment Card
-          </Typography>
-          <Typography ml={6} sx={{ fontSize: "16px" }}>
-          {Data?.payment_card?Data?.payment_card:"Mastercard ending in 0000"}
-          </Typography> */}
+      {
+      modalShow ? <EditProfil setModalShow={setModalShow} GetData={GetData} Data={Data} />
+      :
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Typography mt={{xs:2, md:4}} mb={2} sx={{ fontSize: {xs:'20px', md:"24px"} }}>Personal information</Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Name: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"}, textTransform:'capitalize' }}>{Data?.name}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>ID: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.user_id}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Email: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.email}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Mobile: <Typography variant="span" sx={{ml:1,  fontSize: {xs:'14px', md:"16px"} }}>{Data?.mobile_number}</Typography></Typography>
         </Grid>
-        <Grid ml={4} item xs={2.5}>
-          <Typography mt={4} ml={4} sx={{ fontSize: "24px" }}>
-            Business information
-          </Typography>
-          <Typography mt={1.5} pl={7} sx={{ fontSize: "20px" }}>
-            {" "}
-            Busines Name
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.business_name}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            Busines Type
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.business_type}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            Busines Address
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-           {Data?.business_address}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            Busines Email
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.business_email}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            Busines Phone Number
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.business_phone_no}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            States Operating In
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.states_operating_in}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            ABN Name
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.abn_name}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            Legal RegistrationABN Name
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.registered_abn_name}
-          </Typography>
-          <Typography mt={1.7} pl={7} sx={{ fontSize: "20px" }}>
-            Trading Name
-          </Typography>
-          <Typography pl={7} sx={{ fontSize: "16px" }}>
-          {Data?.trading_name}
-          </Typography>
+        <Grid item xs={12} sm={6}>
+          <Typography mt={{xs:2, md:4}} mb={2} sx={{ fontSize: {xs:'20px', md:"24px"} }}>Business information</Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Busines Name: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.business_name}</Typography></Typography>          
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Busines Type: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.business_type}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Busines Address: <Typography variant="span" sx={{ ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.business_address}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Busines Email: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.business_email}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Busines Phone Number: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.business_phone_no}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>States Operating In: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.states_operating_in}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>ABN Name: <Typography variant="span" sx={{ ml:1,fontSize: {xs:'14px', md:"16px"} }}>{Data?.abn_name}</Typography></Typography>
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Legal RegistrationABN Name: <Typography variant="span" sx={{ ml:1,fontSize: {xs:'14px', md:"16px"} }}>{Data?.registered_abn_name}</Typography></Typography>          
+          <Typography sx={{ fontSize: {xs:'16px', md:"18px"} }}>Trading Name: <Typography variant="span" sx={{ml:1, fontSize: {xs:'14px', md:"16px"} }}>{Data?.trading_name}</Typography></Typography>
         </Grid>
       </Grid>}
       <Modal

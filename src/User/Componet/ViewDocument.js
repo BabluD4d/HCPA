@@ -97,7 +97,7 @@ window.addEventListener('FileChenge', eventHandler);
    }, 1000);
    setTimeout(() => {
     
-     var filename =Data?.data?.document_title||ViewDocument?.document_title
+     var filename =ViewDocument?.document_title
      var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
      var postHtml = "</body></html>";
      var html = preHtml+document.getElementById("PDFDATA").innerHTML+postHtml;
@@ -135,12 +135,11 @@ window.addEventListener('FileChenge', eventHandler);
   return (
     <div>
       <Grid container>
-        <Grid item xs={8}>
+      <Grid item xs={12} md={6}>
         {Data.data?
           <div>
             <Typography
               mt={4}
-              ml={6}
               sx={{ fontSize: "25px", fontWeight: "bold" }}
             >
               {Data?.data?.document_title}
@@ -160,41 +159,22 @@ window.addEventListener('FileChenge', eventHandler);
               </Typography>
             </div>
           </div>:<div>
-            <Typography
-              mt={4}
-              ml={6}
-              sx={{ fontSize: "25px", fontWeight: "bold" }}
-            >
-              {ViewDocument?.document_title}
-            </Typography>
-            <div style={{ display: "flex",marginLeft:"1%" }}>
-              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-                
-              {UserProduct?.product_name}
-              </Typography>
-              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-              {" "+" / "+" "}
-              {Module?.module_name }
-              </Typography>
-              <Typography mt={1} sx={{ fontSize: "14px" }}>
-                {" "}
-                / {ViewDocument?.document_title}
-              </Typography>
+            <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>{ViewDocument?.document_title}</Typography>
+            <div style={{ display: "flex" }}>
+              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{UserProduct?.product_name}</Typography>
+              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{" "+" / "+" "}{Module?.module_name }</Typography>
+              <Typography mt={1} sx={{ fontSize: "14px" }}>/ {ViewDocument?.document_title}</Typography>
             </div>
           </div>}
           
         </Grid>
-        <Grid item xs={4}>
-          <Grid container spacing={1}>
-            <Grid item xs={6}>
+        <Grid item xs={12} md={6} alignItems="center" sx={{textAlign:{xs:'left', md:'right'}, mt:{xs:2, md:0}}}>
               <Button onClick={()=>Export2Word()}
-                sx={{ marginTop: "46px", backgroundColor: "#0CB4D0" }}
+                sx={{backgroundColor: "#0CB4D0", width:{xs:'100%', md:'auto'}, mb:{xs:1, md:0} }}
                 variant="contained"
               >
                 <InsertDriveFileIcon /> &nbsp; Export as word
               </Button>
-            </Grid>
-            <Grid item xs={6}>
               <Button
                 onClick={() => {
                   setOpen(true);
@@ -203,20 +183,18 @@ window.addEventListener('FileChenge', eventHandler);
                     DownloadPDF()
                   }, 1000);
                 }}
-                sx={{ marginTop: "46px", backgroundColor: "#0CB4D0" }}
+                sx={{backgroundColor: "#0CB4D0", ml:{xs:0, md:1}, width:{xs:'100%', md:'auto'} }}
                 variant="contained"
               >
                 <PictureAsPdfIcon /> &nbsp; Export as PDF
               </Button>
-            </Grid>
-          </Grid>
         </Grid>
       </Grid>
       <hr height={3} />
-   { Data.data?<div style={{paddingLeft:"30px"}} id="PDFDATA" dangerouslySetInnerHTML={ { __html: Data?.rpl}}>
+   { Data.data?<div id="PDFDATA" dangerouslySetInnerHTML={ { __html: Data?.rpl}}>
 
       </div>:
-      <div style={{paddingLeft:"30px"}} id="PDFDATA" dangerouslySetInnerHTML={ {__html: Data1}}>
+      <div  id="PDFDATA" dangerouslySetInnerHTML={ {__html: Data1}}>
 
       </div>}
       <Modal

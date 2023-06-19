@@ -82,26 +82,19 @@ const Files = () => {
 
   return (
     <div>
-      <Grid container spacing={2}>
-        <Grid item xs={1}>
-          <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-            Files
-          </Typography>
-        </Grid>
+      {/* <Grid container> */}
+        {/* <Grid item xs={1}> */}
+        {/* </Grid>
         <Grid xs={9}></Grid>
-        <Grid xs={2}>
-          <Grid container mt={4}>
-            <Grid mt={4} item xs={6}>
-            </Grid>
-            <Grid mt={4} xs={2}>
-              {/* <VerticalShadesClosedIcon /> */}
-            </Grid>
-            <Grid mt={4} item xs={3}>
-              {/* <DensityMediumIcon sx={{ color: "#0CB4D0" }} /> */}
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <Grid xs={2}> */}
+          {/* <Grid container mt={4}> */}
+            {/* <Grid mt={4} item xs={6}></Grid> */}
+            {/* <Grid mt={4} item xs={2}><VerticalShadesClosedIcon /></Grid>
+            <Grid mt={4} item xs={3}><DensityMediumIcon sx={{ color: "#0CB4D0" }} /></Grid> */}
+          {/* </Grid> */}
+        {/* </Grid> */}
+      {/* </Grid> */}
+            <Typography fontSize={{xs:'20px', lg:'30px'}}>Files</Typography>
 
       <Box
         xs={12}
@@ -109,37 +102,18 @@ const Files = () => {
         sm={12}
         lg={12}
         mt={4}
-        ml={6}
+        // ml={6}
         sx={{ borderBottom: 1, borderColor: "divider" }}
       >
-        <div style={{ display: "flex", marginBlock: "20px" }}>
-          <h4
-            className={value == "All" ? "fileActive" : ""}
-            onClick={() => {
-              handleChange("All");
-              GetDataFile("All");
-            }}
-            style={{
-              marginLeft: "10px",
-              marginRight: "15px",
-              cursor: "pointer",
-            }}
-          >
+        <div style={{ display: "flex", marginBlock: "20px", overflowX:'auto', gap:'20px', alignItems:'center' }}>
+          <h4 className={value == "All" ? "fileActive" : ""} onClick={() => {handleChange("All"); GetDataFile("All");}} style={{flex: '0 0 auto', cursor: "pointer"}}>
             All
           </h4>
           {ProductData.map((val, i) => {
             return (
               <h4
-                className={value == i ? "fileActive" : ""}
-                onClick={() => {
-                  handleChange(i);
-                  GetDataFile(val.id);
-                }}
-                style={{
-                  marginLeft: "10px",
-                  marginRight: "15px",
-                  cursor: "pointer",
-                }}
+                className={value == i ? "fileActive" : "file-modules"} onClick={() => {handleChange(i); GetDataFile(val.id)}}
+                style={{flex: '0 0 auto', cursor: "pointer"}}
               >
                 {val.product_name}
               </h4>

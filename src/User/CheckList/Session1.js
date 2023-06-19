@@ -13,7 +13,7 @@ export const Session1 = () => {
     };
     return (
         <Box>
-            < Grid container spacing={2}  >
+            <Grid container spacing={2}>
                 <Grid item xs={3}>
                     <Typography variant='500' fontStyle={"revert"} gridAutoFlow={"column"}  >
                         Legal Name of Application
@@ -33,15 +33,9 @@ export const Session1 = () => {
                 </Grid>
 
             </Grid>
-            <Box gap={5} >
-
-
-
+            <Box gap={5}>
                 <Typography style={{ paddingTop: "3%" }}>
-
                     <TextField
-                     
-                    
                         defaultValue=" Lucky Lavender "
                         variant="filled"
                         fullWidth
@@ -49,48 +43,38 @@ export const Session1 = () => {
                             shrink: true,
                           }}
                        />
-
                 </Typography>
                 <Typography style={{ paddingTop: "3%" }}>
-
                     <TextField
-                     
-                         defaultValue="  December 15,1980   "
+                        defaultValue="December 15,1980"
                         fullWidth
                         InputLabelProps={{
                             shrink: true,
-                          }}
-                          variant="filled"
+                        }}
+                        variant="filled"
                         label='Date of birth' />
-
                 </Typography>    
                  <Typography style={{ paddingTop: "3%" }}>
-
                     <TextField
-                     
-                     InputLabelProps={{
+                    InputLabelProps={{
                         shrink: true,
-                      }}
-                      variant="filled"
-                         defaultValue="  sandeep@email.com "
-                        fullWidth
-                        label=' Email' />
-
+                    }}
+                    variant="filled"
+                    defaultValue="  sandeep@email.com "
+                    fullWidth
+                    label=' Email' />
                 </Typography>   
-                  <Typography style={{ paddingTop: "3%" }}>
-
+                <Typography style={{ paddingTop: "3%" }}>
                     <TextField
-                     
-                     InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="filled"
-                         defaultValue="+00 123 456 7890"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        variant="filled"
+                        defaultValue="+00 123 456 7890"
                         fullWidth
                         label='Mobile' />
-
                 </Typography>   
-                  <Typography style={{ paddingTop: "3%" }}>
+                <Typography style={{ paddingTop: "3%" }}>
 
                     <TextField
                      

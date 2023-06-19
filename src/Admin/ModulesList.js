@@ -235,9 +235,10 @@ export default function ModulesList() {
         Moduels List
       </Typography>
       <hr height={3} />
-      <Grid container spacing={4} mt={2}>
-        <Grid xl={3}></Grid>
-        <Grid xl={6}>
+      <Grid container mt={2}>
+        <Grid container className="module-list-se">
+        {/* <Grid xl={3}></Grid> */}
+        <Grid xl={9} md={8} sm={6} xs={12}>
           <FormControl fullWidth>
             <InputLabel
               sx={{ marginLeft: "10px" }}
@@ -266,18 +267,21 @@ export default function ModulesList() {
             </NativeSelect>
           </FormControl>
         </Grid>
-        <Grid xl={3}>
+        <Grid xl={3} md={4} sm={6} xs={12}>
           <Button
-            onClick={() => Navigate("/CreactModules")}
+                       onClick={() => Navigate("/CreactModules")}
             sx={{ marginLeft: "10%" }}
-            className={"A1"}
+            className={"A1 create-btn"}
             variant="contained"
           >
-            <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp;
-            Create Modelus
+            <EditCalendarIcon className={"active"} /> Create Modelus
           </Button>
         </Grid>
+        </Grid>
       </Grid>
+
+
+
       <Box mt={5}>
         {DataNotFound ? (
           <Typography
@@ -290,7 +294,7 @@ export default function ModulesList() {
         ) : (
           <>
           
-          <Grid container spacing={4} mt={2} pl={9}>
+          <Grid container spacing={4} mt={2} className="module-list-ar">
             {ModuleList &&
               ModuleList?.map((item, index) => {
                 return (
@@ -310,14 +314,16 @@ export default function ModulesList() {
             {/* <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />
           <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={2} ProductName={"Aged Caredis"} />
           <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />   */}
-
-          </Grid>
-            {ModuleList[0] && (
+<div className="module-pagination-ar">
+{ModuleList[0] && (
               <Pagination
                 onChange={hendlePagintion}
                 count={Math.ceil(Count / 10)}
               />
             )}
+</div>
+          </Grid>
+            
             </>
         )}
         {/* <Grid item mt={-3} xs={2}>  <Button onClick={()=>Navigate("/CreateProduct")}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon

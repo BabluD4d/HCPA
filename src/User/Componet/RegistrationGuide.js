@@ -9,6 +9,7 @@ const RegistrationGuide = () => {
   const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata"))); 
   const Navigate= useNavigate()
   const [ModuleData, setModuleData] = useState();
+  const [Count, setCount] = useState();
   window.addEventListener("activeProduct", () => setTimeout(() => {
     setProduct(JSON.parse(localStorage.getItem("UserProduct")))
   },));
@@ -24,8 +25,24 @@ const RegistrationGuide = () => {
           if (resp.ok) {
             if (resp.data) {
               if(resp.data.data.registration_guid){
+                let CountNew=0
                setModuleData(resp.data.data.registration_guid)
-              }
+               resp.data.data.registration_guid.map((val,i)=>{
+                if(val?.guid_status==1){
+                  CountNew=CountNew+1
+                }
+               })
+              //  for (let index = 1; index <= resp.data.data.registration_guid.length; index++) {
+              //   const element = resp.data.data.registration_guid[index];
+              //   if(element?.guid_status==1){
+              //     CountNew=CountNew+1
+              //   }
+              //   console.log({element})
+              // }
+              console.log({CountNew})
+              setCount(CountNew)
+              console.log(resp.data.data.registration_guid)
+            }
             }
           }
         }
@@ -37,11 +54,11 @@ const RegistrationGuide = () => {
   
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography sx={{ fontSize: "30px" }}>
       {Product.product_name}
       </Typography>
       <div style={{ display: "flex" }}>
-        <Typography onClick={()=>Navigate("/")} mt={1} ml={6} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
+        <Typography onClick={()=>Navigate("/")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
           Product{" "}
         </Typography>
         <Typography onClick={()=>Navigate("/Modelus")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
@@ -54,18 +71,13 @@ const RegistrationGuide = () => {
         </Typography>
       </div>
       <hr height={3} />
-      <Grid container spacing={4} mt={2} >
-        <Grid xl={3} >
-          <ArrowBackIcon onClick={() => Navigate("/Modelus")} style={{ color: "#0cb4d0", fontSize: "50px", marginLeft: "18px" }} />
-        </Grid>
-        <Grid xl={3} >
-        </Grid>
-        <Grid xl={6} >
-          
+      <Grid container mt={2} >
+        <Grid xl={3}>
+          <ArrowBackIcon onClick={() => Navigate("/Modelus")} style={{ color: "#0cb4d0", fontSize: "50px"}} />
         </Grid>
       </Grid>
-      <Typography mt={4} sx={{ fontSize: "30px", marginLeft: "320px" }}>
-        7 of 14 Guides Completed
+      <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>
+        {Count} of {ModuleData&&ModuleData?.length} Guides Completed
       </Typography>
       {ModuleData?.map((val,i)=>
         <GuidesList ModulesList={ModulesList} title={val.title} val={val} Stuts={val.guid_status} />
