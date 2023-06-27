@@ -23,13 +23,9 @@ export default function AdminProductCart(props) {
     const Navigate=useNavigate()
 
   return (
-    <Grid mb={3} xl={props.size?props.size:3} sm={6} lg={4} md={4} item xs={12}> 
-  <div className='sedow' style={{backgroundColor:"#E0E0E0",padding:"15px"}}>
-
-           <Grid container  >
-           
-
-           {/* <Grid xl={7} sm={9} lg={7} item xs={9}>  */}
+    <Grid lg={props.size?props.size:3} sm={6} md={4} item xs={12}> 
+      <div className='sedow' style={{backgroundColor:"#E0E0E0",padding:"15px"}}>
+           <Grid container>          
            <Grid md={7} xs={7}>
            {props.foo==1?
         <Typography sx={{ fontSize: "15px" }} >{props.Modules+" "} Document   </Typography>:

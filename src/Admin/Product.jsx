@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, Pagination, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Pagination, TableHead, TableRow, TableBody, TextField, Typography, TableContainer, Paper } from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { Modal, Table } from "react-bootstrap";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -11,6 +12,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { ColorRing } from "react-loader-spinner";
+import { styled } from "@mui/material/styles";
+  
 export default function Product() {
   const Navigate = useNavigate();
   const [ProductData, setProductData] = useState([])
@@ -20,6 +23,26 @@ export default function Product() {
   const [Productid, setProductid] = React.useState();
   const [id, setid] = React.useState();
   const [loader, setloader] = useState(true);
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: "#0CB4D0",
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
 
   let obj = {
     "order": "desc",
@@ -153,133 +176,62 @@ export default function Product() {
   });
   return (
     <div>
-      {" "}
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>
         Product List
       </Typography>
-      <hr height={3} />
       <Box mt={5}>
-      {loader?    <div style={{marginTop:"24%"}}>
-                <center >
-                <ColorRing
-                  visible={true}
-                  height="100"
-                  width="100"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
-                />
-                
-                </center>
-               
-            </div>:<>
-        <Grid class="main-cont-pro" container spacing={1}>
-        <Grid className="main-cont-pro-btn" item xs={12}> 
-         <Button onClick={() => Navigate("/CreateProduct")}  className={"A1"} variant="contained"><EditCalendarIcon
-            className={"active"}
-          />  Create Product</Button>
-        </Grid>
-        
-          <Grid className="main-cont-pro-tab" item mt={5} xs={12}>
-            <Table striped hover>
-              <thead
-                style={{
-                  paddingBlock: "30px",
-                  backgroundColor: "#0CB4D0",
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              >
-                <tr>
-                  <th>#</th>
-                  <th className="prod-tb-1">Product Name</th>
-                  <th className="prod-tb-2">Modules</th>
-                  <th className="prod-tb-3">Action</th>
-                  <th className="prod-tb-4" >View Product</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ProductData?.map((item, index) => {
-
-                  return <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.product_name}</td>
-                    <td>{item.total_module}</td>
-                    <td>
-                      <EditIcon sx={{ color: "#0CB4D0" }} onClick={() => { hendleshowmodal(item) }} /> &nbsp;
-                      <DeleteIcon sx={{ color: "red" }} onClick={() => { handleDeleteproduct(item.products_id) }} />{" "}
-                    </td>
-                    <td
-                      onClick={() => {
-                        Navigate("/Productlist/moduleList");
-                        localStorage.setItem("Product",JSON.stringify(item))
-                      }}
-                      style={{ color: "#0CB4D0", cursor: "pointer" }}
-                    >
-                      {" "}
-                      <RemoveRedEyeIcon
-                        sx={{
-                          color: "#0CB4D0",
-                          marginBottom: "10px",
-                          fontSize: "28px",
-                        }}
-                      />{" "}
-                      &nbsp; View{" "}
-                    </td>
-                  </tr>
-                })}
-                {/* <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>7       </td>
-                  <td>
-                    <EditIcon sx={{ color: "#0CB4D0" }} /> &nbsp;
-                    <DeleteIcon sx={{ color: "red" }} />{" "}
-                  </td>
-                  <td
-                    onClick={() => Navigate("/Productlist/moduleList")}
-                    style={{ color: "#0CB4D0", cursor: "pointer" }}
-                  >
-                    {" "}
-                    <RemoveRedEyeIcon
-                      sx={{
-                        color: "#0CB4D0",
-                        marginBottom: "10px",
-                        fontSize: "28px",
-                      }}
-                    />
-                    &nbsp; View{" "}
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>@twitter</td>
-                  <td>6</td>
-                  <td>
-                    <EditIcon sx={{ color: "#0CB4D0" }} /> &nbsp;{" "}
-                    <DeleteIcon sx={{ color: "red" }} />{" "}
-                  </td>
-                  <td
-                    onClick={() => Navigate("/Productlist/moduleList")}
-                    style={{ color: "#0CB4D0", cursor: "pointer" }}
-                  >
-                    {" "}
-                    <RemoveRedEyeIcon
-                      sx={{
-                        color: "#0CB4D0",
-                        marginBottom: "10px",
-                        fontSize: "28px",
-                      }}
-                    />{" "}
-                    &nbsp;View{" "}
-                  </td>
-                </tr> */}
-              </tbody>
-            </Table>
-            <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
+      {
+      loader ?
+        <div style={{marginTop:"24%"}}>
+          <center>
+            <ColorRing
+              visible={true}
+              height="100"
+              width="100"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+            />  
+          </center>     
+        </div>
+        :
+        <>
+        <Grid container>
+          <Grid className="main-cont-pro-btn" item xs={12}> 
+            <Button sx={{width:{xs:'100%', sm:'auto'}}} onClick={() => Navigate("/CreateProduct")}  className={"A1"} variant="contained"><EditCalendarIcon className={"active"} /> Create Product</Button>
           </Grid>
-          
+        
+          <Grid className="main-cont-pro-tab" item xs={12}>
+            <Box mt={4} className="user-list-table">
+              <TableContainer component={Paper} sx={{mb:2}}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>#</StyledTableCell>
+                      <StyledTableCell>Product Name</StyledTableCell>
+                      <StyledTableCell>Modules</StyledTableCell>
+                      <StyledTableCell>Action</StyledTableCell>
+                      <StyledTableCell >View Product</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {
+                    ProductData?.map((item, index) => {
+                      return <TableRow>
+                        <StyledTableCell>{index + 1}</StyledTableCell>
+                        <StyledTableCell>{item.product_name}</StyledTableCell>
+                        <StyledTableCell>{item.total_module}</StyledTableCell>
+                        <StyledTableCell><EditIcon sx={{ color: "#0CB4D0" }} onClick={() => { hendleshowmodal(item) }} /> &nbsp;<DeleteIcon sx={{ color: "red" }} onClick={() => { handleDeleteproduct(item.products_id) }} /></StyledTableCell>
+                        <StyledTableCell onClick={() => {Navigate("/Productlist/moduleList"); localStorage.setItem("Product",JSON.stringify(item))}} style={{ color: "#0CB4D0", cursor: "pointer" }}><RemoveRedEyeIcon sx={{color: "#0CB4D0", marginBottom: "10px", fontSize: "28px"}} />&nbsp; View</StyledTableCell>
+                      </TableRow>
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+            <Pagination sx={{mb:5}} onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
+          </Grid>         
         </Grid>
         </>}
       </Box>
@@ -315,14 +267,11 @@ export default function Product() {
             {formik.touched.product_name && formik.errors.product_name ? (
               <div style={{ color: "red" }}>{formik.errors.product_name}</div>
             ) : null}
-            <Box mt={5}>
-              <Button type="submit" sx={{ marginLeft: "10px" }} className={"A1"} variant="contained">Submit</Button>
+            <Box mt={3}>
+              <Button type="submit" sx={{width:{xs:'100%', sm:'auto'}}} className={"A1"} variant="contained">Submit</Button>
             </Box>
           </Box>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
       </Modal>
       <Modal
         show={modalShowDelete}
@@ -331,7 +280,7 @@ export default function Product() {
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header >
+        <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Delete Product
           </Modal.Title>
@@ -339,22 +288,15 @@ export default function Product() {
         <Modal.Body>
           <center>    <h5>Are You Sure ?</h5></center>
 
-          <Grid container spacing={1}>
-            <Grid item mt={3} xs={1}></Grid>
-            <Grid item mt={3} xs={5}><Button onClick={()=>hendleProductDelet()} variant="contained" color="error">
-              Delete
-            </Button></Grid>
-            <Grid item mt={3} xs={5}>
-              <Button onClick={()=>setmodalShowDelete(false)} variant="contained" >
-                Cancel
-              </Button>
+          <Grid container mt={3}>
+            <Grid item xs={6} textAlign="center">
+              <Button onClick={()=>hendleProductDelet()} variant="contained" color="error">Delete</Button>
             </Grid>
-            <Grid item mt={3} xs={1}></Grid>
+            <Grid item xs={6} textAlign="center">
+              <Button onClick={()=>setmodalShowDelete(false)} variant="contained" >Cancel</Button>
+            </Grid>
           </Grid>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
       </Modal>
     </div>
   );

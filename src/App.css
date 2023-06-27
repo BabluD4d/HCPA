@@ -19,6 +19,14 @@
 p {
   font-family: Nunito !important;
 }
+.prev-holder h1 {text-align: left; font-size: 20px; font-weight: 600;}
+#fb-editor ul.pull-left li {margin-bottom: 15px; border: 1px solid transparent;}
+#fb-editor ul.pull-left li:hover {
+  border-top-right-radius:0;
+  border-top-left-radius:0;
+  border:1px solid #c5c5c5;
+  border-radius: 0;
+}
 .searchbar-result-wrapper {
   width: 240px;
   left:70px;
@@ -27,10 +35,23 @@ p {
   padding-left: 30px;
   padding-top: 30px;
 }
-
-.pagestxt1 {
-  /* padding-left: 30px; */
+.create-document-btns {margin-left: -10px;}
+.create-document-btns button {
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
+.MuiPagination-ul li button {
+  vertical-align: super;
+}
+.MuiPagination-ul li button.Mui-disabled {
+  opacity: 0.15;
+}
+table.table {
+  margin-bottom: 0;
+}
+/* .pagestxt1 { */
+  /* padding-left: 30px; */
+/* } */
 
 /* .profile {
   padding-left: 20px;
@@ -439,46 +460,52 @@ h1, a{
  
 }
 
-.table-com-ar{
+/* .table-com-ar{
   width: 100%;
   min-width: 100%;
   max-width: 100%;
   overflow-x: scroll;
-}
+} */
 .table-grid-co{
   max-width: 100% !important;
   flex-basis:100% !important;
   overflow: hidden;
-  padding:5px;
+  /* padding:5px; */
 }
 .overflow-hide{
   overflow: hidden;
   padding:5px !important;
 }
-
 @media screen and (min-width: 600px) {
-  .modal-lg, .modal-xl {
-    --bs-modal-width: 800px;
+  .user-toggle {
+    display: none;
   }
+  #fb-editor ul.pull-left {width:calc(74% - 35px)}
+  /* .modal-lg, .modal-xl {
+    --bs-modal-width: 800px;
+  } */
 }
 @media screen and (min-width: 900px) {
   .searchbar-result-wrapper {   
     left:90px;
   }
 }
-@media screen and (min-width: 1536px) {
+@media screen and (min-width: 1535px) {
   .searchbar-result-wrapper {   
     left:50px;
   }
 }
 @media screen and (max-width:899px){
+  .table-com-ar table {
+    width: 1024px;
+  }
   .select-day {
     display: inline-block; 
   }
   .select-day ~ button {display: none;}
-.product-table-ar{
-  padding-left:0px !important;
-}
+  /* .product-table-ar{
+    padding-left:0px !important;
+  } */
 .view-all-common, .view-all-common svg, .ad-title-mb {
   font-size: 16px !important;
 }
@@ -654,6 +681,10 @@ text-align: center;
 }
 
 @media screen and (max-width:599px){
+  .user-header .icon-near-search {display: none;}
+  .user-list-table table {
+    width: 650px;
+  }
   .select-day {
    width:25px;
    height:25px;

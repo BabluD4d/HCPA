@@ -130,36 +130,26 @@ export default function EditChecklis() {
   });
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Create Checklist
-      </Typography>
-      <hr height={3} />
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Create Checklist</Typography>
       <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-        <Grid container  mt={2}>
-          <Grid xs={1}>
+        <Grid container mt={2}>
+          <Grid xs={2}>
             {Togal ? (
               <ArrowBackIcon
                 className="back-icon-proact"
-                onClick={() => Navigate("/Productlist/moduleList")}
-                // style={{
-                //   color: "#0cb4d0",
-                //   fontSize: "50px",
-                //   marginLeft: "18px",
-                // }}
+                onClick={() => Navigate("/Productlist/moduleList")}              
               />
             ) : null}
           </Grid>
-          <Grid className='vie-doc-btn chek-btn-size' xs={11} mt={2}>
+          <Grid className='vie-doc-btn chek-btn-size' xs={10} mt={2}>
             <div >
               {Togal ? (
                 <Button
                   mt={1}
-                  sx={{ marginLeft: "10%" }}
                   type="submit"
                   className={"A1"}
                   variant="contained"
                 >
-                  {" "}
                   Generate Checklist
                 </Button>
               ) : null}
@@ -169,32 +159,31 @@ export default function EditChecklis() {
                   onClick={() => {
                     childRef.current.getFormData();
                   }}
-                  sx={{ marginLeft: "10px", marginRight: "1%" }} 
+                  sx={{ marginLeft: "10px"}} 
                   className={"A1"}
                   variant="contained"
                 >
-                  Preview{" "}
+                  Preview
                 </Button>
               ) : (
                 <Button
                   onClick={() => {
                     setTogal(true);
                   }}
-                  sx={{ marginLeft: "10%",  marginRight: "1%"  }}
+                  sx={{ marginLeft: "10%"}}
                   className={"A1"}
                   variant="contained"
                 >
-                  Hide Preview{" "}
+                  Hide Preview
                 </Button>
               )}
             </div>
           </Grid>
-          {/* <Grid xl={3}></Grid> */}
         </Grid>
-        <Grid container  mt={2}>
-          {/* <Grid xl={3} md={3}></Grid> */}
-          <Grid className='mar-auto' xs={11} sm={8} md={6}>
-            <Box mt={3}>
+
+        <Grid container mt={2}>
+          <Grid xs={12}>
+            <Box mb={3}>
               <TextField
                 fullWidth
                 id="fullWidth"
@@ -215,37 +204,25 @@ export default function EditChecklis() {
               ) : null}
             </Box>
           </Grid>
-          {/* <Grid xl={3}></Grid> */}
         </Grid>
       </Box>
-      <br />
-      <br />
-      <br />
       {Togal ? (
-        <>
-          <FormBuilder
-            EditData={EditData ? JSON.parse(EditData?.json_data) : ""}
-            ref={childRef}
-            GetDataTogle={GetDataTogle}
-            GetData={GetData}
-          />
-        </>
+        <FormBuilder
+          EditData={EditData ? JSON.parse(EditData?.json_data) : ""}
+          ref={childRef}
+          GetDataTogle={GetDataTogle}
+          GetData={GetData}
+        />
       ) : (
-        <>
+          <Grid container mt={2}>
           {Data?.map((item, index) => {
             return (
-              <Grid key={index} container spacing={4} mt={2}>
-                <Grid xl={3}></Grid>
                 <Grid xl={6}>
                   <form>
                     {item.type == "header" ? (
-                      <h1>
-                        <center>{item.label}</center>{" "}
-                      </h1>
+                      <h1 style={{textAlign:'left', fontSize:'20px', fontWeight:'600'}}>{item.label}</h1>
                     ) : null}
                     {item.type == "radio-group" ? (
-                      <>
-                        {" "}
                         <FormControl>
                           <FormLabel id="demo-row-radio-buttons-group-label">
                             {item.label}
@@ -267,11 +244,8 @@ export default function EditChecklis() {
                             })}
                           </RadioGroup>
                         </FormControl>
-                      </>
                     ) : null}
                     {item.type == "text" ? (
-                      <>
-                        {" "}
                         <Box mt={3}>
                           <TextField
                             fullWidth
@@ -284,10 +258,8 @@ export default function EditChecklis() {
                             variant="filled"
                           />
                         </Box>
-                      </>
                     ) : null}
                     {item.type == "checkbox-group" ? (
-                      <>
                         <FormControl
                           sx={{ m: 3 }}
                           component="fieldset"
@@ -302,18 +274,14 @@ export default function EditChecklis() {
                               />
                             ))}
                           </FormGroup>
-                          {/* <FormHelperText>Be careful</FormHelperText> */}
                         </FormControl>
-                      </>
                     ) : null}
                     {item.type == "file" ? (
-                      <>
                         <Box mt={3}>
                           <FormLabel component="legend">{item.label}</FormLabel>
                           <TextField
                             fullWidth
                             id="fullWidth"
-                            // label={item.label}
                             type="file"
                             InputLabelProps={{
                               shrink: true,
@@ -321,16 +289,13 @@ export default function EditChecklis() {
                             variant="filled"
                           />
                         </Box>
-                      </>
                     ) : null}
                     {item.type == "date" ? (
-                      <>
                         <Box mt={3}>
                           <FormLabel component="legend">{item.label}</FormLabel>
                           <TextField
                             fullWidth
                             id="fullWidth"
-                            // label={item.label}
                             type="date"
                             InputLabelProps={{
                               shrink: true,
@@ -338,10 +303,8 @@ export default function EditChecklis() {
                             variant="filled"
                           />
                         </Box>
-                      </>
                     ) : null}
                     {item.type == "select" ? (
-                      <>
                         <FormControl fullWidth>
                           <InputLabel
                             variant="standard"
@@ -363,10 +326,8 @@ export default function EditChecklis() {
                             })}
                           </NativeSelect>
                         </FormControl>
-                      </>
                     ) : null}
                     {item.type == "autocomplete" ? (
-                      <>
                         <FormControl fullWidth>
                           <Autocomplete
                             options={item.values}
@@ -381,10 +342,8 @@ export default function EditChecklis() {
                             )}
                           />
                         </FormControl>
-                      </>
                     ) : null}
                     {item.type == "number" ? (
-                      <>
                         <Box mt={3}>
                           <TextField
                             fullWidth
@@ -397,11 +356,10 @@ export default function EditChecklis() {
                             variant="filled"
                           />
                         </Box>
-                      </>
                     ) : null}
                     {item.type == "paragraph" ? (
                       <p>
-                        <center>{item.label}</center>{" "}
+                        {item.label}
                       </p>
                     ) : null}
                     {item.type == "textarea" ? (
@@ -413,19 +371,15 @@ export default function EditChecklis() {
                           >
                             {item.label}
                           </InputLabel>
-                          <br />
-                          <br />
-                          <br />
                           <TextareaAutosize
                             aria-label="empty textarea"
-                            // placeholder="Empty"
-                            // style={{ width: 200 }}
                           />
                         </FormControl>
                       </Box>
                     ) : null}
                     {item.type == "button" ? (
                       <Button
+                        sx={{my:5}}
                         type="submit"
                         className={"A1"}
                         variant="contained"
@@ -435,12 +389,10 @@ export default function EditChecklis() {
                     ) : null}
                   </form>
                 </Grid>
-                <Grid xl={3}></Grid>
-              </Grid>
             );
           })}
-        </>
-      )}
+          </Grid>
+        )}
     </div>
   );
 }

@@ -107,7 +107,7 @@ export default function EditProfil(props) {
   return (
       <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
         <Grid container>
-          <Grid xl={12} xs={5} sm={11}>
+          <Grid xs={12}>
             <Typography sx={{ fontSize: {xs:'20px', sm:'24px'} }}>Personal information</Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4} mt={3}>
@@ -174,7 +174,7 @@ export default function EditProfil(props) {
             </Grid>          
           </Grid>
 
-          <Grid xs={5} xl={12} sm={11}>
+          <Grid xs={12}>
             <Typography mt={4} sx={{ fontSize: {xs:'20px', sm:'24px'} }}>Business information</Typography>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={4} mt={3} sx={{}}>
@@ -384,6 +384,7 @@ export default function EditProfil(props) {
               <Button
                 type="submit"
                 className={"A1"}
+                sx={{width:{xs:'100%', sm:'auto'}}}
                 variant="contained"
               >
                 Update

@@ -79,14 +79,11 @@ export default function EditRegistrationGuides(props) {
     },
   });
   return (
-    <div>
-      
-      <Grid container spacing={4} >
-        <Grid xl={3}></Grid>
-        <Grid xl={6}>
+<>
           {formik.values?.file?.size}
-          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <Box mt={3}>
+          <Box component="form" onSubmit={formik.handleSubmit}>
+
+            <Box>
               <TextField
                 fullWidth
                 id="fullWidth"
@@ -106,6 +103,7 @@ export default function EditRegistrationGuides(props) {
                 <div style={{ color: "red" }}>{formik.errors.title}</div>
               ) : null}
             </Box>
+
             <Box mt={3}>
               <TextField
                 fullWidth
@@ -129,9 +127,9 @@ export default function EditRegistrationGuides(props) {
                 <div style={{ color: "red" }}>{formik.errors.file}</div>
               ) : null}
             </Box>
-            <Typography mt={4} ml={"50%"} sx={{ fontSize: "30px" }}>
-                    Or
-              </Typography>
+
+            <Typography mt={4} sx={{ fontSize: "30px", textAlign:'center' }}>Or</Typography>
+
             <Box mt={3}>
               <TextField
                 fullWidth
@@ -152,20 +150,19 @@ export default function EditRegistrationGuides(props) {
                 <div style={{ color: "red" }}>{formik.errors.videolink}</div>
               ) : null}
             </Box>
+
             <Box mt={3}>
               <Button
+              sx={{width:{xs:'100%', sm:'auto'}}}
                 type="submit"
-                sx={{ marginLeft: "10px" }}
                 className={"A1"}
                 variant="contained"
               >
                 Submit
               </Button>
             </Box>
+            
           </Box>
-        </Grid>
-        <Grid xl={3}></Grid>
-      </Grid>
-    </div>
+          </>
   );
 }

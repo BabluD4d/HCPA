@@ -76,9 +76,6 @@ const Sidebar = () => {
     }else{
       setAdmin(false)
     }
-    // else{
-    //   setAdmin(false)
-    // }
   }, [])
   useEffect(() => {
     if(!loaction.pathname.includes("/Modelus")){
@@ -110,6 +107,7 @@ const Sidebar = () => {
   window.addEventListener("Admin", () => setTimeout(() => {
     setAdmin(!Admin)
   },));
+
   return (
     <>
       {/* columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
@@ -134,7 +132,6 @@ const Sidebar = () => {
                   <img
                     style={{ marginLeft: "30px" }}
                     onClick={() => {
-                      // alert()
                       Activeclass("/Home");
                     }}
                     src={Logo}
@@ -409,7 +406,32 @@ const Sidebar = () => {
                   onClick={() => Navigate(Admin?"/Profile/Admin":"/profile")}
                 >
                   <Grid container spacing={2}>
-                    <Grid className="profile" xs={2}>
+                  <Box
+                    sx={{
+                      position:"absolute",
+                      backgroundColor: "#0CB4D0",
+                      width: "100%",
+                      left:0,
+                      bottom:0,
+                      paddingTop: "10px",
+                      paddingBottom: "10px",
+                      textAlign: "center",
+                      cursor: "pointer",
+                      color: "white",
+                    }}
+                    onClick={() => Navigate(Admin?"/Profile/Admin":"/profile")}
+                  >
+                    <Grid container alignItems="center">
+                      <Grid item className="profile" xs={4}>
+                        <img style={{ borderRadius: "50%" }} src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80"} width={70} alt="" />
+                      </Grid>
+                      <Grid item xs={8} textAlign="left">
+                        <Typography textTransform="capitalize">{Data?.name}</Typography>
+                        <Typography>{Data?.email}</Typography>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                    {/* <Grid className="profile" xs={2}>
                       <img
                         style={{ borderRadius: "50%" }}
                         src={
@@ -418,7 +440,7 @@ const Sidebar = () => {
                         width={70}
                         alt=""
                       />
-                    </Grid>
+                    </Grid> */}
                     <Grid xs={10}>
                       <Typography m={0} p={0}>
                         {Data?.name}
@@ -445,6 +467,8 @@ const Sidebar = () => {
               xs={2}
             >
               <div className="leftCol" style={{height:'100%', overflowY:'auto', overflowX:'hidden' }}>
+                {/* <div style={{backgroundColor:"#233b77"}}> */}
+
                 <img
                   onClick={() => {Activeclass("/")}}
                   src={Logo1}
@@ -452,11 +476,11 @@ const Sidebar = () => {
                   style={{margin:'auto', display:'block'}}
                   alt=""
                 />
-
+                {/* </div>
+                 */}
                 {/* <Typography className='pagestxt' >pages</Typography> */}
                 <List md={2} lg={2} mt={8} sm={0} xl={2} item xs={2}>
                   {Admin ? <>
-
                     <ListItem
                       className={
                         loaction.pathname == "/DashBoard" || loaction.pathname == "/Admin" ? "active" : ""

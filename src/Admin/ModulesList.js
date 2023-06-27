@@ -231,17 +231,11 @@ export default function ModulesList() {
   };
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Moduels List
-      </Typography>
-      <hr height={3} />
-      <Grid container mt={2}>
-        <Grid container className="module-list-se">
-        {/* <Grid xl={3}></Grid> */}
-        <Grid xl={9} md={8} sm={6} xs={12}>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Moduels List</Typography>
+        <Grid container>
+        <Grid xl={9} md={8} sm={12} xs={12}>
           <FormControl fullWidth>
             <InputLabel
-              sx={{ marginLeft: "10px" }}
               variant="standard"
               htmlFor="uncontrolled-native"
             >
@@ -267,16 +261,15 @@ export default function ModulesList() {
             </NativeSelect>
           </FormControl>
         </Grid>
-        <Grid xl={3} md={4} sm={6} xs={12}>
+        <Grid xl={3} md={4} sm={12} xs={12}>
           <Button
-                       onClick={() => Navigate("/CreactModules")}
-            sx={{ marginLeft: "10%" }}
+            onClick={() => Navigate("/CreactModules")}
+            sx={{width:{xs:'100%', md:'auto'}, ml:{xs:0, md:2}, mt:2}}
             className={"A1 create-btn"}
             variant="contained"
           >
             <EditCalendarIcon className={"active"} /> Create Modelus
           </Button>
-        </Grid>
         </Grid>
       </Grid>
 
@@ -294,7 +287,7 @@ export default function ModulesList() {
         ) : (
           <>
           
-          <Grid container spacing={4} mt={2} className="module-list-ar">
+          <Grid container spacing={4}>
             {ModuleList &&
               ModuleList?.map((item, index) => {
                 return (
@@ -311,9 +304,6 @@ export default function ModulesList() {
                   />
                 );
               })}
-            {/* <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />
-          <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={2} ProductName={"Aged Caredis"} />
-          <AdminProductCart navi={"/Admin/AllDocumentAdmin"} foo={"1"} size={3} Modules={3} ProductName={"SDA"} />   */}
 <div className="module-pagination-ar">
 {ModuleList[0] && (
               <Pagination

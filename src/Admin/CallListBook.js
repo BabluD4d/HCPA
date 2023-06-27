@@ -102,64 +102,57 @@ export default function CallListBook() {
     }
   }
   return (
-          <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Call List Book
-      </Typography>
-      <hr height={3} />
-      {loader?    <div style={{marginTop:"24%"}}>
-                <center >
-                <ColorRing
-                  visible={true}
-                  height="100"
-                  width="100"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
-                />
-                
-                </center>
-               
-            </div>:<>
-      <Grid className='calllist-table-main'  mt={5}container spacing={1}>
-            
-              <Grid item xs={12} className="calllist-table">
-              <TableContainer component={Paper}>
-            <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>User Name </StyledTableCell>
-                  <StyledTableCell align="left">Date </StyledTableCell>
-                  <StyledTableCell align="left">Time</StyledTableCell>
-                  <StyledTableCell align="left">Call Type</StyledTableCell>
-                  <StyledTableCell align="left">Job Title</StyledTableCell>
-                  <StyledTableCell align="left">Contact Number</StyledTableCell>
-                  <StyledTableCell align="left">Notes</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {Data?.map((row) => (
-                  <StyledTableRow key={row.full_name}>
-                    <StyledTableCell component="th" scope="row">
-                      {row.full_name}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">
-                    {isYesterday(row.date)}
-                    </StyledTableCell>
-                    <StyledTableCell align="left">{row.time}</StyledTableCell>
-                    <StyledTableCell align="left">{row.call_type == 1 ? "Purchase product":row.call_type==2?"Purchase modelus":"Other reasion Type"}</StyledTableCell>
-                    <StyledTableCell align="left">{row.jobtitle}</StyledTableCell>
-                    <StyledTableCell align="left">{row.contact_number}</StyledTableCell>
-                    <StyledTableCell align="left">{row.notes}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-                </Grid>
-                </Grid>
-                </>}
+    <div>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Call List Book</Typography>
+      {
+        loader ?
+        <div style={{marginTop:"24%"}}>
+          <center>
+            <ColorRing
+              visible={true}
+              height="100"
+              width="100"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+            />
+          </center>
+        </div>
+        :
+        <Grid className='calllist-table-main' mt={5} container>            
+          <Grid item xs={12} className='table-com-ar'>
+            <TableContainer component={Paper} sx={{mb:5}}>
+              <Table aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>User Name </StyledTableCell>
+                    <StyledTableCell>Date </StyledTableCell>
+                    <StyledTableCell>Time</StyledTableCell>
+                    <StyledTableCell>Call Type</StyledTableCell>
+                    <StyledTableCell>Job Title</StyledTableCell>
+                    <StyledTableCell>Contact Number</StyledTableCell>
+                    <StyledTableCell>Notes</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {Data?.map((row) => (
+                    <StyledTableRow key={row.full_name}>
+                      <StyledTableCell component="th" scope="row">{row.full_name}</StyledTableCell>
+                      <StyledTableCell>{isYesterday(row.date)}</StyledTableCell>
+                      <StyledTableCell>{row.time}</StyledTableCell>
+                      <StyledTableCell>{row.call_type == 1 ? "Purchase product":row.call_type==2?"Purchase modelus":"Other reasion Type"}</StyledTableCell>
+                      <StyledTableCell>{row.jobtitle}</StyledTableCell>
+                      <StyledTableCell>{row.contact_number}</StyledTableCell>
+                      <StyledTableCell>{row.notes}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
+      }
     </div>
   )
 }

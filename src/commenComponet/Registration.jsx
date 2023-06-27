@@ -166,7 +166,7 @@ export default function Registration() {
                 </Link> */}
                             </Grid>
                             <Grid item xs>
-                                <Link to="/login" variant="body2">
+                                <Link to="/" variant="body2">
                                     Sign in
                                 </Link>
                             </Grid>

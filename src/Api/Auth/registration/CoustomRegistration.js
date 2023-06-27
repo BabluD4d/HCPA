@@ -8,7 +8,6 @@ export default function CoustomRegistration(obj, name,Navigate) {
             if (resp.data) {
                 if (resp.data) {
                     if(resp.data.message=="create user successfully"){
-
                         toast.success('Acount Created successfully', {
                             position: "top-right",
                             autoClose: 5000,
@@ -23,21 +22,38 @@ export default function CoustomRegistration(obj, name,Navigate) {
                             Navigate('/UserList')
                         }, 1000);
                     }else {
-                        toast.error('Something went wrong', {
-                            position: "top-right",
-                            autoClose: 5000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "light",
-                        })
+                        if(resp.data.errors.email[0]){
+                            toast.error(resp.data.errors.email[0], {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
+                        }else{
+
+                            toast.error('Something went wrong', {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
+                        }
                     }
                 } 
             }
         })
-        .catch((err) => toast.error('Something went wrong', {
+        .catch((err) =>{
+            alert(1)
+            console.log(err)
+            toast.error('Something went wrong', {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -46,5 +62,6 @@ export default function CoustomRegistration(obj, name,Navigate) {
             draggable: true,
             progress: undefined,
             theme: "light",
-        }));
+        })}
+        );
 }

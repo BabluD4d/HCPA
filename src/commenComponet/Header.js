@@ -89,23 +89,17 @@ const Header = () => {
   // FileUserFilter
   return (
     <>
+    {
+      console.log(localStorage.getItem('role'), 'role is here...')
+    }
       {loaction.pathname == "/" ? null : (
-        <Box className="header" px={{xs:2, md:6}}>
-          <Grid container sx={{alignItems:'center', justifyContent:'space-between', height:{xs:'auto', sm:'100%'}}}>
-          <Grid item xs={12} sm='auto' sx={{order:{xs:2, sm:1}}}>
-              <div style={{ display: "flex" }}>
-                <div
-                  onClick={() => window.dispatchEvent(new Event("Togle"))}
-                  className="sidebartogle"
-                >
-                  <MenuIcon
-                    style={{
-                      color: "white",
-                      fontSize: "40px",
-                      // marginLeft: "5px",
-                    }}
-                  ></MenuIcon>
-                </div>
+        <Box className={`header ${localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 'user-header':'admin-header'}`} px={{xs:2, md:6}}>
+          <Grid container sx={{alignItems:'center', justifyContent:'space-between', height:{xs:'auto', sm:'100%'}}}>              
+              <Grid item xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 12 : 'auto'} sm='auto' sx={{order:localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 && {xs:2, sm:1} }}>
+                <div style={{ display: "flex" }}> 
+                  <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle icon-near-search">
+                    <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
+                  </div>
                 {
                 localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
                   <Search className="serchbar">
@@ -136,18 +130,26 @@ const Header = () => {
                 }
               </div>
             </Grid>
-            <Grid item xs={12} sm='auto' sx={{order:{xs:1, sm:2}}}>
+            <Grid item xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 12: 'auto'} sm='auto' sx={{order:localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 && {xs:1, sm:2}}}>
               <Box sx={{display: 'flex', flexWrap:'wrap', alignItems:'flex-start', justifyContent:{xs:'space-between'}}}>
               {
               localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
-                <Button
-                  sx={{backgroundColor: "#0CB4D0" }}
-                  onClick={() => Navigate("/BookCall")}
-                  startIcon={<BackpackIcon />}
-                  variant="contained"
-                >Book A Call</Button>
+                <>
+                <Box sx={{display:'flex', flexWrap:'wrap', alignItems:'center'}}>
+                  <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle user-toggle">
+                    <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
+                  </div>
+                  <Button
+                    sx={{backgroundColor: "#0CB4D0", marginLeft: '25px' }}
+                    onClick={() => Navigate("/BookCall")}
+                    startIcon={<BackpackIcon sx={{marginTop: '-8px'}} />}
+                    variant="contained"
+                    >Book A Call</Button>
+                </Box>
+                  </>
               )
               }
+              {/* <p style={{color:"white"}}>Log out</p> */}
               <LogoutIcon
                 onClick={() => setModalShow(true)}
                 sx={{ textAlign: "left", cursor: "pointer" }}
@@ -181,13 +183,10 @@ const Header = () => {
             </Modal.Header>
             <Modal.Body>
               <p>Are you sure want to log out ?</p>
-              <Grid container spacing={4} mt={2}>
-                <Grid xl={1}> </Grid>
-                <Grid xl={5}>
-                  {" "}
+              <Grid container spacing={1}>
+                <Grid item sm={4}>
                   <Button
                     type="button"
-                    sx={{ marginLeft: "10px" }}
                     className={"A1"}
                     variant="contained"
                     onClick={() => {
@@ -198,10 +197,9 @@ const Header = () => {
                     Yes
                   </Button>
                 </Grid>
-                <Grid xl={6}>
+                <Grid item sm={6}>
                   <Button
                     type="button"
-                    sx={{ marginLeft: "10px" }}
                     onClick={() => {
                       setModalShow(false);
                     }}
@@ -211,7 +209,7 @@ const Header = () => {
                 </Grid>
               </Grid>
             </Modal.Body>
-            <Modal.Footer></Modal.Footer>
+            {/* <Modal.Footer></Modal.Footer> */}
           </Modal>
         </Box>
       )}

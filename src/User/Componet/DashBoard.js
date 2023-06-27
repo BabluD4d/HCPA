@@ -106,7 +106,7 @@ const DashBoard = () => {
           </Typography>
           <hr height={3} />
           <Typography mt={4} fontSize={{xs:'20px', lg:'30px'}}>
-            Wellcome to the HCPA Portal Davis
+            Welcome to the HCPA Portal Davis
           </Typography>
           <Grid container spacing={2}>
             <Grid item xs={12} lg={9}>

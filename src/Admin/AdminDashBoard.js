@@ -21,6 +21,7 @@ import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import ExportDeshboard from "../Api/Admin/Deshboard/ExportDeshboard";
 import { ColorRing } from "react-loader-spinner";
 import { error } from "jquery";
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#0CB4D0",
@@ -56,12 +57,7 @@ export default function AdminDashBoard() {
   const Navigate = useNavigate();
   const [ProductData, setProductData] = useState([]);
   const [loader, setloader] = useState(true);
-  // let obj={
-  //   "order":"desc",
-  //     "sort":"products.id",
-  //     "limit":10,
-  //     "page" :1
-  // }
+
   const GetData = () => {
     ExportDeshboard.getAllDeshbord()
       .then((resp) => {
@@ -83,9 +79,11 @@ export default function AdminDashBoard() {
         console.log({ error });
       });
   };
+
   useEffect(() => {
     GetData();
   }, []);
+  
   function isYesterday(date) {
     const today = new Date(date);
 
@@ -114,12 +112,10 @@ export default function AdminDashBoard() {
       return date;
     }
   }
+
   return (
-    <div>
-      <Typography className="main-title-ad" mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Admin DashBoard
-      </Typography>
-      <hr height={3} />
+    <div id="main">
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Admin Dashboard</Typography>
       {loader ? (
         <div style={{ marginTop: "24%" }}>
           <center>
@@ -136,322 +132,142 @@ export default function AdminDashBoard() {
         </div>
       ) : (
         <>
-          <Grid container mt={5}>
-            <Grid item md={3} xl={3.5} sm={12} xs={12} m={3}>
-              <Box
-                sx={{
-                  color: "white",
-                  backgroundColor: "#0CB4D0",
-                  borderRadius: "20% 0% 20% 0%",
-                }}
-              >
-                <center>
-                  <Typography
-                    pt={4}
-                    sx={{ fontSize: "28px", fontWeight: "bold" }}
-                  >
-                    Total User
-                  </Typography>
-                </center>
-                <Grid container class="hcp-icons-das" spacing={1}>
-                  {/* <Grid item md={1} xs={3}>
-                    
-                  </Grid> */}
-                  {/* <Grid item md={5} xs={3}>
-                    <Typography mt={3} mb={1} ml={5}>
-                      <PersonIcon sx={{ fontSize: "45px" }} />{" "}
-                    </Typography>
-                  </Grid> */}
-                  <Typography  mt={3} sx={{ fontSize: "48px" }}>
-                  <PersonIcon  /> {ProductData?.total_user}
-                  </Typography>
-                </Grid>
+          <Grid container spacing={{xs:2, md:3, lg:5}}>
+            <Grid item sm={4} xs={12}>
+              <Box sx={{p:{xs:2, md:4}, display: "flex", flexWrap:"wrap", height:'100%', alignItems:'center', flexDirection:'column', justifyContent:'center', color: "white", backgroundColor: "#0CB4D0", borderRadius: "20% 0% 20% 0%"}}>
+                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"28px"}, fontWeight: {xs:'500', md:"bold"} }}>Total User</Typography>
+                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"48px"} }} mt={1}><PersonIcon sx={{ fontSize: {xs:'18px', sm:'36px', lg:'48px'}, verticalAlign:'baseline' }}  /> {ProductData?.total_user}</Typography>
               </Box>
             </Grid>
-            <Grid item md={3} xl={3.5} sm={12} xs={12} m={3}>
-              <Box
-                sx={{
-                  color: "white",
-                  backgroundColor: " #097EAF",
-                  borderRadius: "20% 0% 20% 0%",
-                }}
-              >
-                <center>
-                  <Typography
-                    pt={4}
-                    sx={{ fontSize: "28px", fontWeight: "bold" }}
-                  >
-                    Total Product
-                  </Typography>
-                </center>
-                <Grid class="hcp-icons-das" container spacing={1}>
-                  {/* <Grid item md={1} xs={3}>
-                    
-                  </Grid> */}
-                  {/* <Grid item md={5} xs={3}>
-                    <Typography mt={3} mb={1} ml={5}>
-                      <Inventory2Icon sx={{ fontSize: "45px" }} />{" "}
-                    </Typography>
-                  </Grid> */}
-                  <Typography mt={3} sx={{ fontSize: "48px" }}>
-                    <Inventory2Icon  />{ProductData?.product_count}
-                  </Typography>
-                </Grid>
+            <Grid item sm={4} xs={12}>
+              <Box sx={{p:{xs:2, md:4}, display: "flex", flexWrap:"wrap", height:'100%', alignItems:'center', flexDirection:'column', justifyContent:'center', color: "white", backgroundColor: " #097EAF", borderRadius: "20% 0% 20% 0%"}}>
+                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"28px"}, fontWeight: {xs:'500', md:"bold"} }}>Total Product</Typography>
+                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"48px"} }} mt={1}><Inventory2Icon sx={{fontSize: {xs:'18px', sm:'36px', lg:'48px'}, verticalAlign:'baseline'}}  />{ProductData?.product_count}</Typography>
               </Box>
             </Grid>
-            <Grid item md={3} xl={3.5} sm={12} xs={12} m={3}>
-              <Box
-                sx={{
-                  color: "white",
-                  backgroundColor: "#233B77",
-                  borderRadius: "20% 0% 20% 0%",
-                }}
-              >
-                <center>
-                  <Typography
-                    pt={4}
-                    sx={{ fontSize: "28px", fontWeight: "bold" }}
-                  >
-                    Total Modules
-                  </Typography>
-                </center>
-                <Grid  class="hcp-icons-das" container spacing={1}>
-                  {/* <Grid item x={8} md={1} xs={3}>
-                    
-                  </Grid>
-                  <Grid item xl={5} md={5} xs={3}>
-                    <Typography mt={3} mb={1} ml={5}>
-                      <ConnectWithoutContactIcon sx={{ fontSize: "45px" }} />{" "}
-                    </Typography>
-                  </Grid> */}
-                  <Typography mt={3} sx={{ fontSize: "48px" }}>
-                  <ConnectWithoutContactIcon sx={{ fontSize: "45px" }} /> {ProductData?.module_count}
-                  </Typography>
-                </Grid>
+            <Grid item sm={4} xs={12}>
+              <Box sx={{p:{xs:2, md:4}, display: "flex", flexWrap:"wrap", height:'100%', alignItems:'center', flexDirection:'column', justifyContent:'center', color: "white", backgroundColor: "#233B77", borderRadius: "20% 0% 20% 0%"}}>
+                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"28px"}, fontWeight: {xs:'500', md:"bold"} }}>Total Modules</Typography>
+                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"48px"} }} mt={1}><ConnectWithoutContactIcon sx={{fontSize: {xs:'18px', sm:'36px', lg:'48px'}, verticalAlign:'baseline'}} /> {ProductData?.module_count}</Typography>
               </Box>
             </Grid>
           </Grid>
-          <Grid container mt={5}>
-           
-            <Grid className="table-grid-co" item ml={3} mr={3} md={11} lg={11} xl={11.4} sm={12} xs={12}>
-            
-              <Grid container mt={5}>
+
+          <Grid container mt={5}>           
+            <Grid className="table-grid-co" item xs={12}>
+
+              <Grid container alignItems="center" mb={1}>
                 <Grid item xs={6}>
-                  <Typography className="ad-title-mb"
-                    // pt={4}
-                    mb={1}
-                    sx={{ fontSize: "28px", fontWeight: "bold" }}
-                  >
-                    Call Book List
-                  </Typography>
+                  <Typography className="ad-title-mb" fontSize={{xs:'20px', lg:'30px'}} sx={{fontWeight: "bold" }}>Call Book List</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography className="view-all-common"  onClick={() => {
-                      Navigate("/callList");
-                    }}
-                    mt={1}
-                    sx={{
-                      color: "#0CB4D0",
-                      fontSize: "25px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {" "}
-                    <RemoveRedEyeIcon
-                      sx={{
-                        color: "#0CB4D0",
-                        marginBottom: "10px",
-                        fontSize: "28px",
-                      }}
-                      
-                    />{" "}
-                    View All List
-                  </Typography>
+                  <Typography className="view-all-common"  onClick={() => {Navigate("/callList");}} sx={{color: "#0CB4D0", fontSize: {xs:'16px', lg:"20px"}, cursor: "pointer"}}>
+                  <RemoveRedEyeIcon sx={{color: "#0CB4D0", verticalAlign:'baseline', fontSize: "20px"}} />View All List</Typography>
                 </Grid>
               </Grid>
-              <TableContainer className="table-com-ar " component={Paper}>
-                
+
+              <TableContainer className="table-com-ar" component={Paper}>
                 <Table aria-label="customized table">
+
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>User Name </StyledTableCell>
-                      <StyledTableCell align="left">Date </StyledTableCell>
-                      <StyledTableCell align="left">Time</StyledTableCell>
-                      <StyledTableCell align="left">Call Type</StyledTableCell>
-                      <StyledTableCell align="left">Job Title</StyledTableCell>
-                      <StyledTableCell align="left">
-                        Contact Number
-                      </StyledTableCell>
-                      <StyledTableCell align="left">Notes</StyledTableCell>
+                      <StyledTableCell>Date </StyledTableCell>
+                      <StyledTableCell>Time</StyledTableCell>
+                      <StyledTableCell>Call Type</StyledTableCell>
+                      <StyledTableCell>Job Title</StyledTableCell>
+                      <StyledTableCell>Contact Number</StyledTableCell>
+                      <StyledTableCell>Notes</StyledTableCell>
                     </TableRow>
                   </TableHead>
+
                   <TableBody>
                     {ProductData?.call_list?.map((row) => (
                       <StyledTableRow key={row.full_name}>
-                        <StyledTableCell component="th" scope="row">
-                          {row.full_name}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {isYesterday(row.date)}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.time}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.call_type == 1
-                            ? "Purchase product"
-                            : row.call_type == 2
-                            ? "Purchase modelus"
-                            : "Other reasion Type"}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.jobtitle}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.contact_number}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.notes}
-                        </StyledTableCell>
+                        <StyledTableCell component="th" scope="row">{row.full_name}</StyledTableCell>
+                        <StyledTableCell align="left">{isYesterday(row.date)}</StyledTableCell>
+                        <StyledTableCell align="left">{row.time}</StyledTableCell>
+                        <StyledTableCell align="left">{row.call_type == 1 ? "Purchase product" : row.call_type == 2 ? "Purchase modelus" : "Other reasion Type"}</StyledTableCell>
+                        <StyledTableCell align="left">{row.jobtitle}</StyledTableCell>
+                        <StyledTableCell align="left">{row.contact_number}</StyledTableCell>
+                        <StyledTableCell align="left">{row.notes}</StyledTableCell>
                       </StyledTableRow>
                     ))}
                   </TableBody>
                 </Table>
               </TableContainer>
             </Grid>
-            <Grid className="overflow-hide" container  ml={3} mr={3} mt={5} >                  
-            <Grid item md={6} ml={0}  mr={0} xl={6} lg={5}  sm={12} xs={12}>
-              <Grid container mt={5}>
-                <Grid item xs={6}>
-                  <Typography
-                  className="ad-title-mb"
-                    // pt={4}
-                    mb={2}
-                    sx={{ fontSize: "28px", fontWeight: "bold" }}
-                  >
-                    User List
-                  </Typography>
+
+
+            <Grid className="overflow-hide" container mt={0} mb={5} spacing={5}>                  
+              <Grid item lg={6} xs={12}>
+                <Grid container alignItems="center" mb={1}>
+                  <Grid item xs={6}>
+                    <Typography className="ad-title-mb" fontSize={{xs:'20px', lg:'30px'}} sx={{fontWeight: "bold" }}>User List</Typography>
+                  </Grid>
+                  <Grid item xs={6} textAlign="right">
+                    <Typography variant="span" className="view-all-common" onClick={() => {Navigate("/UserList")}} sx={{color: "#0CB4D0", fontSize: {xs:'16px', lg:"20px"}, cursor: "pointer"}}>
+                      <RemoveRedEyeIcon sx={{color: "#0CB4D0", verticalAlign:'baseline', fontSize: "20px"}} />View All List
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <Typography className="view-all-common"
-                    onClick={() => {
-                      Navigate("/UserList");
-                    }}
-                     mt={1}
-                    sx={{
-                      color: "#0CB4D0",
-                      fontSize: "25px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {" "}
-                    <RemoveRedEyeIcon
-                      sx={{
-                        color: "#0CB4D0",
-                        marginBottom: "10px",
-                        fontSize: "28px",
-                      }}
-                    />{" "}
-                    View All List
-                  </Typography>
-                </Grid>
-              </Grid>
-              <TableContainer component={Paper}>
-                <Table aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>User Name </StyledTableCell>
-                      <StyledTableCell align="left">Email </StyledTableCell>
-                      <StyledTableCell align="left">Mobile</StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {ProductData?.userlist?.map((row) => (
-                      <StyledTableRow key={row.name}>
-                        <StyledTableCell component="th" scope="row">
-                          {row.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.email}
-                        </StyledTableCell>
-                        <StyledTableCell align="left">
-                          {row.mobile_number}
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Grid>
-            {/* <Grid item md={1} xl={1} sm={0} xs={0} lg={1}></Grid>   */}
-            <Grid className="product-table-ar" item ml={0} mr={0} pl={3}  md={6} xl={6} lg={5}sm={12} xs={12}>
-              <Grid container mt={5}>
-                <Grid item xs={6}>
-                  <Typography className="ad-title-mb"
-                    // pt={4}
-                    mb={2}
-                    sx={{ fontSize: "28px", fontWeight: "bold" }}
-                  >
-                    Product List
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography className="view-all-common"
-                    onClick={() => {
-                      Navigate("/Productlist");
-                    }}
-                     mt={1}
-                    sx={{
-                      color: "#0CB4D0",
-                      fontSize: "25px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {" "}
-                    <RemoveRedEyeIcon
-                      sx={{
-                        color: "#0CB4D0",
-                        marginBottom: "10px",
-                        fontSize: "28px",
-                      }}
-                    />{" "}
-                    View All List
-                  </Typography>
-                </Grid>
-              </Grid>
-              <TableContainer className="table-com-ar" component={Paper}>
-                <Table aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>Product Name </StyledTableCell>
-                      <StyledTableCell align="left">Modules </StyledTableCell>
-                      {/* <StyledTableCell align="left">Mobile</StyledTableCell> */}
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {ProductData?.product?.map((row, i) => {
-                      return i <= 4 ? (
+                
+                <TableContainer className="user-product-list-table user-list-table" component={Paper}>
+                  <Table aria-label="customized table">
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>User Name </StyledTableCell>
+                        <StyledTableCell>Email </StyledTableCell>
+                        <StyledTableCell>Mobile</StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {ProductData?.userlist?.map((row) => (
                         <StyledTableRow key={row.name}>
-                          <StyledTableCell component="th" scope="row">
-                            {row.product_name}
-                          </StyledTableCell>
-                          {/* <StyledTableCell align="left">
-                      {row.calories}
-                    </StyledTableCell> */}
-                          <StyledTableCell align="left">
-                            {row.total_module}
-                          </StyledTableCell>
-                          {/* <StyledTableCell align="left">{row.carbs}</StyledTableCell>
-              <StyledTableCell align="left">{row.protein}</StyledTableCell> */}
+                          <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
+                          <StyledTableCell align="left">{row.email}</StyledTableCell>
+                          <StyledTableCell align="left">{row.mobile_number}</StyledTableCell>
                         </StyledTableRow>
-                      ) : null;
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+
+              <Grid className="product-table-ar" item lg={6} xs={12}>
+                <Grid container alignItems="center" mb={1}>
+                  <Grid item xs={6}>
+                    <Typography className="ad-title-mb" fontSize={{xs:'20px', lg:'30px'}} sx={{fontWeight: "bold" }}>Product List</Typography>
+                  </Grid>
+                  <Grid item xs={6} textAlign="right">
+                    <Typography variant="span" className="view-all-common" onClick={() => {Navigate("/Productlist")}} sx={{color: "#0CB4D0", fontSize: {xs:'16px', lg:"20px"}, cursor: "pointer"}}>
+                      <RemoveRedEyeIcon sx={{color: "#0CB4D0", verticalAlign:'baseline', fontSize: "20px"}} />View All List
+                    </Typography>
+                  </Grid>
+                </Grid>
+
+                <TableContainer className="user-product-list-table" component={Paper}>
+                  <Table aria-label="customized table">
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>Product Name </StyledTableCell>
+                        <StyledTableCell align="left">Modules </StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {ProductData?.product?.map((row, i) => {
+                        return i <= 4 ? (
+                          <StyledTableRow key={row.name}>
+                            <StyledTableCell component="th" scope="row">{row.product_name}</StyledTableCell>
+                            <StyledTableCell>{row.total_module}</StyledTableCell>
+                          </StyledTableRow>
+                        ) : null;
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
             </Grid>
-            </Grid>
-            {/* <Grid item md={0.5} xl={1} sm={1} xs={0}></Grid> */}
           </Grid>
         </>
       )}

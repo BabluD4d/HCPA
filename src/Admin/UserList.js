@@ -3,9 +3,15 @@ import {
   Button,
   Grid,
   Pagination,
+  TableContainer,
+  Paper,  
   TextField,
   Typography,
+  TableHead,
+  TableRow,
+  TableBody,
 } from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import React, { useEffect, useState } from "react";
 import { Modal, Table } from "react-bootstrap";
 import EditIcon from "@mui/icons-material/Edit";
@@ -17,6 +23,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
 import { ColorRing } from "react-loader-spinner";
+import { styled } from "@mui/material/styles";
+
 export default function UserList() {
   const [UserData, setUserData] = useState();
   const [UserDataEdit, setUserDataEdit] = useState();
@@ -62,6 +70,27 @@ export default function UserList() {
   useEffect(() => {
     GetData();
   }, []);
+
+  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+      backgroundColor: "#0CB4D0",
+      color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+      fontSize: 14,
+    },
+  }));
+
+  const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    "&:nth-of-type(odd)": {
+      backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    "&:last-child td, &:last-child th": {
+      border: 0,
+    },
+  }));
+
   const formik = useFormik({
     initialValues: {
       id: UserDataEdit?.id ? UserDataEdit?.id : "",
@@ -130,18 +159,21 @@ export default function UserList() {
       );
     },
   });
+
   const hendleEditUser = (val) => {
     setUserDataEdit(val);
     setTimeout(() => {
       setModalShow(true)
     });
   };
+
   const hendleUserDelete = (val) => {
     setuserId(val);
     setTimeout(() => {
       setModalShow1(true);
     });
   };
+
   const hendleDeleteUser=()=>{
     ExportUser.userDelete(userId).then((resp) => {
       if (resp.ok) {
@@ -176,103 +208,66 @@ export default function UserList() {
   }
   return (
     <div>
-   {loader?    <div style={{marginTop:"24%"}}>
-                <center >
-                <ColorRing
-                  visible={true}
-                  height="100"
-                  width="100"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
-                />
-                
-                </center>
-               
-            </div>:<>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        User List
-      </Typography>
-      <hr height={3} />
-      <Grid container spacing={1}>
-        {/* <Grid item xs={2}></Grid> */}
-        <Grid className="btnadd" item xs={12}>
-          <Button
-            onClick={() => Navigate("/CreateUser")}
-            // sx={{ marginLeft: "10%" }}
-            className={"A1"}
-            variant="contained"
-          >
-            Add User
-          </Button>
+    {
+      loader ?
+      <div style={{marginTop:"24%"}}>
+        <center >
+          <ColorRing
+            visible={true}
+            height="100"
+            width="100"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+          />
+        </center>
+      </div>
+      :
+      <>
+        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>User List</Typography>
+        <Grid container>
+          <Grid item xs={12} textAlign="right">
+            <Button sx={{width:{xs:'100%', sm:'auto'}}} onClick={() => Navigate("/CreateUser")} className={"A1"} variant="contained">Add User</Button>
+          </Grid>
+          <Grid className="userlist-ar" item xs={12}>
+            <Box mt={4} className="table-com-ar">
+              <TableContainer component={Paper} sx={{mb:2}}>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>#</StyledTableCell>
+                      <StyledTableCell> Name</StyledTableCell>
+                      <StyledTableCell>Email</StyledTableCell>
+                      <StyledTableCell>Mobile</StyledTableCell>
+                      <StyledTableCell>Status</StyledTableCell>
+                      <StyledTableCell>Action</StyledTableCell>
+                      <StyledTableCell>View Activity</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {
+                    UserData?.map((val, i) => (
+                      <TableRow>
+                        <StyledTableCell>{i + 1}</StyledTableCell>
+                        <StyledTableCell>{val.name}</StyledTableCell>
+                        <StyledTableCell>{val.email}</StyledTableCell>
+                        <StyledTableCell>{val.mobile_number}</StyledTableCell>
+                        <StyledTableCell>{val.status == "1" ? "Active" : "..."}</StyledTableCell>
+                        <StyledTableCell>{val.id==1?"No Action":<>  <EditIcon onClick={() => {hendleEditUser(val);}} sx={{ color: "#0CB4D0" }} /> &nbsp; <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}</>}</StyledTableCell>
+                        <StyledTableCell onClick={() => {setTimeout(() => {Navigate("/UserList/product/active")});localStorage.setItem("UserProduct_id",val.id)}} style={{ color: "#0CB4D0", cursor: "pointer" }}><RemoveRedEyeIcon sx={{color: "#0CB4D0", marginBottom: "10px", fontSize: "28px"}} />&nbsp; View</StyledTableCell>
+                      </TableRow>
+                    ))
+                    }
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Pagination sx={{mb:5}} onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid className="userlist-ar" item xs={12}>
-          <Box className="userlist-tb" mt={4}>
-            <Table striped hover>
-              <thead
-                style={{
-                  paddingBlock: "30px",
-                  backgroundColor: "#0CB4D0",
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              >
-                <tr>
-                  <th>#</th>
-                  <th className="usr_na"> Name</th>
-                  <th className="usr_em">Email</th>
-                  <th className="usr_mb">Mobile</th>
-                  <th className="usr_st">Status</th>
-                  <th className="usr_ac">Action</th>
-                  <th className="usr_va">View Activity</th>
-                </tr>
-              </thead>
-              <tbody>
-                {UserData?.map((val, i) => (
-                  <tr>
-                    <td>{i + 1}</td>
-                    <td>{val.name}</td>
-                    <td>{val.email}</td>
-                    <td>{val.mobile_number}</td>
-                    <td>{val.status == "1" ? "Active" : "..."}</td>
-                    <td>{val.id==1?"No Action":<>  <EditIcon
-                        onClick={() => {
-                          hendleEditUser(val);
-                        }}
-                        sx={{ color: "#0CB4D0" }}
-                      />{" "}
-                      &nbsp;
-                      <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}</>}
-                    
-                    </td>
-                    <td
-                      onClick={() => {setTimeout(() => {
-                        
-                        Navigate("/UserList/product/active")
-                      });localStorage.setItem("UserProduct_id",val.id)}}
-                      style={{ color: "#0CB4D0", cursor: "pointer" }}
-                    >
-                      {" "}
-                      <RemoveRedEyeIcon
-                        sx={{
-                          color: "#0CB4D0",
-                          marginBottom: "10px",
-                          fontSize: "28px",
-                        }}
-                      />{" "}
-                      &nbsp; View{" "}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-            {/* <Pagination count={10} /> */}
-            <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} />
-          </Box>
-        </Grid>
-       
-      </Grid>
+
+        
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -287,7 +282,7 @@ export default function UserList() {
         </Modal.Header>
         <Modal.Body>
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <Box mt={3}>
+            <Box>
               <TextField
                 fullWidth
                 id="fullWidth"
@@ -326,26 +321,6 @@ export default function UserList() {
                 <div style={{ color: "red" }}>{formik.errors.email}</div>
               ) : null}
             </Box>
-            {/* <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Password"
-                type="password"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                autoComplete="current-password"
-              />
-              {formik.touched.password && formik.errors.password ? (
-                <div style={{ color: "red" }}>{formik.errors.password}</div>
-              ) : null}
-            </Box> */}
             <Box mt={3}>
               <TextField
                 fullWidth
@@ -368,9 +343,9 @@ export default function UserList() {
                 </div>
               ) : null}
             </Box>
-            <Box mt={5}>
+            <Box mt={3}>
               <Button
-                sx={{ marginLeft: "10px" }}
+              sx={{width: {xs:'100%', sm:'auto'}}}
                 type="submit"
                 className={"A1"}
                 variant="contained"
@@ -380,9 +355,6 @@ export default function UserList() {
             </Box>
           </Box>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
       </Modal>
       <Modal
         show={modalShow1}
@@ -398,21 +370,19 @@ export default function UserList() {
         </Modal.Header>
         <Modal.Body>
           <p>Are you sure want to Delete this user ?</p>
-          <Grid container spacing={4} mt={2}>
-          <Grid xl={1}> </Grid>
-            <Grid xl={5}>  <Button
+          <Grid container spacing={4}>
+            <Grid item xl={4}>
+              <Button
                 type="button"
-                sx={{ marginLeft: "10px",color:"white",backgroundColor:"red" }}
-                // className={"A1"}
+                sx={{color:"white",backgroundColor:"red" }}
                 variant="contained"
                 onClick={()=>{hendleDeleteUser()}}
               >
                 Delete
               </Button></Grid>
-            <Grid xl={6}>
+            <Grid item xl={8}>
               <Button
                 type="button"
-                sx={{ marginLeft: "10px" }}
                 onClick={()=>{setModalShow1(false)}}
               >
                 Cancel
@@ -420,7 +390,6 @@ export default function UserList() {
             </Grid>
           </Grid>
         </Modal.Body>
-        <Modal.Footer></Modal.Footer>
       </Modal>
       </>}
     </div>

@@ -158,7 +158,7 @@ export default function ForgotPassword() {
             )}
             <Grid container>
               <Grid item xs>
-                <Link to="/login" variant="body2">
+                <Link to="/" variant="body2">
                   Sign in
                 </Link>
               </Grid>

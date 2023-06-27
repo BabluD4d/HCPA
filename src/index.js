@@ -52,73 +52,63 @@ import AdminViewAns from './Admin/AdminViewAns';
 import ForgotSet from './commenComponet/ForgotSet';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
   <BrowserRouter>
     <div className='wrapper'>
-      {/* <Grid container spacing={2}>
-        <Sidebar />
-        <Grid item md={12} sm={12} xl={10} lg={12} xs={12} sx={{ height: "100vh", overflow: "auto" }} >
-          <Header /> */}
-          {/* {window.location.pathname=="/"?window.location.href="/login":null} */}
-          {}
-          <Routes>
-            <Route path="/" element={<Public />}>
-            <Route exact path="/" element={<SignIn />} />
-            <Route exact path="/signup" element={<Registration />} />
-            <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
-            <Route exact path="/forget/:token/:email" element={<ForgotSet />} />
-              </Route>
-            <Route path="/" element={<Proctected />}>
-              <Route exact path="/Home" element={<DashBoard />} />
-              <Route exact path="/Profile" element={<UserInfo />} />
-              <Route exact path="/Files" element={<Files />} />
-              <Route exact path="/Modelus" element={<Modelus />} />
-              <Route exact path="/Modelus/all" element={<SimpleModelus />} />
-              <Route exact path="/Modelus/Document" element={<AllDocument />} />
-              <Route exact path="/Modelus/CheckList" element={<CheckList />} />
-              <Route exact path="/Modelus/Document/ViewDocument" element={<ViewDocument />} />
-              <Route exact path="/BookCall/:id" element={<BookCall />} />
-              <Route exact path="/BookCall/" element={<BookCall />} />
-              <Route exact path="/Modelus/Guides" element={<RegistrationGuide />} />
-            </Route>
-            {/* admin */}
-            <Route path="/" element={<AdminProctected />}>
-              <Route exact path="/Admin" element={<AdminDashBoard />} />
-              <Route exact path="/UserDeshboard" element={<UserDeshboard />} />
-              <Route exact path="/DashBoard" element={<AdminDashBoard />} />
-              <Route exact path="/UserList" element={<UserList />} />
-              <Route exact path="/UserList/product/active" element={<UserActiveProductList />} />
-              <Route exact path="/UserList/module/active" element={<UserActiveModule />} />
-              <Route exact path="/Productlist" element={<Product />} />
-              <Route exact path="/Productlist/cretechalist" element={<CreateCheckList />} />
-              <Route exact path="/checklist/Edit/:id" element={<EditChecklis />} />
-              <Route exact path="/Profile/Admin" element={<UserInfo />} />
-              <Route exact path="/Productlist/moduleList" element={<ProductByModuleList />} />
-              <Route exact path="/callList" element={<CallListBook />} />
-              <Route exact path="/CreateRegistrationGuides" element={<CreateRegistrationGuides />} />
-              <Route exact path="/CreateProduct" element={<CreateProduct />} />
-              <Route exact path="/CreateUser" element={<CreateUser />} />
-              <Route exact path="/CreactModules" element={<CreactModules />} />
-              <Route exact path="/CreateDocuments" element={<CreateDocuments />} />
-              <Route exact path="/UserActionView" element={<UserActionView />} />
-              <Route exact path="/UserAnsView" element={<AnsPrvue />} />
-              <Route exact path="/checklist/preview" element={<ChecklistPriveiw />} />
-              <Route exact path="/ModulesList" element={<ModulesList />} />
-              <Route exact path="/AdminViewAns" element={<AdminViewAns />} />
-              <Route exact path="/Admin/AllDocumentAdmin" element={<AllDocumentAdmin />} />
-              <Route exact path="/EditDocument" element={<EditDocument />} />
-              <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
-              <Route exact path="/Modelus/Document/ViewDocument1/:id" element={<ViewDocument />} />
-            </Route>
-             <Route path='*' element={<NotFound />} />
-           
-          </Routes>
-        {/* </Grid> */}
-      {/* </Grid> */}
-
+    {/* <div className='wrapper'> */}
+      <Routes>
+        <Route path="/" element={<Public />}>
+        <Route exact path="/" element={<SignIn />} />
+        <Route exact path="/signup" element={<Registration />} />
+        <Route exact path="/ForgotPassword" element={<ForgotPassword />} />
+        <Route exact path="/forget/:token/:email" element={<ForgotSet />} />
+          </Route>
+        <Route path="/" element={<Proctected />}>
+          <Route exact path="/Home" element={<DashBoard />} />
+          <Route exact path="/Profile" element={<UserInfo />} />
+          <Route exact path="/Files" element={<Files />} />
+          <Route exact path="/Modelus" element={<Modelus />} />
+          <Route exact path="/Modelus/all" element={<SimpleModelus />} />
+          <Route exact path="/Modelus/Document" element={<AllDocument />} />
+          <Route exact path="/Modelus/CheckList" element={<CheckList />} />
+          <Route exact path="/Modelus/Document/ViewDocument" element={<ViewDocument />} />
+          <Route exact path="/BookCall/:id" element={<BookCall />} />
+          <Route exact path="/BookCall/" element={<BookCall />} />
+          <Route exact path="/Modelus/Guides" element={<RegistrationGuide />} />
+        </Route>
+        {/* admin */}
+        
+        <Route path="/" element={<AdminProctected />}>
+          <Route exact path="/Admin" element={<AdminDashBoard />} />
+          <Route exact path="/UserDeshboard" element={<UserDeshboard />} />
+          <Route exact path="/DashBoard" element={<AdminDashBoard />} />
+          <Route exact path="/UserList" element={<UserList />} />
+          <Route exact path="/UserList/product/active" element={<UserActiveProductList />} />
+          <Route exact path="/UserList/module/active" element={<UserActiveModule />} />
+          <Route exact path="/Productlist" element={<Product />} />
+          <Route exact path="/Productlist/cretechalist" element={<CreateCheckList />} />
+          <Route exact path="/checklist/Edit/:id" element={<EditChecklis />} />
+          <Route exact path="/Profile/Admin" element={<UserInfo />} />
+          <Route exact path="/Productlist/moduleList" element={<ProductByModuleList />} />
+          <Route exact path="/callList" element={<CallListBook />} />
+          <Route exact path="/CreateRegistrationGuides" element={<CreateRegistrationGuides />} />
+          <Route exact path="/CreateProduct" element={<CreateProduct />} />
+          <Route exact path="/CreateUser" element={<CreateUser />} />
+          <Route exact path="/CreactModules" element={<CreactModules />} />
+          <Route exact path="/CreateDocuments" element={<CreateDocuments />} />
+          <Route exact path="/UserActionView" element={<UserActionView />} />
+          <Route exact path="/UserAnsView" element={<AnsPrvue />} />
+          <Route exact path="/checklist/preview" element={<ChecklistPriveiw />} />
+          <Route exact path="/ModulesList" element={<ModulesList />} />
+          <Route exact path="/AdminViewAns" element={<AdminViewAns />} />
+          <Route exact path="/Admin/AllDocumentAdmin" element={<AllDocumentAdmin />} />
+          <Route exact path="/EditDocument" element={<EditDocument />} />
+          <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
+          <Route exact path="/Modelus/Document/ViewDocument1/:id" element={<ViewDocument />} />
+        </Route>
+        <Route path='*' element={<NotFound />} />           
+      </Routes>
     </div>
   </BrowserRouter>
-  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

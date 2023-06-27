@@ -135,68 +135,51 @@ window.addEventListener('FileChenge', eventHandler);
   return (
     <div>
       <Grid container>
-      <Grid item xs={12} md={6}>
-        {Data.data?
-          <div>
-            <Typography
-              mt={4}
-              sx={{ fontSize: "25px", fontWeight: "bold" }}
-            >
-              {Data?.data?.document_title}
-            </Typography>
-            <div style={{ display: "flex",marginLeft:"1%" }}>
-              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-                
-                {Data?.data?.product_name}
-              </Typography>
-              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-              {" "+" / "+" "}
-                {Data?.data?.module_name} 
-              </Typography>
-              <Typography mt={1} sx={{ fontSize: "14px" }}>
-                {" "}
-                / {Data?.data?.document_title}
-              </Typography>
+        <Grid item xs={12} md={6}>
+          {
+            Data.data?
+            <div>
+              <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>{Data?.data?.document_title}</Typography>
+              <div style={{ display: "flex"}}>
+                <Typography mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
+                  {Data?.data?.product_name}
+                </Typography>
+                <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{" "+" / "+" "} {Data?.data?.module_name}</Typography>
+                <Typography mt={1} sx={{ fontSize: "14px" }}>/ {Data?.data?.document_title}</Typography>
+              </div>
             </div>
-          </div>:<div>
-            <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>{ViewDocument?.document_title}</Typography>
-            <div style={{ display: "flex" }}>
-              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{UserProduct?.product_name}</Typography>
-              <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{" "+" / "+" "}{Module?.module_name }</Typography>
-              <Typography mt={1} sx={{ fontSize: "14px" }}>/ {ViewDocument?.document_title}</Typography>
+            :
+            <div>
+              <Typography sx={{ fontSize: "25px", fontWeight: "bold" }}>{ViewDocument?.document_title}</Typography>
+              <div style={{ display: "flex" }}>
+                <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{UserProduct?.product_name}</Typography>
+                <Typography  mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>{" "+" / "+" "}{Module?.module_name }</Typography>
+                <Typography mt={1} sx={{ fontSize: "14px" }}>/ {ViewDocument?.document_title}</Typography>
+              </div>
             </div>
-          </div>}
-          
+          }          
         </Grid>
-        <Grid item xs={12} md={6} alignItems="center" sx={{textAlign:{xs:'left', md:'right'}, mt:{xs:2, md:0}}}>
-              <Button onClick={()=>Export2Word()}
-                sx={{backgroundColor: "#0CB4D0", width:{xs:'100%', md:'auto'}, mb:{xs:1, md:0} }}
-                variant="contained"
-              >
-                <InsertDriveFileIcon /> &nbsp; Export as word
-              </Button>
-              <Button
-                onClick={() => {
-                  setOpen(true);
-                  setTimeout(() => {
-                    setloder1(true);
-                    DownloadPDF()
-                  }, 1000);
-                }}
-                sx={{backgroundColor: "#0CB4D0", ml:{xs:0, md:1}, width:{xs:'100%', md:'auto'} }}
-                variant="contained"
-              >
-                <PictureAsPdfIcon /> &nbsp; Export as PDF
-              </Button>
+        <Grid item xs={12} md={6} alignItems="center" sx={{textAlign:{xs:'left', md:'right'}, mt:{xs:2, md:0}, textAlign:{sm:'center', md:'right'}}}>
+          <Button onClick={()=>Export2Word()} sx={{backgroundColor: "#0CB4D0", width:{xs:'100%', sm:'48%', md:'auto'}, mb:{xs:1, sm:0} }} variant="contained">
+            <InsertDriveFileIcon /> &nbsp; Export as word
+          </Button>
+          <Button
+            onClick={() => {
+              setOpen(true);
+              setTimeout(() => {
+                setloder1(true);
+                DownloadPDF()
+              }, 1000);
+            }}
+            sx={{backgroundColor: "#0CB4D0", ml:{xs:0, sm:1}, width:{xs:'100%', sm:'48%', md:'auto'} }}
+            variant="contained"
+          >
+            <PictureAsPdfIcon /> &nbsp; Export as PDF
+          </Button>
         </Grid>
       </Grid>
       <hr height={3} />
-   { Data.data?<div id="PDFDATA" dangerouslySetInnerHTML={ { __html: Data?.rpl}}>
-
-      </div>:
-      <div  id="PDFDATA" dangerouslySetInnerHTML={ {__html: Data1}}>
-
-      </div>}
+      {Data.data ? <div id="PDFDATA" dangerouslySetInnerHTML={ { __html: Data?.rpl}}></div>:<div id="PDFDATA" dangerouslySetInnerHTML={ {__html: Data1}}></div>}
       <Modal
         show={open}
         onHide={() => {
@@ -234,7 +217,7 @@ window.addEventListener('FileChenge', eventHandler);
             </div>
            <h4><center>Export Success</center></h4> 
            <div style={{paddingBottom:"10px"}}>
-           <p style={{display:"flex" }}>Document is also saved on your  <p style={{color:"#0CB4D0"}}> File</p></p> 
+           <p style={{display:"flex" }}>Document is also saved on your  <span style={{color:"#0CB4D0", marginLeft:'5px'}}> File</span></p> 
            <p></p>
            </div>
             </>

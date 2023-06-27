@@ -84,102 +84,94 @@ export default function CreateRegistrationGuides() {
     },
   });
   return (
-    <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Create Checklist
-      </Typography>
-      <hr height={3} />
-      <div style={{ display: "flex" }}>
-        <ArrowBackIcon
-          onClick={() => Navigate("/Productlist/moduleList")}
-          style={{ color: "#0cb4d0", fontSize: "50px" }}
-        />
-      </div>
-      <Grid container spacing={4} mt={2}>
-        <Grid xl={3}></Grid>
-        <Grid xl={6}>
-          {formik.values?.file?.size}
-          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label=" Video Title"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="title"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.title}
-                autoComplete="current-number"
-              />
-              {formik.touched.title && formik.errors.title ? (
-                <div style={{ color: "red" }}>{formik.errors.title}</div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label=" Video"
-                type="file"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="file"
-                onChange={(event) => {
-                  formik.values.file = event.target.files[0];
-                  setimage(event.target.files[0])
-                }}
-                onBlur={formik.handleBlur}
-                //   value={formik.values.file}
-                autoComplete="current-number"
-              />
-              {formik.touched.file && formik.errors.file ? (
-                <div style={{ color: "red" }}>{formik.errors.file}</div>
-              ) : null}
-            </Box>
-            <Typography mt={4} ml={"50%"} sx={{ fontSize: "30px" }}>
-                    Or
-              </Typography>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label=" Video Link"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="videolink"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                 value={formik.values.videolink}
-                autoComplete="current-number"
-              />
-              {formik.touched.videolink && formik.errors.videolink ? (
-                <div style={{ color: "red" }}>{formik.errors.videolink}</div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <Button
-                type="submit"
-                sx={{ marginLeft: "10px" }}
-                className={"A1"}
-                variant="contained"
-              >
-                Submit
-              </Button>
-            </Box>
-          </Box>
-        </Grid>
-        <Grid xl={3}></Grid>
-      </Grid>
-    </div>
+    <Box mb={5}>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Create Checklist</Typography>
+        {formik.values?.file?.size}
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+          <Grid container>
+            <Grid item xs={12} md={2} lg={3} mb={2}>
+              <div style={{ display: "flex" }}>
+                <ArrowBackIcon className='back-icon-proact' onClick={() => Navigate("/Productlist/moduleList")} />
+              </div>
+            </Grid>
+            <Grid item xs={12} md={8} lg={6}>
+              <Box mt={3}>
+                <TextField
+                  fullWidth
+                  id="fullWidth"
+                  label=" Video Title"
+                  type="text"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="filled"
+                  name="title"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.title}
+                  autoComplete="current-number"
+                />
+                {formik.touched.title && formik.errors.title ? (
+                  <div style={{ color: "red" }}>{formik.errors.title}</div>
+                ) : null}
+              </Box>
+              <Box mt={3}>
+                <TextField
+                  fullWidth
+                  id="fullWidth"
+                  label=" Video"
+                  type="file"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="filled"
+                  name="file"
+                  onChange={(event) => {
+                    formik.values.file = event.target.files[0];
+                    setimage(event.target.files[0])
+                  }}
+                  onBlur={formik.handleBlur}
+                  //   value={formik.values.file}
+                  autoComplete="current-number"
+                />
+                {formik.touched.file && formik.errors.file ? (
+                  <div style={{ color: "red" }}>{formik.errors.file}</div>
+                ) : null}
+              </Box>
+              <Typography mt={4} sx={{ fontSize: "30px", textAlign:'center' }}>Or</Typography>
+              <Box mt={3}>
+                <TextField
+                  fullWidth
+                  id="fullWidth"
+                  label=" Video Link"
+                  type="text"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="filled"
+                  name="videolink"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.videolink}
+                  autoComplete="current-number"
+                />
+                {formik.touched.videolink && formik.errors.videolink ? (
+                  <div style={{ color: "red" }}>{formik.errors.videolink}</div>
+                ) : null}
+              </Box>
+              <Box mt={3}>
+                <Button
+                  type="submit"
+                  className={"A1"}
+                  sx={{width:{xs:'100%', sm:'auto'}}}
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+    </Box>
   );
 }

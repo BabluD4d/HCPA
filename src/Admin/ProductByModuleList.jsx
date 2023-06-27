@@ -260,36 +260,30 @@ export default function ProductByModuleList() {
   };
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        Moduels List
-      </Typography>
-      <hr height={3} />
-
       <Grid xs={12}>
           <ArrowBackIcon
+          sx={{ml:0}}
           className="back-icon-proact"
             onClick={() => Navigate("/Productlist")}
          />
         </Grid>
       
-    <Grid className="product-module-list" container   mt={2}>
-      <Grid xl={6} md={6} sm={6} xs={12}>
-          <Typography sx={{ fontSize: "30px" }}>Moduels List </Typography>
+    <Grid container my={4} alignItems="center">
+      <Grid sm={6} xs={12}>
+        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} mb={{xs:2, sm:0}} textAlign={{xs:'center', sm:'left'}}>Moduels List </Typography>
       </Grid>
-      <Grid className="product-module-list-btn" xl={6} md={6} sm={6} xs={12}>          
-            <Button
-              onClick={() => Navigate("/CreactModules")}
-              sx={{ marginLeft: "10%" }}
-              className={"A1"}
-              variant="contained"
-            >
-                          <EditCalendarIcon className={"active"} /> 
-              Create Modelus
-            </Button>
+      <Grid sm={6} xs={12} textAlign={{xs:'left', sm:'right'}}> 
+        <Button
+          sx={{width:{xs:'100%', sm:'auto'}}}
+          onClick={() => Navigate("/CreactModules")}
+          className={"A1"}
+          variant="contained"
+        >
+          <EditCalendarIcon className={"active"} /> 
+          Create Modelus
+        </Button>
       </Grid>
-
     </Grid>
-
 
       {loader ? (
         <div style={{ marginTop: "24%" }}>
@@ -307,15 +301,14 @@ export default function ProductByModuleList() {
         </div>
       ) : (
         <>
-          <Box >
-            <Grid container >
+          <Box>
+            <Grid container>
               {NotFound.A? <div style={{ marginTop: "4%" ,marginLeft:"20%"}}>
                 <h3> <center>{NotFound.A}</center></h3>
               </div>:null}
-              <Grid container spacing={4} mt={2} className="module-list-ar">
-              {ModuleList &&
-                ModuleList?.map((item, index) => {
-                  return (
+              <Grid container spacing={4}>
+                {
+                  ModuleList && ModuleList?.map(item => 
                     <AdminProductCart
                       navi={"/Admin/AllDocumentAdmin"}
                       status={item.module_status}
@@ -327,93 +320,46 @@ export default function ProductByModuleList() {
                       item={item}
                       onChangeHendle={onChangeHendle}
                     />
-                  );
-                })}
-
-<Grid xs={12} mt={6}>
-                <Box  >
-                {ModuleList[0] ?  <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} /> : null}
-              </Box>
+                  )
+                }
               </Grid>
-                </Grid>
-  
+              <Grid xs={12} mt={6}>
+                <Box>
+                  {ModuleList[0] ? <Pagination onChange={hendlePagintion} count={Math.ceil(Count / 10)} /> : null}
+                </Box>
+              </Grid>
             </Grid>
-
-          </Box>
-
-
-{/*/Productlist/moduleList Check List  */}
-
-
-
+        </Box>
        
           <Box mt={5}>
-            <Grid className="product-module-list" container  mt={2}>
-              {/* <Grid xs={1}></Grid> */}
-              <Grid xs={6}>
-                {" "}
-                <Typography mt={2} sx={{ fontSize: "30px" }}>
+            <Grid container alignItems="center">
+              <Grid xs={12} sm={6}>
+                <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} mb={{xs:2, sm:0}} textAlign={{xs:'center', sm:'left'}} >
                   CheckList
                 </Typography>
               </Grid>
-              <Grid className="product-module-list-btn" xl={6} md={6} sm={6} xs={12} >
-                {" "}
-                <Button
-                  mt={4}
-                  onClick={() => Navigate("/Productlist/cretechalist")}
-                  sx={{ marginLeft: "10%" }}
-                  className={"A1"}
-                  variant="contained"
-                >
-                  <EditCalendarIcon className={"active"} />
-                  Add Checklist
-                </Button>{" "}
+              <Grid sm={6} xs={12} textAlign={{xs:'left', sm:'right'}}>
+                <Button sx={{width:{xs:'100%', sm:'auto'}, mb:3}} onClick={() => Navigate("/Productlist/cretechalist")} className={"A1"} variant="contained">
+                  <EditCalendarIcon className={"active"} />Add Checklist
+                </Button>
               </Grid>
             </Grid>
 
-
-
-            <Grid className="check-boxs-main-cus" container  mt={2} >
+            <Grid container spacing={4} >
             {NotFound.C? <div style={{ marginTop: "4%" , marginLeft:"20%"}}>
                 <h3> <center>{NotFound.A}</center></h3>
               </div>:null}
               {Checklis.map((item, i) => (
-                <Grid className="check-boxs" xl={3} sm={6} lg={3} item xs={12}>
+                <Grid xl={3} sm={6} md={4} item xs={12}>
                   <div className="check-box-shadow">
                     <div style={{ display: "flex" }}>
-                      <Typography
-                       
-                        sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
-                      >
-                        To be completed 
-                      </Typography>
-                      <p></p>
+                      <Typography sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}>To be completed </Typography>
                     </div>
-                    <Typography mt={1}  sx={{ fontSize: "17px" }}>
-                      {item.title}
-                    </Typography>
-                    <Typography  sx={{ fontSize: "10px" }}>
-                      0 of 4 sections completed
-                    </Typography>
+                    <Typography mt={1}  sx={{ fontSize: "17px" }}>{item.title}</Typography>
+                    <Typography  sx={{ fontSize: "10px" }}>0 of 4 sections completed</Typography>
                     <div>
-                      <Typography
-                        onClick={() => Navigate("/checklist/Edit/" + item.id)}
-                        mt={2}
-                        sx={{
-                          color: "#0CB4D0",
-                          fontSize: "15px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {" "}
-                        <CreateIcon
-                          sx={{
-                            color: "#0CB4D0",
-                            fontSize: "20px",
-                            marginBottom: "15px",
-                          }}
-                        />{" "}
-                        Edit
+                      <Typography onClick={() => Navigate("/checklist/Edit/" + item.id)} mt={2} sx={{color: "#0CB4D0", fontSize: "15px", cursor: "pointer"}}>
+                        <CreateIcon sx={{color: "#0CB4D0", fontSize: "20px", marginBottom: "15px"}} />Edit
                       </Typography>
                     </div>
                   </div>
@@ -422,111 +368,48 @@ export default function ProductByModuleList() {
             </Grid>
           </Box>
 
-
-
-
 {/*/Productlist/moduleList  Registration Guides  */}
 
-          <Box mt={5}>
-            <Grid className="product-module-list" container  mt={2}>
-              {/* <Grid xs={1}></Grid> */}
-              <Grid xs={6}>
-                {" "}
-                <Typography mt={2} sx={{ fontSize: "30px" }}>
-                  Registration Guides
-                </Typography>
+          <Box my={5}>
+            <Grid container alignItems="center">
+              <Grid xs={12} sm={6}>
+                <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} mb={{xs:2, sm:0}} textAlign={{xs:'center', sm:'left'}} >Registration Guides</Typography>
               </Grid>
-              <Grid className="product-module-list-btn" xl={6} md={6} sm={6} xs={12}>
-                {" "}
-                <Button
-                
+              <Grid className="product-module-list-btn" sm={6} xs={12}>
+                <Button                
                   onClick={() => Navigate("/CreateRegistrationGuides")}                  
                   className={"A1"}
                   variant="contained"
+                  sx={{width:{xs:'100%', sm:'auto'}, mb:3, marginTop: '0!important'}}
                 >
-                  {/* <EditCalendarIcon className={"active"} /> &nbsp; &nbsp; &nbsp; */}
                   Add Registration Guides
                 </Button>
               </Grid>
             </Grid>
-            <Grid className="check-boxs-main-cus" container spacing={4} mt={2} >
+            <Grid container spacing={4}>
             {NotFound.B? <div style={{ marginTop: "4%" ,marginLeft:"20%"}}>
                 <h3> <center>{NotFound.A}</center></h3>
               </div>:null}
               {GuidData.map((item, i) => (
-                <Grid className="check-boxs" xl={3} sm={6} lg={3} item xs={12}>
+                <Grid xl={3} sm={6} md={4} item xs={12}>
                 <div className="check-box-shadow">
                     <div style={{ display: "flex" }}>
-                      <Typography
-                        sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}
-                      >
-                        To be completed
-                      </Typography>
-                      <p></p>
+                      <Typography sx={{ fontSize: "13px", backgroundColor: "#e0e0e0" }}>To be completed</Typography>
                     </div>
-                    <Typography mt={1} sx={{ fontSize: "17px" }}>
-                      {item.title}
-                    </Typography>
-                    <Typography  sx={{ fontSize: "10px" }}>
-                      0 of 4 sections completed
-                    </Typography>
-                    <div>
-                      <Grid container spacing={1} mt={2}>
-                        <Grid item xs={6}>
-                          <Typography
-                            onClick={() => {
-                              setEditDataGuid(item);
-                              setmodalShowEditGuid(true);
-                            }}
-                            mt={2}
-                            
-                            sx={{
-                              color: "#0CB4D0",
-                              fontSize: "15px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            {" "}
-                            <CreateIcon
-                              sx={{
-                                color: "#0CB4D0",
-                                fontSize: "20px",
-                                marginBottom: "15px",
-                              }}
-                            />{" "}
-                            Edit
-                          </Typography>
-                        </Grid>
-                        <Grid className="viewGuid" item xs={6}>
-                          <Typography
-                            onClick={() => {
-                              setGuidDataSingle(item);
-                              setTimeout(() => {
-                                setModalShowVideo(true);
-                              });
-                            }}
-                            mt={2}
-                            
-                            sx={{
-                              color: "#0CB4D0",
-                              fontSize: "15px",
-                              cursor: "pointer",
-                            }}
-                          >
-                            {" "}
-                            <RemoveRedEyeIcon
-                              sx={{
-                                color: "#0CB4D0",
-                                fontSize: "20px",
-                                marginBottom: "15px",
-                               
-                              }}
-                            />{" "}
-                            View Guid
-                          </Typography>
-                        </Grid>
+                    <Typography mt={1} sx={{ fontSize: "17px" }}>{item.title}</Typography>
+                    <Typography  sx={{ fontSize: "10px" }}>0 of 4 sections completed</Typography>
+                    <Grid container spacing={1} mt={2}>
+                      <Grid item xs={6}>
+                        <Typography onClick={() => {setEditDataGuid(item); setmodalShowEditGuid(true)}} mt={2} sx={{color: "#0CB4D0", fontSize: "15px",cursor: "pointer"}}>
+                          <CreateIcon sx={{color: "#0CB4D0", fontSize: "20px", marginBottom: "15px"}} /> Edit
+                        </Typography>
                       </Grid>
-                    </div>
+                      <Grid className="viewGuid" item xs={6}>
+                        <Typography onClick={() => {setGuidDataSingle(item); setTimeout(() => {setModalShowVideo(true)})}} mt={2} sx={{color: "#0CB4D0", fontSize: "15px", cursor: "pointer"}}>
+                          <RemoveRedEyeIcon sx={{color: "#0CB4D0",  fontSize: "20px", marginBottom: "15px"}} /> View Guid
+                        </Typography>
+                      </Grid>
+                    </Grid>
                   </div>
                 </Grid>
               ))}
@@ -548,7 +431,7 @@ export default function ProductByModuleList() {
         </Modal.Header>
         <Modal.Body>
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <Box mt={5}>
+            <Box>
               <TextField
                 disabled
                 id="filled-disabled"
@@ -582,7 +465,6 @@ export default function ProductByModuleList() {
             <Box mt={5}>
               <FormControl>
                 <FormLabel
-                  sx={{ marginLeft: "10px" }}
                   id="demo-form-control-label-placement"
                 >
                   Status
@@ -620,11 +502,11 @@ export default function ProductByModuleList() {
                 ) : null}
               </FormControl>
             </Box>
-            <Box mt={5}>
+            <Box mt={3}>
               <Button
                 type="submit"
-                sx={{ marginLeft: "10px" }}
                 className={"A1"}
+                sx={{width:{xs:'100%', sm:'auto'}}}
                 variant="contained"
               >
                 Submit
@@ -632,9 +514,6 @@ export default function ProductByModuleList() {
             </Box>
           </Box>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
       </Modal>
       <Modal
         show={modalShowVideo}
@@ -652,7 +531,7 @@ export default function ProductByModuleList() {
           <div className="playerDiv">
             {GuidDataSingle?.video_link ? (
               <ReactPlayer
-                width={"100%"}
+                width="100%"
                 height="100%"
                 playing={true}
                 muted={true}
@@ -661,7 +540,7 @@ export default function ProductByModuleList() {
               />
             ) : (
               <ReactPlayer
-                width={"100%"}
+                width="100%"
                 height="100%"
                 playing={true}
                 muted={true}
@@ -671,9 +550,6 @@ export default function ProductByModuleList() {
             )}
           </div>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
       </Modal>
       <Modal
         show={modalShowEditGuid}
@@ -688,9 +564,8 @@ export default function ProductByModuleList() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Grid container spacing={4} mt={2} pl={9}>
-            <Grid mb={3} item xs={2}></Grid>
-            <Grid mb={3} item xs={8}>
+          <Grid container mt={2}>
+            <Grid mb={3} item xs={12}>
               {EditDataGuid ? (
                 <EditRegistrationGuides
                   hendleGuidUpdateData={hendleGuidUpdateData}
@@ -698,12 +573,8 @@ export default function ProductByModuleList() {
                 />
               ) : null}
             </Grid>
-            <Grid mb={3} item xs={2}></Grid>
           </Grid>
         </Modal.Body>
-        <Modal.Footer>
-          {/* <Button onClick={props.onHide}>Close</Button> */}
-        </Modal.Footer>
       </Modal>
     </div>
   );

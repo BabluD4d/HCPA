@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { toast } from "react-toastify";
 import {
     Box,
+    TableContainer,
+    Paper,
+    TableBody,
+    TableHead,
+    TableRow,
     Grid,
     Pagination,
     Switch,
@@ -9,13 +14,16 @@ import {
     Typography,
     createTheme,
   } from "@mui/material";
-  import { useNavigate } from "react-router-dom";
-  import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { Table } from 'react-bootstrap';
 import ExportModiles from '../Api/Admin/Modules/ExportModiles';
 import Exportpurchaselist from '../Api/Admin/purchaselist/Exportpurchaselist';
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { ColorRing } from 'react-loader-spinner';
+import { styled } from "@mui/material/styles";
+
 const theme = createTheme({
     components: {
       MuiSwitch: {
@@ -32,9 +40,7 @@ const theme = createTheme({
   })
 
 export default function UserActiveModule() {
-    const [Product, setProduct] = useState(
-        JSON.parse(localStorage.getItem("Product"))
-      );
+    const [Product, setProduct] = useState(JSON.parse(localStorage.getItem("Product")));
     const Navigate = useNavigate()
     const [Data, setData] = useState()
     const [DataChecklist, setDataChecklist] = useState()
@@ -42,7 +48,6 @@ export default function UserActiveModule() {
     const [count, setcount] = useState(1);
     const [page, setpage] = useState(1);
     const GetData = () => {
-      // alert(Product.id)
         let obj = {
           "order": "desc",
           "limit": 10,
@@ -50,7 +55,6 @@ export default function UserActiveModule() {
           product_id: Product.id,
           "page":page,
         };
-        // alert()
         Exportpurchaselist.purchaselistModule(obj).then((resp) => {
           if (resp.ok) {
             if (resp.data.data) {
@@ -63,29 +67,31 @@ export default function UserActiveModule() {
           
           }
         });
-      };
-      const hendlePagintion = (event, value) => {
-        setpage(value)
-        let obj = {
-          "order": "desc",
-          "limit": 10,
-          user_id: localStorage.getItem("UserProduct_id"),
-          product_id: Product.id,
-          "page": value
-        }
-        //EditProduct
-        Exportpurchaselist.purchaselistModule(obj).then((resp) => {
-          if (resp.ok) {
-            if (resp.data.data) {
-                setData(resp.data.data.module);
-                setloader(false)
-            }else{
-              setloader(false)
-            }
-          
-          }
-        });
+    };
+
+    const hendlePagintion = (event, value) => {
+      setpage(value)
+      let obj = {
+        "order": "desc",
+        "limit": 10,
+        user_id: localStorage.getItem("UserProduct_id"),
+        product_id: Product.id,
+        "page": value
       }
+      //EditProduct
+      Exportpurchaselist.purchaselistModule(obj).then((resp) => {
+        if (resp.ok) {
+          if (resp.data.data) {
+              setData(resp.data.data.module);
+              setloader(false)
+          }else{
+            setloader(false)
+          }
+        
+        }
+      });
+    }
+
     const GetCheckListData = () => {
       // alert(Product.id)
         let obj = {
@@ -103,205 +109,177 @@ export default function UserActiveModule() {
           
           }
         });
-      };
+    };
+
     useEffect(() => {
         GetData()
         GetCheckListData()
-      }, [])
-      const Hendlestuts = (value,id) => {
-        let obj = {
-          user_id: localStorage.getItem("UserProduct_id"),
-          product_id: Product.id, 
-          module_id:id,
-          status:value
-        };
-        Exportpurchaselist.purchaselistmoduletHendle(obj).then((resp) => {
-          if (resp.ok) {
-            if (resp.data.message == "module deactive") {
-              toast.success('Module  deactive successfully', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              GetData()
-              // Navigate('/Productlist')
-            }else if(resp.data.message == " module active"){
-              toast.success('Module  active successfully', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              GetData()
-            }
-             else {
-              toast.error('Something went wrong', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-            }
-          }
-        });
+    }, [])
+
+    const Hendlestuts = (value,id) => {
+      let obj = {
+        user_id: localStorage.getItem("UserProduct_id"),
+        product_id: Product.id, 
+        module_id:id,
+        status:value
       };
+      Exportpurchaselist.purchaselistmoduletHendle(obj).then((resp) => {
+        if (resp.ok) {
+          if (resp.data.message == "module deactive") {
+            toast.success('Module  deactive successfully', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            GetData()
+            // Navigate('/Productlist')
+          }else if(resp.data.message == " module active"){
+            toast.success('Module  active successfully', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            GetData()
+          }
+            else {
+            toast.error('Something went wrong', {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        }
+      });
+    };
+
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+      [`&.${tableCellClasses.head}`]: {
+        backgroundColor: "#0CB4D0",
+        color: theme.palette.common.white,
+      },
+      [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+      },
+    }));
+    
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+      "&:nth-of-type(odd)": {
+        backgroundColor: theme.palette.action.hover,
+      },
+      // hide last border
+      "&:last-child td, &:last-child th": {
+        border: 0,
+      },
+    }));
+
   return (
-    <div>
-       <div>
-      {" "}
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-      Module List 
-      </Typography>
-      <hr height={3} />
-      <Grid container mt={2} >
-      <Grid xl={3} > 
-      <ArrowBackIcon className='back-icon-proact' onClick={()=>Navigate('/UserList/product/active')} />
+    <>
+      {/* <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Module List</Typography> */}
+      <Grid container>
+        <Grid xl={3}> 
+          <ArrowBackIcon className='back-icon-proact' onClick={()=>Navigate('/UserList/product/active')} />
+        </Grid>     
       </Grid>
-      {/* <Grid xl={6} > 
+      {
+        loader ?
+          <div style={{marginTop:"24%"}}>
+            <center >
+              <ColorRing
+                visible={true}
+                height="100"
+                width="100"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+              />  
+            </center>     
+          </div>
+        :
+        <>
+          <Box mt={{xs:0, md:5}}>
+            <Grid>
+              <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px'}}>Module List </Typography>
+              <Grid container>
+                <Grid item xs={12}>
+                  <Box mt={4}>
+                    <TableContainer component={Paper} sx={{mb:2}}>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <StyledTableCell>#</StyledTableCell>
+                            <StyledTableCell>Modules Name</StyledTableCell>
+                            <StyledTableCell>Action</StyledTableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {
+                            Data?.map((item, index) => {
+                              return (
+                                <TableRow>
+                                  <StyledTableCell>{index + 1}</StyledTableCell>
+                                  <StyledTableCell>{item.module_name}</StyledTableCell>
+                                  <StyledTableCell><ThemeProvider theme={theme}><Switch onChange={()=>Hendlestuts(!item.purchase_status,item.id)} checked={item.purchase_status==0?false:true}  /></ThemeProvider></StyledTableCell>
+                                </TableRow>
+                              )
+                            })
+                          }        
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} />
+                  </Box>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Box>
 
-      </Grid> */}
-      {/* <Grid xl={3} > 
-
-      </Grid> */}
-        </Grid>
-        {loader?    <div style={{marginTop:"24%"}}>
-                <center >
-                <ColorRing
-                  visible={true}
-                  height="100"
-                  width="100"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
-                />
-                
-                </center>
-               
-            </div>:<>
-      <Box  mt={5}>
-        <Grid className="max-width-mo" >
-        <Grid  container xs={12}>
-        <Typography xs={12}  sx={{ fontSize: "30px" }}>
-          Module List 
-          </Typography>
-        </Grid>
-        <Grid container spacing={1}>
-         
-          <Grid item mt={5} xs={12}>
-          
-            <Table striped hover>
-              <thead
-                style={{
-                  paddingBlock: "30px",
-                  backgroundColor: "#0CB4D0",
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              >
-                <tr>
-                  <th>#</th>
-                  <th>Modules Name</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Data?.map((item, index) => {
-
-                  return <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.module_name}</td>
-                    <td>    <ThemeProvider theme={theme}>
-           {/* <Switch onChange={()=>props?.onChangeHendle(props.item)}  checked={props.status=="true"?true:false}    /> */}
-           <Switch onChange={()=>Hendlestuts(!item.purchase_status,item.id)} checked={item.purchase_status==0?false:true}  />
-
-           </ThemeProvider>
-                    </td>
-
-                  </tr>
-                })}
-        
-              </tbody>
-            </Table>
-            <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} />
-            {/* <Pagination  /> */}
-          </Grid>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box mt={5}>
-        <Grid  className="max-width-mo" container spacing={1}>
-          
-          <Grid item mt={5} xs={12}>
-      <Typography mt={4} mb={3} sx={{ fontSize: "30px" }}>
-      CheckList
-      </Typography>
-            <Table striped hover>
-              <thead
-                style={{
-                  paddingBlock: "30px",
-                  backgroundColor: "#0CB4D0",
-                  color: "white",
-                  fontSize: "20px",
-                }}
-              >
-                <tr>
-                  <th>#</th>
-                  <th> Name</th>
-                  <th>View</th>
-                </tr>
-              </thead>
-              <tbody>
-                {DataChecklist?.map((item, index) => {
-
-                  return <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.title}</td>
-                    <td
-                      onClick={() => {
-                        localStorage.setItem("Checklist_Aid",item.id)
-                        Navigate("/AdminViewAns");
-                      }}
-                      style={{ color: "#0CB4D0", cursor: "pointer" }}
-                    >
-                      {" "}
-                      <RemoveRedEyeIcon
-                        sx={{
-                          color: "#0CB4D0",
-                          marginBottom: "10px",
-                          fontSize: "28px",
-                        }}
-                      />{" "}
-                      &nbsp; View{" "}
-                    </td>
-
-                  </tr>
-                })}
-        
-              </tbody>
-            </Table>
-            {/* <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} /> */}
-            {/* <Pagination  /> */}
-          </Grid>
-          {/* <Grid item mt={-3} xs={2}>   </Grid> */}
-        </Grid>
-      </Box>
-    </>}
-     
-    </div>
-    </div>
+          <Box mb={5}>
+            <Grid container>
+              <Grid item mt={5} xs={12}>
+              <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>CheckList</Typography>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <StyledTableCell>#</StyledTableCell>
+                      <StyledTableCell> Name</StyledTableCell>
+                      <StyledTableCell>View</StyledTableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {
+                      DataChecklist?.map((item, index) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell>{index + 1}</StyledTableCell>
+                            <StyledTableCell>{item.title}</StyledTableCell>
+                            <StyledTableCell onClick={() => {localStorage.setItem("Checklist_Aid",item.id); Navigate("/AdminViewAns");}} style={{ color: "#0CB4D0", cursor: "pointer" }}><RemoveRedEyeIcon sx={{color: "#0CB4D0", marginBottom: "10px", fontSize: "28px"}} />&nbsp; View</StyledTableCell>
+                          </TableRow>
+                        )
+                      })
+                    }
+                  </TableBody>
+                </Table>
+              </Grid>
+            </Grid>
+          </Box>
+        </>
+      }
+    </>
   )
 }

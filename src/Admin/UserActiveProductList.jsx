@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import {
-  Autocomplete,
+  TableContainer,
+  Paper,
   Box,
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormGroup,
-  FormLabel,
   Grid,
-  InputLabel,
-  NativeSelect,
   Pagination,
-  Radio,
-  RadioGroup,
   Switch,
-  TextField,
-  TextareaAutosize,
+  TableBody,
+  TableHead,
+  TableRow,
   ThemeProvider,
   Typography,
   createTheme,
 } from "@mui/material";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Table } from "react-bootstrap";
@@ -29,6 +22,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import Exportpurchaselist from "../Api/Admin/purchaselist/Exportpurchaselist";
 import { ColorRing } from "react-loader-spinner";
+import { styled } from "@mui/material/styles";
 const theme = createTheme({
   components: {
     MuiSwitch: {
@@ -43,6 +37,27 @@ const theme = createTheme({
     },
   },
 });
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#0CB4D0",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
 export default function UserActiveProductList() {
   const Navigate = useNavigate();
   const [Data, setData] = useState();
@@ -144,20 +159,13 @@ export default function UserActiveProductList() {
   return (
     <div>
       <div>
-        {" "}
-        <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-          Product List 
-        </Typography>
-        <hr height={3} />
-        <Grid container mt={2}>
+        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Product List </Typography>
+        <Grid container>
           <Grid sm={12} >
             <ArrowBackIcon className="back-icon-proact"
-              onClick={() => Navigate("/UserList")}
-         
+              onClick={() => Navigate("/UserList")}         
             />
           </Grid>
-          {/* <Grid xl={6}></Grid>
-          <Grid xl={3}></Grid> */}
         </Grid>
         {loader?    <div style={{marginTop:"24%"}}>
                 <center >
@@ -174,43 +182,33 @@ export default function UserActiveProductList() {
                 </center>
                
             </div>:<>
-        <Box mt={5}>
-          <Grid container spacing={1}>
-            {/* <Grid item xs={1}></Grid> */}
-            <Grid className="max-width-table" item mt={5} xs={12}>
-              <Table striped hover>
-                <thead
-                  style={{
-                    paddingBlock: "30px",
-                    backgroundColor: "#0CB4D0",
-                    color: "white",
-                    fontSize: "20px",
-                  }}
-                >
-                  <tr>
-                    <th>#</th>
-                    <th className="pro-width">Product Name</th>
-                    {/* <th>Modules</th> */}
-                    <th>Action</th>
-                    <th className="vi-width">View Product</th>
-                  </tr>
-                </thead>
-                <tbody>
+        <Box>
+          <Grid container>
+            <Grid item xs={12}>
+            <Box mt={4}>
+              <TableContainer component={Paper} sx={{mb:2}} className="user-product-list-table user-list-table">
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>#</StyledTableCell>
+                    <StyledTableCell>Product Name</StyledTableCell>
+                    <StyledTableCell>Action</StyledTableCell>
+                    <StyledTableCell>View Product</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
                   {Data?.map((item, index) => {
                     return (
-                      <tr>
-                        <td>{index + 1}</td>
-                        <td>{item.product_name}</td>
-                        {/* <td>{item.total_module}</td> */}
-                        <td>
-                          {" "}
+                      <TableRow>
+                        <StyledTableCell>{index + 1}</StyledTableCell>
+                        <StyledTableCell>{item.product_name}</StyledTableCell>
+                        <StyledTableCell>
                           <ThemeProvider theme={theme}>
-                            {/* <Switch onChange={()=>props?.onChangeHendle(props.item)}  checked={props.status=="true"?true:false}    /> */}
                             <Switch onChange={()=>Hendlestuts(!item.purchase_status,item.id)} checked={item.purchase_status==0?false:true}  />
                           </ThemeProvider>
-                        </td>
-                        {item.purchase_status=="0"?<td>Please Active Product</td>:  <td
-                          onClick={() => {
+                        </StyledTableCell>
+                        {item.purchase_status=="0"?<StyledTableCell>Please Active Product</StyledTableCell>:  <StyledTableCell>
+                          <Box component="span" onClick={() => {
                             localStorage.setItem(
                               "Product",
                               JSON.stringify(item)
@@ -219,30 +217,26 @@ export default function UserActiveProductList() {
                                 Navigate("/UserList/module/active");
                               },200);
                           }}
-                          style={{ color: "#0CB4D0", cursor: "pointer" }}
-                        >
-                          
-                          <RemoveRedEyeIcon
-                            sx={{
-                              color: "#0CB4D0",
-                              marginBottom: "10px",
-                              fontSize: "28px",
-                            }}
-                          />
-                          &nbsp; View
-                        </td>}
-                      
-                      </tr>
+                          style={{ color: "#0CB4D0", cursor: "pointer" }}>
+                            <RemoveRedEyeIcon
+                              sx={{
+                                color: "#0CB4D0",
+                                marginBottom: "10px",
+                                fontSize: "28px",
+                              }}
+                              />
+                            &nbsp; View
+                          </Box>
+                        </StyledTableCell>}                      
+                      </TableRow>
                     );
                   })}
-                </tbody>
+                </TableBody>
               </Table>
-              <Pagination onChange={hendlePagintion} count={Math.ceil(count / 10)} />
-              {/* <Pagination /> */}
+              </TableContainer>
+              </Box>
+              <Pagination sx={{mb:5}} onChange={hendlePagintion} count={Math.ceil(count / 10)} />
             </Grid>
-            {/* <Grid item mt={-3} xs={2}>
-              {" "}
-            </Grid> */}
           </Grid>
         </Box>
         </>}

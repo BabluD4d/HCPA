@@ -9,7 +9,6 @@ const RegistrationGuide = () => {
   const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata"))); 
   const Navigate= useNavigate()
   const [ModuleData, setModuleData] = useState();
-  const [Count, setCount] = useState();
   window.addEventListener("activeProduct", () => setTimeout(() => {
     setProduct(JSON.parse(localStorage.getItem("UserProduct")))
   },));
@@ -25,24 +24,8 @@ const RegistrationGuide = () => {
           if (resp.ok) {
             if (resp.data) {
               if(resp.data.data.registration_guid){
-                let CountNew=0
                setModuleData(resp.data.data.registration_guid)
-               resp.data.data.registration_guid.map((val,i)=>{
-                if(val?.guid_status==1){
-                  CountNew=CountNew+1
-                }
-               })
-              //  for (let index = 1; index <= resp.data.data.registration_guid.length; index++) {
-              //   const element = resp.data.data.registration_guid[index];
-              //   if(element?.guid_status==1){
-              //     CountNew=CountNew+1
-              //   }
-              //   console.log({element})
-              // }
-              console.log({CountNew})
-              setCount(CountNew)
-              console.log(resp.data.data.registration_guid)
-            }
+              }
             }
           }
         }
@@ -77,7 +60,7 @@ const RegistrationGuide = () => {
         </Grid>
       </Grid>
       <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>
-        {Count} of {ModuleData&&ModuleData?.length} Guides Completed
+        7 of 14 Guides Completed
       </Typography>
       {ModuleData?.map((val,i)=>
         <GuidesList ModulesList={ModulesList} title={val.title} val={val} Stuts={val.guid_status} />

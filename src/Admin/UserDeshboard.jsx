@@ -86,16 +86,9 @@ const hendleSubmit =()=>{
 }
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>
         Create Banner User
       </Typography>
-      <hr height={3} />
-      {/* <div style={{ display: "flex" }}>
-            <ArrowBackIcon
-              onClick={() => Navigate("/Productlist/moduleList")}
-              style={{ color: "#0cb4d0", fontSize: "50px" }}
-            />
-          </div> */}
              {loader?    <div style={{marginTop:"22%"}}>
                 <center >
                 <ColorRing
@@ -163,7 +156,7 @@ const hendleSubmit =()=>{
             <Box mt={3}>
               <Button
                 type="submit"
-                sx={{ marginLeft: "10px" }}
+                sx={{width:{xs:'100%', sm:'auto'}}}
                 className={"A1"}
                 variant="contained"
               >

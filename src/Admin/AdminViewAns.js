@@ -32,46 +32,56 @@ const AdminViewAns = () => {
           }, [])
   return (
     <div>
-           <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        User's Answer
-      </Typography>
-      <hr height={3} />
-      <div style={{display:"flex",marginBlock:"10px",marginLeft:"10px"}}>
-     <ArrowBackIcon onClick={()=>Navigate(-1)} style={{color:"#0cb4d0" ,fontSize:"50px"}}/>
-      </div>
-      <Box mt={5}>
-        <Grid container spacing={1}>
-          <Grid item xs={1}></Grid>
-          <Grid item mt={5} xs={8}>
-            {DataChecklist?.map((val,i)=>{
-               return <>
-          <Box mt={5} className='sedow'
-            pb={7}
-            sx={{textAlign:"left",
-            backgroundColor: "#f4f4f4",
-        }}>
-                <Grid  container spacing={1}>
-        <Grid item xs={6}>   <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-      Date : {val.date}
-    </Typography></Grid>
-        <Grid item  xs={6}> <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-      Time : {val.time}
-    </Typography></Grid>
-        </Grid>
-        <hr/>
-                {JSON.parse(val.json_data).map((item,index)=>{
-                    return<>
-                    <h1>Q {index+1} . {item?.question}</h1>
-                    <h4 style={{textAlign:"center"}}> Ans . {item?.Ans}</h4>
-                    </>
-                })}
-            </Box>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>User's Answer</Typography>
+      <Grid container>
+        <Grid xl={3}> 
+          <ArrowBackIcon className='back-icon-proact' onClick={()=>Navigate(-1)}/>
+        </Grid>     
+      </Grid>
+      <Box my={5}>
+        <Grid container spacing={4}>          
+            {
+              DataChecklist?.map((val,i)=>{
+                return <>
+                <Grid item xs={12} md={6} lg={4}>
+                  <Box className='sedow' sx={{textAlign:"left", backgroundColor: "#f4f4f4", borderRadius:'3px', height:'100%'}}>
+                    <Grid container sx={{borderBottom:'1px solid #dee2e6'}} px={2} py={1}>
+                      <Grid item xs={6}>
+                        <Typography sx={{ fontSize: "16px" }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{width:'20px', height:'20px', lineHeight:'20px', verticalAlign:'baseline', marginRight:'5px'}}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                          </svg>
+                          {val.date}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6} textAlign="right">
+                        <Typography sx={{ fontSize: "16px" }}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{width:'20px', height:'20px', lineHeight:'20px', verticalAlign:'baseline', marginRight:'5px'}}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          {val.time}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                    <Box sx={{py:2}}>
+                      {
+                        JSON.parse(val.json_data).map((item,index)=>{
+                          return<>
+                            <Box px={2} py={1}>
+                              <Box>Q {index+1} . {item?.question}</Box>
+                              <Box> Ans . {item?.Ans}</Box>
+                            </Box>
+                          </>
+                        })
+                      }
+                    </Box>
+                  </Box>
+                  </Grid>
                 </>
-            })}
-          </Grid>
-          </Grid>
-          </Box>
-      
+              })
+            }
+        </Grid>
+      </Box>  
     </div>
   )
 }

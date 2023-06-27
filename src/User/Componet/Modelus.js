@@ -426,7 +426,7 @@ const Modelus = () => {
             </Grid>
             <Grid item xs={12} sm={12}  md={4} sx={{textAlign:{xs:'left', sm:'right'}}}>
                             <Button
-                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent?.id)}}
+                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent.id)}}
                               variant="contained"
                               sx={{ backgroundColor: "#0CB4D0" }}
                             >

@@ -105,25 +105,22 @@ export default function CreateDocuments() {
   
   return (
     <div>
-      <div>
-        <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-          Create Documents
-        </Typography>
-        <hr height={3} />
-        
-        <div style={{ display: "flex" }}></div>
-        <div>{/* <button onClick={exportHtml}>Export HTML</button> */}</div>
-        <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={3}>
-            <ArrowBackIcon
-              onClick={() => Navigate("/Admin/AllDocumentAdmin")}
-              style={{ color: "#0cb4d0", fontSize: "50px" }}
-            />
-          </Grid>
-          <Grid item xs={6}>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Create Documents</Typography>        
+      <Box component="form" onSubmit={formik.handleSubmit}>
+        <Grid container spacing={2} mb={5}>
 
-            <Box mt={3}>
+          <Grid item xs={12} md={3} lg={3}>
+            <div style={{ display: "flex" }}>
+              <ArrowBackIcon
+                onClick={() => Navigate("/Admin/AllDocumentAdmin")}
+                className='back-icon-proact'
+              />
+            </div>
+          </Grid>
+
+          <Grid item xs={12} md={6} lg={6}>
+
+            <Box>
               <TextField
                 fullWidth
                 id="fullWidth"
@@ -143,6 +140,7 @@ export default function CreateDocuments() {
                 <div style={{ color: "red" }}>{formik.errors.title}</div>
             ) : null}
             </Box>
+
             <Box mt={3}>
               <TextField
                 fullWidth
@@ -163,72 +161,42 @@ export default function CreateDocuments() {
                 <div style={{ color: "red" }}>{formik.errors.description}</div>
             ) : null}
             </Box>
+
+            <Box className="create-document-btns" mt={3}>
+              <DragDropButton title={"{{name}}"}  label={"Name "} editor={editorRef.current} />
+              <DragDropButton title={"{{email}}"}  label={"Email"} editor={editorRef.current} />
+              <DragDropButton title={"{{address}}"}  label={"Address"} editor={editorRef.current} />
+              <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"} editor={editorRef.current} />
+              <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "} editor={editorRef.current} />
+              <DragDropButton title={"{{business_email}}"}  label={"Business Email "} editor={editorRef.current} />
+              <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"} editor={editorRef.current} />
+            </Box>
+
+            <Box mt={2}>
+              <Editor
+                onInit={(evt, editor) => editorRef.current = editor}
+                initialValue={""}
+                apiKey='6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u'
+                init={{
+                  plugins: 'preview',
+                  menubar: 'view',
+                  height: 500,
+                  menubar: true,
+                  plugins: "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons   fullscreen help image importcss  insertdatetime link  lists media    nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
+                  toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview',
+                  toolbar2: 'table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader',
+                  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                }}
+              />
+            </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Button
-            type="submit"
-              sx={{ marginLeft: "45%", marginBottom: "50px" }}
-              className={"A1"}
-              variant="contained"
-            >
-              {" "}
-              Create Document
-            </Button>
+
+          <Grid item xs={12} md={3} lg={3} textAlign={{xs:'center', sm:'right'}}>
+            <Button type="submit" className={"A1"} variant="contained" sx={{width:{xs:'100%', sm:'auto'}}}>Create Document</Button>
           </Grid>
+         
         </Grid>
-        </Box>
-        <Grid container spacing={4} mt={2} >
-          <Grid ml={3}  xs={4}>
-          <Grid container  mt={2} >
-          <Grid  xs={2}>
-          <DragDropButton title={"{{name}}"}  label={"Name "}editor={editorRef.current} />
-            </Grid>
-          <Grid  xs={5}>
-          <DragDropButton title={"{{email}}"}  label={"Email"}editor={editorRef.current} />
-            </Grid>
-          <Grid  xs={4}>
-          <DragDropButton title={"{{address}}"}  label={"Address"}editor={editorRef.current} />
-            </Grid>
-          <Grid mt={2} xs={2}>
-          <DragDropButton title={"{{mobile_number}}"}  label={"Mobile"}editor={editorRef.current} />
-            </Grid>
-          <Grid  mt={2} xs={4}>
-          <DragDropButton title={"{{trading_name}}"}  label={"Trading Name "}editor={editorRef.current} />
-            </Grid>
-          <Grid mt={2} xs={5}>
-          <DragDropButton title={"{{business_email}}"}  label={"Business Email "}editor={editorRef.current} />
-          {/* <DragDropButton  title={"NDS 6"} lable={"NDS "} editor={editorRef.current} /> */}
-            </Grid>
-            <Grid mt={2} xs={4}>
-          <DragDropButton title={"{{business_phone_no}}"}  label={"Business Phone Number"}editor={editorRef.current} />
-            </Grid>
-            </Grid>
-            </Grid>
-          <Grid  xs={7}>
-            
-        <Editor
-         onInit={(evt, editor) => editorRef.current = editor}
-         initialValue={""}
-         apiKey='6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u'
-         init={{
-          plugins: 'preview',
-          menubar: 'view',
-           height: 500,
-           menubar: true,
-           plugins: "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons   fullscreen help image importcss  insertdatetime link  lists media    nonbreaking pagebreak preview quickbars save searchreplace table  template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
-           toolbar1: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview',
-           toolbar2: 'table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader',
-           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
-          //  events: {
-          //   drop: handleDrop,
-          // },
-         }}
-       />
-       </Grid>
-       <Grid  xs={1}>
-            </Grid>
-       </Grid>
-      </div>
+      </Box>
     </div>
   );
 }

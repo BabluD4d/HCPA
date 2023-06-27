@@ -32,104 +32,111 @@ export default function CreateUser() {
   });
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>
         Add User
       </Typography>
-      <hr height={3} />
-      <div style={{ display: "flex" }}>
-        <ArrowBackIcon onClick={() => Navigate('/UserList')} style={{ color: "#0cb4d0", fontSize: "50px" }} />
-      </div>
-      <Box mt={5}>
-        <Grid container spacing={2}>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={6}>
-          <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Name"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                name="name"
-                variant="filled"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.name}
-              />
-              {formik.touched.name && formik.errors.name ? (
-                <div style={{ color: "red" }}>{formik.errors.name}</div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Email"
-                type="text"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="email"
-                // autoFocus
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <div style={{ color: "red" }}>{formik.errors.email}</div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Password"
-                type="password"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="password"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-                autoComplete="current-password"
-              />
-              {formik.touched.password && formik.errors.password ? (
-                <div style={{ color: "red" }}>{formik.errors.password}</div>
-              ) : null}
-            </Box>
-            <Box mt={3}>
-              <TextField
-                fullWidth
-                id="fullWidth"
-                label="Mobile"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="filled"
-                name="mobile_number"
-                type="text"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.mobile_number}
-                autoComplete="current-number"
-            />
-            {formik.touched.mobile_number && formik.errors.mobile_number ? (
-                <div style={{ color: "red" }}>{formik.errors.mobile_number}</div>
-            ) : null}
-            </Box>
-            <Box mt={5}>
-              <Button sx={{ marginLeft: "10px" }} type='submit' className={"A1"} variant="contained">Submit</Button>
-            </Box>
-            </Box>
+      <Box mt={3}>
+        <Box component="form" onSubmit={formik.handleSubmit}>
+          <Grid container>
+            <Grid item xs={12} md={2} lg={3} mb={2}>
+              <ArrowBackIcon className='back-icon-proact' onClick={() => Navigate('/UserList')} />
+            </Grid>
+            <Grid item xs={12} md={8} lg={6}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="fullWidth"
+                      label="Name"
+                      type="text"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      name="name"
+                      variant="filled"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.name}
+                    />
+                    {formik.touched.name && formik.errors.name ? (
+                      <div style={{ color: "red" }}>{formik.errors.name}</div>
+                    ) : null}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="fullWidth"
+                      label="Email"
+                      type="text"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="filled"
+                      name="email"
+                      // autoFocus
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.email}
+                    />
+                    {formik.touched.email && formik.errors.email ? (
+                      <div style={{ color: "red" }}>{formik.errors.email}</div>
+                    ) : null}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="fullWidth"
+                      label="Password"
+                      type="password"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="filled"
+                      name="password"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.password}
+                      autoComplete="current-password"
+                    />
+                    {formik.touched.password && formik.errors.password ? (
+                      <div style={{ color: "red" }}>{formik.errors.password}</div>
+                    ) : null}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="fullWidth"
+                      label="Mobile"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="filled"
+                      name="mobile_number"
+                      type="text"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.mobile_number}
+                      autoComplete="current-number"
+                  />
+                  {formik.touched.mobile_number && formik.errors.mobile_number ? (
+                      <div style={{ color: "red" }}>{formik.errors.mobile_number}</div>
+                  ) : null}
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                    <Button className="w-100 A1" type='submit' variant="contained">Submit</Button>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={3}></Grid>
-        </Grid>
+        </Box>
       </Box>
     </div>
   )

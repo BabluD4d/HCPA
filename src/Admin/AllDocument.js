@@ -34,47 +34,25 @@ export default function AllDocumentAdmin() {
     }, [])
   return (
     <div>
-      <Typography mt={4} ml={6} sx={{ fontSize: "30px" }}>
-        NDIS Module 1
-      </Typography>
-      {/* <div style={{ display: "flex" }}>
-        <Typography onClick={()=>Navigate("/")}  mt={1} ml={6} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-          Product{" "}
-        </Typography>
-        <Typography onClick={()=>Navigate("/Modelus")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-          {" "}
-          / NDIS
-        </Typography>
-        <Typography onClick={()=>Navigate("/Modelus/all")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
-          {" "}
-          / Modules
-        </Typography>
-        <Typography mt={1} sx={{ fontSize: "14px" }}>
-          {" "}
-          / NDIS Module 1
-        </Typography>
-      </div> */}
-      <hr height={3} />
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>NDIS Module 1</Typography>
       <Grid container>
-      <Grid className="document-module-cus" container xs={12} >
-          <Grid item xs={4} sm={6}>
-          <div style={{display:"flex"}}>
-            <ArrowBackIcon className="back-icon-proact" onClick={()=>Navigate(-1)} />
-              </div>
+        {/* <Grid className="document-module-cus" container xs={12}> */}
+          <Grid item xs={12} sm={6} mb={2}>
+            <div style={{display:"flex"}}>
+              <ArrowBackIcon className="back-icon-proact" onClick={()=>Navigate(-1)} />
+            </div>
           </Grid> 
-
-          <Grid className="text-align-right" item xs={8} sm={6}>
-          <Button onClick={()=>Navigate('/CreateDocuments')}  sx={{  marginBottom:"50px" }} className={"A1"} variant="contained">  Create Document</Button> 
+          <Grid className="text-align-right" item xs={12} sm={6}>
+            <Button onClick={()=>Navigate('/CreateDocuments')}  sx={{width:{xs:'100%', sm:'auto'}}} className={"A1"} variant="contained">  Create Document</Button> 
           </Grid>
+        {/* </Grid> */}
+      </Grid>
 
-          </Grid>
-
-
-
-</Grid>
-      <Grid className="check-boxs-main-cus" container spacing={2}>
-      {loader?    <div style={{marginTop:"14%" ,marginLeft:"41%"}}>
-                <center >
+      <Grid container spacing={2} mb={5}>
+        {
+          loader ?
+            <div style={{marginTop:"14%" ,marginLeft:"41%"}}>
+              <center>
                 <ColorRing
                   visible={true}
                   height="100"
@@ -83,20 +61,16 @@ export default function AllDocumentAdmin() {
                   wrapperStyle={{}}
                   wrapperClass="blocks-wrapper"
                   colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
-                />
-                
-                </center>
-               
-            </div>:<>
-          
-{Data?.map((val,i)=> <DocumentCard edit={true} title={val.document_title} dis={val.description} size={3} hellow={"yes"} val={val} />)}
-</>}
-
-        {/* <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"} />
-        <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>
-        <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>
-        <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/>
-        <DocumentCard edit={true} title={"High Intensity Daily Personal Activities"} dis={"The purpose of this policy and procedure is to set out the relevant NDIS Practice Standards"} size={3} hellow={"yes"}/> */}
+                />  
+              </center>   
+            </div>
+          :
+            <>
+              {
+                Data?.map((val,i)=> <DocumentCard edit={true} title={val.document_title} dis={val.description} size={3} hellow={"yes"} val={val} />)
+              }
+            </>
+        }
       </Grid>
     </div>
   );

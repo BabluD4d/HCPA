@@ -7,12 +7,12 @@ export default function DocumentCard(props) {
   const Navigate=useNavigate()
   return (
    
-    <Grid item mt={3} md={4} lg={4} sm={6} xs={12} xl={props.size}>
+    <Grid item mt={3} md={4} sm={6} xs={12} lg={props.size}>
       <Grid className="box-shadow-doc">
-      <Box p={2}>
+      <Box p={{xs:0, lg:2}}>
         <p className="read-btn">Ready</p>
         <Grid container>
-          <Grid item xs={11} >
+          <Grid item xs={12} >
             <Typography sx={{ fontSize: "21px", fontWeight: "bold" }}>
               {props.title}
             </Typography>
@@ -26,7 +26,7 @@ export default function DocumentCard(props) {
           <Grid item xs={6}>
          {
          props.edit ? <div onClick={() => {localStorage.setItem("document_id",props.val.id); Navigate("/EditDocument");}}>
-            <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"8px" }}>
+            <Typography sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"8px" }}>
               <EditIcon sx={{ color: "#0CB4D0", fontSize: "24px" }} /> Edit 
             </Typography>
           </div>
