@@ -32,7 +32,7 @@ const AdminViewAns = () => {
           }, [])
   return (
     <div>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>User's Answer</Typography>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>User's Answer</Typography>
       <Grid container>
         <Grid xl={3}> 
           <ArrowBackIcon className='back-icon-proact' onClick={()=>Navigate(-1)}/>
@@ -45,7 +45,7 @@ const AdminViewAns = () => {
                 return <>
                 <Grid item xs={12} md={6} lg={4}>
                   <Box className='sedow' sx={{textAlign:"left", backgroundColor: "#f4f4f4", borderRadius:'3px', height:'100%'}}>
-                    <Grid container sx={{borderBottom:'1px solid #dee2e6'}} px={2} py={1}>
+                    <Grid container sx={{borderBottom:'1px solid #bbb5b5'}} px={2} py={1}>
                       <Grid item xs={6}>
                         <Typography sx={{ fontSize: "16px" }}>
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{width:'20px', height:'20px', lineHeight:'20px', verticalAlign:'baseline', marginRight:'5px'}}>

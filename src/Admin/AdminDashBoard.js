@@ -21,6 +21,16 @@ import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import ExportDeshboard from "../Api/Admin/Deshboard/ExportDeshboard";
 import { ColorRing } from "react-loader-spinner";
 import { error } from "jquery";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import DateRangePicker from "react-daterange-picker";
+import "react-daterange-picker/dist/css/react-calendar.css";
+import originalMoment from "moment";
+import { extendMoment } from "moment-range";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+const moment = extendMoment(originalMoment);
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -57,6 +67,10 @@ export default function AdminDashBoard() {
   const Navigate = useNavigate();
   const [ProductData, setProductData] = useState([]);
   const [loader, setloader] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [value, setValue] = useState(
+    moment.range(moment().clone().subtract(1, "months"), moment().clone())
+  );
 
   const GetData = () => {
     ExportDeshboard.getAllDeshbord()
@@ -83,7 +97,7 @@ export default function AdminDashBoard() {
   useEffect(() => {
     GetData();
   }, []);
-  
+
   function isYesterday(date) {
     const today = new Date(date);
 
@@ -101,21 +115,42 @@ export default function AdminDashBoard() {
       today.getFullYear() === yesterday.getFullYear()
     ) {
       return "Yesterday";
-    }   else if (
+    } else if (
       today.getDate() === yesterday.getDate() + 1 &&
       today.getMonth() === yesterday.getMonth() &&
       today.getFullYear() === yesterday.getFullYear()
     ) {
       return "Tomorrow";
-    }
-     else {
+    } else {
       return date;
     }
   }
 
+  const onSelect = (value, states) => {
+    setValue(value);
+    setIsOpen(false);
+  };
+
+  const onToggle = () => {
+    setIsOpen(!isOpen);
+    if (isOpen) {
+      console.log({ value });
+      // props.dateChange(value);
+    }
+  };
   return (
     <div id="main">
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Admin Dashboard</Typography>
+      <Typography
+        className="main-title-ad"
+        fontSize={{ xs: "20px", lg: "30px" }}
+        sx={{
+          borderBottom: "1px solid #bbb5b5",
+          paddingBottom: "15px",
+          marginBottom: "40px",
+        }}
+      >
+        Admin Dashboard
+      </Typography>
       {loader ? (
         <div style={{ marginTop: "24%" }}>
           <center>
@@ -131,145 +166,201 @@ export default function AdminDashBoard() {
           </center>
         </div>
       ) : (
-        <>
-          <Grid container spacing={{xs:2, md:3, lg:5}}>
-            <Grid item sm={4} xs={12}>
-              <Box sx={{p:{xs:2, md:4}, display: "flex", flexWrap:"wrap", height:'100%', alignItems:'center', flexDirection:'column', justifyContent:'center', color: "white", backgroundColor: "#0CB4D0", borderRadius: "20% 0% 20% 0%"}}>
-                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"28px"}, fontWeight: {xs:'500', md:"bold"} }}>Total User</Typography>
-                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"48px"} }} mt={1}><PersonIcon sx={{ fontSize: {xs:'18px', sm:'36px', lg:'48px'}, verticalAlign:'baseline' }}  /> {ProductData?.total_user}</Typography>
-              </Box>
+        <div style={{ position: "relative" }}>
+          <Grid container spacing={{ xs: 2, md: 3, lg: 5 }}>
+            <Grid container>
+              <Grid item sm={8} xs={12} pt={4} pl={5}>
+                <h3>OVERVIEW</h3>
+              </Grid>
+
+              <Grid item sm={4} pt={4} xs={12}>
+                <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "fit-content",
+                      cursor: "pointer",
+                    }}
+                    onClick={onToggle}
+                  >
+                    <h4>
+                      <div style={{ marginTop: "5px", marginLeft: "5px" }}>
+                        <CalendarMonthIcon
+                          style={{ marginTop: "-10px", marginRight: "5px" }}
+                        />
+                        {" " + " " + "Date Range : "}
+                        {value.start.format("DD MMM  YYYY")}
+                        {" - "}
+                        {value.end.format("DD MMM  YYYY")}
+                      </div>
+                    </h4>
+                    {/* {isOpen && (<button className="date-apply button" onClick={onToggle}>Apply</button>)} */}
+                  </div>
+                  {isOpen && (
+                    <div
+                      className="date-range"
+                      style={{
+                        position: "absolute",
+                        zIndex: "1",
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      <DateRangePicker
+                        value={value}
+                        onSelect={onSelect}
+                        singleDateRange={false}
+                      />
+                    </div>
+                  )}
+                </div>
+              </Grid>
             </Grid>
             <Grid item sm={4} xs={12}>
-              <Box sx={{p:{xs:2, md:4}, display: "flex", flexWrap:"wrap", height:'100%', alignItems:'center', flexDirection:'column', justifyContent:'center', color: "white", backgroundColor: " #097EAF", borderRadius: "20% 0% 20% 0%"}}>
-                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"28px"}, fontWeight: {xs:'500', md:"bold"} }}>Total Product</Typography>
-                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"48px"} }} mt={1}><Inventory2Icon sx={{fontSize: {xs:'18px', sm:'36px', lg:'48px'}, verticalAlign:'baseline'}}  />{ProductData?.product_count}</Typography>
-              </Box>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#233b77", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Products Sold </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
             </Grid>
             <Grid item sm={4} xs={12}>
-              <Box sx={{p:{xs:2, md:4}, display: "flex", flexWrap:"wrap", height:'100%', alignItems:'center', flexDirection:'column', justifyContent:'center', color: "white", backgroundColor: "#233B77", borderRadius: "20% 0% 20% 0%"}}>
-                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"28px"}, fontWeight: {xs:'500', md:"bold"} }}>Total Modules</Typography>
-                <Typography sx={{ fontSize: {xs:'18px', md:'24px', lg:"48px"} }} mt={1}><ConnectWithoutContactIcon sx={{fontSize: {xs:'18px', sm:'36px', lg:'48px'}, verticalAlign:'baseline'}} /> {ProductData?.module_count}</Typography>
-              </Box>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#233b77", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>New Clients Added</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </Grid>
+            <Grid item sm={4} xs={12}>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#233b77", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Meeting Booked</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
             </Grid>
           </Grid>
 
-          <Grid container mt={5}>           
-            <Grid className="table-grid-co" item xs={12}>
-
-              <Grid container alignItems="center" mb={1}>
-                <Grid item xs={6}>
-                  <Typography className="ad-title-mb" fontSize={{xs:'20px', lg:'30px'}} sx={{fontWeight: "bold" }}>Call Book List</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography className="view-all-common"  onClick={() => {Navigate("/callList");}} sx={{color: "#0CB4D0", fontSize: {xs:'16px', lg:"20px"}, cursor: "pointer"}}>
-                  <RemoveRedEyeIcon sx={{color: "#0CB4D0", verticalAlign:'baseline', fontSize: "20px"}} />View All List</Typography>
-                </Grid>
-              </Grid>
-
-              <TableContainer className="table-com-ar" component={Paper}>
-                <Table aria-label="customized table">
-
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>User Name </StyledTableCell>
-                      <StyledTableCell>Date </StyledTableCell>
-                      <StyledTableCell>Time</StyledTableCell>
-                      <StyledTableCell>Call Type</StyledTableCell>
-                      <StyledTableCell>Job Title</StyledTableCell>
-                      <StyledTableCell>Contact Number</StyledTableCell>
-                      <StyledTableCell>Notes</StyledTableCell>
-                    </TableRow>
-                  </TableHead>
-
-                  <TableBody>
-                    {ProductData?.call_list?.map((row) => (
-                      <StyledTableRow key={row.full_name}>
-                        <StyledTableCell component="th" scope="row">{row.full_name}</StyledTableCell>
-                        <StyledTableCell align="left">{isYesterday(row.date)}</StyledTableCell>
-                        <StyledTableCell align="left">{row.time}</StyledTableCell>
-                        <StyledTableCell align="left">{row.call_type == 1 ? "Purchase product" : row.call_type == 2 ? "Purchase modelus" : "Other reasion Type"}</StyledTableCell>
-                        <StyledTableCell align="left">{row.jobtitle}</StyledTableCell>
-                        <StyledTableCell align="left">{row.contact_number}</StyledTableCell>
-                        <StyledTableCell align="left">{row.notes}</StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+          <Grid
+            container
+            sx={{ marginBlock: "60px", borderBottom: "0.5px solid #bbb5b5" }}
+          ></Grid>
+          <Grid container spacing={{ xs: 2, md: 3, lg: 5 }} mt={5}>
+            <Grid className="product-table-ar" item lg={6} xs={12}>
+              <h4>Clients</h4>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>All Clients </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
             </Grid>
-
-
-            <Grid className="overflow-hide" container mt={0} mb={5} spacing={5}>                  
-              <Grid item lg={6} xs={12}>
-                <Grid container alignItems="center" mb={1}>
-                  <Grid item xs={6}>
-                    <Typography className="ad-title-mb" fontSize={{xs:'20px', lg:'30px'}} sx={{fontWeight: "bold" }}>User List</Typography>
-                  </Grid>
-                  <Grid item xs={6} textAlign="right">
-                    <Typography variant="span" className="view-all-common" onClick={() => {Navigate("/UserList")}} sx={{color: "#0CB4D0", fontSize: {xs:'16px', lg:"20px"}, cursor: "pointer"}}>
-                      <RemoveRedEyeIcon sx={{color: "#0CB4D0", verticalAlign:'baseline', fontSize: "20px"}} />View All List
-                    </Typography>
-                  </Grid>
-                </Grid>
-                
-                <TableContainer className="user-product-list-table user-list-table" component={Paper}>
-                  <Table aria-label="customized table">
-                    <TableHead>
-                      <TableRow>
-                        <StyledTableCell>User Name </StyledTableCell>
-                        <StyledTableCell>Email </StyledTableCell>
-                        <StyledTableCell>Mobile</StyledTableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {ProductData?.userlist?.map((row) => (
-                        <StyledTableRow key={row.name}>
-                          <StyledTableCell component="th" scope="row">{row.name}</StyledTableCell>
-                          <StyledTableCell align="left">{row.email}</StyledTableCell>
-                          <StyledTableCell align="left">{row.mobile_number}</StyledTableCell>
-                        </StyledTableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
-
-              <Grid className="product-table-ar" item lg={6} xs={12}>
-                <Grid container alignItems="center" mb={1}>
-                  <Grid item xs={6}>
-                    <Typography className="ad-title-mb" fontSize={{xs:'20px', lg:'30px'}} sx={{fontWeight: "bold" }}>Product List</Typography>
-                  </Grid>
-                  <Grid item xs={6} textAlign="right">
-                    <Typography variant="span" className="view-all-common" onClick={() => {Navigate("/Productlist")}} sx={{color: "#0CB4D0", fontSize: {xs:'16px', lg:"20px"}, cursor: "pointer"}}>
-                      <RemoveRedEyeIcon sx={{color: "#0CB4D0", verticalAlign:'baseline', fontSize: "20px"}} />View All List
-                    </Typography>
-                  </Grid>
-                </Grid>
-
-                <TableContainer className="user-product-list-table" component={Paper}>
-                  <Table aria-label="customized table">
-                    <TableHead>
-                      <TableRow>
-                        <StyledTableCell>Product Name </StyledTableCell>
-                        <StyledTableCell align="left">Modules </StyledTableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {ProductData?.product?.map((row, i) => {
-                        return i <= 4 ? (
-                          <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">{row.product_name}</StyledTableCell>
-                            <StyledTableCell>{row.total_module}</StyledTableCell>
-                          </StyledTableRow>
-                        ) : null;
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </Grid>
+            <Grid className="product-table-ar" item lg={6} xs={12}>
+              <h4>HCPA Staff</h4>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>All Clients </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </Grid>
+            <Grid className="product-table-ar" item lg={6} xs={12}>
+            <h4>Products</h4> 
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>All Clients </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </Grid>
+            <Grid className="product-table-ar" item lg={6} xs={12}>
+            <h4>Modules</h4> 
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>All Clients </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse malesuada lacus ex, sit amet blandit leo
+                    lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
             </Grid>
           </Grid>
-        </>
+        </div>
       )}
     </div>
   );

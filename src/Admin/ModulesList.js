@@ -231,7 +231,7 @@ export default function ModulesList() {
   };
   return (
     <div>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Moduels List</Typography>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Moduels List</Typography>
         <Grid container>
         <Grid xl={9} md={8} sm={12} xs={12}>
           <FormControl fullWidth>

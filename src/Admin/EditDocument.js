@@ -138,7 +138,7 @@ export default function EditDocument() {
 
   return (
     <div>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Edit Document</Typography>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Edit Document</Typography>
       <Box component="form" onSubmit={formik.handleSubmit}>
         <Grid container spacing={2} mb={5}>
 

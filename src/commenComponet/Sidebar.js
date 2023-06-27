@@ -59,14 +59,20 @@ const Sidebar = () => {
     setCount(localStorage.getItem("activeProduct"))
     GetData()
     setData(JSON.parse(localStorage.getItem("userdata")))
-    window.addEventListener("Togle", () => sethideShow(true));
   }, []);
-
+  
+  window.addEventListener("Togle", TogleFu);
   function eventHandler() {
     setData(JSON.parse(localStorage.getItem("userdata")))
     // Event handling logic goes here
     // Remove the event listener after it is fired
     window.removeEventListener('UserChange', eventHandler);
+  }
+  function TogleFu() {
+    sethideShow(!hideShow)
+    // Event handling logic goes here
+    // Remove the event listener after it is fired
+    window.removeEventListener('Togle',TogleFu)
   }
   
   window.addEventListener('UserChange', eventHandler);
@@ -119,16 +125,16 @@ const Sidebar = () => {
               style={{
                 position: "fixed",
                 backgroundColor: "white",
-                height: "100vh",
+                height: "calc(100vh - 90px)",
                 maxWidth: "300px",
                 width:'100%',
-                top:0,
+                top:'90px',
                 bottom:0,
                 boxShadow:'0px 0 10px -3px #212529'
               }}
             >
               <div style={{height: '100vh', paddingBottom:'100px'}}>
-                <div style={{ display: "flex", paddingLeft: "20%" }}>
+                {/* <div style={{ display: "flex", paddingLeft: "20%" }}>
                   <img
                     style={{ marginLeft: "30px" }}
                     onClick={() => {
@@ -142,7 +148,7 @@ const Sidebar = () => {
 
                     <ClearIcon />
                   </p>
-                </div>
+                </div> */}
 
                 {/* <Typography className='pagestxt' >pages</Typography> */}
                 <List md={2} lg={2} mt={8} sm={0} xl={2} item xs={2} sx={{overflowY:'auto', height: '100%', paddingBottom:'90px'}}>
@@ -458,7 +464,7 @@ const Sidebar = () => {
             <Grid
               item
               className="leftCol"
-              sx={{ height: "100vh", overflow: "auto", boxShadow:'0px 0 10px -3px #212529', position:'relative' }}
+              sx={{ height: "90vh", overflow: "auto", boxShadow:'0px 0 10px -3px #212529', position:'relative' }}
               pb={12}
               md={2}
               lg={2}
@@ -466,16 +472,16 @@ const Sidebar = () => {
               xl={2}
               xs={2}
             >
-              <div className="leftCol" style={{height:'100%', overflowY:'auto', overflowX:'hidden' }}>
+              <div className="leftCol" style={{height:'90%', overflowY:'auto', overflowX:'hidden' }}>
                 {/* <div style={{backgroundColor:"#233b77"}}> */}
 
-                <img
+                {/* <img
                   onClick={() => {Activeclass("/")}}
                   src={Logo1}
                   width={"90%"}
                   style={{margin:'auto', display:'block'}}
                   alt=""
-                />
+                /> */}
                 {/* </div>
                  */}
                 {/* <Typography className='pagestxt' >pages</Typography> */}

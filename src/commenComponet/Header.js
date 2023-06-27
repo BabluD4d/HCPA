@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import { ListGroup, Modal } from "react-bootstrap";
 import ExportDocumentuser from "../Api/user/Document/ExportDocumentuser";
 import CloseIcon from '@mui/icons-material/Close';
+import Logo from '../img/newlogo.png'
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -89,48 +90,56 @@ const Header = () => {
   // FileUserFilter
   return (
     <>
-    {
-      console.log(localStorage.getItem('role'), 'role is here...')
-    }
       {loaction.pathname == "/" ? null : (
-        <Box className={`header ${localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 'user-header':'admin-header'}`} px={{xs:2, md:6}}>
+        <Box className={`header ${localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 'user-header':'admin-header'}`} px={{xs:2, md:6}} sx={{position: 'fixed', left: 0, right: 0, top: 0, zIndex:9}}>
           <Grid container sx={{alignItems:'center', justifyContent:'space-between', height:{xs:'auto', sm:'100%'}}}>              
-              <Grid item xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 12 : 'auto'} sm='auto' sx={{order:localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 && {xs:2, sm:1} }}>
-                <div style={{ display: "flex" }}> 
-                  <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle icon-near-search">
+            
+            <Grid  item md={2} xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 12 : 'auto'} sx={{order:localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 && {xs:2, sm:1} }}>
+                <div style={{ display: "flex", flexWrap:'wrap', alignItems:'center' }}> 
+                  <img src={Logo} className="header-logo" alt="header logo" />
+                  <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle icon-near-search" sx={{alignSelf:'flex-end'}}>
                     <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
                   </div>
                 {
-                localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
-                  <Search className="serchbar">
-                    <SearchIconWrapper >
-                      <SearchIcon  />
-                    </SearchIconWrapper>
-                    {SerchValue?<CrossIconWrapper>
-                      <CloseIcon onClick={()=>{setSerchValue("")}} />
-                    </CrossIconWrapper>:null}
-                    
-                    <StyledInputBase
-                      placeholder="Search Document"
-                      inputProps={{ "aria-label": "search" }}
-                      value={SerchValue}
-                      onChange={(e, val) =>{ ;
-                      if(e.target.value){
-                        setSerchValue(e.target.value)
-                          GetData(e.target.value)
-                        }else{
-                          setSerchValue("")
-                          setData()
+                  localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
+                    <Search className="serchbar">
+                      <SearchIconWrapper >
+                        <SearchIcon  />
+                      </SearchIconWrapper>
+                      {SerchValue?<CrossIconWrapper>
+                        <CloseIcon onClick={()=>{setSerchValue("")}} />
+                      </CrossIconWrapper>:null}
+                      
+                      <StyledInputBase
+                        placeholder="Search Document"
+                        inputProps={{ "aria-label": "search" }}
+                        value={SerchValue}
+                        onChange={(e, val) =>{ ;
+                        if(e.target.value){
+                          setSerchValue(e.target.value)
+                            GetData(e.target.value)
+                          }else{
+                            setSerchValue("")
+                            setData()
+                          }
                         }
-                      }
-                      }
-                    />
-                  </Search>
-                )
+                        }
+                      />
+                    </Search>
+                  )
                 }
-              </div>
+                
+                </div>
             </Grid>
-            <Grid item xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 12: 'auto'} sm='auto' sx={{order:localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 && {xs:1, sm:2}}}>
+
+            <Grid md={8} sx={{display:{xs:'none', sm:'flex'}, alignItems:{xs:'flex-start', md:'center'},flexDirection:{xs:'column', md:'row'}, alignSelf:{ xs:'initial', xl:'flex-end'}, fontWeight:'500',color:'#ffffff', paddingBottom:{xs:0, xl:'4px'}}}>
+              <Box component="span" sx={{fontSize:{xs:'14px', md:'24px', fontWeight:'600'}, alignItems:'center', display:'inline-block'}}>HCPA Staff Portal </Box>
+              <Box component="span">
+                <Box component="span" sx={{display: {xs:'none', md:'inline-block'}, fontSize:'14px', marginLeft:'15px', marginRight:'15px'}}>|</Box> Katherine Byeon [Super Admin]
+              </Box>
+            </Grid>
+
+            <Grid item md='auto' xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 12: 'auto'} sx={{order:localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 && {xs:1, sm:2}}}>
               <Box sx={{display: 'flex', flexWrap:'wrap', alignItems:'flex-start', justifyContent:{xs:'space-between'}}}>
               {
               localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
@@ -150,13 +159,15 @@ const Header = () => {
               )
               }
               {/* <p style={{color:"white"}}>Log out</p> */}
+              <Box sx={{color:'white'}}>Logout</Box>
               <LogoutIcon
                 onClick={() => setModalShow(true)}
-                sx={{ textAlign: "left", cursor: "pointer" }}
+                sx={{ textAlign: "left", cursor: "pointer", marginTop: '-4px', marginLeft:'10px' }}
                 className="serchbarrighticon"
               />
               </Box>
             </Grid>
+
           </Grid>
           <ToastContainer
             position="top-right"

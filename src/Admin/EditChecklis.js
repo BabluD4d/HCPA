@@ -130,7 +130,7 @@ export default function EditChecklis() {
   });
   return (
     <div>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Create Checklist</Typography>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Create Checklist</Typography>
       <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
         <Grid container mt={2}>
           <Grid xs={2}>

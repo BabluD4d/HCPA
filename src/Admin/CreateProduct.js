@@ -78,7 +78,7 @@ export default function CreateProduct() {
         className="main-title-ad"
         fontSize={{ xs: "20px", lg: "30px" }}
         sx={{
-          borderBottom: "1px solid #dee2e6",
+          borderBottom: "1px solid #bbb5b5",
           paddingBottom: "15px",
           marginBottom: "40px",
         }}

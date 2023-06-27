@@ -189,7 +189,7 @@ export default function UserActiveModule() {
 
   return (
     <>
-      {/* <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Module List</Typography> */}
+      {/* <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Module List</Typography> */}
       <Grid container>
         <Grid xl={3}> 
           <ArrowBackIcon className='back-icon-proact' onClick={()=>Navigate('/UserList/product/active')} />
@@ -214,7 +214,7 @@ export default function UserActiveModule() {
         <>
           <Box mt={{xs:0, md:5}}>
             <Grid>
-              <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px'}}>Module List </Typography>
+              <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px'}}>Module List </Typography>
               <Grid container>
                 <Grid item xs={12}>
                   <Box mt={4}>
@@ -252,7 +252,7 @@ export default function UserActiveModule() {
           <Box mb={5}>
             <Grid container>
               <Grid item mt={5} xs={12}>
-              <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>CheckList</Typography>
+              <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>CheckList</Typography>
                 <Table>
                   <TableHead>
                     <TableRow>

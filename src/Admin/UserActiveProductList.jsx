@@ -159,7 +159,7 @@ export default function UserActiveProductList() {
   return (
     <div>
       <div>
-        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>Product List </Typography>
+        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Product List </Typography>
         <Grid container>
           <Grid sm={12} >
             <ArrowBackIcon className="back-icon-proact"

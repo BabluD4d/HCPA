@@ -97,6 +97,7 @@ table.table {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+.header-logo {height: 70px;}
 .Accordion123 {
   /* border-bottom: white 2px solid !important; */
 }
@@ -911,7 +912,12 @@ margin-right: auto !important;
 }
 
 @media screen and (max-width:599px){
-.chek-btn-size button{
-  font-size: 11px;
-}
+  .header-logo {height: 50px;}
+  .chek-btn-size button{
+    font-size: 11px;
+  }
+  .header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }

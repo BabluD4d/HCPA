@@ -34,7 +34,7 @@ export default function AllDocumentAdmin() {
     }, [])
   return (
     <div>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #dee2e6', paddingBottom:'15px', marginBottom:'40px'}}>NDIS Module 1</Typography>
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>NDIS Module 1</Typography>
       <Grid container>
         {/* <Grid className="document-module-cus" container xs={12}> */}
           <Grid item xs={12} sm={6} mb={2}>

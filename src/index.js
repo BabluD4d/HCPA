@@ -4,7 +4,7 @@ import './App.css';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Link, Routes } from "react-router-dom";
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Box } from '@mui/material';
 import Sidebar from './commenComponet/Sidebar';
 import Header from './commenComponet/Header';
 import DashBoard from './User/Componet/DashBoard';
@@ -53,7 +53,7 @@ import ForgotSet from './commenComponet/ForgotSet';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <div className='wrapper'>
+    <Box className='wrapper' sx={{paddingTop: '90px'}}>
     {/* <div className='wrapper'> */}
       <Routes>
         <Route path="/" element={<Public />}>
@@ -107,7 +107,7 @@ root.render(
         </Route>
         <Route path='*' element={<NotFound />} />           
       </Routes>
-    </div>
+    </Box>
   </BrowserRouter>
 );
 
