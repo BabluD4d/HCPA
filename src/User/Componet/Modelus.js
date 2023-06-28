@@ -139,7 +139,7 @@ const Modelus = () => {
               mt={1}
               sx={{ fontSize: "14px", color: "#0CB4D0" }}
             >Product</Typography>
-            <Typography mt={1} sx={{ fontSize: "14px" }}> / {Product.product_name}</Typography>
+            <Typography mt={1} sx={{ fontSize: "14px",marginLeft:"7px" }}> {" / "} {Product.product_name}</Typography>
           </div>
           <hr height={3} />
           {Product.purchase_status == 0 ? (
@@ -186,7 +186,9 @@ const Modelus = () => {
                     <Grid container spacing={{xs:1, lg:3}} mt={2}>
 
                       <Grid item md={4} xs={12} sm={6}>
-                        <Box sx={{ color: "white", backgroundColor: "#0CB4D0", p:3, height:'100%', display:"flex", alignItems:'center' }}>
+                        <Box sx={{ color: "white", backgroundColor: "#0CB4D0", p:3, height:'100%', display:"flex", alignItems:'center',cursor:"pointer" }}   onClick={() => {
+                              Navigate("/Modelus/Guides");
+                            }}>
                           <Grid container>
                             <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
                                 <ExitToAppSharpIcon sx={{ fontSize: "45px" }} />
@@ -201,7 +203,7 @@ const Modelus = () => {
                       </Grid>
 
                       <Grid item md={4} xs={12} sm={6}>
-                        <Box sx={{ color: "white", backgroundColor: "#097EAF", p:3, height:'100%', display:"flex", alignItems:'center' }}>
+                        <Box sx={{ color: "white", backgroundColor: "#097EAF", p:3, height:'100%', display:"flex", alignItems:'center'}}>
                           <Grid container>
                           <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
                               {/* <Typography mt={5} mb={5} ml={5}> */}
@@ -210,7 +212,7 @@ const Modelus = () => {
                             </Grid>
                             <Grid item xs={9}>
                               <Typography sx={{ fontSize: "18px" }}>Step 2</Typography>
-                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Complete form checklists</Typography>
+                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Complete checklists</Typography>
                               <Typography sx={{ fontSize: "14px" }}>Finish to guarantee your application</Typography>
                             </Grid>
                           </Grid>
@@ -218,15 +220,15 @@ const Modelus = () => {
                       </Grid>
 
                       <Grid item md={4} xs={12} sm={6}>
-                        <Box sx={{ color: "white", backgroundColor: "#233B77;", p:3, height:'100%', display:"flex", alignItems:'center' }}>
+                        <Box sx={{ color: "white", backgroundColor: "#233B77;", p:3, height:'100%', display:"flex", alignItems:'center' ,cursor:"pointer" }}onClick={() => Navigate("/Modelus/all")}>
                           <Grid container>
                             <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
                                 <ViewModuleSharpIcon sx={{ fontSize: "45px" }} />
                             </Grid>
                             <Grid item xs={9}>
                               <Typography sx={{ fontSize: "18px" }}>Step 3</Typography>
-                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Use Modules</Typography>
-                              <Typography sx={{ fontSize: "14px" }}>Expport ready-made document</Typography>
+                              <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Download Modules</Typography>
+                              <Typography sx={{ fontSize: "14px" }}>Export documents</Typography>
                             </Grid>
                           </Grid>
                         </Box>
@@ -243,7 +245,7 @@ const Modelus = () => {
                             DataNotFoundmodule ? (
                               <Typography variant="span" fontSize={{xs:'16px'}} color="#FF0000">{DataNotFoundmodule}</Typography>
                             ) : (
-                              <Typography variant="span" sx={{color: "#0CB4D0", fontSize: "14px", cursor: "pointer",}} onClick={() => Navigate("/Modelus/all")}>View Modelus</Typography>
+                              <Typography variant="span" sx={{color: "#0CB4D0", fontSize: "14px", cursor: "pointer",}} onClick={() => Navigate("/Modelus/all")}>View Modules</Typography>
                             )
                           }
                         </Grid>
@@ -329,7 +331,7 @@ const Modelus = () => {
                                   marginBottom: "5px",
                                 }}
                               /> */}
-                              View Modelus
+                              View Modules
                             </Typography>
                           </Grid>
                         </Grid>

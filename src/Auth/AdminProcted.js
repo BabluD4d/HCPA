@@ -11,11 +11,10 @@ const AdminProctected = () => {
       <Header />
       <Grid container>
         <Sidebar />
-        <Grid item xs={12} xl={10} sx={{ height: "100vh", overflow: "auto" }}>
+        <Grid item xs={12} xl={12} sx={{ height: "100vh", overflow: "auto", width: 'calc(100% - 320px)', paddingLeft: '320px', paddingTop: '120px' }}>
           <Box
             className="outer-wrapper"
             px={{ xs: 2, md: 6 }}
-            pt={{ xs: 2, md: 6 }}
           >
             <Outlet />
           </Box>

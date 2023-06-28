@@ -8,7 +8,9 @@ const RegistrationGuide = () => {
   const [Product, setProduct] = useState(JSON.parse(localStorage.getItem("UserProduct")));
   const [Data, setData] = useState(JSON.parse(localStorage.getItem("userdata"))); 
   const Navigate= useNavigate()
-  const [ModuleData, setModuleData] = useState();
+  const [ModuleData, setModuleData] = useState([]);
+  const [Count, setCount] = useState(0);
+  
   window.addEventListener("activeProduct", () => setTimeout(() => {
     setProduct(JSON.parse(localStorage.getItem("UserProduct")))
   },));
@@ -24,6 +26,11 @@ const RegistrationGuide = () => {
           if (resp.ok) {
             if (resp.data) {
               if(resp.data.data.registration_guid){
+                resp.data.data.registration_guid.map((val,i)=>{
+                  if(val.guid_status==1){
+                    setCount(Count+1)
+                  }
+                })
                setModuleData(resp.data.data.registration_guid)
               }
             }
@@ -60,10 +67,10 @@ const RegistrationGuide = () => {
         </Grid>
       </Grid>
       <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>
-        7 of 14 Guides Completed
+       {Count} of {ModuleData?.length} Guides Completed
       </Typography>
       {ModuleData?.map((val,i)=>
-        <GuidesList ModulesList={ModulesList} title={val.title} val={val} Stuts={val.guid_status} />
+        <GuidesList count={ModuleData?.length} index={i} ModulesList={ModulesList} title={val.title} val={val} Stuts={val.guid_status} />
         )}
 
         {/* <GuidesList title={"fdgf"} Stuts={"3"} />

@@ -18,6 +18,7 @@ const DashBoard = () => {
   );
   const [FileData, setFileData] = useState([]);
   const Navigate = useNavigate();
+  const [DataUser, setDataUser] = useState(JSON.parse(localStorage.getItem("userdata"))); 
   const [Data, setData] = useState();
   const [loader, setloader] = useState(true);
   const [ProductData, setProductData] = useState([]);
@@ -106,10 +107,10 @@ const DashBoard = () => {
           </Typography>
           <hr height={3} />
           <Typography mt={4} fontSize={{xs:'20px', lg:'30px'}}>
-            Welcome to the HCPA Portal Davis
+            Welcome to your HCPA Portal, {DataUser?.name}
           </Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12} lg={9}>
+            <Grid item xs={12} lg={11}>
               <Box pt={5}>
                 <Typography sx={{ fontSize: "20px" }}>Welcome Video</Typography>
                 <div className="playerDiv">
@@ -123,7 +124,7 @@ const DashBoard = () => {
                   />
                 </div>
               </Box>
-              <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>Product</Typography>
+              <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>Purchased Products</Typography>
               <Grid container spacing={{xs:2, lg:4}} mt={2}>
                 {ProductData?.map((val, i) => {
                   return (
@@ -141,7 +142,7 @@ const DashBoard = () => {
                 })}
               </Grid>
             </Grid>
-            <Grid item xs={12} lg={3}>
+            {/* <Grid item xs={12} lg={3}>
               <Box pl={{xs:2, md:6, lg:2}} pt={5} onClick={()=>Navigate("/Files")} >
                 <Typography
                   mt={5}
@@ -183,7 +184,7 @@ const DashBoard = () => {
               </div>}
              
              
-            </Grid>
+            </Grid> */}
           </Grid>
           <Futer />
         </>

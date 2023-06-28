@@ -87,7 +87,7 @@ const hendleSubmit =()=>{
   return (
     <div>
       <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>
-        Create Banner User
+        Clients Portal
       </Typography>
              {loader?    <div style={{marginTop:"22%"}}>
                 <center >
@@ -104,8 +104,15 @@ const hendleSubmit =()=>{
                 </center>
                
             </div>:
-      <Grid className="banner-section-cus" container spacing={4} mt={2}>
+            <>
+        <Typography  fontSize={{xs:'15px', lg:'20px'}} >
+        Clients Deshboard
+      </Typography>
+      <Grid className="banner-section-cus" container spacing={2} ml={6} mt={2}>
         {/* <Grid xl={3}></Grid> */}
+        <Typography  fontSize={{xs:'15px', lg:'20px'}} >
+        Welcome Video File
+      </Typography>
         <Grid xs={12}>
           {formik.values?.file?.size}
           <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
@@ -223,7 +230,7 @@ const hendleSubmit =()=>{
         </Modal.Body>
         <Modal.Footer></Modal.Footer>
       </Modal>
-      </Grid>}
+      </Grid></>}
     </div>
   );
 }

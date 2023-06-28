@@ -710,7 +710,7 @@ text-align: center;
 /***************************************/
 .banner-section-cus{
   max-width: 60%;
-  margin:auto !important;
+  margin-left:5%;
 }
 
 @media screen and (max-width:768px){

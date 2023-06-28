@@ -53,7 +53,7 @@ import ForgotSet from './commenComponet/ForgotSet';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <Box className='wrapper' sx={{paddingTop: '90px'}}>
+    <Box className='wrapper'>
     {/* <div className='wrapper'> */}
       <Routes>
         <Route path="/" element={<Public />}>

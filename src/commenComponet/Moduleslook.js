@@ -11,14 +11,14 @@ const Navigate=useNavigate()
       <Box className="sedow" sx={{backgroundColor:"#E4EFFA", borderRadius:'5px'}} p={2}>
         <Grid container>
           <Grid item xs={10}>
-            <Typography sx={{fontSize: "15px"}}>available document {" " + props.Module.total_document}</Typography>
+            <Typography sx={{fontSize: "15px"}}>Available Documents {" " + props.Module.total_document}</Typography>
             <Typography sx={{ fontSize: "20px", fontWeight: "bold" }} >{props.Module.module_name}</Typography>
           </Grid>
           <Grid item xs={2} textAlign="right">
             <LockIcon /> 
           </Grid>          
           <Grid xs={12} mt={3}>
-            <Button onClick={()=>Navigate("/BookCall/2")} variant="contained" sx={{backgroundColor:"#0CB4D0"}}> Purchase Modelus</Button>
+            <Button onClick={()=>Navigate("/BookCall/2")} variant="contained" sx={{backgroundColor:"#0CB4D0"}}> Purchase Modules</Button>
           </Grid>
         </Grid>
       </Box>

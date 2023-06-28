@@ -141,17 +141,17 @@ const GuidesList = (props) => {
                     backgroundColor: "#E0E0E0",
                   }}
                 >
-                  Curent Chapter
+                  Curent Chapter 
                 </Typography>
                 <Typography ml={1} sx={{ fontSize: "13px" }}>
-                  1 of 14 guides comp
+                {props.index+1} of {props.count} guides comp
                 </Typography>
               </div>
               <Typography
                 mt={1}
                 sx={{ fontSize: "18px", fontWeight: "bold" }}
               >
-                Chapter 1-Geting Started
+                Chapter {props.index+1}-{props.title}
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>

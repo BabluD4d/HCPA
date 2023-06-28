@@ -285,7 +285,7 @@ const Sidebar = () => {
                             }
                           />
                         </ListItemIcon>
-                        <ListItemText primary={"User Deshboard"} />
+                        <ListItemText primary={"Client Portal"} />
                       </ListItemButton>
                     </ListItem>
                   </> : <>
@@ -330,10 +330,11 @@ const Sidebar = () => {
                     </ListItem>
 
                     <Accordion
+                    defaultExpanded
                       style={{ width: "100%" }}
                       className="Accordion123"
-                      expanded={expanded === "panel1"}
-                      onChange={handleChange("panel1")}
+                      // expanded={expanded === "panel1"}
+                      // onChange={handleChange("panel1")}
                       sx={{ borderBottom: "none !important" }}
                     >
                       <AccordionSummary
@@ -419,8 +420,10 @@ const Sidebar = () => {
                       width: "100%",
                       left:0,
                       bottom:0,
-                      paddingTop: "10px",
-                      paddingBottom: "10px",
+                      paddingTop: "25px",
+                      paddingBottom: "25px",
+                      paddingLeft: "25px",
+                      paddingRight: "25px",
                       textAlign: "center",
                       cursor: "pointer",
                       color: "white",
@@ -428,12 +431,17 @@ const Sidebar = () => {
                     onClick={() => Navigate(Admin?"/Profile/Admin":"/profile")}
                   >
                     <Grid container alignItems="center">
-                      <Grid item className="profile" xs={4}>
+                      <Grid item className="profile" xs={12} sx={{textAlign:'left'}}>
                         <img style={{ borderRadius: "50%" }} src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80"} width={70} alt="" />
                       </Grid>
-                      <Grid item xs={8} textAlign="left">
-                        <Typography textTransform="capitalize">{Data?.name}</Typography>
+                      <Grid item xs={12} textAlign="left">
+                        <Typography textTransform="capitalize">{`[${Data?.name}]`}</Typography>
                         <Typography>{Data?.email}</Typography>
+                        <Typography sx={{textAlign:'right'}}>Edit Profile 
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{fontSize: '14px', width:'20px', marginTop: '-15px', marginLeft:'10px'}}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                          </svg>                          
+                        </Typography>
                       </Grid>
                     </Grid>
                   </Box>
@@ -464,15 +472,25 @@ const Sidebar = () => {
             <Grid
               item
               className="leftCol"
-              sx={{ height: "90vh", overflow: "auto", boxShadow:'0px 0 10px -3px #212529', position:'relative' }}
-              pb={12}
+              sx={{
+                position: 'fixed',
+                left: 0,
+                top: 90,
+                width: 320,
+                maxWidth: '100%',
+                zIndex: 8,
+                background: '#ffffff',
+                height: 'calc(100vh - 90px)', overflow: "auto", boxShadow:'0px 0 10px -3px #212529'
+              }}
+              // sx={{ height: 'calc(100vh - 90px)', overflow: "auto", boxShadow:'0px 0 10px -3px #212529', position:'relative' }}
+              // pb={12}
               md={2}
               lg={2}
               sm={2}
               xl={2}
               xs={2}
             >
-              <div className="leftCol" style={{height:'90%', overflowY:'auto', overflowX:'hidden' }}>
+              <div className="leftCol" style={{height:'100%', overflowY:'auto', overflowX:'hidden' }}>
                 {/* <div style={{backgroundColor:"#233b77"}}> */}
 
                 {/* <img
@@ -485,7 +503,7 @@ const Sidebar = () => {
                 {/* </div>
                  */}
                 {/* <Typography className='pagestxt' >pages</Typography> */}
-                <List md={2} lg={2} mt={8} sm={0} xl={2} item xs={2}>
+                <List md={2} lg={2} mt={8} sm={0} xl={2} item xs={2} p={0} sx={{height:"calc(100% - 192px)", overflow:'auto'}}>
                   {Admin ? <>
                     <ListItem
                       className={
@@ -540,6 +558,7 @@ const Sidebar = () => {
                         <ListItemText primary={"User List "} />
                       </ListItemButton>
                     </ListItem>
+
                     <ListItem
                       className={loaction.pathname == "/callList" ? "active" : ""}
                       onClick={() => {
@@ -579,6 +598,7 @@ const Sidebar = () => {
                         <ListItemText primary={"Product List"} />
                       </ListItemButton>
                     </ListItem>
+
                     <ListItem
                       className={
                         loaction.pathname.includes("Modules") || loaction.pathname == "/Admin/AllDocumentAdmin" || loaction.pathname == "/CreateDocuments" || loaction.pathname == "/EditDocument" ? "active" : ""
@@ -599,6 +619,7 @@ const Sidebar = () => {
                         <ListItemText primary={"Modules List"} />
                       </ListItemButton>
                     </ListItem>
+
                     <ListItem
                       className={
                          loaction.pathname == "/UserDeshboard" ? "active" : ""
@@ -616,7 +637,7 @@ const Sidebar = () => {
                             }
                           />
                         </ListItemIcon>
-                        <ListItemText primary={"User Dashboard"} />
+                        <ListItemText primary={"Client Portal"} />
                       </ListItemButton>
                     </ListItem>
                   </> : <>
@@ -641,6 +662,7 @@ const Sidebar = () => {
                         />
                       </ListItemButton>
                     </ListItem>
+
                     <ListItem
                       className={loaction.pathname == "/Files" ? "active" : ""}
                       onClick={() => {
@@ -661,10 +683,11 @@ const Sidebar = () => {
                     </ListItem>
 
                     <Accordion
+                    defaultExpanded
                       style={{ width: "100%" }}
                       className="Accordion123"
-                      expanded={expanded === "panel1"}
-                      onChange={handleChange("panel1")}
+                      // expanded={expanded === "panel1"}
+                      // onChange={handleChange("panel1")}
                       sx={{ borderBottom: "none !important" }}
                     >
                       <AccordionSummary
@@ -726,6 +749,7 @@ const Sidebar = () => {
                         
                       </AccordionDetails>
                     </Accordion>
+
                   </>}
                 </List>
                 <Box
@@ -735,21 +759,28 @@ const Sidebar = () => {
                     width: "100%",
                     left:0,
                     bottom:0,
-                    paddingTop: "10px",
-                    paddingBottom: "10px",
+                    paddingTop: "25px",
+                    paddingBottom: "25px",
+                    paddingLeft: "25px",
+                    paddingRight: "25px",
                     textAlign: "center",
                     cursor: "pointer",
                     color: "white",
                   }}
                   onClick={() => Navigate(Admin?"/Profile/Admin":"/profile")}
                 >
-                  <Grid container alignItems="center">
-                    <Grid item className="profile" xs={4}>
+                  <Grid container>
+                    <Grid item className="profile" xs={12} sx={{textAlign:'left'}}>
                       <img style={{ borderRadius: "50%" }} src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80"} width={70} alt="" />
                     </Grid>
-                    <Grid item xs={8} textAlign="left">
-                      <Typography textTransform="capitalize">{Data?.name}</Typography>
+                    <Grid item xs={12} textAlign="left">
+                      <Typography textTransform="capitalize">{`[${Data?.name}]`}</Typography>
                       <Typography>{Data?.email}</Typography>
+                      <Typography sx={{textAlign:'right'}}>Edit Profile 
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" style={{fontSize: '14px', width:'20px', marginTop: '-15px', marginLeft:'10px'}}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                        </svg>                          
+                      </Typography>
                     </Grid>
                   </Grid>
                 </Box>

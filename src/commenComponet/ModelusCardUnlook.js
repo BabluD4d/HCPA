@@ -9,7 +9,7 @@ const ModelusCardUnlook = (props) => {
             <Box className="sedow" sx={{backgroundColor:"#E4EFFA", borderRadius:'5px'}} p={2}>
                 <Grid container >
                     <Grid item xs={11}>
-                        <Typography sx={{fontSize: "15px"}}>available document {" " + props.Module.total_document}</Typography>
+                        <Typography sx={{fontSize: "15px"}}>Available Documents {" " + props.Module.total_document}</Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <div style={{display:"block"}}>
@@ -18,7 +18,7 @@ const ModelusCardUnlook = (props) => {
                     </Grid>
                     <div style={{display:"initial"}}>
                         <Typography onClick={()=>{localStorage.setItem("UserModule",JSON.stringify(props.Module));setTimeout(() => {Navigate("/Modelus/Document") }, 300); }} mt={4}  sx={{ color: "#0CB4D0", fontSize: "15px",cursor:"pointer" }}  >
-                            <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "20px",marginBottom:"8px" }}  />  View Modelus
+                            <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "20px",marginBottom:"8px" }}  />  View Modules
                         </Typography>
                     </div>
                 </Grid>
