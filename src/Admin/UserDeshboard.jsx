@@ -152,7 +152,6 @@ const hendleSubmit =()=>{
                   setimage(event.target.files[0]);
                 }}
                 onBlur={formik.handleBlur}
-                //   value={formik.values.file}
                 autoComplete="current-number"
               />
               {formik.touched.file && formik.errors.file ? (
