@@ -91,12 +91,12 @@ const Header = () => {
   return (
     <>
       {loaction.pathname == "/" ? null : (
-        <Box className={`header ${localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 'user-header':'admin-header'}`} px={{xs:2, md:6}} sx={{position: 'fixed', left: 0, right: 0, top: 0, zIndex:9}}>
+        <Box className={`header ${localStorage.getItem("role") == 3?  'user-header':'admin-header'}`} px={{xs:2, md:6}} sx={{position: 'fixed', left: 0, right: 0, top: 0, zIndex:9}}>
           <Grid container sx={{alignItems:'center', justifyContent:'space-between', height:{xs:'auto', sm:'100%'}}}>              
             
-            <Grid item sm={3} md={2} xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 6 : 'auto'}>
-                <div style={{ display: "flex", flexWrap:'wrap', alignItems:'center' }}> 
-                  <img src={Logo} className="header-logo" alt="header logo" />
+            <Grid item sm={3} md={2} xs={localStorage.getItem("role") ==3 ? 6 : 'auto'}>
+                <div style={{ display: "flex", flexWrap:'wrap', alignItems:'center' }}>
+                  <img src={Logo} className="header-logo" alt="header logo" onClick={()=>{Navigate("/")}} />
                   <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle" sx={{alignSelf:'flex-end'}}>
                     <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
                   </div>
@@ -135,14 +135,14 @@ const Header = () => {
             <Grid xs={5} sx={{display:{xs:'none', sm:'flex'}, alignItems:{xs:'flex-start', lg:'center'},flexDirection:{xs:'column', lg:'row'}, alignSelf:{ xs:'initial', xl:'flex-end'}, fontWeight:'500',color:'#ffffff', paddingBottom:{xs:0, xl:'4px'}}}>
               <Box component="span" sx={{fontSize:{xs:'14px', lg:'24px', fontWeight:'600'}, alignItems:'center', display:'inline-block'}}>HCPA Staff Portal </Box>
               <Box component="span">
-                <Box component="span" sx={{display: {xs:'none', lg:'inline-block'}, fontSize:'14px', marginLeft:'15px', marginRight:'15px'}}>|</Box> Katherine Byeon [Super Admin]
+                <Box component="span" sx={{display: {xs:'none', lg:'inline-block'}, fontSize:'14px', marginLeft:'15px', marginRight:'15px'}}>|</Box> {DataUser?.name} {DataUser.role==1?<>[Super Admin]</>:null} 
               </Box>
             </Grid>
 
-            <Grid item sm={4} xs={localStorage.getItem("role") != 1 && localStorage.getItem("role") != 2 ? 6: 'auto'}>
+            <Grid item sm={4} xs={localStorage.getItem("role") ==3 ? 6: 'auto'}>
               <Box sx={{display: 'flex', flexWrap:'wrap', alignItems:{xs:'flex-end', md:'center'}, justifyContent:{xs:'flex-end'}, flexDirection:{xs:'column', md:'row'}}}>
               {
-                localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
+                localStorage.getItem("role") ==3? (
                   <Box sx={{display:'flex', flexWrap:'wrap', alignItems:'center'}}>
                     {/* <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle user-toggle">
                       <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
@@ -156,10 +156,10 @@ const Header = () => {
                         Book A Call
                     </Button>
                   </Box>
-                )
+                ):null
               }
               <Box sx={{display:'flex', flexWrap:'wrap', alignItems:'center', mt:{xs:1, md:0}}}>
-                <Box component="span" sx={{color:'white', ml:2}}>Logout</Box>
+                <Box component="span" sx={{color:'white',cursor:"pointer", ml:2}} onClick={() => setModalShow(true)}>Logout</Box>
                   <LogoutIcon
                     onClick={() => setModalShow(true)}
                     sx={{ textAlign: "left", cursor: "pointer", marginTop: '-8px', marginLeft:'10px' }}

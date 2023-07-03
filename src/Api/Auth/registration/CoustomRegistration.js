@@ -51,7 +51,6 @@ export default function CoustomRegistration(obj, name,Navigate) {
             }
         })
         .catch((err) =>{
-            alert(1)
             console.log(err)
             toast.error('Something went wrong', {
             position: "top-right",

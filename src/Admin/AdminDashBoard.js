@@ -66,10 +66,11 @@ const rows = [
 export default function AdminDashBoard() {
   const Navigate = useNavigate();
   const [ProductData, setProductData] = useState([]);
+  const [ProductData2, setProductData2] = useState([]);
   const [loader, setloader] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState(
-    moment.range(moment().clone().subtract(1, "months"), moment().clone())
+    moment.range(moment().clone().subtract(2, "months"), moment().clone())
   );
 
   const GetData = () => {
@@ -81,7 +82,31 @@ export default function AdminDashBoard() {
         } else {
           if (resp.ok) {
             if (resp.data) {
+              setProductData2(resp.data.data);
+              console.log(resp.data.data)
+              setloader(false);
+            } else {
+              setloader(false);
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.log({ error });
+      });
+  };
+  const GetDataList1 = (obj) => {
+    console.log(value.start.format().split("T")[0])
+    ExportDeshboard.getAllDeshbordList1(obj)
+      .then((resp) => {
+        if (resp.data.msg == "Unauthenticated.") {
+          localStorage.clear();
+          Navigate("/");
+        } else {
+          if (resp.ok) {
+            if (resp.data) {
               setProductData(resp.data.data);
+              // console.log(resp.data.data);
               setloader(false);
             } else {
               setloader(false);
@@ -95,6 +120,11 @@ export default function AdminDashBoard() {
   };
 
   useEffect(() => {
+    let obj = {
+      date_from: value.start.format().split("T")[0],
+      date_to:value.end.format().split("T")[0],
+    };
+    GetDataList1(obj);
     GetData();
   }, []);
 
@@ -127,8 +157,15 @@ export default function AdminDashBoard() {
   }
 
   const onSelect = (value, states) => {
+    let obj = {
+      date_from: value.start.format().split("T")[0],
+      date_to:value.end.format().split("T")[0],
+    };
     setValue(value);
-    setIsOpen(false);
+    setTimeout(() => {
+      setIsOpen(false);
+      GetDataList1(obj);
+    });
   };
 
   const onToggle = () => {
@@ -223,14 +260,16 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Products Sold </Typography>
+                  <Typography>Products Sold {    "     "+ProductData?.purchase_count} </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                  {ProductData?.purchase?.map((val,i)=>{
+                 return <Typography>
+                  {val.product_name } {"  "+"  "+val.total}
+                  
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>
@@ -242,14 +281,16 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>New Clients Added</Typography>
+                  <Typography>New Clients Added {    "     "+ProductData?.user_count}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                {ProductData?.user?.map((val,i)=>{
+                 return <Typography>
+                  {val.name } 
+                 
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>
@@ -261,14 +302,15 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Meeting Booked</Typography>
+                  <Typography>Meeting Booked {    "     "+ProductData?.bookcall_count}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                {ProductData?.bookcall?.map((val,i)=>{
+                 return <Typography>
+                  {val.call_type==1?"Purchase product" :val.call_type==2?"Purchase Modules":"Other reasion"} {"  "+"  "+val.total}
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>
@@ -288,14 +330,16 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>All Clients </Typography>
+                  <Typography>All Clients {    "     "+ProductData2?.clientcount} </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                {ProductData2?.client?.map((val,i)=>{
+                 return <Typography>
+                  {val.product_name } {"  "+"  "+val.total}
+                  <hr/>
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>
@@ -308,19 +352,21 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>All Clients </Typography>
+                  <Typography>All HCPA Staff {    "     "+ProductData2?.staffcount} </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                {ProductData2?.staff?.map((val,i)=>{
+                 return <Typography>
+                  {val.role_name } {"  "+"  "+val.total}
+                  <hr/>
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>
             <Grid className="product-table-ar" item lg={6} xs={12}>
-            <h4>Products</h4> 
+              <h4>Products</h4>
               <Accordion defaultExpanded>
                 <AccordionSummary
                   sx={{ backgroundColor: "#0CB4D0", color: "white" }}
@@ -328,19 +374,21 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>All Clients </Typography>
+                  <Typography>All Product {    "     "+ProductData2?.productscount} </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                     {ProductData2?.product?.map((val,i)=>{
+                 return <Typography>
+                  {val.product_name } 
+                  <hr/>
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>
             <Grid className="product-table-ar" item lg={6} xs={12}>
-            <h4>Modules</h4> 
+              <h4>Modules</h4>
               <Accordion defaultExpanded>
                 <AccordionSummary
                   sx={{ backgroundColor: "#0CB4D0", color: "white" }}
@@ -348,14 +396,16 @@ export default function AdminDashBoard() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>All Clients </Typography>
+                  <Typography>All Modules {    "     "+ProductData2?.modulecount} </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse malesuada lacus ex, sit amet blandit leo
-                    lobortis eget.
+                     {ProductData2?.module?.map((val,i)=>{
+                 return <Typography>
+                  {val.product_name } {"  "+"  "+val.total_module}
+                  <hr/>
                   </Typography>
+
+                  })}
                 </AccordionDetails>
               </Accordion>
             </Grid>

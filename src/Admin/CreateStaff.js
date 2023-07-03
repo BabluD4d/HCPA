@@ -1,41 +1,119 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import CoustomRegistration from '../Api/Auth/registration/CoustomRegistration';
-export default function CreateUser() {
-  const Navigate = useNavigate()
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      name: "",
-      mobile_number: "",
-      payment:"Pending",
-      checklist_status:"Incomplete"
-    },
-    validationSchema: Yup.object({
-      password: Yup.string()
-        .min(6, "Password must be 6 characters long")
-        .required("Enter your password"),
-      email: Yup.string()
-        .email("Please enter valid email address")
-        .required("Enter your email"),
-      name: Yup.string()
-        .required("Enter your name"),
-      mobile_number: Yup.string()
-        .required("Enter your Mobile Number"),
-    }),
-    onSubmit: (values) => {
-      CoustomRegistration(values, "Registration",Navigate)
-    },
-  });
+import { toast } from 'react-toastify';
+import ExportRegistration from '../Api/Auth/registration/ExportRegistration';
+// import CoustomRegistration from '../Api/Auth/registration/CoustomRegistration';
+
+
+const CreateStaff = () => {
+  const [roleData, setroleData] = useState()
+    const Navigate = useNavigate()
+    const formik = useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+        name: "",
+        mobile_number: "",
+        role_id:"",
+        clients:"",
+        bookings:""
+      },
+      validationSchema: Yup.object({
+          password: Yup.string()
+          .min(6, "Password must be 6 characters long")
+          .required("Enter your password"),
+          email: Yup.string()
+          .email("Please enter valid email address")
+          .required("Enter your email"),
+          name: Yup.string()
+          .required("Enter your name"),
+          mobile_number: Yup.string()
+          .required("Enter your Mobile Number"),
+          role_id: Yup.string()
+          .required("Enter your access type "),
+          bookings: Yup.string()
+          .required("Enter your bookings available"),
+      }),
+      onSubmit: (values) => {
+        // CoustomRegistration(values, "Registration",Navigate)
+        ExportRegistration.CreateStaff(values)
+        .then((resp) => {
+          if (resp.data.message == "create user successfully") { 
+            toast.success("Create User successfully", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+            Navigate("/UserList");
+          } else {
+            toast.error("Something went wrong", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        })
+        .catch((err) =>
+          toast.error("Something went wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+        );
+      },
+    });
+    const GetData = () => {
+      ExportRegistration.getRoleId()
+        .then((resp) => {
+          if (resp.ok) {
+            if (resp.data) {
+             
+              setroleData(resp.data.data);
+              console.log(resp.data.data)
+             
+            } 
+          }
+        })
+        .catch((err) => {
+          toast.error("Something went wrong", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        });
+    };
+    useEffect(() => {
+      GetData()
+    }, [])
+    
   return (
     <div>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>
-        Add User
+       <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>
+        Add HCPA Staff
       </Typography>
       <Box mt={3}>
         <Box component="form" onSubmit={formik.handleSubmit}>
@@ -133,51 +211,78 @@ export default function CreateUser() {
                   </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="fullWidth"
+                      label=" No. of Clients Assgned"
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                      variant="filled"
+                      name="clients"
+                      type="text"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      value={formik.values.clients}
+                      autoComplete="current-number"
+                  />
+                  {formik.touched.clients && formik.errors.clients ? (
+                      <div style={{ color: "red" }}>{formik.errors.clients}</div>
+                  ) : null}
+                  </Box>
+                </Grid>
+                <Grid item xs={12} sm={6}>
                 <Box >
                 <FormControl mt={3} variant="standard" fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                    Payments
+                    Access Type
                   </InputLabel>
                   <Select
                   disabled={localStorage.getItem("role") == 1?false:true}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     // value={age}
-                    label="payment"
-                    name="payment"
+                    label="role_id"
+                    name="role_id"
                     onChange={formik.handleChange}
-                    value={formik.values.payment}
+                    value={formik.values.role_id}
                     onBlur={formik.handleBlur}
                     autoComplete="current-number"
                     // onChange={handleChange}
-                  >
-                    <MenuItem value={"Pending"}>Pending</MenuItem>
-                    <MenuItem value={"Approved"}>Approved</MenuItem>
+                  >{roleData?.map((val,i)=> val.id==3?null:<MenuItem value={val.id}>{val.role_name}</MenuItem>
+                  )}
                   </Select>
+                   {formik.touched.role_id && formik.errors.role_id ? (
+                      <div style={{ color: "red" }}>{formik.errors.role_id}</div>
+                  ) : null}
                 </FormControl>
                 </Box>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={12}>
                 <Box>
                 <FormControl mt={3} variant="standard" fullWidth>
                   <InputLabel id="demo-simple-select-label">
-                  CheckLists
+                  Booking Available
                   </InputLabel>
                   <Select
                   disabled={localStorage.getItem("role") == 1?false:true}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     // value={age}
-                    label="checklist_status"
+                    label="bookings"
                     // onChange={handleChange}
-                    name="checklist_status"
+                    name="bookings"
                     onChange={formik.handleChange}
-                    value={formik.values.checklist_status}
+                    value={formik.values.bookings}
                     onBlur={formik.handleBlur}
                   >
-                    <MenuItem value={"Complete"}>Complete</MenuItem>
-                    <MenuItem value={"Incomplete"}>Incomplete</MenuItem>
+                    <MenuItem value={"Yes"}>Yes</MenuItem>
+                    <MenuItem value={"No"}>No</MenuItem>
                   </Select>
+                  {formik.touched.bookings && formik.errors.bookings ? (
+                      <div style={{ color: "red" }}>{formik.errors.bookings}</div>
+                    ) : null}
                 </FormControl>
                 </Box>
                 </Grid>
@@ -192,3 +297,5 @@ export default function CreateUser() {
     </div>
   )
 }
+
+export default CreateStaff

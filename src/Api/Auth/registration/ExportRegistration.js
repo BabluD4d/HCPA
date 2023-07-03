@@ -15,4 +15,18 @@ const RegistrationUser = (obj) =>
       "Content-Type": "application/json",
     },
   });
-export default { Registration, RegistrationUser };
+const CreateStaff = (obj) =>
+  BaseApi.post("create/staff", obj, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    },
+  });
+const getRoleId = (obj) =>
+  BaseApi.get("get/role", obj, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    },
+  });
+export default { Registration, RegistrationUser ,CreateStaff,getRoleId};

@@ -78,7 +78,11 @@ const Modelus = () => {
               let video = resp.data.data.registration_guid.find(
                 (val, i) => val.guid_status == 0
               );
-              setRegistrationCurent(video);
+              if(video){
+                setRegistrationCurent(video);
+              }else{
+                setRegistrationCurent(resp.data.data.registration_guid[0]);
+              }
             }
             //   setData(obj);
           } else {
@@ -304,14 +308,14 @@ const Modelus = () => {
                                 ml={1}
                                 sx={{ fontSize: "13px" }}
                               >
-                                1 of 14 guides comp
+                                1 of {ModuleData?.registration_guid?.length} guides Complete
                               </Typography>
                             </div>
                             <Typography
                               mt={2}
                               sx={{ fontSize: "20px", fontWeight: "bold" }}
                             >
-                              Chapter 1-Geting Started
+                              Chapter 1-{RegistrationCurent.title}
                             </Typography>
                           </Grid>
                           <Grid mt={{xs:0, md:3}} item xs={12} sm="auto">
@@ -331,7 +335,7 @@ const Modelus = () => {
                                   marginBottom: "5px",
                                 }}
                               /> */}
-                              View Modules
+                              View Guides
                             </Typography>
                           </Grid>
                         </Grid>
@@ -413,7 +417,7 @@ const Modelus = () => {
                               Curent Chapter
                             </Typography>
                             <Typography ml={1} sx={{ fontSize: "13px" }}>
-                  1 of 14 guides comp
+                  1 of {ModuleData?.registration_guid?.length} guides Complete
                 </Typography>
                             </div>
                             <Typography
@@ -428,7 +432,7 @@ const Modelus = () => {
             </Grid>
             <Grid item xs={12} sm={12}  md={4} sx={{textAlign:{xs:'left', sm:'right'}}}>
                             <Button
-                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent.id)}}
+                              onClick={()=>{ViewguidUpdateUser(RegistrationCurent?.id)}}
                               variant="contained"
                               sx={{ backgroundColor: "#0CB4D0" }}
                             >

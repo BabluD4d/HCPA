@@ -50,6 +50,7 @@ import UserActiveProductList from './Admin/UserActiveProductList';
 import UserActiveModule from './Admin/UserActiveModule';
 import AdminViewAns from './Admin/AdminViewAns';
 import ForgotSet from './commenComponet/ForgotSet';
+import CreateStaff from './Admin/CreateStaff';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -82,6 +83,7 @@ root.render(
           <Route exact path="/UserDeshboard" element={<UserDeshboard />} />
           <Route exact path="/DashBoard" element={<AdminDashBoard />} />
           <Route exact path="/UserList" element={<UserList />} />
+          <Route exact path="/CreateStaff" element={<CreateStaff />} />
           <Route exact path="/UserList/product/active" element={<UserActiveProductList />} />
           <Route exact path="/UserList/module/active" element={<UserActiveModule />} />
           <Route exact path="/Productlist" element={<Product />} />

@@ -3,7 +3,14 @@ import { BaseApi } from "../../BaseApi";
 // const CreateGuid = (obj) =>
 //     BaseApi.post("guid", obj);
 const UserAll = (obj) =>
-    BaseApi.get("/user/list",obj,{
+    BaseApi.get("user/list/2",obj,{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
+const UserAllStaff = (obj) =>
+    BaseApi.get("staff/list",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
@@ -18,6 +25,13 @@ const GetEditData = (obj) =>
       });
 const userUpdate = (obj) =>
     BaseApi.put("profile/update",obj,{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
+const userUpdateStaff = (obj) =>
+    BaseApi.put("staff/update",obj,{
         headers: {
           Authorization: 'Bearer '+localStorage.getItem("Token"),
           "Content-Type": "application/json",
@@ -41,8 +55,10 @@ const userDelete = (obj) =>
 export default {
     // CreateGuid,
     UserAll,
+    UserAllStaff,
     GetEditData,
     userUpdate,
     userUpdateUserList,
-    userDelete
+    userDelete,
+    userUpdateStaff
 }

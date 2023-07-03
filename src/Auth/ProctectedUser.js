@@ -12,7 +12,7 @@ const Proctected = () => {
       <Grid container>
         <Sidebar />
         {/* <Grid item xs={12} xl={10} sx={{ height: "100vh", overflow: "auto" }}> */}
-        <Grid item xs={12} xl={12} sx={{ height: "100vh", overflow: "auto", width: 'calc(100% - 320px)', paddingLeft: '320px', paddingTop: '100px' }}>
+         <Grid item xs={12} xl={12} sx={{ height: "100vh", overflow: "auto", width: {xs:'100%', xl:'calc(100% - 320px)'}, paddingLeft: {xs:0, xl:'320px'}, paddingTop: '100px' }}>
           <Box className="outer-wrapper" px={{xs:2, md:6}}>
             <Outlet />
           </Box>
@@ -21,7 +21,7 @@ const Proctected = () => {
     </>
   ) : (
     <>
-     {Token && role==1 || role==2 ? <Navigate to="/Admin" />: <Navigate to="/" />}
+     {Token && role==1 || role==2||role == 4||role == 5||role == 6||role == 7||role == 8 ? <Navigate to="/Admin" />: <Navigate to="/" />}
     </>
   );
 };

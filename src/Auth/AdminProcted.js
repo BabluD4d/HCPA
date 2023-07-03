@@ -6,12 +6,12 @@ import Header from "../commenComponet/Header";
 const AdminProctected = () => {
   let Token = localStorage.getItem("Token");
   let role = localStorage.getItem("role");
-  return (Token && role == 1) || role == 2 ? (
+  return (Token && role == 1) || role == 2 ||role == 4||role == 5||role == 6||role == 7||role == 8? (
     <>
       <Header />
       <Grid container>
         <Sidebar />
-        <Grid item xs={12} xl={12} sx={{ height: "100vh", overflow: "auto", width: 'calc(100% - 320px)', paddingLeft: '320px', paddingTop: '120px' }}>
+        <Grid item xs={12} xl={12} sx={{ height: "100vh", overflow: "auto", width: {xs:'100%', xl:'calc(100% - 320px)'}, paddingLeft: {xs:0, xl:'320px'}, paddingTop: '120px' }}>
           <Box
             className="outer-wrapper"
             px={{ xs: 2, md: 6 }}
