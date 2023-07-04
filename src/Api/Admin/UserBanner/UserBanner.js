@@ -7,7 +7,14 @@ const CreateBanner = (obj) =>
           "Content-Type": "application/json",
         },
       });
+const getAllGuide = (obj) =>
+    BaseApi.get("guide/chapter/get", {},{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
 
     export default {
-        CreateBanner,
+        CreateBanner,getAllGuide,
     }

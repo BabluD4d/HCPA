@@ -209,6 +209,7 @@ const Sidebar = () => {
                           loaction.pathname == "/UserActionView" ||
                           loaction.pathname == "/UserAnsView" ||
                           loaction.pathname == "/CreateUser" ||
+                          loaction.pathname == "/CreateStaff" ||
                           loaction.pathname == "/ActiveModuleByUser" ||
                           loaction.pathname.includes("/UserList/")
                             ? "active"
@@ -227,6 +228,7 @@ const Sidebar = () => {
                                 loaction.pathname == "/UserActionView" ||
                                 loaction.pathname == "/ActiveModuleByUser" ||
                                 loaction.pathname == "/CreateUser" ||
+                                loaction.pathname == "/CreateStaff" ||
                                 loaction.pathname == "/UserAnsView" ||
                                 loaction.pathname.includes("/UserList/")
                                   ? "active"
@@ -676,6 +678,7 @@ const Sidebar = () => {
                           loaction.pathname == "/UserActionView" ||
                           loaction.pathname == "/UserAnsView" ||
                           loaction.pathname == "/CreateUser" ||
+                          loaction.pathname == "/CreateStaff" ||
                           loaction.pathname == "/ActiveModuleByUser" ||
                           loaction.pathname.includes("/UserList/")
                             ? "active"
@@ -694,6 +697,7 @@ const Sidebar = () => {
                                 loaction.pathname == "/UserActionView" ||
                                 loaction.pathname == "/UserAnsView" ||
                                 loaction.pathname == "/CreateUser" ||
+                                loaction.pathname == "/CreateStaff" ||
                                 loaction.pathname == "/ActiveModuleByUser" ||
                                 loaction.pathname.includes("/UserList/")
                                   ? "active"

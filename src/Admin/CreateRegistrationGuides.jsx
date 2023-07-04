@@ -23,7 +23,7 @@ export default function CreateRegistrationGuides() {
       videolink:""
     },
     validationSchema: Yup.object({
-      title: Yup.string().required("Enter your V title"),
+      title: Yup.string().required("Enter your  title"),
       // file: Yup.mixed()
       //   .required("Required")
         // .test("is-valid-type", "Not a valid image type",
@@ -85,8 +85,7 @@ export default function CreateRegistrationGuides() {
   });
   return (
     <Box mb={5}>
-      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Create Checklist</Typography>
-        {formik.values?.file?.size}
+      <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Create  Guides</Typography>
         <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
           <Grid container>
             <Grid item xs={12} md={2} lg={3} mb={2}>

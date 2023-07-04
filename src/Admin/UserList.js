@@ -574,7 +574,7 @@ export default function UserList() {
                         <StyledTableCell>Email</StyledTableCell>
                         <StyledTableCell>Access Type</StyledTableCell>
                         <StyledTableCell>
-                          No. of Clients Assgned
+                          No. of Clients Assigned
                         </StyledTableCell>
                         <StyledTableCell>Booking Available</StyledTableCell>
                         {/* <StyledTableCell>CheckLists</StyledTableCell> */}

@@ -19,6 +19,8 @@ const BookCall = () => {
   const timeSet = ['9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM', '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM', '05:00 PM', '05:30 PM', '06:00 PM'];
   const [select, setselect] = useState(timeSet[1]);
   const showDetailsHandle = (dayStr) => {
+    console.log({dayStr})
+    console.log(new Date(dayStr))
     setData(dayStr);
     setShowDetails(true);
   };
@@ -43,7 +45,7 @@ const BookCall = () => {
       email: "",
       jobtitle: "",
       notes: "",
-      date: data,
+      date: "",
       time: select,
       user_id:DataUser.user_id
     },
@@ -58,6 +60,13 @@ const BookCall = () => {
         .required("Enter your email"),
     }),
     onSubmit: (values) => {
+      let date= new Date(data)
+      let Day=date.getDate()>=10?date.getDate():"0"+date.getDate()
+      let Month= (date.getMonth() + 1)>=10?(date.getMonth() + 1):"0"+(date.getMonth() + 1)
+      let Year= date.getFullYear()
+      values.date=Year+"-"+Month+"-"+Day
+      console.log(values) 
+    // }
       setTimeout(() => {
         ExportBookCall.UserBookCall(values)
           .then((resp) => {

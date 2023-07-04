@@ -24,7 +24,7 @@ export default function EditRegistrationGuides(props) {
     },
     enableReinitialize: true, 
     validationSchema: Yup.object({
-      title: Yup.string().required("Enter your V title"),
+      title: Yup.string().required("Enter your  title"),
     }),
     onSubmit: (values) => {
       const formData = new FormData();
