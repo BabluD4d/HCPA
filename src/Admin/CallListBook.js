@@ -141,7 +141,7 @@ export default function CallListBook() {
                       <StyledTableCell component="th" scope="row">{row.full_name}</StyledTableCell>
                       <StyledTableCell>{isYesterday(row.date)}</StyledTableCell>
                       <StyledTableCell>{row.time}</StyledTableCell>
-                      <StyledTableCell>{row.call_type == 1 ? "Purchase product":row.call_type==2?"Purchase modelus":"Other reasion Type"}</StyledTableCell>
+                      <StyledTableCell>{row.call_type == 1 ? "Purchase product":row.call_type==2?"Purchase Modules":"Other reasion Type"}</StyledTableCell>
                       <StyledTableCell>{row.jobtitle}</StyledTableCell>
                       <StyledTableCell>{row.contact_number}</StyledTableCell>
                       <StyledTableCell>{row.notes}</StyledTableCell>

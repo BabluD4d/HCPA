@@ -241,11 +241,11 @@ const Header = () => {
           >
             {Data.map((val,i)=> <ListGroup.Item onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(val));
             setTimeout(() => {
-              if(loaction.pathname=="/Modelus/Document/ViewDocument"){
+              if(loaction.pathname=="/Modules/Document/ViewDocument"){
                 window.dispatchEvent(new Event("FileChenge"))
               }else{
                
-                Navigate("/Modelus/Document/ViewDocument")
+                Navigate("/Modules/Document/ViewDocument")
               }
               setSerchValue("")
             });

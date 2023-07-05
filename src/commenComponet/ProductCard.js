@@ -14,7 +14,7 @@ const ProductCard = (props) => {
         localStorage.setItem("UserProduct",JSON.stringify(props.val))
         localStorage.setItem("activeProduct",props.val.id)
       setTimeout(() => {
-        Navigate("/Modelus")
+        Navigate("/Modules")
     }, ); }}>
     <RemoveRedEyeIcon sx={{ color: "#0CB4D0", fontSize: "24px" }}  />
     <Typography ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px" }}>   View  Product</Typography>

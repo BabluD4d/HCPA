@@ -10,16 +10,19 @@ import ReactPlayer from "react-player";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import ModelusCardUnlook from "../../commenComponet/ModelusCardUnlook";
-import Moduleslook from "../../commenComponet/Moduleslook";
+// import ModulesCardUnlook from "../../commenComponet/ModulesCardUnlook";
+// import Moduleslook from "../../commenComponet/Moduleslook";
 import ChecklistCard from "../../commenComponet/ChecklistCard";
 import Futer from "../../commenComponet/Futer";
 import { ColorRing } from "react-loader-spinner";
 import ExportProduct from "../../Api/user/Product/ExportProduct";
-import ExportModules from "../../Api/user/Modules/ExportModules";
+// import ExportModules from "../../Api/user/Modules/ExportModules";
 import { BaseUrlImage } from "../../Api/BaseApi";
 import { toast } from "react-toastify";
-const Modelus = () => {
+import ExportModules from "../../Api/user/Modules/ExportModules";
+import ModulesCardUnlook from "../../commenComponet/ModelusCardUnlook";
+import Moduleslook from "../../commenComponet/Moduleslook";
+const Modules = () => {
   const [first, setfirst] = useState(true);
   const [open, setOpen] = React.useState(false);
   const Navigate = useNavigate();
@@ -41,6 +44,7 @@ const Modelus = () => {
     setloader(true);
     setTimeout(() => {
       if (Product?.id) {
+        localStorage.setItem("pp",Product?.id)
         ModulesList();
       } else {
         Navigate("/Home");
@@ -191,7 +195,7 @@ const Modelus = () => {
 
                       <Grid item md={4} xs={12} sm={6}>
                         <Box sx={{ color: "white", backgroundColor: "#0CB4D0", p:3, height:'100%', display:"flex", alignItems:'center',cursor:"pointer" }}   onClick={() => {
-                              Navigate("/Modelus/Guides");
+                              Navigate("/Modules/Guides");
                             }}>
                           <Grid container>
                             <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
@@ -207,7 +211,7 @@ const Modelus = () => {
                       </Grid>
 
                       <Grid item md={4} xs={12} sm={6}>
-                        <Box sx={{ color: "white", backgroundColor: "#097EAF", p:3, height:'100%', display:"flex", alignItems:'center'}}>
+                        <Box sx={{ color: "white", backgroundColor: "#097EAF", p:3, height:'100%', display:"flex", alignItems:'center',cursor:"pointer" }}onClick={() => Navigate("/all/CheckList")}>
                           <Grid container>
                           <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
                               {/* <Typography mt={5} mb={5} ml={5}> */}
@@ -224,7 +228,7 @@ const Modelus = () => {
                       </Grid>
 
                       <Grid item md={4} xs={12} sm={6}>
-                        <Box sx={{ color: "white", backgroundColor: "#233B77;", p:3, height:'100%', display:"flex", alignItems:'center' ,cursor:"pointer" }}onClick={() => Navigate("/Modelus/all")}>
+                        <Box sx={{ color: "white", backgroundColor: "#233B77;", p:3, height:'100%', display:"flex", alignItems:'center' ,cursor:"pointer" }}onClick={() => Navigate("/Modules/all")}>
                           <Grid container>
                             <Grid item xs={3} sx={{alignItems:'center', justifyContent:'center', display:'flex'}}>
                                 <ViewModuleSharpIcon sx={{ fontSize: "45px" }} />
@@ -249,7 +253,7 @@ const Modelus = () => {
                             DataNotFoundmodule ? (
                               <Typography variant="span" fontSize={{xs:'16px'}} color="#FF0000">{DataNotFoundmodule}</Typography>
                             ) : (
-                              <Typography variant="span" sx={{color: "#0CB4D0", fontSize: "14px", cursor: "pointer",}} onClick={() => Navigate("/Modelus/all")}>View Modules</Typography>
+                              <Typography variant="span" sx={{color: "#0CB4D0", fontSize: "14px", cursor: "pointer",}} onClick={() => Navigate("/Modules/all")}>View Modules</Typography>
                             )
                           }
                         </Grid>
@@ -261,7 +265,7 @@ const Modelus = () => {
                                 {i < 6 ? (
                                   <>
                                     {val.purchase_status == 1 ? (
-                                      <ModelusCardUnlook
+                                      <ModulesCardUnlook
                                         Module={val}
                                         available={6}
                                       />
@@ -288,7 +292,7 @@ const Modelus = () => {
                               cursor: "pointer",
                             }}
                             onClick={() => {
-                              Navigate("/Modelus/Guides");
+                              Navigate("/Modules/Guides");
                             }}
                           >View All Guides</Typography>
                         </Box>
@@ -468,4 +472,4 @@ const Modelus = () => {
   );
 };
 
-export default Modelus;
+export default Modules;

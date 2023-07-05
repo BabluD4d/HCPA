@@ -51,7 +51,7 @@ const RegistrationGuide = () => {
         <Typography onClick={()=>Navigate("/")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
           Product{" "}
         </Typography>
-        <Typography onClick={()=>Navigate("/Modelus")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
+        <Typography onClick={()=>Navigate("/Modules")} mt={1} sx={{ fontSize: "14px", color: "#0CB4D0" }}>
           {" "}
           / {Product.product_name}
         </Typography>
@@ -63,7 +63,7 @@ const RegistrationGuide = () => {
       <hr height={3} />
       <Grid container mt={2} >
         <Grid xl={3}>
-          <ArrowBackIcon onClick={() => Navigate("/Modelus")} style={{ color: "#0cb4d0", fontSize: "50px"}} />
+          <ArrowBackIcon onClick={() => Navigate("/Modules")} style={{ color: "#0cb4d0", fontSize: "50px"}} />
         </Grid>
       </Grid>
       <Typography my={4} fontSize={{xs:'20px', lg:'30px'}}>

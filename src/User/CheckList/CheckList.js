@@ -61,7 +61,7 @@ export const CheckList = () => {
       <Grid container mt={2}>
         <Grid xl={3}>
           <ArrowBackIcon
-            onClick={() => Navigate("/Modelus")}
+            onClick={() => Navigate("/Modules")}
             style={{ color: "#0cb4d0", fontSize: "50px"}}
           />
         </Grid>
@@ -74,7 +74,7 @@ export const CheckList = () => {
 
             <Button onClick={() => Navigate("/CreactModules")} sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
               className={"active"}
-            /> &nbsp; &nbsp; &nbsp; Create Modelus</Button>
+            /> &nbsp; &nbsp; &nbsp; Create Modules</Button>
           </div> */}
         {/* </Grid> */}
       </Grid>
@@ -103,7 +103,7 @@ export const CheckList = () => {
                   progress: undefined,
                   theme: "light",
                 });
-                Navigate("/Modelus");
+                Navigate("/Modules");
               } else {
                 toast.error("Something went wrong", {
                   position: "top-right",

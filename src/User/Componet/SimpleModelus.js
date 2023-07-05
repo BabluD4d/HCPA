@@ -1,11 +1,13 @@
 import { Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ModelusCardUnlook from "../../commenComponet/ModelusCardUnlook";
-import Moduleslook from "../../commenComponet/Moduleslook";
+// import ModulesCardUnlook from "../../commenComponet/ModulesCardUnlook";
+// import Moduleslook from "../../commenComponet/Moduleslook";
 import ExportModules from "../../Api/user/Modules/ExportModules";
 import { toast } from "react-toastify";
+import ModulesCardUnlook from "../../commenComponet/ModelusCardUnlook";
+import Moduleslook from "../../commenComponet/Moduleslook";
 
-export const SimpleModelus = () => {
+export const SimpleModules = () => {
   const [DataNotFoundmodule, setDataNotFoundmodule] = useState();
   const [ModuleData, setModuleData] = useState();
   const [loader, setloader] = useState(true);
@@ -73,7 +75,7 @@ export const SimpleModelus = () => {
          return (
           <>
             {val.purchase_status == 1 ? (
-              <ModelusCardUnlook
+              <ModulesCardUnlook
                 size={4}
                 Module={val}
                 available={6}

@@ -131,12 +131,12 @@ const BookCall = () => {
               hendleCallis={hendleCallis}
             />
             <CallCard
-              Active={CallId == 2 ? "Purchase modelus" : false}
+              Active={CallId == 2 ? "Purchase Modules" : false}
               d={
                 "Curabitur ligula saplen, tincidunt none, euismod vitae, posuere  imperdiet , leo"
               }
               count={2}
-              unactive={"Purchase modelus"}
+              unactive={"Purchase Modules"}
               hendleCallis={hendleCallis}
             />
             <CallCard

@@ -67,7 +67,7 @@ export default function AdminProductCart(props) {
     });}} sx={{ color: "#0CB4D0", fontSize: "24px",cursor:"pointer" }}  />
     <Typography  onClick={()=>{localStorage.setItem("module",JSON.stringify(props.item));setTimeout(() => {
      Navigate(props.navi?props.navi:"/ActiveModuleByUser") 
-    });}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   View  {props.foo==1?"":"Active "} Modelus</Typography>
+    });}}ml={1} sx={{ color: "#0CB4D0", fontSize: "14px",marginTop:"5px",cursor:"pointer" }}>   View  {props.foo==1?"":"Active "} Modules</Typography>
     </div>}
   </div>
 </Grid>

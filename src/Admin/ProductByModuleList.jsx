@@ -280,7 +280,7 @@ export default function ProductByModuleList() {
           variant="contained"
         >
           <EditCalendarIcon className={"active"} /> 
-          Create Modelus
+          Create Modules
         </Button>
       </Grid>
     </Grid>
@@ -370,7 +370,7 @@ export default function ProductByModuleList() {
 
 {/*/Productlist/moduleList  Registration Guides  */}
 
-          <Box my={5}>
+          {/* <Box my={5}>
             <Grid container alignItems="center">
               <Grid xs={12} sm={6}>
                 <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} mb={{xs:2, sm:0}} textAlign={{xs:'center', sm:'left'}} >Registration Guides</Typography>
@@ -414,7 +414,7 @@ export default function ProductByModuleList() {
                 </Grid>
               ))}
             </Grid>
-          </Box>
+          </Box> */}
         </>
       )}
       <Modal
@@ -446,7 +446,7 @@ export default function ProductByModuleList() {
               <TextField
                 fullWidth
                 id="fullWidth"
-                label="Modelus Name "
+                label="Modules Name "
                 type="text"
                 InputLabelProps={{
                   shrink: true,

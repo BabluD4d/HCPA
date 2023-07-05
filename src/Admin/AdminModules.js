@@ -25,7 +25,7 @@ function AdminModules() {
             <br/>
             
             <div style={{marginBlock:"22px"}}>
-              <Button onClick={()=>Navigate("/BookCall")} variant="contained" sx={{backgroundColor:"#0CB4D0"}}> Purchase Modelus</Button>
+              <Button onClick={()=>Navigate("/BookCall")} variant="contained" sx={{backgroundColor:"#0CB4D0"}}> Purchase Modules</Button>
             </div>
         </Grid>
     </Box>

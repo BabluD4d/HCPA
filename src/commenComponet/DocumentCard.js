@@ -36,7 +36,7 @@ export default function DocumentCard(props) {
             onClick={() => {
               localStorage.setItem("ViewDocument",JSON.stringify(props.val))
               setTimeout(() => {    
-                Navigate("/Modelus/Document/ViewDocument");
+                Navigate("/Modules/Document/ViewDocument");
               },200);
             }}
           >
@@ -49,7 +49,7 @@ export default function DocumentCard(props) {
             {props.hellow=="yes"? <div 
             style={{  cursor: "pointer" }}
             onClick={() => {
-              Navigate("/Modelus/Document/ViewDocument1/"+props.val.id);
+              Navigate("/Modules/Document/ViewDocument1/"+props.val.id);
             }}
           >
           

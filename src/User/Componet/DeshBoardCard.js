@@ -16,7 +16,7 @@ function DeshBoardCardFile(props) {
          <Grid xs={6}md={6}lg={6}xl={6}>
          <div style={{ display: "flex",cursor:"pointer", width:"fit-content"}} onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(props.item));
             setTimeout(() => {
-              Navigate("/Modelus/Document/ViewDocument")
+              Navigate("/Modules/Document/ViewDocument")
             });
           }}>
 
@@ -27,7 +27,7 @@ function DeshBoardCardFile(props) {
          <Grid xs={6}md={6}lg={6}xl={6}>
          {/* <div  style={{ display: "flex",cursor:"pointer",width:"fit-content",marginLeft:"18px" }} onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(props.item));
             setTimeout(() => {
-              Navigate("/Modelus/Document/ViewDocument")
+              Navigate("/Modules/Document/ViewDocument")
             });
           }}>
 

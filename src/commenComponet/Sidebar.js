@@ -43,7 +43,7 @@ const Sidebar = () => {
     setExpanded(isExpanded ? panel : false);
   };
   const Activeclass = (item) => {
-    if (item.includes("/Modelus")) {
+    if (item.includes("/Modules")) {
       Navigate(item);
       sethideShow(false);
     } else {
@@ -93,7 +93,7 @@ const Sidebar = () => {
     }
   }, []);
   useEffect(() => {
-    if (!loaction.pathname.includes("/Modelus")) {
+    if (!loaction.pathname.includes("/Modules")) {
       localStorage.removeItem("activeProduct");
       localStorage.removeItem("UserProduct");
       setCount();
@@ -432,7 +432,7 @@ const Sidebar = () => {
                                       "activeProduct",
                                       val.id
                                     );
-                                    Activeclass("/Modelus", val.id);
+                                    Activeclass("/Modules", val.id);
                                   }}
                                   disablePadding
                                 >
@@ -458,7 +458,7 @@ const Sidebar = () => {
                                       "UserProduct",
                                       JSON.stringify(val)
                                     );
-                                    Activeclass("/Modelus");
+                                    Activeclass("/Modules");
                                     localStorage.setItem(
                                       "activeProduct",
                                       val.id
@@ -904,7 +904,7 @@ const Sidebar = () => {
                                       "activeProduct",
                                       val.id
                                     );
-                                    Activeclass("/Modelus", val.id);
+                                    Activeclass("/Modules", val.id);
                                   }}
                                   disablePadding
                                 >
@@ -930,7 +930,7 @@ const Sidebar = () => {
                                       "UserProduct",
                                       JSON.stringify(val)
                                     );
-                                    Activeclass("/Modelus");
+                                    Activeclass("/Modules");
                                     localStorage.setItem(
                                       "activeProduct",
                                       val.id

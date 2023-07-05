@@ -25,7 +25,7 @@ const Navigate=useNavigate()
             <td>{item?.modified_date}</td>
             <td style={{ color: "#0CB4D0" }}><RemoveRedEyeIcon  onClick={()=>{localStorage.setItem("ViewDocument",JSON.stringify(item));
             setTimeout(() => {
-              Navigate("/Modelus/Document/ViewDocument")
+              Navigate("/Modules/Document/ViewDocument")
             });
           }}/> </td>
           </tr>

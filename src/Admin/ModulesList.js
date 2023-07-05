@@ -268,7 +268,7 @@ export default function ModulesList() {
             className={"A1 create-btn"}
             variant="contained"
           >
-            <EditCalendarIcon className={"active"} /> Create Modelus
+            <EditCalendarIcon className={"active"} /> Create Modules
           </Button>
         </Grid>
       </Grid>
@@ -349,7 +349,7 @@ export default function ModulesList() {
               <TextField
                 fullWidth
                 id="fullWidth"
-                label="Modelus Name "
+                label="Modules Name "
                 type="text"
                 InputLabelProps={{
                   shrink: true,

@@ -11,10 +11,10 @@ import DashBoard from './User/Componet/DashBoard';
 import SignIn from './commenComponet/Login';
 import UserInfo from './User/Componet/UserInfo';
 import Files from './User/Componet/Files';
-import Modelus from './User/Componet/Modelus';
+// import Modules from './User/Componet/Modules';
 import RegistrationGuide from './User/Componet/RegistrationGuide';
 import BookCall from './User/Componet/BookCall';
-import { SimpleModelus } from './User/Componet/SimpleModelus';
+// import { SimpleModules } from './User/Componet/SimpleModules';
 import DocumentCard from './commenComponet/DocumentCard';
 import AllDocument from './User/Componet/AllDocument';
 import ViewDocument from './User/Componet/ViewDocument';
@@ -51,6 +51,9 @@ import UserActiveModule from './Admin/UserActiveModule';
 import AdminViewAns from './Admin/AdminViewAns';
 import ForgotSet from './commenComponet/ForgotSet';
 import CreateStaff from './Admin/CreateStaff';
+import AllCheckList from './User/Componet/AllCheckList';
+import Modules from './User/Componet/Modelus';
+import { SimpleModules } from './User/Componet/SimpleModelus';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -67,14 +70,15 @@ root.render(
           <Route exact path="/Home" element={<DashBoard />} />
           <Route exact path="/Profile" element={<UserInfo />} />
           <Route exact path="/Files" element={<Files />} />
-          <Route exact path="/Modelus" element={<Modelus />} />
-          <Route exact path="/Modelus/all" element={<SimpleModelus />} />
-          <Route exact path="/Modelus/Document" element={<AllDocument />} />
-          <Route exact path="/Modelus/CheckList" element={<CheckList />} />
-          <Route exact path="/Modelus/Document/ViewDocument" element={<ViewDocument />} />
+          <Route exact path="/Modules" element={<Modules />} />
+          <Route exact path="/Modules/all" element={<SimpleModules />} />
+          <Route exact path="/all/CheckList" element={<AllCheckList />} />
+          <Route exact path="/Modules/Document" element={<AllDocument />} />
+          <Route exact path="/Modules/CheckList" element={<CheckList />} />
+          <Route exact path="/Modules/Document/ViewDocument" element={<ViewDocument />} />
           <Route exact path="/BookCall/:id" element={<BookCall />} />
           <Route exact path="/BookCall/" element={<BookCall />} />
-          <Route exact path="/Modelus/Guides" element={<RegistrationGuide />} />
+          <Route exact path="/Modules/Guides" element={<RegistrationGuide />} />
         </Route>
         {/* admin */}
         
@@ -105,7 +109,7 @@ root.render(
           <Route exact path="/Admin/AllDocumentAdmin" element={<AllDocumentAdmin />} />
           <Route exact path="/EditDocument" element={<EditDocument />} />
           <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
-          <Route exact path="/Modelus/Document/ViewDocument1/:id" element={<ViewDocument />} />
+          <Route exact path="/Modules/Document/ViewDocument1/:id" element={<ViewDocument />} />
         </Route>
         <Route path='*' element={<NotFound />} />           
       </Routes>

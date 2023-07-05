@@ -14,7 +14,15 @@ const guidUpdateUser = (obj) =>
           "Content-Type": "application/json",
         },
       });
+const getChacklistAll = (obj) =>
+    BaseApi.get("get/all/checklists",obj,{
+        headers: {
+          Authorization: 'Bearer '+localStorage.getItem("Token"),
+          "Content-Type": "application/json",
+        },
+      });
 export default {
     ModulesList,
-    guidUpdateUser
+    guidUpdateUser,
+    getChacklistAll
 }
