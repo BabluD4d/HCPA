@@ -496,9 +496,14 @@ h1, a{
     left:50px;
   }
 }
+@media screen and (max-width:1199px){
+  .client-table table {
+    width: 1300px;
+  }
+}
 @media screen and (max-width:899px){
   .table-com-ar table {
-    width: 1024px;
+    width: 1300px;
   }
   .select-day {
     display: inline-block; 

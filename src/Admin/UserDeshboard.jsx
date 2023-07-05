@@ -550,37 +550,33 @@ export default function UserDeshboard() {
                         {val?.guids?.map((item, i) => (
                           <TableRow>
                             {/* <StyledTableCell>{i + 1}</StyledTableCell> */}
-                            <h3 style={{ paddingLeft: "15px" }}>{". . ."}</h3>
+                            <StyledTableCell><Box component="h3">....</Box></StyledTableCell>
                             <StyledTableCell> {item.title}</StyledTableCell>
                             <StyledTableCell>{"  "}</StyledTableCell>
                             <StyledTableCell>{"  "}</StyledTableCell>
                             <StyledTableCell>{"  "}</StyledTableCell>
 
                             {/* <StyledTableCell>{val.id==1?"No Action":<>  <EditIcon onClick={() => {hendleEditUser(val);}} sx={{ color: "#0CB4D0" }} /> &nbsp; <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}</>}</StyledTableCell> */}
-                            <StyledTableCell
-                              style={{
-                                color: "#0CB4D0",
-                                cursor: "pointer",
-                                display: "flex",
-                              }}
-                            >
+                            <StyledTableCell>
                               {localStorage.getItem("role") != 1 ? (
-                                <>
-                                  <p style={{ marginRight: "5px" }}>View</p> /{" "}
-                                  <p
+                                <Grid sx={{color: "#0CB4D0", cursor: "pointer",display: "flex"}}>
+                                  <span style={{ marginRight: "5px" }}>View</span> /
+                                  <span
                                     style={{
                                       marginRight: "5px",
                                       marginLeft: "5px",
                                     }}
                                   >
                                     Edit
-                                  </p>{" "}
+                                  </span>
                                   {/* / <p style={{ marginLeft: "5px" }}>Delete</p> */}
-                                </>
+                                </Grid>
                               ) : (
-                                <>
-                                  <p onClick={()=>{heandleView(item,val)}} style={{ marginRight: "5px" }}>View</p>/{" "}
-                                  <p
+                                <Grid sx={{color: "#0CB4D0",
+                                cursor: "pointer",
+                                display: "flex"}}>
+                                  <span onClick={()=>{heandleView(item,val)}} style={{ marginRight: "5px" }}>View</span>/
+                                  <span
                                     style={{
                                       marginRight: "5px",
                                       marginLeft: "5px",
@@ -590,9 +586,9 @@ export default function UserDeshboard() {
                                     }}
                                   >
                                     Edit
-                                  </p>{" "}
-                                </>
-                              )}{" "}
+                                  </span>
+                                </Grid>
+                              )}
                             </StyledTableCell>
                           </TableRow>
                         ))}

@@ -121,7 +121,7 @@ export default function CallListBook() {
         </div>
         :
         <Grid className='calllist-table-main' mt={5} container>            
-          <Grid item xs={12} className='table-com-ar'>
+          <Grid item xs={12} className='table-com-ar client-table'>
             <TableContainer component={Paper} sx={{mb:5}}>
               <Table aria-label="customized table">
                 <TableHead>

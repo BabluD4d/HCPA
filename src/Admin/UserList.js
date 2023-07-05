@@ -432,7 +432,7 @@ export default function UserList() {
               </Button>
             </Grid>
             <Grid className="userlist-ar" item xs={12}>
-              <Box mt={4} className="table-com-ar">
+              <Box mt={4} className="table-com-ar client-table">
                 <TableContainer component={Paper} sx={{ mb: 2 }}>
                   <Table aria-label="customized table">
                     <TableHead>
@@ -453,8 +453,8 @@ export default function UserList() {
                           <StyledTableCell>{i + 1}</StyledTableCell>
                           <StyledTableCell>{val.name}</StyledTableCell>
                           <StyledTableCell>{val.email}</StyledTableCell>
-                          <StyledTableCell>{val.product?val.product:0}</StyledTableCell>
-                          <StyledTableCell>{val.modules?val.modules:0}</StyledTableCell>
+                          <StyledTableCell  width="22%">{val.product?val.product:0}</StyledTableCell>
+                          <StyledTableCell  width="22%" style={{wordBreak: 'break-word'}}>{val.modules?val.modules:0}</StyledTableCell>
                           {val.payment_status == "Approved" ? (
                             <StyledTableCell>
                               {val.payment_status
@@ -469,17 +469,11 @@ export default function UserList() {
                             </StyledTableCell>
                           )}
                           <StyledTableCell>{val.checklist_status?val.checklist_status:"Incomplete"}</StyledTableCell>
-                          <StyledTableCell
-                            style={{
-                              color: "#0CB4D0",
-                              cursor: "pointer",
-                              display: "flex",
-                            }}
-                          >
+                          <StyledTableCell>
                             {localStorage.getItem("role") != 1 ? (
-                              <>
-                                <p style={{ marginRight: "5px" }}>View</p> /{" "}
-                                {localStorage.getItem("role") == 6 ?   <p
+                              <Grid sx={{color: "#0CB4D0",cursor: "pointer",display: "flex"}}>
+                                <span style={{ marginRight: "5px" }}>View</span> /
+                                {localStorage.getItem("role") == 6 ?   <span
                                   style={{
                                     marginRight: "5px",
                                     marginLeft: "5px",
@@ -489,20 +483,19 @@ export default function UserList() {
                                   }}
                                 >
                                   Edit
-                                </p>:<p
+                                </span>:<span
                                   style={{
                                     marginRight: "5px",
                                     marginLeft: "5px",
                                   }}
                                 >
                                   Edit
-                                </p>}
-                                {" "}
-                                / <p style={{ marginLeft: "5px" }}>Delete</p>
-                              </>
+                                </span>}
+                                / <span style={{ marginLeft: "5px" }}>Delete</span>
+                              </Grid>
                             ) : (
-                              <>
-                                <p
+                              <Grid sx={{color: "#0CB4D0",cursor: "pointer",display: "flex"}}>
+                                <span
                                   style={{ marginRight: "5px" }}
                                   onClick={() => {
                                     setTimeout(() => {
@@ -515,9 +508,9 @@ export default function UserList() {
                                   }}
                                 >
                                   View
-                                </p>{" "}
+                                </span>
                                 /
-                                <p
+                                <span
                                   style={{
                                     marginRight: "5px",
                                     marginLeft: "5px",
@@ -527,16 +520,16 @@ export default function UserList() {
                                   }}
                                 >
                                   Edit
-                                </p>{" "}
-                                /{" "}
-                                <p
+                                </span>
+                                /
+                                <span
                                   style={{ marginLeft: "5px" }}
                                   onClick={() => hendleUserDelete(val.id)}
                                 >
                                   Delete
-                                </p>
-                              </>
-                            )}{" "}
+                                </span>
+                              </Grid>
+                            )}
                           </StyledTableCell>
                         </TableRow>
                       ))}

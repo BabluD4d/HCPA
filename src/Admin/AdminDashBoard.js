@@ -203,7 +203,7 @@ export default function AdminDashBoard() {
           </center>
         </div>
       ) : (
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative",marginBottom:"60px" }}>
           <Grid container spacing={{ xs: 2, md: 3, lg: 5 }}>
             <Grid container>
               <Grid item sm={8} xs={12} pt={4} pl={5}>
@@ -262,7 +262,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>Products Sold {    "     "+ProductData?.purchase_count} </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"190px",overflow:"auto"}}>
                   {ProductData?.purchase?.map((val,i)=>{
                  return <Typography>
                   {val.product_name } {"  "+"  "+val.total}
@@ -283,7 +283,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>New Clients Added {    "     "+ProductData?.user_count}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"190px",overflow:"auto"}}>
                 {ProductData?.user?.map((val,i)=>{
                  return <Typography>
                   {val.name } 
@@ -304,7 +304,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>Meeting Booked {    "     "+ProductData?.bookcall_count}</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"190px",overflow:"auto"}}>
                 {ProductData?.bookcall?.map((val,i)=>{
                  return <Typography>
                   {val.call_type==1?"Purchase product" :val.call_type==2?"Purchase Modules":"Other reasion"} {"  "+"  "+val.total}
@@ -332,7 +332,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>All Clients {    "     "+ProductData2?.clientcount} </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"320px",overflow:"auto"}}>
                 {ProductData2?.client?.map((val,i)=>{
                  return <Typography>
                   {val.product_name } {"  "+"  "+val.total}
@@ -354,7 +354,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>All HCPA Staff {    "     "+ProductData2?.staffcount} </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"320px",overflow:"auto"}}>
                 {ProductData2?.staff?.map((val,i)=>{
                  return <Typography>
                   {val.role_name } {"  "+"  "+val.total}
@@ -376,7 +376,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>All Product {    "     "+ProductData2?.productscount} </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"320px",overflow:"auto"}}>
                      {ProductData2?.product?.map((val,i)=>{
                  return <Typography>
                   {val.product_name } 
@@ -398,7 +398,7 @@ export default function AdminDashBoard() {
                 >
                   <Typography>All Modules {    "     "+ProductData2?.modulecount} </Typography>
                 </AccordionSummary>
-                <AccordionDetails>
+                <AccordionDetails sx={{height:"320px",overflow:"auto"}}>
                      {ProductData2?.module?.map((val,i)=>{
                  return <Typography>
                   {val.product_name } {"  "+"  "+val.total_module}
