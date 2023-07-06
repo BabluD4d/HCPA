@@ -170,6 +170,8 @@ export default function UserDeshboard() {
       title: Yup.string().required("Enter your  title"),
     }),
     onSubmit: (values) => {
+      setModalShow1(false);
+              setloader(true);
       const formData = new FormData();
       if (editorRef.current) {
         setloader(true);
@@ -187,8 +189,8 @@ export default function UserDeshboard() {
               " Create RegistrationGuide details successfully"
             ) {
               setModalShow1(false);
-              GetData();
               setloader(false);
+              GetData();
               toast.success("Create RegistrationGuide details successfully", {
                 position: "top-right",
                 autoClose: 5000,
@@ -241,15 +243,17 @@ export default function UserDeshboard() {
       title: Yup.string().required("Enter your  title"),
     }),
     onSubmit: (values) => {
+      setModalShow1(false);
+      setloader(true);
       const formData = new FormData();
-      if (editorRef.current) {
+      // if (editorRef.current) {
         setloader(true);
         values.description = editorRef.current.getContent();
         formData.append("file", imageguide);
         formData.append("id", values.id);
         formData.append("title", values.title);
         formData.append("description", values.description);
-      }
+      // }
       setTimeout(() => {
         Exportguid.GuidUpdate(formData)
           .then((resp) => {
@@ -258,8 +262,8 @@ export default function UserDeshboard() {
             ) {
               setCount()
               setModalShow1(false);
-              GetData();
               setloader(false);
+              GetData();
               toast.success(" Update RegistrationGuide details ", {
                 position: "top-right",
                 autoClose: 5000,
@@ -731,7 +735,7 @@ export default function UserDeshboard() {
                 ) : (
                   <>
                     <Box
-                      // component="form"
+                      component="form"
                       onSubmit={formik2.handleSubmit}
                       sx={{ mt: 1 }}
                     >

@@ -240,6 +240,7 @@ export default function UserList() {
       // CoustomRegistration(values, "Registration")
       ExportUser.userUpdateStaff(values)
         .then((resp) => {
+          console.log({resp})
           if (resp.data.message == "the record has updated") {
             setModalShow2(false);
             toast.success("User updated successfully", {
@@ -418,7 +419,7 @@ export default function UserList() {
                 className="main-title-ad"
                 fontSize={{ xs: "20px", lg: "30px" }}
               >
-                Clients{" "}
+                Clients
               </Typography>
             </Grid>
             <Grid item xs={6} textAlign="right">

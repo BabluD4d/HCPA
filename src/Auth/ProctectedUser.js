@@ -21,7 +21,7 @@ const Proctected = () => {
     </>
   ) : (
     <>
-     {Token && role==1 || role==2||role == 4||role == 5||role == 6||role == 7||role == 8 ? <Navigate to="/Admin" />: <Navigate to="/" />}
+     {Token && role!=3  ? <Navigate to="/Admin" />: <Navigate to="/" />}
     </>
   );
 };

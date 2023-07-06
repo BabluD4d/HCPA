@@ -1,7 +1,11 @@
 import {
   Box,
+  FormControl,
   Grid,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Table,
   TableBody,
   TableContainer,
@@ -69,6 +73,7 @@ export default function AdminDashBoard() {
   const [ProductData2, setProductData2] = useState([]);
   const [loader, setloader] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
+  const [ProductDataList, setProductDataList] = useState([])
   const [value, setValue] = useState(
     moment.range(moment().clone().subtract(2, "months"), moment().clone())
   );
@@ -175,6 +180,30 @@ export default function AdminDashBoard() {
       // props.dateChange(value);
     }
   };
+  let obj = {
+    "order": "desc",
+    "sort": "products.id",
+    // "limit": 10,
+    // "page": 1
+  }
+  const GetDataProduct = () => {
+    Exportproduct.GetAllProduct(obj).then(
+      (resp) => {
+        if (resp.ok) {
+          if (resp.data) {
+            setProductDataList(resp.data.data);
+            // setloader(false)
+          }else{
+            // setloader(false)
+          }
+        
+        }
+      }
+    );
+  }
+  useEffect(() => {
+    GetDataProduct()
+  }, [])
   return (
     <div id="main">
       <Typography
@@ -206,8 +235,52 @@ export default function AdminDashBoard() {
         <div style={{ position: "relative",marginBottom:"60px" }}>
           <Grid container spacing={{ xs: 2, md: 3, lg: 5 }}>
             <Grid container>
-              <Grid item sm={8} xs={12} pt={4} pl={5}>
+              <Grid item sm={2} xs={12} pt={4} pl={5}>
                 <h3>OVERVIEW</h3>
+              </Grid>
+              <Grid item sm={3} xs={12} pt={2} pl={5}>
+              <FormControl mt={3} variant="standard" fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Product Type
+                  </InputLabel>
+                  <Select
+                  // disabled={localStorage.getItem("role") == 1?false:true}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    label="Product"
+                    name="role_id"
+                    // onChange={formik.handleChange}
+                    // value={formik.values.role_id}
+                    // onBlur={formik.handleBlur}
+                    autoComplete="current-number"
+                    // onChange={handleChange}
+                  >{ProductDataList?.map((val,i)=> <MenuItem value={val.id}>{val.product_name}</MenuItem>
+                  )}
+                  </Select>
+                </FormControl>
+              </Grid>
+              <Grid item sm={3} xs={12} pt={2} pl={5}>
+              <FormControl mt={3} variant="standard" fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                  Module Type
+                  </InputLabel>
+                  <Select
+                  // disabled={localStorage.getItem("role") == 1?false:true}
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={age}
+                    label="Product"
+                    name="role_id"
+                    // onChange={formik.handleChange}
+                    // value={formik.values.role_id}
+                    // onBlur={formik.handleBlur}
+                    autoComplete="current-number"
+                    // onChange={handleChange}
+                  >{ProductDataList?.map((val,i)=> <MenuItem value={val.id}>{val.product_name}</MenuItem>
+                  )}
+                  </Select>
+                </FormControl>
               </Grid>
 
               <Grid item sm={4} pt={4} xs={12}>
@@ -246,6 +319,7 @@ export default function AdminDashBoard() {
                         value={value}
                         onSelect={onSelect}
                         singleDateRange={false}
+                        rangeColors={['#f33e5b', '#3ecf8e', '#fed14c']}
                       />
                     </div>
                   )}

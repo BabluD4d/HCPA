@@ -54,6 +54,7 @@ import CreateStaff from './Admin/CreateStaff';
 import AllCheckList from './User/Componet/AllCheckList';
 import Modules from './User/Componet/Modelus';
 import { SimpleModules } from './User/Componet/SimpleModelus';
+import AccessBySuperAdmin from './Admin/AccessBySuperAdmin';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -110,6 +111,7 @@ root.render(
           <Route exact path="/EditDocument" element={<EditDocument />} />
           <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
           <Route exact path="/Modules/Document/ViewDocument1/:id" element={<ViewDocument />} />
+          <Route exact path="/Access" element={<AccessBySuperAdmin />} />
         </Route>
         <Route path='*' element={<NotFound />} />           
       </Routes>

@@ -66,6 +66,9 @@ export default function Product() {
       }
     );
   }
+  useEffect(() => {
+    GetData()
+  }, [])
   const handleDeleteproduct = (id) => {
     setid(id)
     setmodalShowDelete(true)
@@ -113,9 +116,7 @@ export default function Product() {
       }
     );
   }
-  useEffect(() => {
-    GetData()
-  }, [])
+ 
   const hendleshowmodal = (id) => {
     setModalShow(true)
     setProductid(id)

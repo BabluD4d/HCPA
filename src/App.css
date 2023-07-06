@@ -273,12 +273,12 @@ padding-top: 7px;
   display: none;
 }
 
-@media (max-width:1534px){
+@media (max-width:1535px){
   .sidebartogle{
     display:block;
   }
 }
-@media (max-width:1534px){
+@media (max-width:1535px){
   .leftCol{
     display:none;
   }
@@ -926,3 +926,9 @@ margin-right: auto !important;
     padding-bottom: 10px;
   }
 }
+.DateRangePicker__CalendarSelection{
+background-color: #0cb4d0 !important;
+border: 1px solid #0cb4d0 !important;
+}
+.MuiFormGroup-root .MuiFormControlLabel-root {margin-left: 0; margin-right: 0;}
+.MuiFormGroup-root .MuiFormControlLabel-root .MuiCheckbox-root svg {margin-top: -9px; }

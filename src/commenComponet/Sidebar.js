@@ -27,6 +27,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import ClearIcon from "@mui/icons-material/Clear";
 import PeopleIcon from "@mui/icons-material/People";
 import ExportProduct from "../Api/user/Product/ExportProduct";
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
   const [Count, setCount] = useState();
@@ -335,6 +336,29 @@ const Sidebar = () => {
                           <ListItemText primary={"Client Portal"} />
                         </ListItemButton>
                       </ListItem>
+                      {localStorage.getItem("role")==1? <ListItem
+                        className={
+                          loaction.pathname == "/Access" ? "active" : ""
+                        }
+                        onClick={() => {
+                          Activeclass("/Access");
+                        }}
+                        disablePadding
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <AccessibilityNewIcon
+                              className={
+                                loaction.pathname == "/Access"
+                                  ? "active"
+                                  : ""
+                              }
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Access"} />
+                        </ListItemButton>
+                      </ListItem>:null}
+                     
                     </>
                   ) : (
                     <>
@@ -807,6 +831,28 @@ const Sidebar = () => {
                           <ListItemText primary={"Client Portal"} />
                         </ListItemButton>
                       </ListItem>
+                      {localStorage.getItem("role")==1? <ListItem
+                        className={
+                          loaction.pathname == "/Access" ? "active" : ""
+                        }
+                        onClick={() => {
+                          Activeclass("/Access");
+                        }}
+                        disablePadding
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <AccessibilityNewIcon
+                              className={
+                                loaction.pathname == "/Access"
+                                  ? "active"
+                                  : ""
+                              }
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"Access"} />
+                        </ListItemButton>
+                      </ListItem>:null}
                     </>
                   ) : (
                     <>
