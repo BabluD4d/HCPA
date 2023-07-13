@@ -43,6 +43,9 @@ export default function UserList() {
   const [CountStaff, setCountStaff] = useState();
   const [loader, setloader] = useState(true);
   const [roleData, setroleData] = useState()
+  const [Data, setData] = useState(
+    JSON.parse(localStorage.getItem("userdata"))
+  );
   const Navigate = useNavigate();
   const GetDataStaff = () => {
     let obj = {
@@ -114,6 +117,9 @@ export default function UserList() {
       });
   };
   useEffect(() => {
+    if(Data.access[0].accessibility.UserList.visibility=='No'){
+      Navigate("/Profile/Admin")
+    }
     GetData();
     GetDataStaff();
     GetDataRole()
@@ -423,14 +429,23 @@ export default function UserList() {
               </Typography>
             </Grid>
             <Grid item xs={6} textAlign="right">
-              <Button
+                 {Data.access[0].accessibility.UserList.Add?    <Button
                 sx={{ width: { xs: "100%", sm: "auto" } }}
                 onClick={() => Navigate("/CreateUser")}
                 className={"A1"}
                 variant="contained"
               >
                 Add User
-              </Button>
+              </Button>:    <Button
+                sx={{ width: { xs: "100%", sm: "auto" } }}
+                // onClick={() => Navigate("/CreateUser")}
+                disabled
+                className={"A1"}
+                variant="contained"
+              >
+                Add User
+              </Button>}
+          
             </Grid>
             <Grid className="userlist-ar" item xs={12}>
               <Box mt={4} className="table-com-ar client-table">
@@ -471,32 +486,10 @@ export default function UserList() {
                           )}
                           <StyledTableCell>{val.checklist_status?val.checklist_status:"Incomplete"}</StyledTableCell>
                           <StyledTableCell>
-                            {localStorage.getItem("role") != 1 ? (
+                              
+
                               <Grid sx={{color: "#0CB4D0",cursor: "pointer",display: "flex"}}>
-                                <span style={{ marginRight: "5px" }}>View</span> /
-                                {localStorage.getItem("role") == 6 ?   <span
-                                  style={{
-                                    marginRight: "5px",
-                                    marginLeft: "5px",
-                                  }}
-                                  onClick={() => {
-                                    hendleEditUser(val);
-                                  }}
-                                >
-                                  Edit
-                                </span>:<span
-                                  style={{
-                                    marginRight: "5px",
-                                    marginLeft: "5px",
-                                  }}
-                                >
-                                  Edit
-                                </span>}
-                                / <span style={{ marginLeft: "5px" }}>Delete</span>
-                              </Grid>
-                            ) : (
-                              <Grid sx={{color: "#0CB4D0",cursor: "pointer",display: "flex"}}>
-                                <span
+                                {Data.access[0].accessibility.UserList.View? <span
                                   style={{ marginRight: "5px" }}
                                   onClick={() => {
                                     setTimeout(() => {
@@ -509,8 +502,26 @@ export default function UserList() {
                                   }}
                                 >
                                   View
-                                </span>
+                                </span>: <span
+                                  style={{ marginRight: "5px" }}
+                                  onClick={() => {
+                                    toast.error("You are not accessible", {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "light",
+                                    });
+                                  }}
+                                >
+                                  View
+                                </span>}
+                               
                                 /
+                                {Data.access[0].accessibility.UserList.Edit?
                                 <span
                                   style={{
                                     marginRight: "5px",
@@ -521,16 +532,46 @@ export default function UserList() {
                                   }}
                                 >
                                   Edit
-                                </span>
+                                </span>:<span
+                                  style={{ marginRight: "5px" }}
+                                  onClick={() => {
+                                    toast.error("You are not accessible", {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "light",
+                                    });
+                                  }}
+                                >Edit
+                                  </span>}
                                 /
+                                {Data.access[0].accessibility.UserList.Delete?
                                 <span
                                   style={{ marginLeft: "5px" }}
                                   onClick={() => hendleUserDelete(val.id)}
                                 >
                                   Delete
-                                </span>
+                                </span>:<span
+                                  style={{ marginRight: "5px" }}
+                                  onClick={() => {
+                                    toast.error("You are not accessible", {
+                                      position: "top-right",
+                                      autoClose: 5000,
+                                      hideProgressBar: false,
+                                      closeOnClick: true,
+                                      pauseOnHover: true,
+                                      draggable: true,
+                                      progress: undefined,
+                                      theme: "light",
+                                    });
+                                  }}
+                                >Delete</span>}
                               </Grid>
-                            )}
+                         
                           </StyledTableCell>
                         </TableRow>
                       ))}
@@ -555,7 +596,9 @@ export default function UserList() {
               </Typography>
             </Grid>
             <Grid item xs={6} textAlign="right">
-              <Button sx={{width:{xs:'100%', sm:'auto'}}} onClick={() => Navigate("/CreateStaff")} className={"A1"} variant="contained">Add HCPA Staff</Button>
+            {localStorage.getItem("role") == 1 ? 
+              <Button sx={{width:{xs:'100%', sm:'auto'}}} onClick={() => Navigate("/CreateStaff")} className={"A1"} variant="contained">Add HCPA Staff</Button>:null
+            }
             </Grid>
             <Grid className="userlist-ar" item xs={12}>
               <Box mt={4} className="table-com-ar">

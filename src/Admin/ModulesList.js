@@ -38,7 +38,9 @@ export default function ModulesList() {
   const [Count, setCount] = useState(1);
   const [page, setpage] = useState(1);
   const [Product_id, setProduct_id] = useState();
-
+  const [Data, setData] = useState(
+    JSON.parse(localStorage.getItem("userdata"))
+  );
   const formik = useFormik({
     initialValues: {
       module_name: EditData?.module_name ? EditData?.module_name : "",
@@ -159,6 +161,9 @@ export default function ModulesList() {
     });
   };
   useEffect(() => {
+    if (Data.access[0].accessibility.modules.visibility == "No") {
+      Navigate("/Profile/Admin");
+    }
     GetData();
   }, []);
   const onChangeHendle = (item, value) => {

@@ -74,7 +74,7 @@ export default function SignIn() {
               localStorage.setItem("Token", resp.data.data.token);
               localStorage.setItem("userdata", JSON.stringify(resp.data.data));
               localStorage.setItem("role", resp.data.data.role);
-              if (resp.data.data.role == 1 || resp.data.data.role == 2) {
+              if (resp.data.data.role !=3) {
                 Navigate("/Admin");
               } else {
                 Navigate("/Home");

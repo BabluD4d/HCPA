@@ -53,6 +53,10 @@ const rows = [
 export default function CallListBook() {
   const [Data, setData] = useState([])
   const [loader, setloader] = useState(true);
+  const [DataUser, setDataUser] = useState(
+    JSON.parse(localStorage.getItem("userdata"))
+  );
+  const Navigate=useNavigate()
   const GetData = () => {
     ExportBookCall.BooKCallListtAll().then(
       (resp) => {
@@ -69,6 +73,10 @@ export default function CallListBook() {
     );
   }
   useEffect(() => {
+    console.log(DataUser?.access[0].accessibility)
+    if (DataUser?.access[0].accessibility.BookCall == "No") {
+      Navigate("/Profile/Admin");
+    }
     GetData()
   }, [])
   function isYesterday(date) {

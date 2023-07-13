@@ -55,6 +55,7 @@ import AllCheckList from './User/Componet/AllCheckList';
 import Modules from './User/Componet/Modelus';
 import { SimpleModules } from './User/Componet/SimpleModelus';
 import AccessBySuperAdmin from './Admin/AccessBySuperAdmin';
+import CreateRoles from './Admin/CreateRoles';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
@@ -84,9 +85,9 @@ root.render(
         {/* admin */}
         
         <Route path="/" element={<AdminProctected />}>
+          <Route exact path="/DashBoard" element={<AdminDashBoard />} />
           <Route exact path="/Admin" element={<AdminDashBoard />} />
           <Route exact path="/UserDeshboard" element={<UserDeshboard />} />
-          <Route exact path="/DashBoard" element={<AdminDashBoard />} />
           <Route exact path="/UserList" element={<UserList />} />
           <Route exact path="/CreateStaff" element={<CreateStaff />} />
           <Route exact path="/UserList/product/active" element={<UserActiveProductList />} />
@@ -112,6 +113,7 @@ root.render(
           <Route exact path="/ActiveModuleByUser" element={<ActiveModuleByUser />} />
           <Route exact path="/Modules/Document/ViewDocument1/:id" element={<ViewDocument />} />
           <Route exact path="/Access" element={<AccessBySuperAdmin />} />
+          <Route exact path="/Role" element={<CreateRoles />} />
         </Route>
         <Route path='*' element={<NotFound />} />           
       </Routes>

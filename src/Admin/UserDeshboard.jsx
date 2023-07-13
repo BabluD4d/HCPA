@@ -43,6 +43,9 @@ export default function UserDeshboard() {
   const [Product, setProduct] = useState(
     JSON.parse(localStorage.getItem("Product"))
   );
+  const [UserData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userdata"))
+  );
   const [Data, setData] = useState();
   const [EditData, setEditData] = useState();
   const [EditDataView, setEditDataView] = useState();
@@ -75,24 +78,39 @@ export default function UserDeshboard() {
     },
   });
   const hendleSubmit = () => {
-    setloader(true);
-    setTimeout(() => {
-      UserBanner.CreateBanner(NewformData)
-        .then((resp) => {
-          if (resp.data.message == "welcomebanner submit successfully") {
-            setModalShow(false);
-            setloader(false);
-            toast.success("Welcome banner submit successfully", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          } else {
+    if (UserData.access[0].accessibility.ClientsPortal.AddWelcome) {
+      setloader(true);
+      setTimeout(() => {
+        UserBanner.CreateBanner(NewformData)
+          .then((resp) => {
+            if (resp.data.message == "welcomebanner submit successfully") {
+              setModalShow(false);
+              setloader(false);
+              toast.success("Welcome banner submit successfully", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            } else {
+              setloader(false);
+              toast.error("Something went wrong", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            }
+          })
+          .catch((err) => {
             setloader(false);
             toast.error("Something went wrong", {
               position: "top-right",
@@ -104,22 +122,20 @@ export default function UserDeshboard() {
               progress: undefined,
               theme: "light",
             });
-          }
-        })
-        .catch((err) => {
-          setloader(false);
-          toast.error("Something went wrong", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
           });
-        });
-    }, 1000);
+      }, 1000);
+    } else {
+      toast.error("You are not accessible", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
   const GetData = () => {
     UserBanner.getAllGuide()
@@ -149,6 +165,9 @@ export default function UserDeshboard() {
       });
   };
   useEffect(() => {
+    if (UserData.access[0].accessibility.ClientsPortal.visibility == "No") {
+      Navigate("/Profile/Admin");
+    }
     setloader(true);
     GetData();
   }, []);
@@ -170,40 +189,54 @@ export default function UserDeshboard() {
       title: Yup.string().required("Enter your  title"),
     }),
     onSubmit: (values) => {
-      setModalShow1(false);
-              setloader(true);
-      const formData = new FormData();
-      if (editorRef.current) {
+      if (UserData.access[0].accessibility.ClientsPortal.AddGuides) {
+        setModalShow1(false);
         setloader(true);
-        values.description = editorRef.current.getContent();
-        formData.append("file", imageguide);
-        formData.append("product_id", Productid);
-        formData.append("title", values.title);
-        formData.append("description", values.description);
-      }
-      setTimeout(() => {
-        Exportguid.CreateGuid(formData)
-          .then((resp) => {
-            if (
-              resp.data.message ==
-              " Create RegistrationGuide details successfully"
-            ) {
-              setModalShow1(false);
-              setloader(false);
-              GetData();
-              toast.success("Create RegistrationGuide details successfully", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              // Navigate("/Productlist/moduleList");
-            } else {
-              setloader(false);
+        const formData = new FormData();
+        if (editorRef.current) {
+          setloader(true);
+          values.description = editorRef.current.getContent();
+          formData.append("file", imageguide);
+          formData.append("product_id", Productid);
+          formData.append("title", values.title);
+          formData.append("description", values.description);
+        }
+        setTimeout(() => {
+          Exportguid.CreateGuid(formData)
+            .then((resp) => {
+              if (
+                resp.data.message ==
+                " Create RegistrationGuide details successfully"
+              ) {
+                setModalShow1(false);
+                setloader(false);
+                GetData();
+                toast.success("Create RegistrationGuide details successfully", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+                // Navigate("/Productlist/moduleList");
+              } else {
+                setloader(false);
+                toast.error("Something went wrong", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }
+            })
+            .catch((err) =>
               toast.error("Something went wrong", {
                 position: "top-right",
                 autoClose: 5000,
@@ -213,27 +246,26 @@ export default function UserDeshboard() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-              });
-            }
-          })
-          .catch((err) =>
-            toast.error("Something went wrong", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            })
-          );
-      }, 1000);
+              })
+            );
+        }, 1000);
+      } else {
+        toast.error("You are not accessible", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     },
   });
   const formik2 = useFormik({
     initialValues: {
-      title:EditData?.title?EditData?.title: "",
+      title: EditData?.title ? EditData?.title : "",
       id: EditData?.id,
       file: "",
       description: "",
@@ -243,40 +275,52 @@ export default function UserDeshboard() {
       title: Yup.string().required("Enter your  title"),
     }),
     onSubmit: (values) => {
-      setModalShow1(false);
-      setloader(true);
-      const formData = new FormData();
-      // if (editorRef.current) {
+      if (UserData.access[0].accessibility.ClientsPortal.EditGuides) {
+        setModalShow1(false);
+        setloader(true);
+        const formData = new FormData();
+        // if (editorRef.current) {
         setloader(true);
         values.description = editorRef.current.getContent();
         formData.append("file", imageguide);
         formData.append("id", values.id);
         formData.append("title", values.title);
         formData.append("description", values.description);
-      // }
-      setTimeout(() => {
-        Exportguid.GuidUpdate(formData)
-          .then((resp) => {
-            if (
-              resp.data.message ==" Update RegistrationGuide details "     
-            ) {
-              setCount()
-              setModalShow1(false);
-              setloader(false);
-              GetData();
-              toast.success(" Update RegistrationGuide details ", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-              });
-              // Navigate("/Productlist/moduleList");
-            } else {
-              setloader(false);
+        // }
+        setTimeout(() => {
+          Exportguid.GuidUpdate(formData)
+            .then((resp) => {
+              if (resp.data.message == " Update RegistrationGuide details ") {
+                setCount();
+                setModalShow1(false);
+                setloader(false);
+                GetData();
+                toast.success(" Update RegistrationGuide details ", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+                // Navigate("/Productlist/moduleList");
+              } else {
+                setloader(false);
+                toast.error("Something went wrong", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }
+            })
+            .catch((err) =>
               toast.error("Something went wrong", {
                 position: "top-right",
                 autoClose: 5000,
@@ -286,34 +330,33 @@ export default function UserDeshboard() {
                 draggable: true,
                 progress: undefined,
                 theme: "light",
-              });
-            }
-          })
-          .catch((err) =>
-            toast.error("Something went wrong", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            })
-          );
-      }, 1000);
+              })
+            );
+        }, 1000);
+      } else {
+        toast.error("You are not accessible", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     },
   });
   const heandleEdit = (data) => {
-    setCount(2)
-    setEditData(data)
-    setModalShow1(true)
-  }
-  const heandleView = (obj,data) => {
+    setCount(2);
+    setEditData(data);
+    setModalShow1(true);
+  };
+  const heandleView = (obj, data) => {
     // setCount(2)
-    setEditData(obj)
-    setEditDataView(data)
-    setModalShow2(true)
+    setEditData(obj);
+    setEditDataView(data);
+    setModalShow2(true);
   };
   return (
     <div>
@@ -492,31 +535,44 @@ export default function UserDeshboard() {
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                <Button
-                          onClick={() => {
-                            setEditDataView()
-                            setModalShow2(false)
-                            setTimeout(() => {
-                              setModalShow1(true)
-                            });
-                          }}
-                          type="button"
-                          sx={{ marginLeft: "10px" }}
-                          className={"A1"}
-                          variant="contained"
-                        >
-                          {" "}
-                          Edit
-                        </Button>
+                  <Button
+                    onClick={() => {
+                      setEditDataView();
+                      setModalShow2(false);
+                      setTimeout(() => {
+                        setModalShow1(true);
+                      });
+                    }}
+                    type="button"
+                    sx={{ marginLeft: "10px" }}
+                    className={"A1"}
+                    variant="contained"
+                  >
+                    {" "}
+                    Edit
+                  </Button>
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div style={{padding:"30px"}}>
-                 <h2>{EditData?.title}</h2>
-                 <h6><a href={BaseUrlImage+EditData?.file_path} target="_blank">Video File Name {"  "+ EditDataView?.product_name +"   Registration Guides "+" "+ EditData?.title}</a></h6>
-                 <div style={{marginBlock:"20px"}} dangerouslySetInnerHTML={{__html: EditData?.description}}>
-
-                 </div>
+                <div style={{ padding: "30px" }}>
+                  <h2>{EditData?.title}</h2>
+                  <h6>
+                    <a
+                      href={BaseUrlImage + EditData?.file_path}
+                      target="_blank"
+                    >
+                      Video File Name{" "}
+                      {"  " +
+                        EditDataView?.product_name +
+                        "   Registration Guides " +
+                        " " +
+                        EditData?.title}
+                    </a>
+                  </h6>
+                  <div
+                    style={{ marginBlock: "20px" }}
+                    dangerouslySetInnerHTML={{ __html: EditData?.description }}
+                  ></div>
                 </div>
               </Modal.Body>
               <Modal.Footer></Modal.Footer>
@@ -554,7 +610,9 @@ export default function UserDeshboard() {
                         {val?.guids?.map((item, i) => (
                           <TableRow>
                             {/* <StyledTableCell>{i + 1}</StyledTableCell> */}
-                            <StyledTableCell><Box component="h3">....</Box></StyledTableCell>
+                            <StyledTableCell>
+                              <Box component="h3">....</Box>
+                            </StyledTableCell>
                             <StyledTableCell> {item.title}</StyledTableCell>
                             <StyledTableCell>{"  "}</StyledTableCell>
                             <StyledTableCell>{"  "}</StyledTableCell>
@@ -562,9 +620,29 @@ export default function UserDeshboard() {
 
                             {/* <StyledTableCell>{val.id==1?"No Action":<>  <EditIcon onClick={() => {hendleEditUser(val);}} sx={{ color: "#0CB4D0" }} /> &nbsp; <DeleteIcon onClick={()=>hendleUserDelete(val.id)} sx={{ color: "red" }} />{" "}</>}</StyledTableCell> */}
                             <StyledTableCell>
-                              {localStorage.getItem("role") != 1 ? (
-                                <Grid sx={{color: "#0CB4D0", cursor: "pointer",display: "flex"}}>
-                                  <span style={{ marginRight: "5px" }}>View</span> /
+                              {UserData.access[0].accessibility.ClientsPortal
+                                .EditGuides == false ? (
+                                <Grid
+                                  sx={{
+                                    color: "#0CB4D0",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                  }}
+                                  onClick={()=>{  toast.error("You are not accessible", {
+                                    position: "top-right",
+                                    autoClose: 5000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                  });}}
+                                >
+                                  <span style={{ marginRight: "5px" }}>
+                                    View
+                                  </span>{" "}
+                                  /
                                   <span
                                     style={{
                                       marginRight: "5px",
@@ -576,10 +654,22 @@ export default function UserDeshboard() {
                                   {/* / <p style={{ marginLeft: "5px" }}>Delete</p> */}
                                 </Grid>
                               ) : (
-                                <Grid sx={{color: "#0CB4D0",
-                                cursor: "pointer",
-                                display: "flex"}}>
-                                  <span onClick={()=>{heandleView(item,val)}} style={{ marginRight: "5px" }}>View</span>/
+                                <Grid
+                                  sx={{
+                                    color: "#0CB4D0",
+                                    cursor: "pointer",
+                                    display: "flex",
+                                  }}
+                                >
+                                  <span
+                                    onClick={() => {
+                                      heandleView(item, val);
+                                    }}
+                                    style={{ marginRight: "5px" }}
+                                  >
+                                    View
+                                  </span>
+                                  /
                                   <span
                                     style={{
                                       marginRight: "5px",
@@ -597,7 +687,38 @@ export default function UserDeshboard() {
                           </TableRow>
                         ))}
                       </TableBody>
-                      <div style={{ marginBlock: "20px" }}>
+                      {UserData.access[0].accessibility.ClientsPortal
+                        .AddGuides ? (
+                        <div style={{ marginBlock: "20px" }}>
+                          <Button
+                            onClick={() => {
+                              GuideAdd(val.id, 1);
+                            }}
+                            variant="contained"
+                            sx={{ backgroundColor: "#0CB4D0" }}
+                            startIcon={<AddIcon sx={{ marginTop: "-8px" }} />}
+                          >
+                            {" "}
+                            ADD A Chapter
+                          </Button>
+                        </div>
+                      ) : (
+                        <div style={{ marginBlock: "20px" }}>
+                          <Button
+                            disabled
+                            // onClick={() => {
+                            //   GuideAdd(val.id, 1);
+                            // }}
+                            variant="contained"
+                            sx={{ backgroundColor: "#0CB4D0" }}
+                            startIcon={<AddIcon sx={{ marginTop: "-8px" }} />}
+                          >
+                            {" "}
+                            ADD A Chapter
+                          </Button>
+                        </div>
+                      )}
+                      {/* <div style={{ marginBlock: "20px" }}>
                         <Button
                           onClick={() => {
                             GuideAdd(val.id, 1);
@@ -609,7 +730,7 @@ export default function UserDeshboard() {
                           {" "}
                           ADD A Chapter
                         </Button>
-                      </div>
+                      </div> */}
                     </Table>
                   </TableContainer>
                 </div>
@@ -619,230 +740,231 @@ export default function UserDeshboard() {
           <div></div>
         </>
       )}
-            <Modal
-              show={modalShow1}
-              onHide={() =>{ setModalShow1(false);setCount()}}
-              size="xl"
-              // aria-labelledby="contained-modal-title-vcenter"
-              centered
-            >
-              <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                {Count == 1 ? "ADD Guide":"Edit Guide"}
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {Count == 1 ? (
-                  <>
-                    <Box
-                      component="form"
-                      onSubmit={formik1.handleSubmit}
-                      sx={{ mt: 1 }}
-                    >
-                      <Grid container>
-                        <Grid item xs={12} md={2} lg={3} mb={2}>
-                          <div style={{ display: "flex" }}>
-
-                          </div>
-                        </Grid>
-                        <Grid item xs={12} md={8} lg={6}>
-                          <Box mt={3}>
-                            <TextField
-                              fullWidth
-                              id="fullWidth"
-                              label=" Video Title"
-                              type="text"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                              variant="filled"
-                              name="title"
-                              onChange={formik1.handleChange}
-                              onBlur={formik1.handleBlur}
-                              value={formik1.values.title}
-                              autoComplete="current-number"
-                            />
-                            {formik1.touched.title && formik1.errors.title ? (
-                              <div style={{ color: "red" }}>
-                                {formik1.errors.title}
-                              </div>
-                            ) : null}
-                          </Box>
-                          <Grid container>
-                            <Grid item xs={8} md={2} lg={9.9} mb={2}>
-                              <Box mt={3}>
-                                <TextField
-                                  fullWidth
-                                  id="fullWidth"
-                                  label=" Video"
-                                  type="file"
-                                  InputLabelProps={{
-                                    shrink: true,
-                                  }}
-                                  variant="filled"
-                                  name="file"
-                                  onChange={(event) => {
-                                    formik1.values.file = event.target.files[0];
-                                    setimageguide(event.target.files[0]);
-                                  }}
-                                  onBlur={formik1.handleBlur}
-                                  //   value={formik1.values.file}
-                                  autoComplete="current-number"
-                                />
-                                {formik1.touched.file && formik1.errors.file ? (
-                                  <div style={{ color: "red" }}>
-                                    {formik1.errors.file}
-                                  </div>
-                                ) : null}
-                              </Box>
-                            </Grid>
-                            <Grid item xs={4} md={2} lg={2.1} mb={2} mt={2}>
-                              <Box mt={3}>
-                                <Button
-                                  type="submit"
-                                  className={"A1"}
-                                  sx={{ width: { xs: "100%", sm: "auto" } }}
-                                  variant="contained"
-                                >
-                                  Submit
-                                </Button>
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
+      <Modal
+        show={modalShow1}
+        onHide={() => {
+          setModalShow1(false);
+          setCount();
+        }}
+        size="xl"
+        // aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {Count == 1 ? "ADD Guide" : "Edit Guide"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {Count == 1 ? (
+            <>
+              <Box
+                component="form"
+                onSubmit={formik1.handleSubmit}
+                sx={{ mt: 1 }}
+              >
+                <Grid container>
+                  <Grid item xs={12} md={2} lg={3} mb={2}>
+                    <div style={{ display: "flex" }}></div>
+                  </Grid>
+                  <Grid item xs={12} md={8} lg={6}>
+                    <Box mt={3}>
+                      <TextField
+                        fullWidth
+                        id="fullWidth"
+                        label=" Video Title"
+                        type="text"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="filled"
+                        name="title"
+                        onChange={formik1.handleChange}
+                        onBlur={formik1.handleBlur}
+                        value={formik1.values.title}
+                        autoComplete="current-number"
+                      />
+                      {formik1.touched.title && formik1.errors.title ? (
+                        <div style={{ color: "red" }}>
+                          {formik1.errors.title}
+                        </div>
+                      ) : null}
                     </Box>
-                    <Editor
-                      onInit={(evt, editor) => (editorRef.current = editor)}
-                      initialValue={""}
-                      apiKey="6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u"
-                      init={{
-                        plugins: "preview",
-                        menubar: "view",
-                        height: 500,
-                        menubar: true,
-                        plugins:
-                          "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons   fullscreen help image importcss  insertdatetime link  lists media    nonbreaking pagebreak preview quickbars save searchreplace table  Advanced Template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
-                        toolbar1:
-                          "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview",
-                        toolbar2:
-                          "table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader",
-                        content_style:
-                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                      }}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <Box
-                      component="form"
-                      onSubmit={formik2.handleSubmit}
-                      sx={{ mt: 1 }}
-                    >
-                      <Grid container>
-                        <Grid item xs={12} md={2} lg={3} mb={2}>
-                          <div style={{ display: "flex" }}>
-                          <ReactPlayer
-                    width={"100%"}
-                    height="100%"
-                    playing={true}
-                    muted={true}
-                    controls={true}
-                    url={BaseUrlImage+EditData?.file_path}
-                  />
-                          </div>
-                        </Grid>
-                        <Grid item xs={12} md={8} lg={6}pl={5}>
-                          <Box mt={3}>
-                            <TextField
-                              fullWidth
-                              id="fullWidth"
-                              label=" Video Title"
-                              type="text"
-                              InputLabelProps={{
-                                shrink: true,
-                              }}
-                              variant="filled"
-                              name="title"
-                              onChange={formik2.handleChange}
-                              onBlur={formik2.handleBlur}
-                              value={formik2.values.title}
-                              autoComplete="current-number"
-                            />
-                            {formik2.touched.title && formik2.errors.title ? (
-                              <div style={{ color: "red" }}>
-                                {formik2.errors.title}
-                              </div>
-                            ) : null}
-                          </Box>
-                          <Grid container>
-                            <Grid item xs={8} md={2} lg={9.9} mb={2}>
-                              <Box mt={3}>
-                                <TextField
-                                  fullWidth
-                                  id="fullWidth"
-                                  label=" Video"
-                                  type="file"
-                                  InputLabelProps={{
-                                    shrink: true,
-                                  }}
-                                  variant="filled"
-                                  name="file"
-                                  onChange={(event) => {
-                                    formik2.values.file = event.target.files[0];
-                                    setimageguide(event.target.files[0]);
-                                  }}
-                                  onBlur={formik2.handleBlur}
-                                  //   value={formik2.values.file}
-                                  autoComplete="current-number"
-                                />
-                                {formik2.touched.file && formik2.errors.file ? (
-                                  <div style={{ color: "red" }}>
-                                    {formik2.errors.file}
-                                  </div>
-                                ) : null}
-                              </Box>
-                            </Grid>
-                            <Grid item xs={4} md={2} lg={2.1} mb={2} mt={2}>
-                              <Box mt={3}>
-                                <Button
-                                  type="submit"
-                                  className={"A1"}
-                                  sx={{ width: { xs: "100%", sm: "auto" } }}
-                                  variant="contained"
-                                >
-                                  Submit
-                                </Button>
-                              </Box>
-                            </Grid>
-                          </Grid>
-                        </Grid>
+                    <Grid container>
+                      <Grid item xs={8} md={2} lg={9.9} mb={2}>
+                        <Box mt={3}>
+                          <TextField
+                            fullWidth
+                            id="fullWidth"
+                            label=" Video"
+                            type="file"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="filled"
+                            name="file"
+                            onChange={(event) => {
+                              formik1.values.file = event.target.files[0];
+                              setimageguide(event.target.files[0]);
+                            }}
+                            onBlur={formik1.handleBlur}
+                            //   value={formik1.values.file}
+                            autoComplete="current-number"
+                          />
+                          {formik1.touched.file && formik1.errors.file ? (
+                            <div style={{ color: "red" }}>
+                              {formik1.errors.file}
+                            </div>
+                          ) : null}
+                        </Box>
                       </Grid>
+                      <Grid item xs={4} md={2} lg={2.1} mb={2} mt={2}>
+                        <Box mt={3}>
+                          <Button
+                            type="submit"
+                            className={"A1"}
+                            sx={{ width: { xs: "100%", sm: "auto" } }}
+                            variant="contained"
+                          >
+                            Submit
+                          </Button>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Editor
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                initialValue={""}
+                apiKey="6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u"
+                init={{
+                  plugins: "preview",
+                  menubar: "view",
+                  height: 500,
+                  menubar: true,
+                  plugins:
+                    "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons   fullscreen help image importcss  insertdatetime link  lists media    nonbreaking pagebreak preview quickbars save searchreplace table  Advanced Template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
+                  toolbar1:
+                    "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview",
+                  toolbar2:
+                    "table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                }}
+              />
+            </>
+          ) : (
+            <>
+              <Box
+                component="form"
+                onSubmit={formik2.handleSubmit}
+                sx={{ mt: 1 }}
+              >
+                <Grid container>
+                  <Grid item xs={12} md={2} lg={3} mb={2}>
+                    <div style={{ display: "flex" }}>
+                      <ReactPlayer
+                        width={"100%"}
+                        height="100%"
+                        playing={true}
+                        muted={true}
+                        controls={true}
+                        url={BaseUrlImage + EditData?.file_path}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} md={8} lg={6} pl={5}>
+                    <Box mt={3}>
+                      <TextField
+                        fullWidth
+                        id="fullWidth"
+                        label=" Video Title"
+                        type="text"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="filled"
+                        name="title"
+                        onChange={formik2.handleChange}
+                        onBlur={formik2.handleBlur}
+                        value={formik2.values.title}
+                        autoComplete="current-number"
+                      />
+                      {formik2.touched.title && formik2.errors.title ? (
+                        <div style={{ color: "red" }}>
+                          {formik2.errors.title}
+                        </div>
+                      ) : null}
                     </Box>
-                    <Editor
-                      onInit={(evt, editor) => (editorRef.current = editor)}
-                      initialValue={EditData?.description}
-                      apiKey="6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u"
-                      init={{
-                        plugins: "preview",
-                        menubar: "view",
-                        height: 500,
-                        menubar: true,
-                        plugins:
-                          "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons   fullscreen help image importcss  insertdatetime link  lists media    nonbreaking pagebreak preview quickbars save searchreplace table  Advanced Template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
-                        toolbar1:
-                          "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview",
-                        toolbar2:
-                          "table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader",
-                        content_style:
-                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                      }}
-                    />
-                  </>
-                )}
-              </Modal.Body>
-              <Modal.Footer></Modal.Footer>
-            </Modal>
+                    <Grid container>
+                      <Grid item xs={8} md={2} lg={9.9} mb={2}>
+                        <Box mt={3}>
+                          <TextField
+                            fullWidth
+                            id="fullWidth"
+                            label=" Video"
+                            type="file"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
+                            variant="filled"
+                            name="file"
+                            onChange={(event) => {
+                              formik2.values.file = event.target.files[0];
+                              setimageguide(event.target.files[0]);
+                            }}
+                            onBlur={formik2.handleBlur}
+                            //   value={formik2.values.file}
+                            autoComplete="current-number"
+                          />
+                          {formik2.touched.file && formik2.errors.file ? (
+                            <div style={{ color: "red" }}>
+                              {formik2.errors.file}
+                            </div>
+                          ) : null}
+                        </Box>
+                      </Grid>
+                      <Grid item xs={4} md={2} lg={2.1} mb={2} mt={2}>
+                        <Box mt={3}>
+                          <Button
+                            type="submit"
+                            className={"A1"}
+                            sx={{ width: { xs: "100%", sm: "auto" } }}
+                            variant="contained"
+                          >
+                            Submit
+                          </Button>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Box>
+              <Editor
+                onInit={(evt, editor) => (editorRef.current = editor)}
+                initialValue={EditData?.description}
+                apiKey="6mi71tv2o1dqve07iwnepbvp4zvjdvjl6grvrsjc0lp6kg5u"
+                init={{
+                  plugins: "preview",
+                  menubar: "view",
+                  height: 500,
+                  menubar: true,
+                  plugins:
+                    "  advlist  anchor  autolink autoresize autosave  charmap  code codesample directionality  emoticons   fullscreen help image importcss  insertdatetime link  lists media    nonbreaking pagebreak preview quickbars save searchreplace table  Advanced Template tinydrive   visualblocks visualchars preview wordcount ext/dragAndDrop",
+                  toolbar1:
+                    "undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | indent outdent | wordcount | preview",
+                  toolbar2:
+                    "table tablecellprops tablecopyrow tablecutrow tabledelete tabledeletecol tabledeleterow tableinsertdialog tableinsertcolafter tableinsertcolbefore tableinsertrowafter tableinsertrowbefore tablemergecells tablepasterowafter tablepasterowbefore tableprops tablerowprops tablesplitcells tableclass tablecellclass tablecellvalign tablecellborderwidth tablecellborderstyle tablecaption tablecellbackgroundcolor tablecellbordercolor tablerowheader tablecolheader",
+                  content_style:
+                    "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                }}
+              />
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>
     </div>
   );
 }

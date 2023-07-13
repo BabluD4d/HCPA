@@ -18,13 +18,67 @@ import {
   Select,
   Typography,
   Button,
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  Paper,
 } from "@mui/material";
-
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import { styled } from "@mui/material/styles";
+import ExportAccess from "../Api/Admin/AccessAdmin/ExportAccess";
+import { Modal } from "react-bootstrap";
+import { Update } from "@mui/icons-material";
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#0CB4D0",
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 function AccessBySuperAdmin() {
   const [roleData, setroleData] = useState();
+  const [open, setOpen] = React.useState(false);
+  const [UpdateAccess, setUpdateAccess] = useState({
+    AdminDashboard: "Yes",
+    role_id: "",
+    BookCall: "Yes",
+    UserList: {
+      visibility: "Yes",
+      Add: false,
+      Edit: false,
+      Delete: false,
+      View: false,
+    },
+    Products: {
+      visibility: "Yes",
+      Add: false,
+      Edit: false,
+      Delete: false,
+      View: false,
+    },
+    modules: {
+      visibility: "Yes",
+      Add: false,
+      Edit: false,
+      Delete: false,
+      View: false,
+    },
+    ClientsPortal: {
+      visibility: "Yes",
+      AddWelcome: false,
+      AddGuides: false,
+      EditGuides: false,
+      DeleteGuides: false,
+    },
+  });
+  const [accessDataList, setaccessDataList] = useState();
   const [formData, setformData] = useState({
     AdminDashboard: "Yes",
-    AccessType_id: "",
+    role_id: "",
     BookCall: "Yes",
     UserList: {
       visibility: "Yes",
@@ -66,12 +120,12 @@ function AccessBySuperAdmin() {
   }, []);
 
   const GetData = () => {
-    ExportRegistration.getRoleId()
+    ExportAccess.AccesslistAll()
       .then((resp) => {
         if (resp.ok) {
           if (resp.data) {
-            setroleData(resp.data.data);
-            console.log(resp.data.data);
+            setaccessDataList(resp.data);
+            console.log(resp.data);
           }
         }
       })
@@ -87,10 +141,53 @@ function AccessBySuperAdmin() {
           theme: "light",
         });
       });
+    ExportRegistration.getRoleIdAccess()
+      .then((resp) => {
+        if (resp.ok) {
+          if (resp.data) {
+            setroleData(resp.data);
+            console.log(resp.data);
+          }
+        }
+      })
+      .catch((err) => {
+        toast.error("Something went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });
+    // ExportRegistration.getRoleIdAccess()
+    //   .then((resp) => {
+    //     if (resp.ok) {
+    //       if (resp.data) {
+    //         setroleData(resp.data);
+    //         console.log(resp.data);
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     toast.error("Something went wrong", {
+    //       position: "top-right",
+    //       autoClose: 5000,
+    //       hideProgressBar: false,
+    //       closeOnClick: true,
+    //       pauseOnHover: true,
+    //       draggable: true,
+    //       progress: undefined,
+    //       theme: "light",
+    //     });
+    //   });
   };
   //   const handleChange = (event, value) => {
   //     console.log(event.target.value);
   //   };
+
   return (
     <div>
       <Typography
@@ -104,7 +201,41 @@ function AccessBySuperAdmin() {
       >
         Access Type
       </Typography>
-      <Box component="form" onSubmit={() => {}}>
+      <Box
+        component="form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (formData.role_id) {
+            ExportAccess.CreateAccess(formData).then((resp) => {
+              console.log("resp.data", resp.data);
+              if (resp.data.message == "Accesstype created successfully") {
+                GetData();
+                toast.success("Accesstype created successfully", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              }
+            });
+          } else {
+            toast.warning("Plese Select Access Type", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        }}
+      >
         <Grid container spacing={2} mb={9}>
           <Grid mt={3} item xs={12}>
             <FormControl mt={3} variant="standard" fullWidth>
@@ -117,17 +248,17 @@ function AccessBySuperAdmin() {
                 label="role_id"
                 name="role_id"
                 //   onChange={formik.handleChange}
-                //   value={formData.AccessType}
+                value={formData.role_id}
                 //   onBlur={formik.handleBlur}
                 autoComplete="current-number"
                 onChange={(e) => {
-                  formData.AccessType_id = e.target.value;
+                  formData.role_id = e.target.value;
                   setformData({ ...formData });
                 }}
               >
                 {roleData?.map((val, i) =>
                   val.id == 3 || val.id == 1 ? null : (
-                    <MenuItem value={val.id}>{val.role_name}</MenuItem>
+                    <MenuItem key={i} value={val.id}>{val.role_name}</MenuItem>
                   )
                 )}
               </Select>
@@ -209,12 +340,16 @@ function AccessBySuperAdmin() {
                     background: "#ffffff",
                   }}
                 >
-                      <FormControlLabel
-                    checked={formData.UserList.visibility == "No" ?false:true}
-                    disabled={formData.UserList.visibility == "No" ?true:false}
-                      control={<Checkbox />}
-                      label="View Page And Menu "
-                    />
+                  <FormControlLabel
+                    checked={
+                      formData.UserList.visibility == "No" ? false : true
+                    }
+                    disabled={
+                      formData.UserList.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
                   <FormControlLabel
                     disabled={
                       formData.UserList.visibility == "No" ? true : false
@@ -336,12 +471,16 @@ function AccessBySuperAdmin() {
                     background: "#ffffff",
                   }}
                 >
-                      <FormControlLabel
-                    checked={formData.Products.visibility == "No" ?false:true}
-                    disabled={formData.Products.visibility == "No" ?true:false}
-                      control={<Checkbox />}
-                      label="View Page And Menu "
-                    />
+                  <FormControlLabel
+                    checked={
+                      formData.Products.visibility == "No" ? false : true
+                    }
+                    disabled={
+                      formData.Products.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
                   <FormControlLabel
                     checked={formData.Products.View}
                     disabled={
@@ -356,10 +495,10 @@ function AccessBySuperAdmin() {
                   />
 
                   <FormControlLabel
-                       checked={formData.Products.Add}
-                       disabled={
-                         formData.Products.visibility == "No" ? true : false
-                       }
+                    checked={formData.Products.Add}
+                    disabled={
+                      formData.Products.visibility == "No" ? true : false
+                    }
                     onChange={(e) => {
                       formData.Products.Add = e.target.checked;
                       setformData({ ...formData });
@@ -369,10 +508,10 @@ function AccessBySuperAdmin() {
                   />
 
                   <FormControlLabel
-                     checked={formData.Products.Edit}
-                     disabled={
-                       formData.Products.visibility == "No" ? true : false
-                     }
+                    checked={formData.Products.Edit}
+                    disabled={
+                      formData.Products.visibility == "No" ? true : false
+                    }
                     onChange={(e) => {
                       formData.Products.Edit = e.target.checked;
                       setformData({ ...formData });
@@ -382,10 +521,10 @@ function AccessBySuperAdmin() {
                   />
 
                   <FormControlLabel
-                      checked={formData.Products.Delete}
-                      disabled={
-                        formData.Products.visibility == "No" ? true : false
-                      }
+                    checked={formData.Products.Delete}
+                    disabled={
+                      formData.Products.visibility == "No" ? true : false
+                    }
                     onChange={(e) => {
                       formData.Products.Delete = e.target.checked;
                       setformData({ ...formData });
@@ -455,71 +594,73 @@ function AccessBySuperAdmin() {
                 </FormControl>
 
                 {/* {formData.modules.visibility == "Yes" ? ( */}
-                  <FormGroup
-                    sx={{
-                      border: "1px solid #e0e0e0",
-                      borderRadius: "0 0 5px 5px",
-                      padding: "10px 5px",
-                      background: "#ffffff",
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={formData.modules.visibility == "No" ? false : true}
+                    disabled={
+                      formData.modules.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                  <FormControlLabel
+                    checked={formData.modules.View}
+                    disabled={
+                      formData.modules.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      formData.modules.View = e.target.checked;
+                      setformData({ ...formData });
                     }}
-                  >
-                      <FormControlLabel
-                    checked={formData.modules.visibility == "No" ?false:true}
-                    disabled={formData.modules.visibility == "No" ?true:false}
-                      control={<Checkbox />}
-                      label="View Page And Menu "
-                    />
-                    <FormControlLabel
-                       checked={formData.modules.View}
-                       disabled={
-                         formData.modules.visibility == "No" ? true : false
-                       }
-                      onChange={(e) => {
-                        formData.modules.View = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="View"
-                    />
+                    control={<Checkbox />}
+                    label="View"
+                  />
 
-                    <FormControlLabel
+                  <FormControlLabel
                     checked={formData.modules.Add}
                     disabled={
                       formData.modules.visibility == "No" ? true : false
                     }
-                      onChange={(e) => {
-                        formData.modules.Add = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Add Module"
-                    />
+                    onChange={(e) => {
+                      formData.modules.Add = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Add Module"
+                  />
 
-                    <FormControlLabel
+                  <FormControlLabel
                     checked={formData.modules.Edit}
                     disabled={
                       formData.modules.visibility == "No" ? true : false
                     }
-                      onChange={(e) => {
-                        formData.modules.Edit = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Edit Modules"
-                    />
-                    <FormControlLabel
+                    onChange={(e) => {
+                      formData.modules.Edit = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Edit Modules"
+                  />
+                  <FormControlLabel
                     checked={formData.modules.Delete}
                     disabled={
                       formData.modules.visibility == "No" ? true : false
                     }
-                      onChange={(e) => {
-                        formData.modules.Delete = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Delete Modules"
-                    />
-                  </FormGroup>
+                    onChange={(e) => {
+                      formData.modules.Delete = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Delete Modules"
+                  />
+                </FormGroup>
                 {/* ) : null} */}
               </Grid>
 
@@ -580,72 +721,76 @@ function AccessBySuperAdmin() {
                 </FormControl>
 
                 {/* {formData.ClientsPortal.visibility == "Yes" ? ( */}
-                  <FormGroup
-                    sx={{
-                      border: "1px solid #e0e0e0",
-                      borderRadius: "0 0 5px 5px",
-                      padding: "10px 5px",
-                      background: "#ffffff",
-                    }}
-                  >
-                    <FormControlLabel
-                    checked={formData.ClientsPortal.visibility == "No" ?false:true}
-                    disabled={formData.ClientsPortal.visibility == "No" ?true:false}
-                      control={<Checkbox />}
-                      label="View Page And Menu "
-                    />
-                    <FormControlLabel
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={
+                      formData.ClientsPortal.visibility == "No" ? false : true
+                    }
+                    disabled={
+                      formData.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                  <FormControlLabel
                     checked={formData.ClientsPortal.AddWelcome}
                     disabled={
                       formData.ClientsPortal.visibility == "No" ? true : false
                     }
-                      onChange={(e) => {
-                        formData.ClientsPortal.AddWelcome = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Add WelCome Video"
-                    />
+                    onChange={(e) => {
+                      formData.ClientsPortal.AddWelcome = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Add WelCome Video"
+                  />
 
-                    <FormControlLabel
-                      checked={formData.ClientsPortal.AddGuides}
-                      disabled={
-                        formData.ClientsPortal.visibility == "No" ? true : false
-                      }
-                      onChange={(e) => {
-                        formData.ClientsPortal.AddGuides = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Add Guides"
-                    />
-
-                    <FormControlLabel 
-                      checked={formData.ClientsPortal.EditGuides}
-                    disabled={
-                      formData.ClientsPortal.visibility == "No" ? true : false
-                    }   
-                      onChange={(e) => {
-                        formData.ClientsPortal.EditGuides = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Edit Guides"
-                    />
-
-                    <FormControlLabel 
-                      checked={formData.ClientsPortal.DeleteGuides}
+                  <FormControlLabel
+                    checked={formData.ClientsPortal.AddGuides}
                     disabled={
                       formData.ClientsPortal.visibility == "No" ? true : false
                     }
-                      onChange={(e) => {
-                        formData.ClientsPortal.DeleteGuides = e.target.checked;
-                        setformData({ ...formData });
-                      }}
-                      control={<Checkbox />}
-                      label="Delete Guides"
-                    />
-                  </FormGroup>
+                    onChange={(e) => {
+                      formData.ClientsPortal.AddGuides = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Add Guides"
+                  />
+
+                  <FormControlLabel
+                    checked={formData.ClientsPortal.EditGuides}
+                    disabled={
+                      formData.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      formData.ClientsPortal.EditGuides = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Edit Guides"
+                  />
+
+                  <FormControlLabel
+                    checked={formData.ClientsPortal.DeleteGuides}
+                    disabled={
+                      formData.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      formData.ClientsPortal.DeleteGuides = e.target.checked;
+                      setformData({ ...formData });
+                    }}
+                    control={<Checkbox />}
+                    label="Delete Guides"
+                  />
+                </FormGroup>
                 {/* ) : null} */}
               </Grid>
 
@@ -694,20 +839,20 @@ function AccessBySuperAdmin() {
                   </RadioGroup>
                 </FormControl>
                 <FormGroup
-                    sx={{
-                      border: "1px solid #e0e0e0",
-                      borderRadius: "0 0 5px 5px",
-                      padding: "10px 5px",
-                      background: "#ffffff",
-                    }}
-                  >
-                    <FormControlLabel
-                    checked={formData.AdminDashboard == "No" ?false:true}
-                    disabled={formData.AdminDashboard == "No" ?true:false}
-                      control={<Checkbox />}
-                      label="View Page And Menu "
-                    />
-                    </FormGroup>
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={formData.AdminDashboard == "No" ? false : true}
+                    disabled={formData.AdminDashboard == "No" ? true : false}
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                </FormGroup>
               </Grid>
 
               <Grid
@@ -755,26 +900,27 @@ function AccessBySuperAdmin() {
                   </RadioGroup>
                 </FormControl>
                 <FormGroup
-                    sx={{
-                      border: "1px solid #e0e0e0",
-                      borderRadius: "0 0 5px 5px",
-                      padding: "10px 5px",
-                      background: "#ffffff",
-                    }}
-                  >
-                    <FormControlLabel
-                    checked={formData.BookCall == "No" ?false:true}
-                    disabled={formData.BookCall == "No" ?true:false}
-                      control={<Checkbox />}
-                      label="View Page And Menu "
-                    />
-                    </FormGroup>
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={formData.BookCall == "No" ? false : true}
+                    disabled={formData.BookCall == "No" ? true : false}
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                </FormGroup>
               </Grid>
 
               <Grid item xs="12" textAlign="center" mt={3}>
                 <Button
                   sx={{ width: { xs: "100%", sm: "auto" } }}
                   className={"A1"}
+                  type="submit"
                   variant="contained"
                 >
                   Add
@@ -784,6 +930,913 @@ function AccessBySuperAdmin() {
           </Grid>
         </Grid>
       </Box>
+
+      <Box component="form">
+        <Box mt={4} className="user-list-table">
+          <TableContainer component={Paper} sx={{ mb: 2 }}>
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Access Type</StyledTableCell>
+                  <StyledTableCell>Page Name</StyledTableCell>
+                  <StyledTableCell>View Page And Menu</StyledTableCell>
+                  <StyledTableCell>Add</StyledTableCell>
+                  <StyledTableCell>Edit</StyledTableCell>
+                  <StyledTableCell>Delete</StyledTableCell>
+                  <StyledTableCell>View Activity</StyledTableCell>
+                  <StyledTableCell>Update Access</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {accessDataList?.map((item, index) => {
+                  return (
+                    <>
+                      <TableRow>
+                        <StyledTableCell>
+                          {item?.role?.role_name}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.AdminDashboard ? "Admin Dashboard" : ""}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.AdminDashboard === "Yes" ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell
+                          sx={{ color: "#0cb4d0", cursor: "pointer" }}
+                          onClick={() => {
+                            setUpdateAccess(item);
+                            setTimeout(() => {
+                              setOpen(true);
+                            });
+                          }}
+                        >
+                          Update
+                        </StyledTableCell>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCell>{""}</StyledTableCell>
+                        <StyledTableCell>
+                          {item?.BookCall ? "BookCall" : ""}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.BookCall === "Yes" ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCell></StyledTableCell>
+                        <StyledTableCell>
+                          {item?.UserList ? "User List" : ""}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.UserList?.Add ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.UserList?.Edit ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.UserList?.View ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.UserList?.Delete ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.UserList?.visibility === "Yes" ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCell>{""}</StyledTableCell>
+                        <StyledTableCell>
+                          {item?.Products ? "Products List" : ""}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.Products?.Add ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.Products?.Edit ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.Products?.View ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.Products?.Delete ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.Products?.visibility === "Yes" ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCell>{""}</StyledTableCell>
+                        <StyledTableCell>
+                          {item?.modules ? "Modules List" : ""}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.modules?.Add ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.modules?.Edit ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.modules?.View ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.modules?.Delete ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.modules?.visibility === "Yes" ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                      </TableRow>
+                      <TableRow>
+                        <StyledTableCell>{""}</StyledTableCell>
+                        <StyledTableCell>
+                          {item?.ClientsPortal ? "Client Portal" : ""}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.ClientsPortal?.AddWelcome ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.ClientsPortal?.AddGuides ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.ClientsPortal?.EditGuides ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.ClientsPortal?.DeleteGuides ? "Yes" : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell>
+                          {item?.ClientsPortal?.visibility === "Yes"
+                            ? "Yes"
+                            : "No"}{" "}
+                        </StyledTableCell>
+                        <StyledTableCell></StyledTableCell>
+                      </TableRow>
+                    </>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
+      </Box>
+      <Modal
+        show={open}
+        onHide={() => setOpen(false)}
+        size="xl"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Edit Access
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Box
+        component="form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          console.log(UpdateAccess, 'Old Object')
+          let {id, ...rest} = UpdateAccess;
+          let newUpdatedAccess = {...rest,['accesstype_id']: id}
+          // if (UpdateAccess?.role_id) {
+            ExportAccess.UpdateAccess(newUpdatedAccess).then((resp) => {
+              console.log("resp.data", resp.data);
+              // if (resp.data.message == "Accesstype created successfully") {
+                GetData();
+                setOpen(false)
+                toast.success("Accesstype created successfully", {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "light",
+                });
+              // }
+            });
+          // } else {
+          //   toast.warning("Plese Select Access Type", {
+          //     position: "top-right",
+          //     autoClose: 5000,
+          //     hideProgressBar: false,
+          //     closeOnClick: true,
+          //     pauseOnHover: true,
+          //     draggable: true,
+          //     progress: undefined,
+          //     theme: "light",
+          //   });
+          // }
+        }}
+      >
+        <Grid container spacing={2} mb={9}>
+          <Grid mt={3} item xs={12}>
+            {/* <FormControl mt={3} variant="standard" fullWidth>
+              <InputLabel id="demo-simple-select-label">Access Type</InputLabel>
+              <Select
+                disabled={true}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                // value={age}
+                label="role_id"
+                name="role_id"
+                //   onChange={formik.handleChange}
+                value={UpdateAccess?.role_id}
+                //   onBlur={formik.handleBlur}
+                autoComplete="current-number"
+                onChange={(e) => {
+                  UpdateAccess.role_id = e.target.value;
+                  setUpdateAccess({ ...UpdateAccess });
+                }}
+              >
+                {roleData?.map((val, i) =>
+                  val.id == 3 || val.id == 1 ? null : (
+                    <MenuItem value={val.id}>{val.role_name}</MenuItem>
+                  )
+                )}
+              </Select>
+            </FormControl> */}
+
+            <Typography
+              className="main-title-ad"
+              mt={4}
+              mb={2}
+              fontSize={{ xs: "20px", lg: "30px" }}
+            >
+              Accessible Pages
+            </Typography>
+
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs="12"
+                md={6}
+                lg={4}
+                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              >
+                <FormControl
+                  sx={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: "-1px",
+                    border: "1px solid #e0e0e0",
+                    padding: "10px 15px",
+                    borderRadius: "5px 5px 0 0",
+                  }}
+                >
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    User List
+                  </FormLabel>
+                  <RadioGroup
+                    sx={{ flexDirection: "row" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={UpdateAccess.UserList.visibility}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                      if (e.target.value == "Yes") {
+                        UpdateAccess.UserList.visibility = e.target.value;
+                        setUpdateAccess({ ...UpdateAccess });
+                      } else {
+                        UpdateAccess.UserList = {
+                          visibility: "No",
+                          Add: false,
+                          Edit: false,
+                          Delete: false,
+                          View: false,
+                        };
+                        setUpdateAccess({ ...UpdateAccess });
+                      }
+                    }}
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                {/* {
+                        UpdateAccess.UserList.visibility == "Yes" ? ( */}
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={
+                      UpdateAccess.UserList.visibility == "No" ? false : true
+                    }
+                    disabled={
+                      UpdateAccess.UserList.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                  <FormControlLabel
+                    disabled={
+                      UpdateAccess.UserList.visibility == "No" ? true : false
+                    }
+                    checked={UpdateAccess.UserList.View}
+                    onChange={(e) => {
+                      UpdateAccess.UserList.View = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="View"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.UserList.Add}
+                    disabled={
+                      UpdateAccess.UserList.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.UserList.Add = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Add User"
+                  />
+
+                  <FormControlLabel
+                    disabled={
+                      UpdateAccess.UserList.visibility == "No" ? true : false
+                    }
+                    checked={UpdateAccess.UserList.Edit}
+                    onChange={(e) => {
+                      UpdateAccess.UserList.Edit = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Edit Use"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.UserList.Delete}
+                    disabled={
+                      UpdateAccess.UserList.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.UserList.Delete = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Delete User"
+                  />
+                </FormGroup>
+                {/* ) : null
+                    } */}
+              </Grid>
+
+              <Grid
+                item
+                xs="12"
+                md={6}
+                lg={4}
+                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              >
+                <FormControl
+                  sx={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: "-1px",
+                    border: "1px solid #e0e0e0",
+                    padding: "10px 15px",
+                    borderRadius: "5px 5px 0 0",
+                  }}
+                >
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    Product List
+                  </FormLabel>
+                  <RadioGroup
+                    sx={{ flexDirection: "row" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={UpdateAccess.Products.visibility}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                      if (e.target.value == "Yes") {
+                        UpdateAccess.Products.visibility = e.target.value;
+                        setUpdateAccess({ ...UpdateAccess });
+                      } else {
+                        UpdateAccess.Products = {
+                          visibility: "No",
+                          Add: false,
+                          Edit: false,
+                          Delete: false,
+                          View: false,
+                        };
+                        setUpdateAccess({ ...UpdateAccess });
+                      }
+                    }}
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                {/* {
+                        UpdateAccess.Products.visibility == "Yes" ? ( */}
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={
+                      UpdateAccess.Products.visibility == "No" ? false : true
+                    }
+                    disabled={
+                      UpdateAccess.Products.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                  <FormControlLabel
+                    checked={UpdateAccess.Products.View}
+                    disabled={
+                      UpdateAccess.Products.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.Products.View = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="View Product"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.Products.Add}
+                    disabled={
+                      UpdateAccess.Products.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.Products.Add = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Add Product"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.Products.Edit}
+                    disabled={
+                      UpdateAccess.Products.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.Products.Edit = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Edit Product"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.Products.Delete}
+                    disabled={
+                      UpdateAccess.Products.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.Products.Delete = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Delete Product"
+                  />
+                </FormGroup>
+                {/* ) : null
+                    } */}
+              </Grid>
+
+              <Grid
+                item
+                xs="12"
+                md={6}
+                lg={4}
+                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              >
+                <FormControl
+                  sx={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: "-1px",
+                    border: "1px solid #e0e0e0",
+                    padding: "10px 15px",
+                    borderRadius: "5px 5px 0 0",
+                  }}
+                >
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    Modules List
+                  </FormLabel>
+                  <RadioGroup
+                    sx={{ flexDirection: "row" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={UpdateAccess.modules.visibility}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                      if (e.target.value == "Yes") {
+                        UpdateAccess.modules.visibility = e.target.value;
+                        setUpdateAccess({ ...UpdateAccess });
+                      } else {
+                        UpdateAccess.modules = {
+                          visibility: "No",
+                          Add: false,
+                          Edit: false,
+                          Delete: false,
+                          View: false,
+                        };
+                        setUpdateAccess({ ...UpdateAccess });
+                      }
+                    }}
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                {/* {UpdateAccess.modules.visibility == "Yes" ? ( */}
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={UpdateAccess.modules.visibility == "No" ? false : true}
+                    disabled={
+                      UpdateAccess.modules.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                  <FormControlLabel
+                    checked={UpdateAccess.modules.View}
+                    disabled={
+                      UpdateAccess.modules.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.modules.View = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="View"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.modules.Add}
+                    disabled={
+                      UpdateAccess.modules.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.modules.Add = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Add Module"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.modules.Edit}
+                    disabled={
+                      UpdateAccess.modules.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.modules.Edit = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Edit Modules"
+                  />
+                  <FormControlLabel
+                    checked={UpdateAccess.modules.Delete}
+                    disabled={
+                      UpdateAccess.modules.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.modules.Delete = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Delete Modules"
+                  />
+                </FormGroup>
+                {/* ) : null} */}
+              </Grid>
+
+              <Grid
+                item
+                xs="12"
+                md={6}
+                lg={4}
+                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              >
+                <FormControl
+                  sx={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: "-1px",
+                    border: "1px solid #e0e0e0",
+                    padding: "10px 15px",
+                    borderRadius: "5px 5px 0 0",
+                  }}
+                >
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    Client Portal
+                  </FormLabel>
+                  <RadioGroup
+                    sx={{ flexDirection: "row" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={UpdateAccess.ClientsPortal.visibility}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                      if (e.target.value == "Yes") {
+                        UpdateAccess.ClientsPortal.visibility = e.target.value;
+                        setUpdateAccess({ ...UpdateAccess });
+                      } else {
+                        UpdateAccess.ClientsPortal = {
+                          visibility: "No",
+                          AddWelcome: false,
+                          AddGuides: false,
+                          EditGuides: false,
+                          DeleteGuides: false,
+                        };
+                        setUpdateAccess({ ...UpdateAccess });
+                      }
+                    }}
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+
+                {/* {UpdateAccess.ClientsPortal.visibility == "Yes" ? ( */}
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={
+                      UpdateAccess.ClientsPortal.visibility == "No" ? false : true
+                    }
+                    disabled={
+                      UpdateAccess.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                  <FormControlLabel
+                    checked={UpdateAccess.ClientsPortal.AddWelcome}
+                    disabled={
+                      UpdateAccess.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.ClientsPortal.AddWelcome = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Add WelCome Video"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.ClientsPortal.AddGuides}
+                    disabled={
+                      UpdateAccess.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.ClientsPortal.AddGuides = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Add Guides"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.ClientsPortal.EditGuides}
+                    disabled={
+                      UpdateAccess.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.ClientsPortal.EditGuides = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Edit Guides"
+                  />
+
+                  <FormControlLabel
+                    checked={UpdateAccess.ClientsPortal.DeleteGuides}
+                    disabled={
+                      UpdateAccess.ClientsPortal.visibility == "No" ? true : false
+                    }
+                    onChange={(e) => {
+                      UpdateAccess.ClientsPortal.DeleteGuides = e.target.checked;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                    control={<Checkbox />}
+                    label="Delete Guides"
+                  />
+                </FormGroup>
+                {/* ) : null} */}
+              </Grid>
+
+              <Grid
+                item
+                xs="12"
+                md={6}
+                lg={4}
+                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              >
+                <FormControl
+                  sx={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: "-1px",
+                    border: "1px solid #e0e0e0",
+                    padding: "10px 15px",
+                    borderRadius: "5px 5px 0 0",
+                  }}
+                >
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    Admin Dashboard
+                  </FormLabel>
+                  <RadioGroup
+                    sx={{ flexDirection: "row" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                    value={UpdateAccess.AdminDashboard}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                      UpdateAccess.AdminDashboard = e.target.value;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={UpdateAccess.AdminDashboard == "No" ? false : true}
+                    disabled={UpdateAccess.AdminDashboard == "No" ? true : false}
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                </FormGroup>
+              </Grid>
+
+              <Grid
+                item
+                xs="12"
+                md={6}
+                lg={4}
+                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              >
+                <FormControl
+                  sx={{
+                    justifyContent: "space-between",
+                    width: "100%",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginBottom: "-1px",
+                    border: "1px solid #e0e0e0",
+                    padding: "10px 15px",
+                    borderRadius: "5px 5px 0 0",
+                  }}
+                >
+                  <FormLabel id="demo-radio-buttons-group-label">
+                    BookCall List
+                  </FormLabel>
+                  <RadioGroup
+                    sx={{ flexDirection: "row" }}
+                    aria-labelledby="demo-radio-buttons-group-label"
+                      value={UpdateAccess.BookCall}
+                    name="radio-buttons-group"
+                    onChange={(e) => {
+                      UpdateAccess.BookCall = e.target.value;
+                      setUpdateAccess({ ...UpdateAccess });
+                    }}
+                  >
+                    <FormControlLabel
+                      value="Yes"
+                      control={<Radio />}
+                      label="Yes"
+                    />
+                    <FormControlLabel
+                      value="No"
+                      control={<Radio />}
+                      label="No"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                <FormGroup
+                  sx={{
+                    border: "1px solid #e0e0e0",
+                    borderRadius: "0 0 5px 5px",
+                    padding: "10px 5px",
+                    background: "#ffffff",
+                  }}
+                >
+                  <FormControlLabel
+                    checked={UpdateAccess.BookCall == "No" ? false : true}
+                    disabled={UpdateAccess.BookCall == "No" ? true : false}
+                    control={<Checkbox />}
+                    label="View Page And Menu "
+                  />
+                </FormGroup>
+              </Grid>
+
+              <Grid item xs="12" textAlign="center" mt={3}>
+                <Button
+                  sx={{ width: { xs: "100%", sm: "auto" } }}
+                  className={"A1"}
+                  type="submit"
+                  variant="contained"
+                >
+                  Update
+                </Button>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Box>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }

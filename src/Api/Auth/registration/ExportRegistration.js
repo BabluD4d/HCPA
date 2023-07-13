@@ -29,4 +29,11 @@ const getRoleId = (obj) =>
       "Content-Type": "application/json",
     },
   });
-export default { Registration, RegistrationUser ,CreateStaff,getRoleId};
+const getRoleIdAccess = (obj) =>
+  BaseApi.get("get/access/role", obj, {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    },
+  });
+export default { Registration, RegistrationUser ,CreateStaff,getRoleId,getRoleIdAccess};
