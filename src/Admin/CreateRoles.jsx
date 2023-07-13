@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import CreateRoleHandler from "../Api/Admin/CreateRole/CreateRole";
 import { styled } from "@mui/material/styles";
+import { ColorRing } from "react-loader-spinner";
 import {
   TextField,
   Button,
@@ -83,9 +84,8 @@ const CreateRoles = () => {
           }
         });
       }
-    }
-    else {
-      CreateRoleHandler.updateRole(roleId,role)
+    } else {
+      CreateRoleHandler.updateRole(roleId, role)
         .then(() => {
           toast.success("Role updated successfully", {
             position: "top-right",
@@ -99,10 +99,10 @@ const CreateRoles = () => {
             onClose: () => setRole(""),
           });
           setIsEditable(false);
-          setRole('');
+          setRole("");
           setRoleId(undefined);
           getAllRoles();
-      })
+        })
         .catch((error) => console.log(error, "this is new error"));
     }
   };
@@ -188,9 +188,27 @@ const CreateRoles = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {roleList &&
+            {roleList.length <= 0 ? (
+              <TableRow>
+                <StyledTableCell colSpan={2}>
+                  <ColorRing
+                    visible={true}
+                    wrapperClass="role-loader"
+                    height="50"
+                    width="50"
+                    colors={[
+                      "#0CB4D0",
+                      "#0CB4D0",
+                      "#0CB4D0",
+                      "#0CB4D0",
+                      "#0CB4D0",
+                    ]}
+                  />
+                </StyledTableCell>
+              </TableRow>
+            ) : (
               roleList.map(({ id, role_name }) => {
-                if(id != '3') {
+                if (id != "3") {
                   return (
                     <TableRow key={id}>
                       <StyledTableCell id={id}>{role_name}</StyledTableCell>
@@ -202,7 +220,13 @@ const CreateRoles = () => {
                         }}
                       >
                         {localStorage.getItem("role") != 1 ? (
-                          <Box sx={{display: "flex", flexWrap: "wrap",alignItems: "center"}}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              alignItems: "center",
+                            }}
+                          >
                             <span
                               onClick={(e) => {
                                 setIsEditable(true);
@@ -222,10 +246,16 @@ const CreateRoles = () => {
                             </span>
                           </Box>
                         ) : (
-                          <Box sx={{display: "flex", flexWrap: "wrap",alignItems: "center"}}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              alignItems: "center",
+                            }}
+                          >
                             <span
                               onClick={(e) => {
-                                setIsEditable(true)
+                                setIsEditable(true);
                                 setRoleId(id);
                                 setRole(role_name);
                               }}
@@ -246,7 +276,8 @@ const CreateRoles = () => {
                     </TableRow>
                   );
                 }
-              })}
+              })
+            )}
           </TableBody>
         </Table>
       </TableContainer>

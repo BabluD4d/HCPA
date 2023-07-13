@@ -487,6 +487,7 @@ h1, a{
 .dashboard-custom-dropdown-items ul {padding:0}
 .dashboard-custom-dropdown-items li:hover,
 .dashboard-custom-dropdown-items li.selected-product {background-color: #233b77; color:#ffffff;}
+.role-loader {transform: translate(0,0); width: 100%;}
 /* .table-com-ar{
   width: 100%;
   min-width: 100%;

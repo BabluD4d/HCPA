@@ -967,7 +967,8 @@ export default function UserList() {
                      ) : null}
                 </FormControl>
                 </Box>
-                     {formik1.values.role_id}
+                     {/* {formik1.values.role_id} */}
+                     <p></p>
                 <Box>
                 <FormControl mt={3} variant="standard" fullWidth>
                   <InputLabel id="demo-simple-select-label">
