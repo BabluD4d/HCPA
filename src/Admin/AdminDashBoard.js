@@ -470,7 +470,7 @@ export default function AdminDashBoard() {
                 }}
               >
                 {isClicked.product ? (
-                  filterData.product_module.length > 0 ? (
+                  filterData?.product_module.length > 0 ? (
                     filterData.product_module.map((val, i) => {
                       return (
                         <Box

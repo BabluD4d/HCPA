@@ -880,7 +880,6 @@ export default function UserList() {
                       <div style={{ color: "red" }}>{formik1.errors.name}</div>
                     ) : null}
                   </Box>
-
                   <Box>
                     <TextField
                       fullWidth

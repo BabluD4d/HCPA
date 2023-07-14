@@ -81,13 +81,8 @@ const Sidebar = () => {
   window.addEventListener("UserChange", eventHandler);
   useEffect(() => {
     if (
-      (localStorage.getItem("Token") && localStorage.getItem("role") == 1) ||
-      localStorage.getItem("role") == 2 ||
-      localStorage.getItem("role") == 4 ||
-      localStorage.getItem("role") == 5 ||
-      localStorage.getItem("role") == 6 ||
-      localStorage.getItem("role") == 7 ||
-      localStorage.getItem("role") == 8
+      (localStorage.getItem("Token") && localStorage.getItem("role") !=3) 
+
     ) {
       setAdmin(true);
     } else {
@@ -128,7 +123,6 @@ const Sidebar = () => {
 
   return (
     <>
-    {console.log(Data.access[0].accessibility)}
       {/* columnSpacing={{ xs: 1, sm: 2, md: 3 }} */}
       {loaction.pathname == "/login" ? null : (
         <>
@@ -180,7 +174,7 @@ const Sidebar = () => {
                 >
                   {Admin ? (
                     <>
-                    {Data.access[0].accessibility.AdminDashboard=="Yes"?                      <ListItem
+                    {Data?.access[0].accessibility.AdminDashboard=="Yes"?                      <ListItem
                         className={
                           loaction.pathname == "/DashBoard" ||
                           loaction.pathname == "/Admin"
@@ -206,7 +200,7 @@ const Sidebar = () => {
                           <ListItemText primary={"Admin DashBoard"} />
                         </ListItemButton>
                       </ListItem>:null}
-                      {Data.access[0].accessibility.UserList.visibility=='Yes'? 
+                      {Data?.access[0].accessibility.UserList.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname == "/UserList" ||
@@ -244,7 +238,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                       :null}
-                      {Data.access[0].accessibility.BookCall=="Yes"? 
+                      {Data?.access[0].accessibility.BookCall=="Yes"? 
                       <ListItem
                         className={
                           loaction.pathname == "/callList" ? "active" : ""
@@ -266,7 +260,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                              :null}
-                               {Data.access[0].accessibility.Products.visibility=='Yes'? 
+                               {Data?.access[0].accessibility.Products.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname.includes("Product") ? "active" : ""
@@ -290,7 +284,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                       :null}
-                        {Data.access[0].accessibility.modules.visibility=='Yes'? 
+                        {Data?.access[0].accessibility.modules.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname.includes("Modules") ||
@@ -323,7 +317,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                       :null}
-                        {Data.access[0].accessibility.ClientsPortal.visibility=='Yes'? 
+                        {Data?.access[0].accessibility.ClientsPortal.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname == "/UserDeshboard" ? "active" : ""
@@ -702,7 +696,7 @@ const Sidebar = () => {
                 >
                   {Admin ? (
                     <>
-                         {Data.access[0].accessibility.AdminDashboard=="Yes"?                      <ListItem
+                         {Data?.access[0].accessibility.AdminDashboard=="Yes"?                      <ListItem
                         className={
                           loaction.pathname == "/DashBoard" ||
                           loaction.pathname == "/Admin"
@@ -728,7 +722,7 @@ const Sidebar = () => {
                           <ListItemText primary={"Admin DashBoard"} />
                         </ListItemButton>
                       </ListItem>:null}
-                      {Data.access[0].accessibility.UserList.visibility=='Yes'? 
+                      {Data?.access[0].accessibility.UserList.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname == "/UserList" ||
@@ -766,7 +760,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                       :null}
-                      {Data.access[0].accessibility.BookCall=="Yes"? 
+                      {Data?.access[0].accessibility.BookCall=="Yes"? 
                       <ListItem
                         className={
                           loaction.pathname == "/callList" ? "active" : ""
@@ -788,7 +782,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                              :null}
-                               {Data.access[0].accessibility.Products.visibility=='Yes'? 
+                               {Data?.access[0].accessibility.Products.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname.includes("Product") ? "active" : ""
@@ -812,7 +806,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                       :null}
-                        {Data.access[0].accessibility.modules.visibility=='Yes'? 
+                        {Data?.access[0].accessibility.modules.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname.includes("Modules") ||
@@ -845,7 +839,7 @@ const Sidebar = () => {
                         </ListItemButton>
                       </ListItem>
                       :null}
-                       {Data.access[0].accessibility.ClientsPortal.visibility=='Yes'? 
+                       {Data?.access[0].accessibility.ClientsPortal.visibility=='Yes'? 
                       <ListItem
                         className={
                           loaction.pathname == "/UserDeshboard" ? "active" : ""
