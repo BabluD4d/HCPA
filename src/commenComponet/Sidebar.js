@@ -164,8 +164,8 @@ const Sidebar = () => {
                   mt={8}
                   sm={0}
                   xl={2}
-                  item
-                  xs={2}
+                  item={true}
+                  // xs={2}
                   sx={{
                     overflowY: "auto",
                     height: "100%",
@@ -689,7 +689,7 @@ const Sidebar = () => {
                   mt={8}
                   sm={0}
                   xl={2}
-                  item
+                  // item
                   xs={2}
                   p={0}
                   sx={{ height: "calc(100% - 192px)", overflow: "auto" }}

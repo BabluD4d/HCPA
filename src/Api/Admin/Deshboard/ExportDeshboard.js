@@ -1,5 +1,65 @@
 import { BaseApi } from "../../BaseApi";
 
+const getAllSoldModule = (filter, date_from, date_to) => 
+  BaseApi.get(`get/product/overview?filter=${filter}&date_from=${date_from}&date_to=${date_to}`, {}, {
+  headers: {
+    Authorization: 'Bearer '+localStorage.getItem("Token"),
+    "Content-Type": "application/json",
+  }
+});
+
+const getAllSoldProduct = (filter, date_from, date_to) => 
+  // console.log(filter, date_from, date_to, 'this is the data here...')
+  BaseApi.get(`get/product/overview?filter=${filter}&date_from=${date_from}&date_to=${date_to}`, {}, {
+    headers: {
+      Authorization: 'Bearer '+localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    }
+  }
+);
+
+const getAllClientBy = (filter, date_from, date_to) => 
+  BaseApi.get(`get/client/overview?filter=${filter}&date_from=${date_from}&date_to=${date_to}`, {}, {
+    headers: {
+      Authorization: 'Bearer '+localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    }
+});
+
+const getAllStaffBy = (filter, date_from, date_to) => 
+  BaseApi.get(`get/staff/dashboard?filter=${filter}&date_from=${date_from}&date_to=${date_to}`, {}, {
+    headers: {
+      Authorization: 'Bearer '+localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    }
+});
+
+const getListClientBy = (filter, date_from, date_to) => 
+  BaseApi.get(`get/client/dashboard?filter=${filter}&date_from=${date_from}&date_to=${date_to}`, {}, {
+    headers: {
+      Authorization: 'Bearer '+localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    }
+});
+
+const getDashboardProducts = () => 
+  BaseApi.get(`get/product/dashboard`, {}, {
+    headers: {
+      Authorization: 'Bearer '+localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    }
+});
+
+const getAllModulesBy = (filter) => 
+  BaseApi.get(`get/modules/dashboard?filter=${filter}`, {}, {
+    headers: {
+      Authorization: 'Bearer '+localStorage.getItem("Token"),
+      "Content-Type": "application/json",
+    }
+});
+
+
+
 const getAllDeshbord = () =>
     // BaseApi.get("admin/dashboard",{},{
     //     headers: {
@@ -28,22 +88,6 @@ const getAllDeshbordList1 = (obj) =>
         },
       })
 
-      const getProductWiseModule = (product_id, date_from, date_to) => 
-        BaseApi.get(`get/product/filter/result?product_id=${String(product_id)}&date_from=${date_from}&date_to=${date_to}`, {}, {
-          headers: {
-            Authorization: 'Bearer '+localStorage.getItem("Token"),
-            "Content-Type": "application/json",
-          }
-        });
-
-      const getProductWiseClient = (product_id, date_from, date_to) => 
-        BaseApi.get(`get/user/filter/result?product_id=${product_id}&date_from=${date_from}&date_to=${date_to}`, {}, {
-          headers: {
-            Authorization: 'Bearer '+localStorage.getItem("Token"),
-            "Content-Type": "application/json",
-          }
-        });
-
       const getProductWiseMeeting = (product_id, date_from, date_to) => 
         BaseApi.get(`get/call/filter/result?product_id=${product_id}&date_from=${date_from}&date_to=${date_to}`, {}, {
           headers: {
@@ -53,10 +97,17 @@ const getAllDeshbordList1 = (obj) =>
         });
 
 export default {
+    getAllSoldProduct,
+    getAllSoldModule,
+    getAllClientBy,
+    getListClientBy,
+    getAllStaffBy,
+    getDashboardProducts,
+    getAllModulesBy,
+
     getAllDeshbord, 
     getAllDeshbordList1,
     getAllProducts,
-    getProductWiseModule,
-    getProductWiseClient,
+    // getProductWiseClient,
     getProductWiseMeeting
 }

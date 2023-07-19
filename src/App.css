@@ -476,17 +476,22 @@ h1, a{
   position: absolute;
   border: 1px solid #e0e0e0;
   background: #ffffff;
-  bottom: 54px;
+  top: 54px;
+  left:0;
   width: 100%;
   border-radius: 5px;
   transition: all 0.4s ease-in-out;
 }
+.dashboard-custom-dropdown:hover .dashboard-custom-dropdown-items {display: block;}
 .dashboard-custom-dropdown-items.shown {display: block;}
 .dashboard-custom-dropdown svg {transform: rotate(0deg)}
+.dashboard-custom-dropdown:hover svg,
 .dashboard-custom-dropdown.clicked svg {transform: rotate(180deg)}
 .dashboard-custom-dropdown-items ul {padding:0}
 .dashboard-custom-dropdown-items li:hover,
-.dashboard-custom-dropdown-items li.selected-product {background-color: #233b77; color:#ffffff;}
+.dashboard-custom-dropdown-items li.selected-product {background-color: #ffffff; color:#233b77;}
+.dashboard-custom-dropdown-items.light-blue li {color:#ffffff;}
+.dashboard-custom-dropdown-items.light-blue li:hover {color:#0CB4D0;}
 .role-loader {transform: translate(0,0); width: 100%;}
 /* .table-com-ar{
   width: 100%;

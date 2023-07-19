@@ -305,7 +305,7 @@ useEffect(()=>{
   getProductSold('Products', value.start.format().split("T")[0], value.end.format().split("T")[0]);
   getClientBy('Products', value.start.format().split("T")[0], value.end.format().split("T")[0]);
   getListClientVia('Products', value.start.format().split("T")[0], value.end.format().split("T")[0]);
-  getStaffBy('Type', value.start.format().split("T")[0], value.end.format().split("T")[0]);
+  getStaffBy('Name', value.start.format().split("T")[0], value.end.format().split("T")[0]);
   getDashboardProductList();
   getModuleBy('Modules')
 },[])
@@ -343,7 +343,7 @@ useEffect(()=>{
             <Grid item sm={2} xs={12} pt={4} pl={5}><h3>OVERVIEW</h3></Grid>
             <Grid item sm={3} xs={12} pt={2} pl={5}></Grid>
             <Grid item sm={3} xs={12} pt={2} pl={5}></Grid>
-            <Grid item sm={4} xs={12} pt={4} >
+            <Grid item sm={4} pt={4} xs={12}>
               <div>
                 <div style={{display: "flex", width: "fit-content", cursor: "pointer"}} onClick={onToggle}>
                   <div style={{ marginTop: "5px", marginLeft: "5px" }}>
@@ -375,7 +375,7 @@ useEffect(()=>{
           </Grid>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} lg={4} sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}>
+            <Grid item xs="12" sm={6} lg={4} sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}>
               <FormControl fullWidth sx={{justifyContent: "space-between", width: "100%", flexDirection: "row", alignItems: "center", marginBottom: "5px", border: "1px solid #e0e0e0", borderRadius: "5px", position: "relative"}}>
                 <Box className="dashboard-custom-dropdown">
                   Products Sold {ProductData?.purchase_count}
@@ -415,7 +415,7 @@ useEffect(()=>{
               </FormGroup>
             </Grid>
 
-            <Grid item xs={12} sm={6} lg={4}>
+            <Grid item xs="12" sm={6} lg={4}>
               <FormControl
                 fullWidth
                 sx={{justifyContent: "space-between", width: "100%", flexDirection: "row", alignItems: "center", marginBottom: "5px", border: "1px solid #e0e0e0", borderRadius: "5px", position: "relative"}}>
@@ -451,7 +451,7 @@ useEffect(()=>{
               </FormGroup>
             </Grid>
 
-            <Grid item xs={12} sm={6} lg={4}>
+            <Grid item xs="12" sm={6} lg={4}>
               <FormControl
                 fullWidth
                 sx={{
@@ -676,6 +676,32 @@ useEffect(()=>{
                 }
               </FormGroup>
             </Grid>
+            {/* <Grid className="product-table-ar" item lg={6} xs={12}>
+              <h4>Clients</h4>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>
+                    All Clients {"     " + ProductData2?.clientcount}{" "}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ height: "320px", overflow: "auto" }}>
+                  {ProductData2?.client?.map((val, i) => {
+                    return (
+                      <Typography>
+                        {val.product_name} {"  " + "  " + val.total}
+                        <hr />
+                      </Typography>
+                    );
+                  })}
+                </AccordionDetails>
+              </Accordion>
+            </Grid> */}
+
             <Grid
               item
               lg={6}
@@ -727,6 +753,7 @@ useEffect(()=>{
                 }}
               >
                 {
+                  // isClicked.product ? (
                   staffBy.length > 0 ? (
                     staffBy.map((val, i) => {
                       return (
@@ -755,9 +782,51 @@ useEffect(()=>{
                       Data not found
                     </Box>
                   )
+                  // ) : (
+                  //   ProductData2?.staff?.map((val, i) => {
+                  //     return (
+                  //       <Box
+                  //         sx={{
+                  //           textTransform: "capitalize",
+                  //           flex: "0 0 100%",
+                  //           maxWidth: "100%",
+                  //           padding: "8px 15px",
+                  //         }}
+                  //       >
+                  //         {`${val.role_name}  ${val.total}`}
+                  //       </Box>
+                  //     );
+                  //   })
+                  // )
                 }
               </FormGroup>
             </Grid>
+
+            {/* <Grid className="product-table-ar" item lg={6} xs={12}>
+              <h4>HCPA Staff</h4>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>
+                    All HCPA Staff {"     " + ProductData2?.staffcount}{" "}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ height: "320px", overflow: "auto" }}>
+                  {ProductData2?.staff?.map((val, i) => {
+                    return (
+                      <Typography>
+                        {val.role_name} {"  " + "  " + val.total}
+                        <hr />
+                      </Typography>
+                    );
+                  })}
+                </AccordionDetails>
+              </Accordion>
+            </Grid> */}
 
             <Grid
               item
@@ -796,6 +865,32 @@ useEffect(()=>{
               </FormGroup>
             </Grid>
 
+            {/* <Grid className="product-table-ar" item lg={6} xs={12}>
+              <h4>Products</h4>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>
+                    All Product {"     " + ProductData2?.productscount}{" "}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ height: "320px", overflow: "auto" }}>
+                  {ProductData2?.product?.map((val, i) => {
+                    return (
+                      <Typography>
+                        {val.product_name}
+                        <hr />
+                      </Typography>
+                    );
+                  })}
+                </AccordionDetails>
+              </Accordion>
+            </Grid> */}
+
             <Grid
               item
               lg={6}
@@ -816,29 +911,39 @@ useEffect(()=>{
                   position: "relative",
                 }}
               >
-                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#0CB4D0" }}>
+                <Box
+                  className="dashboard-custom-dropdown"
+                  sx={{ backgroundColor: "#0CB4D0" }}
+                  onClick={(e) => {
+                    controlDropdown(e);
+                  }}
+                >
                   All Modules {ProductData2?.modulecount}
-                  <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
-                  <Box className="dashboard-custom-dropdown-items light-blue">
-                    <List
-                      sx={{
-                        backgroundColor: "#0CB4D0",
-                        zIndex: 9,
-                        overflowY: "auto",
-                        height: "80px",
-                        borderRadius: "0 0 5px 5px",
-                      }}
-                    >
-                      <ListItem disablePadding onClick={()=>getModuleBy('Modules')}>
-                        <ListItemButton>All Modules by Products</ListItemButton>
-                      </ListItem>
-                      <ListItem disablePadding onClick={()=>getModuleBy('Modules')}>
-                        <ListItemButton>All Modules by Name</ListItemButton>
-                      </ListItem>
-                    </List>
-                  </Box>
+                  <KeyboardArrowDownIcon
+                    sx={{ color: "white", pointerEvents: "none" }}
+                  />
                 </Box>
 
+                <Box className="dashboard-custom-dropdown-items light-blue">
+                  <List
+                    sx={{
+                      backgroundColor: "#0CB4D0",
+                      zIndex: 9,
+                      overflowY: "auto",
+                      height: "80px",
+                      borderRadius: "0 0 5px 5px",
+                    }}
+                  >
+                    <ListItem disablePadding>
+                      <ListItemButton id="">
+                        All Modules by Products
+                      </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding>
+                      <ListItemButton id="">All Modules by Name</ListItemButton>
+                    </ListItem>
+                  </List>
+                </Box>
               </FormControl>
               <FormGroup
                 sx={{
@@ -879,9 +984,51 @@ useEffect(()=>{
                       Data not found
                     </Box>
                   )
+                  // ) : (
+                  //   ProductData2?.module?.map((val, i) => {
+                  //     return (
+                  //       <Box
+                  //         sx={{
+                  //           textTransform: "capitalize",
+                  //           flex: "0 0 100%",
+                  //           maxWidth: "100%",
+                  //           padding: "8px 15px",
+                  //         }}
+                  //       >
+                  //         {`${val.product_name}  ${val.total_module}`}
+                  //       </Box>
+                  //     );
+                  //   })
+                  // )
                 }
               </FormGroup>
             </Grid>
+
+            {/* <Grid className="product-table-ar" item lg={6} xs={12}>
+              <h4>Modules</h4>
+              <Accordion defaultExpanded>
+                <AccordionSummary
+                  sx={{ backgroundColor: "#0CB4D0", color: "white" }}
+                  expandIcon={<KeyboardArrowUpIcon sx={{ color: "white" }} />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>
+                    All Modules {"     " + ProductData2?.modulecount}{" "}
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ height: "320px", overflow: "auto" }}>
+                  {ProductData2?.module?.map((val, i) => {
+                    return (
+                      <Typography>
+                        {val.product_name} {"  " + "  " + val.total_module}
+                        <hr />
+                      </Typography>
+                    );
+                  })}
+                </AccordionDetails>
+              </Accordion>
+            </Grid> */}
           </Grid>
         </div>
       )}
