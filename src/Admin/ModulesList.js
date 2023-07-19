@@ -31,6 +31,7 @@ export default function ModulesList() {
   const Navigate = useNavigate();
   const [ModuleList, setModuleList] = useState([]);
   const [ProductData, setProductData] = useState([]);
+  const [ProductDataOBJ, setProductDataOBJ] = useState();
   const [ProductSingle, setProductSingle] = useState();
   const [modalShow, setModalShow] = React.useState(false);
   const [DataNotFound, setDataNotFound] = useState();
@@ -120,6 +121,7 @@ export default function ModulesList() {
       (val, i) => val.products_id == event.target.value
     );
     localStorage.setItem("Product", JSON.stringify(productData));
+    setProductDataOBJ(productData)
     let obj = {
       order: "asc",
       limit: 10,
@@ -267,14 +269,15 @@ export default function ModulesList() {
           </FormControl>
         </Grid>
         <Grid xl={3} md={4} sm={12} xs={12}>
-          <Button
+          {ProductDataOBJ&&  <Button
             onClick={() => Navigate("/CreactModules")}
             sx={{width:{xs:'100%', md:'auto'}, ml:{xs:0, md:2}, mt:2}}
             className={"A1 create-btn"}
             variant="contained"
           >
             <EditCalendarIcon className={"active"} /> Create Modules
-          </Button>
+          </Button>}
+        
         </Grid>
       </Grid>
 

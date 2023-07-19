@@ -25,7 +25,7 @@ export default function CreactModules() {
   const [ProductData, setProductData] = useState(JSON.parse(localStorage.getItem("Product")))
   const formik = useFormik({
     initialValues: {
-      product_id:ProductData.products_id,
+      product_id:ProductData?.products_id,
       module_status:false,
       module_name: "",
     },
@@ -95,6 +95,7 @@ export default function CreactModules() {
           <Grid container>
             <Grid item xs={12} md={2} lg={3} mb={2}>
               <div style={{ display: "flex" }}>
+                {console.log({ProductData})}
                 <ArrowBackIcon className='back-icon-proact' onClick={() => Navigate(-1)} />
               </div>
             </Grid>
