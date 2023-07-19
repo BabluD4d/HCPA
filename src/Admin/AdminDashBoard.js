@@ -414,7 +414,7 @@ useEffect(()=>{
                 {
                   clientBy.length > 0 ? (
                     clientBy.map((val, i) => {
-                      return (<Box key={i} sx={{textTransform: "capitalize", flex: "0 0 100%", maxWidth: "100%", padding: "8px 15px"}}>{val.name}</Box>);
+                      return (<Box key={i} sx={{textTransform: "capitalize", flex: "0 0 100%", maxWidth: "100%", padding: "8px 15px"}}>{val.name+" "+val.total}</Box>);
                     })
                   ) : (
                     <Box sx={{textTransform: "capitalize", flex: "0 0 100%", maxWidth: "100%", padding: "8px 15px"}}>Data not found</Box>
