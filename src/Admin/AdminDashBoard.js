@@ -3,18 +3,12 @@ import {
   Box,
   FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   TableRow,
   List,
   ListItem,
-  ListItemIcon,
-  ListItemText,
   ListItemButton,
   Typography,
 } from "@mui/material";
-// import InboxIcon from "@mui/icons-material/Inbox";
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -22,10 +16,6 @@ import { useNavigate } from "react-router-dom";
 import Exportproduct from "../Api/Admin/Product/Exportproduct";
 import ExportDeshboard from "../Api/Admin/Deshboard/ExportDeshboard";
 import { ColorRing } from "react-loader-spinner";
-// import Accordion from "@mui/material/Accordion";
-// import AccordionSummary from "@mui/material/AccordionSummary";
-// import AccordionDetails from "@mui/material/AccordionDetails";
-// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import DateRangePicker from "react-daterange-picker";
 import "react-daterange-picker/dist/css/react-calendar.css";
@@ -339,38 +329,20 @@ useEffect(()=>{
         </div>
       ) : (
         <div style={{ position: "relative", marginBottom: "60px" }}>
-          <Grid container>
-            <Grid item sm={2} xs={12} pt={4} pl={5}><h3>OVERVIEW</h3></Grid>
-            <Grid item sm={3} xs={12} pt={2} pl={5}></Grid>
-            <Grid item sm={3} xs={12} pt={2} pl={5}></Grid>
-            <Grid item sm={4} xs={12} pt={4} >
-              <div>
-                <div style={{display: "flex", width: "fit-content", cursor: "pointer"}} onClick={onToggle}>
-                  <div style={{ marginTop: "5px", marginLeft: "5px" }}>
-                    <h4>
-                      <CalendarMonthIcon style={{ marginTop: "-10px", marginRight: "5px" }} />
-                      {`Date Range :  ${value.start.format("DD MMM  YYYY")} - ${value.end.format("DD MMM  YYYY")}`}
-                    </h4>
-                  </div>
-                </div>
+          <Grid container spacing={2}>
+            <Grid item sm={5} xs={12} pt={4}><h3>OVERVIEW</h3></Grid>
+            <Grid item sm={7} xs={12} pt={4} sx={{mb:{xs:2, sm:0}}} textAlign="right">
+                <div style={{display: "flex", justifyContent:'flex-end'}} onClick={onToggle}>
+                  <Box sx={{width: '330px', cursor: "pointer", m:{xs:'auto', sm:'initial'}, ml:{sm:'auto'}}}>
+                    <CalendarMonthIcon style={{ marginTop: "-10px", marginRight: "5px" }} />
+                    {`Date Range :  ${value.start.format("DD MMM  YYYY")} - ${value.end.format("DD MMM  YYYY")}`}
+                  </Box>
                 {isOpen && (
-                  <div
-                    className="date-range"
-                    style={{
-                      position: "absolute",
-                      zIndex: "1",
-                      backgroundColor: "#fff",
-                    }}
-                  >
-                    <DateRangePicker
-                      value={value}
-                      onSelect={onSelect}
-                      singleDateRange={false}
-                      rangeColors={["#f33e5b", "#3ecf8e", "#fed14c"]}
-                    />
-                  </div>
+                  <Box className="date-range" sx={{m:{xs:'auto'}, left:{xs:0, sm:'auto'}, right:{xs:0, sm:'auto'}, top:{xs:'110px', sm:'55px'}, maxWidth:'330px'}} style={{position: "absolute", border: '1px solid #e0e0e0', borderRadius: '5px', zIndex: "1", backgroundColor: "#fff"}}>
+                    <DateRangePicker value={value} onSelect={onSelect} singleDateRange={false} rangeColors={["#f33e5b", "#3ecf8e", "#fed14c"]} />
+                  </Box>
                 )}
-              </div>
+                </div>
             </Grid>
           </Grid>
 
@@ -452,81 +424,41 @@ useEffect(()=>{
             </Grid>
 
             <Grid item xs={12} sm={6} lg={4}>
-              <FormControl
+            <FormControl
                 fullWidth
-                sx={{
-                  justifyContent: "space-between",
-                  width: "100%",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginBottom: "5px",
-                  border: "1px solid #e0e0e0",
-                  borderRadius: "5px",
-                  position: "relative",
-                }}
-              >
-                <Box
-                  className="dashboard-custom-dropdown"
-                  onClick={(e) => {
-                    controlDropdown(e);
-                  }}
-                >
+                sx={{justifyContent: "space-between", width: "100%", flexDirection: "row", alignItems: "center", marginBottom: "5px", border: "1px solid #e0e0e0", borderRadius: "5px", position: "relative"}}>
+                <Box className="dashboard-custom-dropdown">
                   Meeting Booked {ProductData?.bookcall_count}
-                  <KeyboardArrowDownIcon
-                    sx={{ color: "white", pointerEvents: "none" }}
-                  />
-                </Box>
-                <Box className="dashboard-custom-dropdown-items">
-                  <List
-                    sx={{
-                      backgroundColor: "#233b77",
-                      zIndex: 9,
-                      overflowY: "auto",
-                      height: "120px",
-                      borderRadius: "0 0 5px 5px",
-                    }}
-                  >
-                    {productList &&
-                      productList.map((product) => (
-                        <ListItem
-                          disablePadding
-                          id={`${product.product_id}`}
-                          sx={{ color: "#ffffff" }}
-                          key={product.product_id}
-                          className={`${
-                            product.product_id == productId
-                              ? "selected-product"
-                              : ""
-                          }`}
-                          onClick={(e) => {
-                            setProductId(e.target.id);
-                            getProductMeeting(
-                              product.product_id,
-                              value.start.format().split("T")[0],
-                              value.end.format().split("T")[0]
-                            );
-                          }}
-                        >
-                          <ListItemButton id={`${product.product_id}`}>
-                            {product.product_name}
-                          </ListItemButton>
-                        </ListItem>
-                      ))}
-                  </List>
+                  <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
+                  <Box className="dashboard-custom-dropdown-items">
+                    <List sx={{backgroundColor: "#233b77", zIndex: 9, overflowY: "auto", height: "120px", borderRadius: "0 0 5px 5px"}}>
+                      {productList &&
+                        productList.map((product) => (
+                          <ListItem
+                            disablePadding
+                            id={`${product.product_id}`}
+                            sx={{ color: "#ffffff" }}
+                            key={product.product_id}
+                            className={`${product.product_id == productId? "selected-product": ""}`}
+                            onClick={(e) => {
+                              setProductId(e.target.id);
+                              getProductMeeting(
+                                product.product_id,
+                                value.start.format().split("T")[0],
+                                value.end.format().split("T")[0]
+                              );
+                            }}
+                          >
+                            <ListItemButton id={`${product.product_id}`}>{product.product_name}</ListItemButton>
+                          </ListItem>
+                        ))}
+                    </List>
+                  </Box>
                 </Box>
               </FormControl>
-              <FormGroup
-                sx={{
-                  border: "1px solid #e0e0e0",
-                  borderRadius: "5px",
-                  // padding: "10px 15px",
-                  background: "#ffffff",
-                  height: "200px",
-                  overflowY: "auto",
-                  display: "block",
-                }}
-              >
-                {isClicked.meeting ? (
+              <FormGroup sx={{border: "1px solid #e0e0e0", borderRadius: "5px", background: "#ffffff", height: "200px", overflowY: "auto", display: "block"}}>
+                {
+                isClicked.meeting ? (
                   filterData.product_meeting.length > 0 ? (
                     filterData.product_meeting.map((val, i) => (
                       <Box
@@ -547,7 +479,6 @@ useEffect(()=>{
                     <Box
                       sx={{
                         textTransform: "capitalize",
-                        // mb: 1,
                         flex: "0 0 100%",
                         maxWidth: "100%",
                         padding: "8px 15px",
