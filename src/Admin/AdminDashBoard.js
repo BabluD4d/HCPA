@@ -829,7 +829,7 @@ useEffect(()=>{
                         borderRadius: "0 0 5px 5px",
                       }}
                     >
-                      <ListItem disablePadding onClick={()=>getModuleBy('Modules')}>
+                      <ListItem disablePadding onClick={()=>getModuleBy('Products')}>
                         <ListItemButton>All Modules by Products</ListItemButton>
                       </ListItem>
                       <ListItem disablePadding onClick={()=>getModuleBy('Modules')}>

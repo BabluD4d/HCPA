@@ -104,7 +104,6 @@ export default {
     getAllStaffBy,
     getDashboardProducts,
     getAllModulesBy,
-
     getAllDeshbord, 
     getAllDeshbordList1,
     getAllProducts,
