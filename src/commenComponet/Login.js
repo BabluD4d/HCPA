@@ -108,22 +108,7 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-         {loader ? (
-        <div style={{ marginTop: "24%" }}>
-          <center>
-            <ColorRing
-              visible={true}
-              height="100"
-              width="100"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
-            />
-          </center>
-        </div>
-      ) : (
-        <>
+    
       <Container component="main" maxWidth="xs">
         <ToastContainer
           position="top-right"
@@ -187,6 +172,22 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
+                 {loader ? (
+        <div >
+          <center>
+            <ColorRing
+              visible={true}
+              height="60"
+              width="100"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+            />
+          </center>
+        </div>
+      ) : (
+        <>
             <Button
               type="submit"
               fullWidth
@@ -195,6 +196,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            </>)}
             <Grid container>
               <Grid item xs>
                 <Link to={"/ForgotPassword"} variant="body2">
@@ -216,7 +218,7 @@ export default function SignIn() {
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
-      </>)}
+      
     </ThemeProvider>
   );
 }
