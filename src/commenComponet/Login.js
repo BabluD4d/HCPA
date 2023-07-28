@@ -20,6 +20,7 @@ import Logo from "../img/title.svg";
 import { CoustomLogin } from "../Api/Auth/Login/CoustomLogin";
 import ExportLogin from "../Api/Auth/Login/ExportLogin";
 import { toast, ToastContainer } from "react-toastify";
+import { ColorRing } from "react-loader-spinner";
 function Copyright(props) {
   return (
     <Typography
@@ -41,6 +42,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [loader, setloader] = React.useState(false);
   const Navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -56,33 +58,40 @@ export default function SignIn() {
         .required("Enter your email"),
     }),
     onSubmit: (values) => {
+      setloader(true)
       ExportLogin.Login(values)
         .then((resp) => {
-          if (resp.data.message == "Credentials are wrong") {
-            toast.error("Credentials are wwrong", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          } else {
-            if (resp.data.data) {
-              localStorage.setItem("Token", resp.data.data.token);
-              localStorage.setItem("userdata", JSON.stringify(resp.data.data));
-              localStorage.setItem("role", resp.data.data.role);
-              if (resp.data.data.role !=3) {
-                Navigate("/Admin");
-              } else {
-                Navigate("/Home");
+          setloader(false)
+          setTimeout(() => {
+            
+            if (resp.data.message == "Credentials are wrong") {
+              toast.error("Credentials are wrong", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
+            } else {
+              setloader(false)
+              if (resp.data.data) {
+                localStorage.setItem("Token", resp.data.data.token);
+                localStorage.setItem("userdata", JSON.stringify(resp.data.data));
+                localStorage.setItem("role", resp.data.data.role);
+                if (resp.data.data.role !=3) {
+                  Navigate("/Admin");
+                } else {
+                  Navigate("/Home");
+                }
               }
             }
-          }
+          });
         })
         .catch((err) => {
+          setloader(false)
           toast.error("Something went wrong", {
             position: "top-right",
             autoClose: 5000,
@@ -99,6 +108,22 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
+         {loader ? (
+        <div style={{ marginTop: "24%" }}>
+          <center>
+            <ColorRing
+              visible={true}
+              height="100"
+              width="100"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+            />
+          </center>
+        </div>
+      ) : (
+        <>
       <Container component="main" maxWidth="xs">
         <ToastContainer
           position="top-right"
@@ -191,6 +216,7 @@ export default function SignIn() {
         </Box>
         {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
+      </>)}
     </ThemeProvider>
   );
 }

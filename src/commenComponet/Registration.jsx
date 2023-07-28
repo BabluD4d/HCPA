@@ -18,9 +18,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import CoustomRegistration from '../Api/Auth/registration/CoustomRegistration';
 import Logo from '../img/title.svg'
 import { ToastContainer } from 'react-toastify';
+import { ColorRing } from 'react-loader-spinner';
 const theme = createTheme();
 
 export default function Registration() {
+    const [loader, setloader] = React.useState(false);
     const Navigate=useNavigate()
     const formik = useFormik({
         initialValues: {
@@ -44,7 +46,8 @@ export default function Registration() {
                 .required("Enter your name"),
         }),
         onSubmit: (values) => {
-            CoustomRegistration(values, "RegistrationUser",Navigate)
+            setloader(true)
+            CoustomRegistration(values, "RegistrationUser",Navigate,setloader)
         },
     });
     return (
@@ -60,6 +63,22 @@ export default function Registration() {
             draggable
             pauseOnHover
             />
+                  {loader ? (
+        <div style={{ marginTop: "24%" }}>
+          <center>
+            <ColorRing
+              visible={true}
+              height="100"
+              width="100"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0", "#0CB4D0"]}
+            />
+          </center>
+        </div>
+      ) : (
+        <>
             <Container component="main" maxWidth="xs" >
                 <CssBaseline />
                 <Box
@@ -152,7 +171,7 @@ export default function Registration() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
                         <Grid container>
                             <Grid item xs>
@@ -174,6 +193,7 @@ export default function Registration() {
                     </Box>
                 </Box>
             </Container>
+            </>)}
         </ThemeProvider>
     )
 }

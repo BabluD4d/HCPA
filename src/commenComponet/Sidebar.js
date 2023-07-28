@@ -197,7 +197,7 @@ const Sidebar = () => {
                               }
                             />
                           </ListItemIcon>
-                          <ListItemText primary={"Admin DashBoard"} />
+                          <ListItemText primary={"Admin Dashboard"} />
                         </ListItemButton>
                       </ListItem>:null}
                       {Data?.access[0].accessibility.UserList.visibility=='Yes'? 
@@ -719,7 +719,7 @@ const Sidebar = () => {
                               }
                             />
                           </ListItemIcon>
-                          <ListItemText primary={"Admin DashBoard"} />
+                          <ListItemText primary={"Admin Dashboard"} />
                         </ListItemButton>
                       </ListItem>:null}
                       {Data?.access[0].accessibility.UserList.visibility=='Yes'? 
