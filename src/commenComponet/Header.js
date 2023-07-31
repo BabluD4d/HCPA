@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
@@ -69,6 +69,7 @@ const Header = () => {
   const loaction = useLocation();
   const Navigate = useNavigate();
   const [modalShow, setModalShow] = React.useState(false);
+  const [muinushow, setmuinushow] = React.useState(false);
   const [SerchValue, setSerchValue] = React.useState("");
   const [DataUser, setDataUser] = useState(JSON.parse(localStorage.getItem("userdata")));
   const [Data, setData] = useState()
@@ -87,6 +88,13 @@ const Header = () => {
       }
     });
   };
+  useEffect(() => {
+    if(muinushow){
+
+      setmuinushow(false)
+    }
+  }, [loaction.pathname])
+  
   // FileUserFilter
   return (
     <>
@@ -97,8 +105,10 @@ const Header = () => {
             <Grid item sm={3} md={2} xs={localStorage.getItem("role") ==3 ? 6 : 'auto'}>
                 <div style={{ display: "flex", flexWrap:'wrap', alignItems:'center' }}>
                   <img src={Logo} className="header-logo" alt="header logo" onClick={()=>{Navigate("/")}} />
-                  <div onClick={() => window.dispatchEvent(new Event("Togle"))} className="sidebartogle" sx={{alignSelf:'flex-end'}}>
+                  <div onClick={() =>{ window.dispatchEvent(new Event("Togle"));setmuinushow(!muinushow)}} className="sidebartogle" sx={{alignSelf:'flex-end'}}>
+                    {/* {muinushow? <CloseIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></CloseIcon>: <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>} */}
                     <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
+                    {/* <CloseIcon></CloseIcon> */}
                   </div>
                 {/* {
                   localStorage.getItem("role") == 1 || localStorage.getItem("role") == 2 ? null : (
