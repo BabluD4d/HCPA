@@ -332,8 +332,8 @@ useEffect(()=>{
           <Grid container spacing={2}>
             <Grid item sm={5} xs={12} pt={4}><h3>OVERVIEW</h3></Grid>
             <Grid item sm={7} xs={12} pt={4} sx={{mb:{xs:2, sm:0}}} textAlign="right">
-                <div style={{display: "flex", justifyContent:'flex-end'}} onClick={onToggle}>
-                  <Box sx={{width: '330px', cursor: "pointer", m:{xs:'auto', sm:'initial'}, ml:{sm:'auto'}}}>
+                <div style={{display: "inline-flex", justifyContent:'flex-end'}}>
+                  <Box sx={{width: '330px', cursor: "pointer", m:{xs:'auto', sm:'initial'}, ml:{sm:'auto'}}} onClick={onToggle}>
                     <CalendarMonthIcon style={{ marginTop: "-10px", marginRight: "5px" }} />
                     {`Date Range :  ${value.start.format("DD MMM  YYYY")} - ${value.end.format("DD MMM  YYYY")}`}
                   </Box>

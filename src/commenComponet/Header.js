@@ -105,7 +105,7 @@ const Header = () => {
             <Grid item sm={3} md={2} xs={localStorage.getItem("role") ==3 ? 6 : 'auto'}>
                 <div style={{ display: "flex", flexWrap:'wrap', alignItems:'center' }}>
                   <img src={Logo} className="header-logo" alt="header logo" onClick={()=>{Navigate("/")}} />
-                  <div onClick={() =>{ window.dispatchEvent(new Event("Togle"));setmuinushow(!muinushow)}} className="sidebartogle" sx={{alignSelf:'flex-end'}}>
+                  <div onClick={() =>{ window.dispatchEvent(new Event("TogleHeader")); setmuinushow(!muinushow)}} className="sidebartogle" sx={{alignSelf:'flex-end'}}>
                     {/* {muinushow? <CloseIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></CloseIcon>: <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>} */}
                     <MenuIcon style={{color: "white", fontSize: "40px", verticalAlign:'baseline'}}></MenuIcon>
                     {/* <CloseIcon></CloseIcon> */}

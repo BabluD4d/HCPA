@@ -20,7 +20,7 @@ export default function ActiveModuleByUser() {
   <Grid item xs={6}>
 
         <Typography mt={2}  sx={{ fontSize: "23px" }}>
-          Active Moduels
+          Active Modules
         </Typography>
   </Grid>
 

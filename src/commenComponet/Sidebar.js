@@ -65,6 +65,7 @@ const Sidebar = () => {
   }, []);
 
   window.addEventListener("Togle", TogleFu);
+  window.addEventListener("TogleHeader", TogleFuHeader);
   function eventHandler() {
     setData(JSON.parse(localStorage.getItem("userdata")));
     // Event handling logic goes here
@@ -72,10 +73,22 @@ const Sidebar = () => {
     window.removeEventListener("UserChange", eventHandler);
   }
   function TogleFu() {
-    sethideShow(!hideShow);
+    if(hideShow){
+
+      sethideShow(!hideShow);
+    }
     // Event handling logic goes here
     // Remove the event listener after it is fired
     window.removeEventListener("Togle", TogleFu);
+  }
+  function TogleFuHeader() {
+
+
+      sethideShow(!hideShow);
+    
+    // Event handling logic goes here
+    // Remove the event listener after it is fired
+    window.removeEventListener("TogleHeader", TogleFuHeader);
   }
 
   window.addEventListener("UserChange", eventHandler);

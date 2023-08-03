@@ -270,7 +270,7 @@ export default function ProductByModuleList() {
       
     <Grid container my={4} alignItems="center">
       <Grid sm={6} xs={12}>
-        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} mb={{xs:2, sm:0}} textAlign={{xs:'center', sm:'left'}}>Moduels List </Typography>
+        <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} mb={{xs:2, sm:0}} textAlign={{xs:'center', sm:'left'}}>Modules List </Typography>
       </Grid>
       <Grid sm={6} xs={12} textAlign={{xs:'left', sm:'right'}}> 
         <Button
