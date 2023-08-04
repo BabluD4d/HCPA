@@ -16,6 +16,7 @@ import {
   TableBody,
   Paper,
 } from "@mui/material";
+import { Modal} from "react-bootstrap";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -44,7 +45,7 @@ const CreateRoles = () => {
   const [roleList, setRoleList] = useState([]);
   const [roleId, setRoleId] = useState(undefined);
   const [isEditable, setIsEditable] = useState(false);
-
+  const [modalShowDelete, setmodalShowDelete] = useState(false);
   // Get all Roles
   useEffect(() => {
     getAllRoles();
@@ -113,8 +114,32 @@ const CreateRoles = () => {
   };
 
   // Delete Role
-  const deleteRoleFun = (role_id) => {
-    CreateRoleHandler.deleteRole(role_id)
+  // const deleteRoleFun = (role_id) => {
+  //   CreateRoleHandler.deleteRole(role_id)
+  //     .then((res) => {
+  //       if (res.data.success) {
+  //         getAllRoles();
+  //         toast.success("Role deleted successfully", {
+  //           position: "top-right",
+  //           autoClose: 2000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //           theme: "light",
+  //         });
+  //       }
+  //     })
+  //     .catch((error) => console.log(error, "this is the error"));
+  // };
+
+  const handleDeleteproduct = (id) => {
+    setRoleId(id);
+    setmodalShowDelete(true);
+  };
+  const hendleProductDelet = () => {
+    CreateRoleHandler.deleteRole(roleId)
       .then((res) => {
         if (res.data.success) {
           getAllRoles();
@@ -128,11 +153,13 @@ const CreateRoles = () => {
             progress: undefined,
             theme: "light",
           });
+          setmodalShowDelete(false);
         }
       })
       .catch((error) => console.log(error, "this is the error"));
   };
 
+  console.log(roleList, 'roleList')
   return (
     <Box>
       <Typography
@@ -239,7 +266,10 @@ const CreateRoles = () => {
                             </span>
                             /
                             <span
-                              onClick={() => deleteRoleFun(id)}
+                             onClick={() => {
+                                handleDeleteproduct(id);
+                              }}
+                              // onClick={() => deleteRoleFun(id)}
                               style={{ marginLeft: "5px" }}
                             >
                               Delete
@@ -265,7 +295,10 @@ const CreateRoles = () => {
                             </span>
                             /
                             <span
-                              onClick={() => deleteRoleFun(id)}
+                              onClick={() => {
+                                handleDeleteproduct(id);
+                              }}
+                              // onClick={() => deleteRoleFun(id)}
                               style={{ marginLeft: "5px" }}
                             >
                               Delete
@@ -281,6 +314,47 @@ const CreateRoles = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Delete Role Modal */}
+      <Modal
+        show={modalShowDelete}
+        onHide={() => setmodalShowDelete(false)}
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete Role
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <center>
+            {" "}
+            <h5>Are You Sure?</h5>
+          </center>
+
+          <Grid container mt={3}>
+            <Grid item xs={6} textAlign="center">
+              <Button
+                onClick={() => hendleProductDelet()}
+                variant="contained"
+                color="error"
+              >
+                Delete
+              </Button>
+            </Grid>
+            <Grid item xs={6} textAlign="center">
+              <Button
+                onClick={() => setmodalShowDelete(false)}
+                variant="contained"
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </Modal.Body>
+      </Modal>
     </Box>
   );
 };

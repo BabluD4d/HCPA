@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import {
-  Autocomplete,
   Box,
   Button,
-  Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
   FormLabel,
   Grid,
+  MenuItem,
   InputLabel,
-  NativeSelect,
   Pagination,
   Radio,
+  Select,
   RadioGroup,
   TextField,
-  TextareaAutosize,
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +24,7 @@ import { toast } from "react-toastify";
 import { Modal } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+
 export default function ModulesList() {
   const Navigate = useNavigate();
   const [ModuleList, setModuleList] = useState([]);
@@ -42,6 +40,7 @@ export default function ModulesList() {
   const [Data, setData] = useState(
     JSON.parse(localStorage.getItem("userdata"))
   );
+
   const formik = useFormik({
     initialValues: {
       module_name: EditData?.module_name ? EditData?.module_name : "",
@@ -96,6 +95,7 @@ export default function ModulesList() {
         );
     },
   });
+  
   const GetDataModuiles1 = (event) => {
     setProduct_id(event);
     let obj = {
@@ -115,6 +115,7 @@ export default function ModulesList() {
       }
     });
   };
+
   const GetDataModuiles = (event) => {
     setProduct_id(event.target.value);
     const productData = ProductData.find(
@@ -141,6 +142,7 @@ export default function ModulesList() {
       }
     });
   };
+
   const GetData = () => {
     let obj = {
       order: "desc",
@@ -156,18 +158,21 @@ export default function ModulesList() {
       }
     });
   };
+
   const handlemodal = (data) => {
     setEditData(data);
     setTimeout(() => {
       setModalShow(true);
     });
   };
+
   useEffect(() => {
     if (Data.access[0].accessibility.modules.visibility == "No") {
       Navigate("/Profile/Admin");
     }
     GetData();
   }, []);
+
   const onChangeHendle = (item, value) => {
     let obj = {
       module_name: item?.module_name,
@@ -216,6 +221,7 @@ export default function ModulesList() {
         })
       );
   };
+
   const hendlePagintion = (event, value) => {
     setpage(value);
     let obj = {
@@ -236,42 +242,34 @@ export default function ModulesList() {
       }
     });
   };
+
   return (
     <div>
       <Typography className="main-title-ad" fontSize={{xs:'20px', lg:'30px'}} sx={{borderBottom:'1px solid #bbb5b5', paddingBottom:'15px', marginBottom:'40px'}}>Modules List</Typography>
-        <Grid container>
-        <Grid xl={9} md={8} sm={12} xs={12}>
+
+      <Grid container>
+        <Grid xl={4} md={8} sm={12} xs={12}>
           <FormControl fullWidth>
-            <InputLabel
-              variant="standard"
-              htmlFor="uncontrolled-native"
+            <InputLabel variant="standard" htmlFor="uncontrolled-native"
+            sx={{
+                transform: ProductSingle === undefined ? 'translate(20px, 18px)!important': 'translate(18px, -6px) scale(0.75)!important',
+                '&.Mui-focused':{
+                  transform: 'translate(18px, -6px) scale(0.75)!important',
+                }
+            }}
+            >Product</InputLabel>
+            <Select
+              onChange={(e) => {GetDataModuiles(e); setProductSingle(e.target.value)}}
+              label="Products"
             >
-              Product
-            </InputLabel>
-            <NativeSelect
-              defaultValue={10}
-              inputProps={{
-                name: "Product",
-                id: "uncontrolled-native",
-              }}
-              onChange={(e) => {
-                GetDataModuiles(e);
-                setProductSingle(e.target.value);
-              }}
-            >
-              <option value={""}></option>
-              {ProductData?.map((val, i) => {
-                return (
-                  <option value={val.products_id}>{val.product_name}</option>
-                );
-              })}
-            </NativeSelect>
+              {ProductData?.map(val => {return (<MenuItem value={val.products_id}>{val.product_name}</MenuItem>);})}
+            </Select>
           </FormControl>
         </Grid>
         <Grid xl={3} md={4} sm={12} xs={12}>
-          {ProductDataOBJ&&  <Button
+          {ProductDataOBJ &&  <Button
             onClick={() => Navigate("/CreactModules")}
-            sx={{width:{xs:'100%', md:'auto'}, ml:{xs:0, md:2}, mt:2}}
+            sx={{width:{xs:'100%', md:'auto'}, ml:{xs:0, md:2}, mt:{xs:'15px', md:0}, height:'56px'}}
             className={"A1 create-btn"}
             variant="contained"
           >
@@ -293,37 +291,38 @@ export default function ModulesList() {
             {DataNotFound}
           </Typography>
         ) : (
-          <>
-          
-          <Grid container spacing={4}>
-            {ModuleList &&
-              ModuleList?.map((item, index) => {
-                return (
-                  <AdminProductCart
-                    navi={"/Admin/AllDocumentAdmin"}
-                    status={item.module_status}
-                    foo={"1"}
-                    size={3}
-                    Modules={item.total_document}
-                    ProductName={item.module_name}
-                    handlemodal={handlemodal}
-                    item={item}
-                    onChangeHendle={onChangeHendle}
+          <>          
+            <Grid container spacing={4}>
+              {
+                ModuleList.length > 0 ?
+                  ModuleList?.map((item, index) => {
+                    return (
+                      <AdminProductCart
+                        navi={"/Admin/AllDocumentAdmin"}
+                        status={item.module_status}
+                        foo={"1"}
+                        size={3}
+                        Modules={item.total_document}
+                        ProductName={item.module_name}
+                        handlemodal={handlemodal}
+                        item={item}
+                        onChangeHendle={onChangeHendle}
+                      />
+                    );
+                  })
+                  :<Typography style={{paddingLeft:'32px', color:'red'}}>Please select product from above dropdown to see module list.</Typography>
+              }
+              <div className="module-pagination-ar">
+                {ModuleList[0] && (
+                  <Pagination
+                    onChange={hendlePagintion}
+                    count={Math.ceil(Count / 10)}
                   />
-                );
-              })}
-<div className="module-pagination-ar">
-{ModuleList[0] && (
-              <Pagination
-                onChange={hendlePagintion}
-                count={Math.ceil(Count / 10)}
-              />
-            )}
-</div>
-          </Grid>
-            
-            </>
-        )}
+                )}
+              </div>
+          </Grid>            
+        </>
+      )}
         {/* <Grid item mt={-3} xs={2}>  <Button onClick={()=>Navigate("/CreateProduct")}  sx={{ marginLeft: "10%", }} className={"A1"} variant="contained"><EditCalendarIcon
             className={"active"}
           /> &nbsp; &nbsp; &nbsp; Create Product</Button> </Grid> */}

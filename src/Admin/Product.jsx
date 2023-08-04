@@ -418,6 +418,7 @@ export default function Product() {
           </Box>
         </Modal.Body>
       </Modal>
+      
       <Modal
         show={modalShowDelete}
         onHide={() => setmodalShowDelete(false)}

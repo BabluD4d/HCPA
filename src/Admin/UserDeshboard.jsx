@@ -388,7 +388,7 @@ export default function UserDeshboard() {
       ) : (
         <>
           <Typography fontSize={{ xs: "15px", lg: "20px" }}>
-            Clients Deshboard
+            Clients Dashboard
           </Typography>
           <Grid
             className="banner-section-cus"
@@ -598,7 +598,7 @@ export default function UserDeshboard() {
                       <TableHead>
                         <TableRow>
                           {/* <StyledTableCell>#</StyledTableCell> */}
-                          <StyledTableCell>Oder</StyledTableCell>
+                          <StyledTableCell>Order</StyledTableCell>
                           <StyledTableCell>Chapter Title</StyledTableCell>
                           <StyledTableCell></StyledTableCell>
                           <StyledTableCell></StyledTableCell>

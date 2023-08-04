@@ -66,6 +66,11 @@ export default function AdminDashBoard() {
   const [moduleBy, setModuleBy] = useState([]);
   const [clientList, setClientList] = useState([]);
   const [dashboardProducts, setDashboardProducts] = useState([]);
+  const [meetingSelected, setMeetingSelected] = useState('');
+  const [productSelected, setProductSelected] = useState('');
+  const [allClientsBy, setAllClientsBy] = useState('');
+  const [allModulesBy, setAllModulesBy] = useState('');
+  const [stafBy, setStafBy] = useState('');
   const [filterData, setFilterData] = useState({
     product_pro_mod: [],
     product_client: [],
@@ -347,23 +352,24 @@ useEffect(()=>{
           </Grid>
 
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} lg={4} sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}>
+            <Grid item xs={12} sm={6} lg={4}>
               <FormControl fullWidth sx={{justifyContent: "space-between", width: "100%", flexDirection: "row", alignItems: "center", marginBottom: "5px", border: "1px solid #e0e0e0", borderRadius: "5px", position: "relative"}}>
                 <Box className="dashboard-custom-dropdown">
                   Products Sold {ProductData?.purchase_count}
                   <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
                   <Box className="dashboard-custom-dropdown-items">
-                    <List sx={{backgroundColor: "#233b77", zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
+                    <List sx={{zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
                       {
                         <>
                           <ListItem
                             disablePadding
-                            sx={{ color: "#ffffff" }}
-                            onClick={(e) => getProductSold('Products', value.start.format().split("T")[0], value.end.format().split("T")[0])}
+                            sx={{ color: "#000000" }}
+                            className={`${productSelected === 'product' ? "selected-product": ""}`}
+                            onClick={(e) => {setProductSelected('product'); getProductSold('Products', value.start.format().split("T")[0], value.end.format().split("T")[0])}}
                           >
                             <ListItemButton>Products Sold</ListItemButton>
                           </ListItem>
-                          <ListItem disablePadding sx={{ color: "#ffffff" }} onClick={(e) => getModuleSold('Modules', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
+                          <ListItem className={`${productSelected === 'module' ? "selected-product": ""}`} disablePadding sx={{ color: "#000000" }} onClick={(e) => {setProductSelected('module'); getModuleSold('Modules', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
                             <ListItemButton>Modules Sold</ListItemButton>
                           </ListItem>
                         </>
@@ -395,13 +401,13 @@ useEffect(()=>{
                   New Clients Added {ProductData?.user_count}
                   <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
                   <Box className="dashboard-custom-dropdown-items">
-                    <List sx={{backgroundColor: "#233b77", zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
+                    <List sx={{zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
                       {
                         <>
-                          <ListItem disablePadding sx={{ color: "#ffffff" }} onClick={()=>getClientBy('Products', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
+                          <ListItem className={`${meetingSelected === 'product' ? "selected-product": ""}`} disablePadding sx={{ color: "#000000" }} onClick={()=>{setMeetingSelected('product'); getClientBy('Products', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
                             <ListItemButton>New Clients Added by Products</ListItemButton>
                           </ListItem>
-                          <ListItem disablePadding sx={{ color: "#ffffff" }} onClick={()=>getClientBy('Modules', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
+                          <ListItem className={`${meetingSelected === 'module' ? "selected-product": ""}`} disablePadding sx={{ color: "#000000" }} onClick={()=>{setMeetingSelected('module'); getClientBy('Modules', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
                             <ListItemButton>New Clients Added by Modules</ListItemButton>
                           </ListItem>
                         </>
@@ -431,13 +437,13 @@ useEffect(()=>{
                   Meeting Booked {ProductData?.bookcall_count}
                   <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
                   <Box className="dashboard-custom-dropdown-items">
-                    <List sx={{backgroundColor: "#233b77", zIndex: 9, overflowY: "auto", height: "120px", borderRadius: "0 0 5px 5px"}}>
+                    <List sx={{zIndex: 9, overflowY: "auto", height: "120px", borderRadius: "0 0 5px 5px"}}>
                       {productList &&
                         productList.map((product) => (
                           <ListItem
                             disablePadding
                             id={`${product.product_id}`}
-                            sx={{ color: "#ffffff" }}
+                            sx={{ color: "#000000" }}
                             key={product.product_id}
                             className={`${product.product_id == productId? "selected-product": ""}`}
                             onClick={(e) => {
@@ -524,7 +530,7 @@ useEffect(()=>{
               item
               lg={6}
               xs={12}
-              sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+              // sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
             >
               <h4>Client</h4>
               <FormControl
@@ -540,15 +546,15 @@ useEffect(()=>{
                   position: "relative",
                 }}
               >
-                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#0CB4D0" }}>
+                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#233b77" }}>
                   All Clients {ProductData2?.clientcount}
                   <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
                   <Box className="dashboard-custom-dropdown-items light-blue">
-                    <List sx={{backgroundColor: "#0CB4D0", zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
-                      <ListItem disablePadding onClick={()=>getListClientVia('Products', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
+                    <List sx={{zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
+                      <ListItem className={`${allClientsBy === 'product'? "selected-product": ""}`} sx={{ color: "#000000" }} disablePadding onClick={()=>{setAllClientsBy('product'); getListClientVia('Products', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
                         <ListItemButton>All Clients by Products</ListItemButton>
                       </ListItem>
-                      <ListItem disablePadding onClick={()=>getListClientVia('Modules', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
+                      <ListItem className={`${allClientsBy === 'module'? "selected-product": ""}`} sx={{ color: "#000000" }} disablePadding onClick={()=>{setAllClientsBy('module'); getListClientVia('Modules', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
                         <ListItemButton>All Clients by Modules</ListItemButton>
                       </ListItem>
                     </List>
@@ -588,22 +594,6 @@ useEffect(()=>{
                   ) : (
                     <Box sx={{textTransform: "capitalize", flex: "0 0 100%", maxWidth: "100%", padding: "8px 15px"}}>Data not found</Box>
                   )
-                  // ) : (
-                  //   ProductData2?.client?.map((val, i) => {
-                  //     return (
-                  //       <Box
-                  //         sx={{
-                  //           textTransform: "capitalize",
-                  //           flex: "0 0 100%",
-                  //           maxWidth: "100%",
-                  //           padding: "8px 15px",
-                  //         }}
-                  //       >
-                  //         {`${val.product_name}  ${val.total}`}
-                  //       </Box>
-                  //     );
-                  //   })
-                  // )
                 }
               </FormGroup>
             </Grid>
@@ -611,7 +601,6 @@ useEffect(()=>{
               item
               lg={6}
               xs={12}
-              sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
             >
               <h4>HCPA Staff</h4>
               <FormControl
@@ -627,21 +616,17 @@ useEffect(()=>{
                   position: "relative",
                 }}
               >
-                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#0CB4D0" }}>
+                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#233b77" }}>
                   All HCPA Staff {ProductData2?.staffcount}
                   <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
 
                   <Box className="dashboard-custom-dropdown-items light-blue">
-                    <List sx={{backgroundColor: "#0CB4D0", zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
-                      <ListItem disablePadding onClick={()=>getStaffBy('Type', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
-                        <ListItemButton>
-                          All HCPA Staff by Staff Type
-                        </ListItemButton>
+                    <List sx={{zIndex: 9, overflowY: "auto", height: "80px", borderRadius: "0 0 5px 5px"}}>
+                      <ListItem className={`${stafBy === 'type'? "selected-product": ""}`} sx={{color:'#000000'}} disablePadding onClick={()=>{setStafBy('type'); getStaffBy('Type', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
+                        <ListItemButton>All HCPA Staff by Staff Type</ListItemButton>
                       </ListItem>
-                      <ListItem disablePadding onClick={()=>getStaffBy('Name', value.start.format().split("T")[0], value.end.format().split("T")[0])}>
-                        <ListItemButton>
-                          All HCPA Staff by Staff Name
-                        </ListItemButton>
+                      <ListItem className={`${stafBy === 'name' ? "selected-product": ""}`} sx={{color:'#000000'}} disablePadding onClick={()=>{setStafBy('name'); getStaffBy('Name', value.start.format().split("T")[0], value.end.format().split("T")[0])}}>
+                        <ListItemButton>All HCPA Staff by Staff Name</ListItemButton>
                       </ListItem>
                     </List>
                   </Box>
@@ -694,7 +679,6 @@ useEffect(()=>{
               item
               lg={6}
               xs={12}
-              sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
             >
               <h4>Products</h4>
               <FormControl
@@ -710,7 +694,7 @@ useEffect(()=>{
                   position: "relative",
                 }}
               >
-                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#0CB4D0" }}>
+                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#233b77" }}>
                   All Product {ProductData2?.productscount}
                 </Box>
               </FormControl>
@@ -731,7 +715,6 @@ useEffect(()=>{
               item
               lg={6}
               xs={12}
-              sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
             >
               <h4>Modules</h4>
               <FormControl
@@ -747,23 +730,23 @@ useEffect(()=>{
                   position: "relative",
                 }}
               >
-                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#0CB4D0" }}>
+                <Box className="dashboard-custom-dropdown" sx={{ backgroundColor: "#233b77" }}>
                   All Modules {ProductData2?.modulecount}
                   <KeyboardArrowDownIcon sx={{ color: "white", pointerEvents: "none" }} />
                   <Box className="dashboard-custom-dropdown-items light-blue">
                     <List
                       sx={{
-                        backgroundColor: "#0CB4D0",
+                        // backgroundColor: "#0CB4D0",
                         zIndex: 9,
                         overflowY: "auto",
                         height: "80px",
                         borderRadius: "0 0 5px 5px",
                       }}
                     >
-                      <ListItem disablePadding onClick={()=>getModuleBy('Products')}>
+                      <ListItem className={`${allModulesBy === 'product'? "selected-product": ""}`} sx={{color:'#000000'}}  disablePadding onClick={()=>{setAllModulesBy('product'); getModuleBy('Products')}}>
                         <ListItemButton>All Modules by Products</ListItemButton>
                       </ListItem>
-                      <ListItem disablePadding onClick={()=>getModuleBy('Modules')}>
+                      <ListItem className={`${allModulesBy === 'name'? "selected-product": ""}`} sx={{color:'#000000'}}  disablePadding onClick={()=>{setAllModulesBy('name'); getModuleBy('Modules')}}>
                         <ListItemButton>All Modules by Name</ListItemButton>
                       </ListItem>
                     </List>
