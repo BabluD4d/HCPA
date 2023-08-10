@@ -234,7 +234,7 @@ const CreateStaff = () => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                 <Box >
-                <FormControl mt={3} variant="standard" fullWidth>
+                <FormControl mt={3} fullWidth>
                   <InputLabel id="demo-simple-select-label">
                     Access Type
                   </InputLabel>
@@ -243,7 +243,7 @@ const CreateStaff = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     // value={age}
-                    label="role_id"
+                    label=" Access Type"
                     name="role_id"
                     onChange={formik.handleChange}
                     value={formik.values.role_id}
@@ -261,7 +261,7 @@ const CreateStaff = () => {
                 </Grid>
                 <Grid item xs={12} sm={12}>
                 <Box>
-                <FormControl mt={3} variant="standard" fullWidth>
+                <FormControl mt={3} fullWidth>
                   <InputLabel id="demo-simple-select-label">
                   Booking Available
                   </InputLabel>
@@ -270,7 +270,7 @@ const CreateStaff = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     // value={age}
-                    label="bookings"
+                    label="Booking Available"
                     // onChange={handleChange}
                     name="bookings"
                     onChange={formik.handleChange}

@@ -246,14 +246,14 @@ function AccessBySuperAdmin() {
       >
         <Grid container spacing={2} mb={9}>
           <Grid mt={3} item xs={12}>
-            <FormControl mt={3} variant="standard" fullWidth>
+            <FormControl mt={3} fullWidth>
               <InputLabel id="demo-simple-select-label">Access Type</InputLabel>
               <Select
                 disabled={localStorage.getItem("role") == 1 ? false : true}
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 // value={age}
-                label="role_id"
+                label="Access Type"
                 name="role_id"
                 //   onChange={formik.handleChange}
                 value={formData.role_id}
@@ -288,8 +288,7 @@ function AccessBySuperAdmin() {
                 item
                 xs="12"
                 md={6}
-                lg={4}
-                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+                lg={4}                
               >
                 <FormControl
                   sx={{
@@ -358,7 +357,7 @@ function AccessBySuperAdmin() {
                       formData.UserList.visibility == "No" ? true : false
                     }
                     control={<Checkbox />}
-                    label="View Page And Menu "
+                    label="View Page and Menu "
                   />
                   <FormControlLabel
                     disabled={
@@ -421,7 +420,6 @@ function AccessBySuperAdmin() {
                 xs="12"
                 md={6}
                 lg={4}
-                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
               >
                 <FormControl
                   sx={{
@@ -489,7 +487,7 @@ function AccessBySuperAdmin() {
                       formData.Products.visibility == "No" ? true : false
                     }
                     control={<Checkbox />}
-                    label="View Page And Menu "
+                    label="View Page and Menu "
                   />
                   <FormControlLabel
                     checked={formData.Products.View}
@@ -552,7 +550,6 @@ function AccessBySuperAdmin() {
                 xs="12"
                 md={6}
                 lg={4}
-                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
               >
                 <FormControl
                   sx={{
@@ -618,7 +615,7 @@ function AccessBySuperAdmin() {
                       formData.modules.visibility == "No" ? true : false
                     }
                     control={<Checkbox />}
-                    label="View Page And Menu "
+                    label="View Page and Menu "
                   />
                   <FormControlLabel
                     checked={formData.modules.View}
@@ -679,7 +676,6 @@ function AccessBySuperAdmin() {
                 xs="12"
                 md={6}
                 lg={4}
-                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
               >
                 <FormControl
                   sx={{
@@ -747,7 +743,7 @@ function AccessBySuperAdmin() {
                       formData.ClientsPortal.visibility == "No" ? true : false
                     }
                     control={<Checkbox />}
-                    label="View Page And Menu "
+                    label="View Page and Menu "
                   />
                   <FormControlLabel
                     checked={formData.ClientsPortal.AddWelcome}
@@ -759,7 +755,7 @@ function AccessBySuperAdmin() {
                       setformData({ ...formData });
                     }}
                     control={<Checkbox />}
-                    label="Add WelCome Video"
+                    label="Add Welcome Video"
                   />
 
                   <FormControlLabel
@@ -809,7 +805,6 @@ function AccessBySuperAdmin() {
                 xs="12"
                 md={6}
                 lg={4}
-                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
               >
                 <FormControl
                   sx={{
@@ -860,7 +855,7 @@ function AccessBySuperAdmin() {
                     checked={formData.AdminDashboard == "No" ? false : true}
                     disabled={formData.AdminDashboard == "No" ? true : false}
                     control={<Checkbox />}
-                    label="View Page And Menu "
+                    label="View Page and Menu "
                   />
                 </FormGroup>
               </Grid>
@@ -870,7 +865,6 @@ function AccessBySuperAdmin() {
                 xs="12"
                 md={6}
                 lg={4}
-                sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
               >
                 <FormControl
                   sx={{
@@ -921,7 +915,7 @@ function AccessBySuperAdmin() {
                     checked={formData.BookCall == "No" ? false : true}
                     disabled={formData.BookCall == "No" ? true : false}
                     control={<Checkbox />}
-                    label="View Page And Menu "
+                    label="View Page and Menu"
                   />
                 </FormGroup>
               </Grid>
@@ -1003,7 +997,7 @@ function AccessBySuperAdmin() {
                             <TableRow>
                               {/* <StyledTableCell>Access Type</StyledTableCell> */}
                               <StyledTableCell>Page Name</StyledTableCell>
-                              <StyledTableCell>View Page And Menu</StyledTableCell>
+                              <StyledTableCell>View Page and Menu</StyledTableCell>
                               <StyledTableCell>Add</StyledTableCell>
                               <StyledTableCell>Edit</StyledTableCell>
                               <StyledTableCell>Delete</StyledTableCell>
@@ -1375,7 +1369,6 @@ function AccessBySuperAdmin() {
                     xs="12"
                     md={6}
                     lg={4}
-                    sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
                   >
                     <FormControl
                       sx={{
@@ -1448,7 +1441,7 @@ function AccessBySuperAdmin() {
                             : false
                         }
                         control={<Checkbox />}
-                        label="View Page And Menu "
+                        label="View Page and Menu "
                       />
                       <FormControlLabel
                         disabled={
@@ -1519,7 +1512,6 @@ function AccessBySuperAdmin() {
                     xs="12"
                     md={6}
                     lg={4}
-                    sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
                   >
                     <FormControl
                       sx={{
@@ -1591,7 +1583,7 @@ function AccessBySuperAdmin() {
                             : false
                         }
                         control={<Checkbox />}
-                        label="View Page And Menu "
+                        label="View Page and Menu"
                       />
                       <FormControlLabel
                         checked={UpdateAccess.Products.View}
@@ -1662,7 +1654,6 @@ function AccessBySuperAdmin() {
                     xs="12"
                     md={6}
                     lg={4}
-                    sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
                   >
                     <FormControl
                       sx={{
@@ -1730,7 +1721,7 @@ function AccessBySuperAdmin() {
                           UpdateAccess.modules.visibility == "No" ? true : false
                         }
                         control={<Checkbox />}
-                        label="View Page And Menu "
+                        label="View Page and Menu"
                       />
                       <FormControlLabel
                         checked={UpdateAccess.modules.View}
@@ -1790,8 +1781,7 @@ function AccessBySuperAdmin() {
                     item
                     xs="12"
                     md={6}
-                    lg={4}
-                    sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+                    lg={4}                    
                   >
                     <FormControl
                       sx={{
@@ -1864,7 +1854,7 @@ function AccessBySuperAdmin() {
                             : false
                         }
                         control={<Checkbox />}
-                        label="View Page And Menu "
+                        label="View Page and Menu "
                       />
                       <FormControlLabel
                         checked={UpdateAccess.ClientsPortal.AddWelcome}
@@ -1879,7 +1869,7 @@ function AccessBySuperAdmin() {
                           setUpdateAccess({ ...UpdateAccess });
                         }}
                         control={<Checkbox />}
-                        label="Add WelCome Video"
+                        label="Add Welcome Video"
                       />
 
                       <FormControlLabel
@@ -1937,8 +1927,7 @@ function AccessBySuperAdmin() {
                     item
                     xs="12"
                     md={6}
-                    lg={4}
-                    sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
+                    lg={4}                    
                   >
                     <FormControl
                       sx={{
@@ -1993,7 +1982,7 @@ function AccessBySuperAdmin() {
                           UpdateAccess.AdminDashboard == "No" ? true : false
                         }
                         control={<Checkbox />}
-                        label="View Page And Menu "
+                        label="View Page and Menu"
                       />
                     </FormGroup>
                   </Grid>
@@ -2003,7 +1992,6 @@ function AccessBySuperAdmin() {
                     xs="12"
                     md={6}
                     lg={4}
-                    sx={{ boxShadow: "0px 10px 30px -5px #e0e0e0" }}
                   >
                     <FormControl
                       sx={{
@@ -2054,7 +2042,7 @@ function AccessBySuperAdmin() {
                         checked={UpdateAccess.BookCall == "No" ? false : true}
                         disabled={UpdateAccess.BookCall == "No" ? true : false}
                         control={<Checkbox />}
-                        label="View Page And Menu "
+                        label="View Page and Menu"
                       />
                     </FormGroup>
                   </Grid>

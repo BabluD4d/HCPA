@@ -18,9 +18,9 @@ import {
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import React, { useEffect, useState } from "react";
 import { Modal, Table } from "react-bootstrap";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+// import EditIcon from "@mui/icons-material/Edit";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNavigate } from "react-router-dom";
 import ExportUser from "../Api/Admin/handleUser/ExportUser";
 import { useFormik } from "formik";
@@ -135,15 +135,14 @@ export default function UserList() {
     },
   }));
 
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
-  }));
+  // const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  //   "&:nth-of-type(odd)": {
+  //     backgroundColor: theme.palette.action.hover,
+  //   },
+  //   "&:last-child td, &:last-child th": {
+  //     border: 0,
+  //   },
+  // }));
 
   const formik = useFormik({
     initialValues: {
@@ -310,12 +309,14 @@ export default function UserList() {
       setModalShow1(true);
     });
   };
-  const hendleUserDeleteStaff = (val) => {
-    setuserId(val);
-    setTimeout(() => {
-      setModalShow1(true);
-    });
-  };
+  
+  // const hendleUserDeleteStaff = (val) => {
+  //   setuserId(val);
+  //   setTimeout(() => {
+  //     setModalShow1(true);
+  //   });
+  // };
+  
   const hendleDeleteUser = () => {
     ExportUser.userDelete(userId).then((resp) => {
       if (resp.ok) {
@@ -348,24 +349,24 @@ export default function UserList() {
       }
     });
   };
-  const hendlePagintionStaff = (event, value) => {
-    let obj = {
-      order: "desc",
-      limit: 10,
-      page: value,
-    };
-    ExportUser.UserAllStaff(obj).then((resp) => {
-      if (resp.ok) {
-        if (resp.data) {
-          setCount(resp.data.count);
-          setUserData(resp.data.data);
-          setloader(false);
-        } else {
-          setloader(false);
-        }
-      }
-    });
-  };
+  // const hendlePagintionStaff = (event, value) => {
+  //   let obj = {
+  //     order: "desc",
+  //     limit: 10,
+  //     page: value,
+  //   };
+  //   ExportUser.UserAllStaff(obj).then((resp) => {
+  //     if (resp.ok) {
+  //       if (resp.data) {
+  //         setCount(resp.data.count);
+  //         setUserData(resp.data.data);
+  //         setloader(false);
+  //       } else {
+  //         setloader(false);
+  //       }
+  //     }
+  //   });
+  // };
   const GetDataRole = () => {
     ExportRegistration.getRoleId()
       .then((resp) => {
@@ -784,40 +785,48 @@ export default function UserList() {
                   ) : null}
                 </Box>
                 <Box mt={3}>
-                <FormControl mt={3} variant="standard" fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Payments
-                  </InputLabel>
-                  <Select
-                  disabled={localStorage.getItem("role") == 1||localStorage.getItem("role") == 6?false:true}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    label="payment"
-                    name="payment"
-                    onChange={formik.handleChange}
-                    value={formik.values.payment}
-                    onBlur={formik.handleBlur}
-                    autoComplete="current-number"
-                    // onChange={handleChange}
-                  >
-                    <MenuItem value={"Pending"}>Pending</MenuItem>
-                    <MenuItem value={"Approved"}>Approved</MenuItem>
-                  </Select>
-                </FormControl>
+                  <FormControl mt={3} fullWidth>
+                    <InputLabel variant="standard" htmlFor="uncontrolled-native"
+                      sx={{
+                          transform: formik.values.payment === undefined ? 'translate(20px, 18px)!important': 'translate(14px, -6px) scale(0.75)!important',
+                          '&.Mui-focused':{
+                            transform: 'translate(18px, -6px) scale(0.75)!important',
+                          }
+                      }}
+                    >Payment</InputLabel>
+                    <Select
+                      disabled={localStorage.getItem("role") == 1||localStorage.getItem("role") == 6?false:true}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      label="Payment"
+                      name="payment"
+                      onChange={formik.handleChange}
+                      value={formik.values.payment}
+                      onBlur={formik.handleBlur}
+                      autoComplete="current-number"
+                    >
+                      <MenuItem value={"Pending"}>Pending</MenuItem>
+                      <MenuItem value={"Approved"}>Approved</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Box>
                 <Box mt={3}>
-                <FormControl mt={3} variant="standard" fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                  CheckLists
+                <FormControl mt={3} fullWidth>
+                  <InputLabel variant="standard" htmlFor="uncontrolled-native"
+                      sx={{
+                          transform: formik.values.checklist_status === undefined ? 'translate(20px, 18px)!important': 'translate(14px, -6px) scale(0.75)!important',
+                          '&.Mui-focused':{
+                            transform: 'translate(18px, -6px) scale(0.75)!important',
+                          }
+                      }}
+                    >
+                      CheckLists
                   </InputLabel>
                   <Select
-                  disabled={localStorage.getItem("role") == 1?false:true}
+                    disabled={localStorage.getItem("role") == 1?false:true}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
                     label="checklist_status"
-                    // onChange={handleChange}
                     name="checklist_status"
                     onChange={formik.handleChange}
                     value={formik.values.checklist_status}
@@ -859,8 +868,6 @@ export default function UserList() {
                 onSubmit={formik1.handleSubmit}
                 sx={{ mt: 1 }}
               >
-   {/* {console.log({UserDataStaffEdit})} */}
-
                   <Box>
                     <TextField
                       fullWidth
@@ -880,7 +887,7 @@ export default function UserList() {
                       <div style={{ color: "red" }}>{formik1.errors.name}</div>
                     ) : null}
                   </Box>
-                  <Box>
+                  <Box sx={{ mt: 3 }}>
                     <TextField
                       fullWidth
                       id="fullWidth"
@@ -895,12 +902,13 @@ export default function UserList() {
                       onChange={formik1.handleChange}
                       onBlur={formik1.handleBlur}
                       value={formik1.values.email}
+                 
                     />
                     {formik1.touched.email && formik1.errors.email ? (
                       <div style={{ color: "red" }}>{formik1.errors.email}</div>
                     ) : null}
                   </Box>
-                  <Box>
+                  <Box sx={{ mt: 3 }}>
                     <TextField
                       fullWidth
                       id="fullWidth"
@@ -920,7 +928,7 @@ export default function UserList() {
                       <div style={{ color: "red" }}>{formik1.errors.mobile_number}</div>
                   ) : null}
                   </Box>
-                  <Box>
+                  <Box sx={{ mt: 3 }}>
                     <TextField
                       fullWidth
                       id="fullWidth"
@@ -940,36 +948,33 @@ export default function UserList() {
                       <div style={{ color: "red" }}>{formik1.errors.clients}</div>
                   ) : null}
                   </Box>
-                <Box >
-                <FormControl mt={3} variant="standard" fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Access Type
-                  </InputLabel>
-                  <Select
-                  disabled={localStorage.getItem("role") == 1?false:true}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    label="role_id"
-                    name="role_id"
-                    onChange={formik1.handleChange}
-                    value={formik1.values.role_id}
-                    onBlur={formik1.handleBlur}
-                    autoComplete="current-number"
-                    // onChange={handleChange}
-                  >{roleData?.map((val,i)=>val.id==3?null:<MenuItem value={val.id}>{val.role_name}</MenuItem>
-                   
-                 )}
-                  </Select>
-                   {formik1.touched.role_id && formik1.errors.role_id ? (
-                     <div style={{ color: "red" }}>{formik1.errors.role_id}</div>
-                     ) : null}
-                </FormControl>
-                </Box>
-                     {/* {formik1.values.role_id} */}
-                     <p></p>
-                <Box>
-                <FormControl mt={3} variant="standard" fullWidth>
+                  <Box sx={{ mt: 3 }}>
+                    <FormControl mt={3} fullWidth>
+                      <InputLabel id="demo-simple-select-label">
+                        Access Type
+                      </InputLabel>
+                      <Select
+                      disabled={localStorage.getItem("role") == 1?false:true}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        // value={age}
+                        label="Access Type"
+                        name="role_id"
+                        onChange={formik1.handleChange}
+                        value={formik1.values.role_id}
+                        onBlur={formik1.handleBlur}
+                        autoComplete="current-number"
+                        // onChange={handleChange}
+                      >
+                        {roleData?.map((val,i)=>val.id==3?null:<MenuItem value={val.id}>{val.role_name}</MenuItem>)}
+                      </Select>
+                      {formik1.touched.role_id && formik1.errors.role_id ? (
+                        <div style={{ color: "red" }}>{formik1.errors.role_id}</div>
+                        ) : null}
+                    </FormControl>
+                  </Box>
+                  <Box sx={{ mt: 3 }}>
+                <FormControl mt={3} fullWidth>
                   <InputLabel id="demo-simple-select-label">
                   Booking Available
                   </InputLabel>
@@ -978,7 +983,7 @@ export default function UserList() {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     // value={age}
-                    label="bookings"
+                    label="Booking Available"
                     // onChange={handleChange}
                     name="bookings"
                     onChange={formik1.handleChange}

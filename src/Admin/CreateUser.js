@@ -29,7 +29,7 @@ export default function CreateUser() {
         .required("Enter your Mobile Number"),
     }),
     onSubmit: (values) => {
-      CoustomRegistration(values, "Registration",Navigate)
+      CoustomRegistration(values, "Registration", Navigate)
     },
   });
   return (
@@ -133,53 +133,63 @@ export default function CreateUser() {
                   </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <Box >
-                <FormControl mt={3} variant="standard" fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                    Payments
-                  </InputLabel>
-                  <Select
-                  disabled={localStorage.getItem("role") == 1?false:true}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    label="payment"
-                    name="payment"
-                    onChange={formik.handleChange}
-                    value={formik.values.payment}
-                    onBlur={formik.handleBlur}
-                    autoComplete="current-number"
-                    // onChange={handleChange}
-                  >
-                    <MenuItem value={"Pending"}>Pending</MenuItem>
-                    <MenuItem value={"Approved"}>Approved</MenuItem>
-                  </Select>
-                </FormControl>
-                </Box>
+                  <Box>
+                    <FormControl mt={3} fullWidth>
+                      <InputLabel variant="standard" htmlFor="uncontrolled-native"
+                        sx={{
+                            transform: formik.values.payment === undefined ? 'translate(20px, 18px)!important': 'translate(14px, -6px) scale(0.75)!important',
+                            '&.Mui-focused':{
+                              transform: 'translate(18px, -6px) scale(0.75)!important',
+                            }
+                        }}
+                      >
+                        Payment
+                      </InputLabel>
+                      <Select
+                        disabled={localStorage.getItem("role") == 1?false:true}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="payment"
+                        name="payment"
+                        onChange={formik.handleChange}
+                        value={formik.values.payment}
+                        onBlur={formik.handleBlur}
+                        autoComplete="current-number"
+                      >
+                        <MenuItem value={"Pending"}>Pending</MenuItem>
+                        <MenuItem value={"Approved"}>Approved</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                <Box>
-                <FormControl mt={3} variant="standard" fullWidth>
-                  <InputLabel id="demo-simple-select-label">
-                  CheckLists
-                  </InputLabel>
-                  <Select
-                  disabled={localStorage.getItem("role") == 1?false:true}
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    // value={age}
-                    label="checklist_status"
-                    // onChange={handleChange}
-                    name="checklist_status"
-                    onChange={formik.handleChange}
-                    value={formik.values.checklist_status}
-                    onBlur={formik.handleBlur}
-                  >
-                    <MenuItem value={"Complete"}>Complete</MenuItem>
-                    <MenuItem value={"Incomplete"}>Incomplete</MenuItem>
-                  </Select>
-                </FormControl>
-                </Box>
+                  <Box>
+                    <FormControl mt={3} fullWidth>
+                      <InputLabel variant="standard" htmlFor="uncontrolled-native"
+                        sx={{
+                            transform: formik.values.checklist_status === undefined ? 'translate(20px, 18px)!important': 'translate(14px, -6px) scale(0.75)!important',
+                            '&.Mui-focused':{
+                              transform: 'translate(18px, -6px) scale(0.75)!important',
+                            }
+                        }}
+                      >
+                        CheckLists
+                      </InputLabel>
+                      <Select
+                        disabled={localStorage.getItem("role") == 1?false:true}
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="checklist_status"
+                        name="checklist_status"
+                        onChange={formik.handleChange}
+                        value={formik.values.checklist_status}
+                        onBlur={formik.handleBlur}
+                      >
+                        <MenuItem value={"Complete"}>Complete</MenuItem>
+                        <MenuItem value={"Incomplete"}>Incomplete</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 </Grid>
                 <Grid item xs={12}>
                     <Button className="w-100 A1" type='submit' variant="contained">Submit</Button>

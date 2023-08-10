@@ -2,12 +2,13 @@ import React from 'react'
 import ExportRegistration from './ExportRegistration';
 import { toast } from 'react-toastify';
 
-export default function CoustomRegistration(obj, name,Navigate,setloader) {
+export default function CoustomRegistration(obj, name, Navigate, setloader) {
     ExportRegistration[name](obj)
         .then((resp) => {
+            console.log(resp, 'resp')
             if (resp.data) {
                 if (resp.data) {
-                    setloader(false)
+                    // setloader(false)
                     setTimeout(() => {
                         if(resp.data.message=="create user successfully"){
                             toast.success('Acount Created successfully', {
@@ -23,7 +24,8 @@ export default function CoustomRegistration(obj, name,Navigate,setloader) {
                             setTimeout(() => {
                                 Navigate('/UserList')
                             }, 1000);
-                        }else {
+                        }
+                        else {
                             if(resp.data.errors.email[0]){
                                 toast.error(resp.data.errors.email[0], {
                                     position: "top-right",
@@ -35,7 +37,8 @@ export default function CoustomRegistration(obj, name,Navigate,setloader) {
                                     progress: undefined,
                                     theme: "light",
                                 })
-                            }else{
+                            }
+                            else{
     
                                 toast.error('Something went wrong', {
                                     position: "top-right",
