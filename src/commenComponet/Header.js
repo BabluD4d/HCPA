@@ -143,7 +143,7 @@ const Header = () => {
             </Grid>
 
             <Grid item xs={5} sx={{display:{xs:'none', sm:'flex'}, alignItems:{xs:'flex-start', lg:'center'},flexDirection:{xs:'column', lg:'row'}, alignSelf:{ xs:'initial', xl:'flex-end'}, fontWeight:'500',color:'#ffffff', paddingBottom:{xs:0, xl:'4px'}}}>
-              <Box component="span" sx={{fontSize:{xs:'14px', lg:'24px', fontWeight:'600'}, alignItems:'center', display:'inline-block'}}>HCPA Staff Portal </Box>
+              <Box component="span" sx={{fontSize:{xs:'14px', lg:'24px', fontWeight:'600'}, alignItems:'center', display:'inline-block'}}>HCPA {localStorage.getItem("role") == 3 ? 'Client' : 'Staff'} Portal </Box>
               <Box component="span">
                 <Box component="span" sx={{display: {xs:'none', lg:'inline-block'}, fontSize:'14px', marginLeft:'15px', marginRight:'15px'}}>|</Box> {DataUser?.name} {DataUser.role==1?<>[Super Admin]</>:null} 
               </Box>

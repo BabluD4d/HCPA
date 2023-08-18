@@ -189,7 +189,8 @@ const Modules = () => {
               ) : (
                 <>
                   <div>
-                    <Typography my={2} fontSize={{xs:'20px', lg:'24px'}}>Let's get you started with your {Product.product_name} application</Typography>
+                    {/* <Typography my={2} fontSize={{xs:'20px', lg:'24px'}}>Let's get you started with your {Product.product_name} application</Typography> */}
+                    <Typography my={2} fontSize={{xs:'20px', lg:'24px'}}>Welcome to {Product.product_name} Hub.</Typography>
 
                     <Grid container spacing={{xs:1, lg:3}} mt={2}>
 
@@ -202,7 +203,7 @@ const Modules = () => {
                                 <ExitToAppSharpIcon sx={{ fontSize: "45px" }} />
                             </Grid>
                             <Grid item xs={9}>
-                              <Typography sx={{ fontSize: "18px", lineHeight:{xs:1, md:1.5} }}>Step 1</Typography>
+                              {/* <Typography sx={{ fontSize: "18px", lineHeight:{xs:1, md:1.5} }}>Step 1</Typography> */}
                               <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Watch registration guides</Typography>
                               <Typography sx={{ fontSize: "14px" }}>Understand the process</Typography>
                             </Grid>
@@ -219,7 +220,7 @@ const Modules = () => {
                               {/* </Typography> */}
                             </Grid>
                             <Grid item xs={9}>
-                              <Typography sx={{ fontSize: "18px" }}>Step 2</Typography>
+                              {/* <Typography sx={{ fontSize: "18px" }}>Step 2</Typography> */}
                               <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Complete checklists</Typography>
                               <Typography sx={{ fontSize: "14px" }}>Finish to guarantee your application</Typography>
                             </Grid>
@@ -234,7 +235,7 @@ const Modules = () => {
                                 <ViewModuleSharpIcon sx={{ fontSize: "45px" }} />
                             </Grid>
                             <Grid item xs={9}>
-                              <Typography sx={{ fontSize: "18px" }}>Step 3</Typography>
+                              {/* <Typography sx={{ fontSize: "18px" }}>Step 3</Typography> */}
                               <Typography sx={{ fontSize: {xs:"18px", lg:'22px'}, lineHeight:{xs:1.2, lg:1.5} }}>Download Modules</Typography>
                               <Typography sx={{ fontSize: "14px" }}>Export documents</Typography>
                             </Grid>

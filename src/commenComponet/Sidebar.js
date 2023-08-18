@@ -442,26 +442,28 @@ const Sidebar = () => {
                               }
                             />
                           </ListItemIcon>
-                          <ListItemText primary={"Files"} />
+                          <ListItemText primary={"Compliance Forms"} />
                         </ListItemButton>
                       </ListItem>
                               
-                      <Accordion
-                        defaultExpanded
-                        style={{ width: "100%" }}
-                        className="Accordion123"
-                        // expanded={expanded === "panel1"}
-                        // onChange={handleChange("panel1")}
-                        sx={{ borderBottom: "none !important" }}
-                      >
+                      <Accordion defaultExpanded style={{ width: "100%" }} className="Accordion123" sx={{ borderBottom: "none !important" }}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel1bh-content"
                           id="panel1bh-header"
-                          className="product Accordion1 Accordion123"
+                          className="product Accordion123"
+                          sx={{
+                            minHeight:'55px!important',
+                            '& .MuiAccordionSummary-content':{
+                              margin: '0!important'
+                            },
+                            '& .Mui-expanded':{
+                              margin: '0!important'
+                            }
+                          }}
                         >
                           <ListItem className="product" disablePadding>
-                            <ListItemButton className="product">
+                            <ListItemButton className="product" sx={{px:0}}>
                               <ListItemIcon className="product">
                                 <Inventory2Icon />
                               </ListItemIcon>
@@ -469,7 +471,7 @@ const Sidebar = () => {
                             </ListItemButton>
                           </ListItem>
                         </AccordionSummary>
-                        <AccordionDetails>
+                        <AccordionDetails sx={{pb:0}}>
                           {/* <Typography className='pagestxt1' >NDIS</Typography> */}
                           {ProductData?.map((val, i) => (
                             <>
@@ -546,6 +548,26 @@ const Sidebar = () => {
                           ))}
                         </AccordionDetails>
                       </Accordion>
+                      <ListItem
+                        className={
+                          loaction.pathname == "/Elearning" ? "active" : ""
+                        }
+                        onClick={() => {
+                          Activeclass("/Elearning");
+                        }}
+                        disablePadding
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <DescriptionIcon
+                              className={
+                                loaction.pathname == "/Elearning" ? "active" : ""
+                              }
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"E-Learning"} />
+                        </ListItemButton>
+                      </ListItem>
                     </>
                   )}
                 </List>
@@ -964,7 +986,7 @@ const Sidebar = () => {
                               }
                             />
                           </ListItemIcon>
-                          <ListItemText primary={"Files"} />
+                          <ListItemText primary={"Compliance Forms"} />
                         </ListItemButton>
                       </ListItem>
 
@@ -974,16 +996,25 @@ const Sidebar = () => {
                         className="Accordion123"
                         // expanded={expanded === "panel1"}
                         // onChange={handleChange("panel1")}
-                        sx={{ borderBottom: "none !important" }}
+                        sx={{ borderBottom: "none !important"}}
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
                           aria-controls="panel1bh-content"
                           id="panel1bh-header"
-                          className="product Accordion1 Accordion123"
+                          className="product Accordion123"
+                          sx={{
+                            minHeight:'55px!important',
+                            '& .MuiAccordionSummary-content':{
+                              margin: '0!important'
+                            },
+                            '& .Mui-expanded':{
+                              margin: '0!important'
+                            }
+                          }}
                         >
                           <ListItem className="product" disablePadding>
-                            <ListItemButton className="product">
+                            <ListItemButton className="product" sx={{px:0}}>
                               <ListItemIcon className="product">
                                 <Inventory2Icon />
                               </ListItemIcon>
@@ -991,7 +1022,7 @@ const Sidebar = () => {
                             </ListItemButton>
                           </ListItem>
                         </AccordionSummary>
-                        <AccordionDetails>
+                        <AccordionDetails sx={{pb:0}}>
                           {ProductData?.map((val, i) => (
                             <>
                               {val.purchase_status == "1" ? (
@@ -1067,6 +1098,27 @@ const Sidebar = () => {
                           ))}
                         </AccordionDetails>
                       </Accordion>
+
+                      <ListItem
+                        className={
+                          loaction.pathname == "/Elearning" ? "active" : ""
+                        }
+                        onClick={() => {
+                          Activeclass("/Elearning");
+                        }}
+                        disablePadding
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <DescriptionIcon
+                              className={
+                                loaction.pathname == "/Elearning" ? "active" : ""
+                              }
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={"E-Learning"} />
+                        </ListItemButton>
+                      </ListItem>
                     </>
                   )}
                 </List>
